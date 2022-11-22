@@ -1,0 +1,39 @@
+<?php
+
+namespace {{ namespace }};
+
+use Dgharami\Eden\Components\Metric;
+use Dgharami\Eden\Components\Metrics\{{ type }};
+
+class {{ class }} extends Metric
+{
+    public $title = '{{ class }}';
+
+    /**
+     * @return \Dgharami\Eden\Components\Metrics\{{ type }}
+     */
+    public function calculate()
+    {
+        return {{ type }}::make();
+    }
+
+    /**
+     * Defile filters for the card
+     *
+     * @return array
+     */
+    protected function filters()
+    {
+        return [
+            7 => '7 Days',
+            15 => '15 Days',
+            30 => '30 Days',
+            'TODAY' => 'Today',
+            'YESTERDAY' => 'Yesterday',
+            'MTD' => 'Month To Date',
+            'QTD' => 'Quarter To Date',
+            'YTD' => 'Year To Date',
+        ];
+    }
+
+}

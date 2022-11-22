@@ -1,0 +1,29 @@
+{
+    "name": "dgharami/eden",
+    "description": "Beautifully Crafter Dashboard for Your Awesome Project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Dgharami\\Eden\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Debasish Gharami",
+            "email": "debasishgharami12@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dgharami\\Eden\\EdenServiceProvider"
+            ],
+            "aliases": {
+                "Eden": "Dgharami\\Eden\\Facades\\Eden"
+            }
+        }
+    }
+}
