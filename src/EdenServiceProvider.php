@@ -28,12 +28,9 @@ class EdenServiceProvider extends ServiceProvider
     public function boot()
     {
         //$this->loadViewsFrom(__DIR__ . '/resources/views', 'eden');
-        //$this->loadRoutesFrom(__DIR__ . '/routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         //$this->loadComponents();
         $this->publishResources();
-
-
-        dump(config('eden'));
     }
 
     /**
