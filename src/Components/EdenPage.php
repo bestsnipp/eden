@@ -6,37 +6,34 @@ use Dgharami\Eden\Traits\Makeable;
 use Illuminate\Support\Str;
 
 /**
- * @method static static make(string|\Closure $slug)
+ * @method static static make($params = [])
  */
 abstract class EdenPage
 {
     use Makeable;
-    use HasToast;
-    use InteractsWithModal;
 
     protected $slug = '';
 
-    protected $isTransparent = false;
+    protected bool $isTransparent = false;
 
     /**
-     * @param string $slug
+     * Get Singular form of Title
+     *
+     * @return string
      */
-    public function __construct($slug)
+    public function labelSingular()
     {
-        if (is_callable($slug)) {
-            $slug = app()->call($slug);
-        }
-
-        $this->slug = (empty($slug)) ? Str::slug($this->slug) : Str::slug($slug);
+        return Str::singular(Str::title(Str::snake(class_basename(get_called_class()), ' ')));
     }
 
     /**
+     * Get Plural form of Title
+     *
      * @return string
      */
-    public function label($singular = true)
+    public function labelPlural()
     {
-        $title = Str::title(Str::snake(class_basename(get_called_class()), ' '));
-        return $singular ? Str::singular($title) : Str::plural($title);
+        return Str::plural(Str::title(Str::snake(class_basename(get_called_class()), ' ')));
     }
 
     /**
@@ -44,45 +41,16 @@ abstract class EdenPage
      */
     public function getSlug()
     {
+        if (empty($this->slug)) {
+            $this->slug = Str::slug(Str::random(32));
+        }
         return $this->slug;
     }
 
     /**
      * @return array
      */
-    public function tabs()
-    {
-        return [];
-    }
-
-    /**
-     * @return array
-     */
-    public function cards()
-    {
-        return [];
-    }
-
-    /**
-     * @return array
-     */
-    public function tables()
-    {
-        return [];
-    }
-
-    /**
-     * @return array
-     */
-    public function forms()
-    {
-        return [];
-    }
-
-    /**
-     * @return array
-     */
-    public function read()
+    public function components()
     {
         return [];
     }
@@ -97,37 +65,33 @@ abstract class EdenPage
 
     public function index($slug)
     {
-        return $this->toView();
+        return $this->prepareView($this->labelPlural());
     }
 
     public function create($slug)
     {
-        return $this->toView();
+        return $this->prepareView($this->labelSingular());
     }
 
     public function edit($slug, $id)
     {
-        return $this->toView();
+        return $this->prepareView($this->labelSingular());
     }
 
     public function show($slug, $id)
     {
-        return $this->toView();
+        return $this->prepareView($this->labelSingular());
     }
 
     /**
      * @return array
      */
-    final public function toView()
+    final public function prepareView($title = '')
     {
         return [
-            'title' => $this->label(),
+            'title' => $title,
             'slug' => $this->slug,
-            'tabs' => collect($this->tabs())->all(),
-            'cards' => collect($this->cards())->all(),
-            'tables' => collect($this->tables())->all(),
-            'forms' => collect($this->forms())->all(),
-            'read' => collect($this->read())->all(),
+            'components' => collect($this->components())->all(),
             'transparent' => $this->isTransparent
         ];
     }

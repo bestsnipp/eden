@@ -3,13 +3,15 @@
 namespace Dgharami\Eden;
 
 use App\Http\Controllers\Controller;
+use Dgharami\Eden\Components\EdenPage;
+use Dgharami\Eden\Components\Resource;
 use Dgharami\Eden\Facades\EdenRoute;
 
 class RouteController extends Controller
 {
 
     /**
-     * This is entry page, but it will redirect you to one of the component Either PageView / Resource
+     * This is entry page, but it will redirect you to one of the component Either EdenPage / Resource
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -24,7 +26,8 @@ class RouteController extends Controller
     public function index($slug)
     {
         $resource = $this->checkSlugValidity($slug);
-        return view('eden::app')->with($resource->index($slug));
+        return view('eden::app')
+            ->with($resource->index($slug));
     }
 
     /**
@@ -33,7 +36,8 @@ class RouteController extends Controller
     public function create($slug)
     {
         $resource = $this->checkSlugValidity($slug);
-        return view('eden::app')->with($resource->create($slug));
+        return view('eden::app')
+            ->with($resource->create($slug));
     }
 
     /**
@@ -42,7 +46,8 @@ class RouteController extends Controller
     public function show($slug, $id)
     {
         $resource = $this->checkSlugValidity($slug);
-        return view('eden::app')->with($resource->show($slug, $id));
+        return view('eden::app')
+            ->with($resource->show($slug, $id));
     }
 
     /**
@@ -51,7 +56,8 @@ class RouteController extends Controller
     public function edit($slug, $id)
     {
         $resource = $this->checkSlugValidity($slug);
-        return view('eden::app')->with($resource->edit($slug, $id));
+        return view('eden::app')
+            ->with($resource->edit($slug, $id));
     }
 
     /**
@@ -63,10 +69,9 @@ class RouteController extends Controller
         abort_if(!EdenRoute::has($slug), 404);
         $page = EdenRoute::get($slug);
 
-//        if (!($page instanceof PageView || $page instanceof Resource)) {
-//            abort(422,  sprintf('Invalid Resource Provided, Resource Must be a %1$s %2$s and provided %3$s', PageView::class, Resource::class, gettype($page)));
-//        }
-        abort(422,  'Working, Please remove above comment');
+        if (!($page instanceof EdenPage || $page instanceof Resource)) {
+            abort(422,  sprintf('Invalid Resource Provided, Resource Must be a %1$s %2$s and provided %3$s', EdenPage::class, Resource::class, gettype($page)));
+        }
 
         return $page;
     }

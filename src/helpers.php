@@ -12,3 +12,17 @@ if (! function_exists('appCall')) {
         return is_callable($value) ? app()->call($value, $args, $defaultMethods) : $value;
     }
 }
+
+if (! function_exists('edenRender')) {
+    /**
+     * Return the default value of the given value with dependency injection.
+     *
+     * @param  mixed $component
+     * @param  array $params
+     * @return mixed
+     */
+    function edenRender($class, $params = [])
+    {
+        return ;
+    }
+}

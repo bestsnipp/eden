@@ -2,9 +2,12 @@
 
 namespace Dgharami\Eden;
 
+use App\Eden\Pages\DashboardPage;
+use Dgharami\Eden\Components\EdenPage;
 use Dgharami\Eden\Components\Menu\MenuGroup;
 use Dgharami\Eden\Components\Menu\MenuHeader;
 use Dgharami\Eden\Components\Menu\MenuItem;
+use Dgharami\Eden\Facades\EdenRoute;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\Livewire;
@@ -43,6 +46,8 @@ class EdenManager
                 ->external('https://810f20c74cd0b56b20ab9f26fd71e62d.m.pipedream.net')
                 ->viaForm('POST', ['name' => 'Debasish Gharami', 'age' => 28])
                 ->openInNewTab(),
+            MenuItem::make('EdenPage Link')
+                ->edenPage(DashboardPage::make())
         ];
     }
 
@@ -84,8 +89,14 @@ class EdenManager
                     Str::after($component->getPathname(), $basePath)
                 );
 
+            // Bind LiveWire Components
             if (is_subclass_of($component, Component::class) && !(new ReflectionClass($component))->isAbstract()) {
                 Livewire::component($component::getName(), $component);
+            }
+
+            // Register EdenPages
+            if (is_subclass_of($component, EdenPage::class) && !(new ReflectionClass($component))->isAbstract()) {
+                EdenRoute::register($component);
             }
         }
     }

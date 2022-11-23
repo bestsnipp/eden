@@ -15,6 +15,11 @@ trait CanBeRendered
     {
         $view = $this->view();
 
+        if (method_exists($this, 'defaultViewParams')) {
+            $defaultViewParams = appCall([$this, 'defaultViewParams']);
+            $view->with($defaultViewParams);
+        }
+
         if ($view instanceof View) {
             return $view->render();
         }

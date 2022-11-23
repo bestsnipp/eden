@@ -2,7 +2,9 @@
 namespace Dgharami\Eden;
 
 use Dgharami\Eden\Console\DeveloperCommand;
+use Dgharami\Eden\Console\MakeCard;
 use Dgharami\Eden\Facades\Eden;
+use Dgharami\Eden\Facades\EdenRoute;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
@@ -88,7 +90,7 @@ class EdenServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 DeveloperCommand::class,
-                //MakeCard::class,
+                MakeCard::class,
             ]);
         }
     }

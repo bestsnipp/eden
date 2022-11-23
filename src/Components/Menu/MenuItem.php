@@ -2,6 +2,7 @@
 
 namespace Dgharami\Eden\Components\Menu;
 
+use Dgharami\Eden\Components\EdenPage;
 use Dgharami\Eden\Components\PageView;
 use Dgharami\Eden\Components\Resource;
 use Dgharami\Eden\RouteManager;
@@ -40,6 +41,8 @@ class MenuItem
     protected string $method = 'GET';
 
     protected array $data = [];
+
+    protected bool $isResource = false;
 
     /**
      * Create a Menu Item
@@ -140,12 +143,14 @@ class MenuItem
     /**
      * Link to a EdenPage
      *
-     * @param \Closure $page
+     * @param EdenPage|\Closure $page
      * @return $this
      */
     public function edenPage($page)
     {
-        // TODO -> Add EdenPage Support
+        if ($page instanceof EdenPage) {
+            $this->route = route('eden.page', appCall($page)->getSlug());
+        }
         return $this;
     }
 
@@ -169,20 +174,20 @@ class MenuItem
     {
         $possibilies = [];
 
-//        if ($this->isResource) {
-//            $currentRoute = Route::current();
-//            $routeParams = $currentRoute->parameters();
-//            if (isset($routeParams['slug'])) {
-//                $possibilies[] = route('eden.page', $this->slug);
-//                $possibilies[] = route('eden.create', $this->slug);
-//                if (isset($routeParams['id']) && isset($routeParams['slug']) && trim($routeParams['slug']) == trim($this->slug)) {
-//                    $possibilies[] = route('eden.show', ['slug' => $this->slug, 'id' => $routeParams['id']]);
-//                    $possibilies[] = route('eden.edit', ['slug' => $this->slug, 'id' => $routeParams['id']]);
-//                }
-//            }
-//        } else {
-//            $possibilies[] = $this->route;
-//        }
+        if ($this->isResource) {
+            $currentRoute = Route::current();
+            $routeParams = $currentRoute->parameters();
+            if (isset($routeParams['slug'])) {
+                $possibilies[] = route('eden.page', $this->slug);
+                $possibilies[] = route('eden.create', $this->slug);
+                if (isset($routeParams['id']) && isset($routeParams['slug']) && trim($routeParams['slug']) == trim($this->slug)) {
+                    $possibilies[] = route('eden.show', ['slug' => $this->slug, 'id' => $routeParams['id']]);
+                    $possibilies[] = route('eden.edit', ['slug' => $this->slug, 'id' => $routeParams['id']]);
+                }
+            }
+        } else {
+            $possibilies[] = $this->route;
+        }
 
         return $possibilies;
     }

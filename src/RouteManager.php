@@ -2,6 +2,8 @@
 
 namespace Dgharami\Eden;
 
+use Dgharami\Eden\Components\EdenPage;
+
 class RouteManager
 {
     private $routes = [];
@@ -12,7 +14,10 @@ class RouteManager
      */
     public function register($route)
     {
-        $this->routes[$route->getSlug()] = $route;
+        $routeInstance = app($route);
+        if ($routeInstance instanceof EdenPage) {
+            $this->routes[$routeInstance->getSlug()] = $routeInstance;
+        }
     }
 
     /**
