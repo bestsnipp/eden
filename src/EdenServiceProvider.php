@@ -3,7 +3,9 @@ namespace Dgharami\Eden;
 
 use Dgharami\Eden\Console\DeveloperCommand;
 use Dgharami\Eden\Facades\Eden;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 
 class EdenServiceProvider extends ServiceProvider
 {
@@ -29,8 +31,24 @@ class EdenServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'eden');
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
-        //$this->loadComponents();
+        $this->loadComponents();
+        $this->prepareViewComposes();
         $this->publishResources();
+    }
+
+    /**
+     * Assign variables via view compose
+     *
+     * @return void
+     */
+    protected function prepareViewComposes()
+    {
+        View::composer('eden::menu.index', function ($view) {
+           return $view->with('menu', Eden::menu());
+        });
+        View::composer('eden::widgets.header-right', function ($view) {
+           return $view->with('menu', Eden::accountMenu());
+        });
     }
 
     /**
@@ -81,21 +99,21 @@ class EdenServiceProvider extends ServiceProvider
      * @return void
      * @throws \ReflectionException
      */
-    /*protected function loadComponents()
+    protected function loadComponents()
     {
         // Register Package Components
-        Livewire::component(TabGroup::getName(), TabGroup::class);
-        Livewire::component(ResourceDataTable::getName(), ResourceDataTable::class);
-        Livewire::component(ResourceCreateForm::getName(), ResourceCreateForm::class);
-        Livewire::component(ResourceEditForm::getName(), ResourceEditForm::class);
-        Livewire::component(ResourceRead::getName(), ResourceRead::class);
+        //Livewire::component(TabGroup::getName(), TabGroup::class);
+        //Livewire::component(ResourceDataTable::getName(), ResourceDataTable::class);
+        //Livewire::component(ResourceCreateForm::getName(), ResourceCreateForm::class);
+        //Livewire::component(ResourceEditForm::getName(), ResourceEditForm::class);
+        //Livewire::component(ResourceRead::getName(), ResourceRead::class);
 
         // Auto Register Components that is inside \App\Http\Eden Folder
-        Eden::registerComponents(
-            dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Modals',
-            __NAMESPACE__. '\\',
-            dirname(__FILE__) . DIRECTORY_SEPARATOR
-        );
+//        Eden::registerComponents(
+//            dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Modals',
+//            __NAMESPACE__. '\\',
+//            dirname(__FILE__) . DIRECTORY_SEPARATOR
+//        );
         Eden::registerComponents(app_path('Eden'));
-    }*/
+    }
 }
