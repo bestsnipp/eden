@@ -3,6 +3,7 @@
 namespace Dgharami\Eden;
 
 use App\Eden\Pages\DashboardPage;
+use App\Eden\Pages\FormTestPage;
 use Dgharami\Eden\Components\EdenPage;
 use Dgharami\Eden\Components\Menu\MenuGroup;
 use Dgharami\Eden\Components\Menu\MenuHeader;
@@ -47,7 +48,9 @@ class EdenManager
                 ->viaForm('POST', ['name' => 'Debasish Gharami', 'age' => 28])
                 ->openInNewTab(),
             MenuItem::make('EdenPage Link')
-                ->edenPage(DashboardPage::make())
+                ->edenPage(DashboardPage::make()),
+            MenuItem::make('Form Test Page')
+                ->edenPage(FormTestPage::make())
         ];
     }
 

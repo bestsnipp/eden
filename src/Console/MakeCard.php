@@ -4,10 +4,6 @@ namespace Dgharami\Eden\Console;
 
 use Dgharami\Eden\Traits\StubPublisher;
 use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Pluralizer;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 class MakeCard extends Command
 {

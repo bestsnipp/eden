@@ -3,6 +3,7 @@ namespace Dgharami\Eden;
 
 use Dgharami\Eden\Console\DeveloperCommand;
 use Dgharami\Eden\Console\MakeCard;
+use Dgharami\Eden\Console\MakeEdenPage;
 use Dgharami\Eden\Facades\Eden;
 use Dgharami\Eden\Facades\EdenRoute;
 use Illuminate\Support\Facades\View;
@@ -78,6 +79,9 @@ class EdenServiceProvider extends ServiceProvider
         $this->app->bind('eden', function () {
             return new \Dgharami\Eden\EdenManager();
         });
+        $this->app->singleton('iconManager', function () {
+            return new \Dgharami\Eden\IconManager();
+        });
     }
 
     /**
@@ -91,6 +95,7 @@ class EdenServiceProvider extends ServiceProvider
             $this->commands([
                 DeveloperCommand::class,
                 MakeCard::class,
+                MakeEdenPage::class
             ]);
         }
     }

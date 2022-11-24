@@ -44,7 +44,7 @@ abstract class EdenPage
         if (empty($this->slug)) {
             $this->slug = Str::slug(Str::random(32));
         }
-        return $this->slug;
+        return Str::slug(Str::snake($this->slug));
     }
 
     /**
@@ -53,14 +53,6 @@ abstract class EdenPage
     public function components()
     {
         return [];
-    }
-
-    /**
-     * @return null
-     */
-    public function render()
-    {
-        return null;
     }
 
     public function index($slug)

@@ -1,0 +1,22 @@
+<?php
+
+namespace {{ namespace }};
+
+use Dgharami\Eden\Components\EdenPage;
+
+class {{ class }} extends EdenPage
+{
+
+    protected $slug = '{{ slug }}';
+
+    /**
+     * @return array
+     */
+    public function components()
+    {
+        return [
+            // TODO - Add Components Here
+        ];
+    }
+
+}

@@ -13,7 +13,7 @@ if (! function_exists('appCall')) {
     }
 }
 
-if (! function_exists('edenRender')) {
+if (! function_exists('edenIcon')) {
     /**
      * Return the default value of the given value with dependency injection.
      *
@@ -21,8 +21,8 @@ if (! function_exists('edenRender')) {
      * @param  array $params
      * @return mixed
      */
-    function edenRender($class, $params = [])
+    function edenIcon($icon)
     {
-        return ;
+        return \Dgharami\Eden\Facades\EdenIcon::getIcon($icon);
     }
 }
