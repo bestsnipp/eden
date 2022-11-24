@@ -72,7 +72,7 @@ abstract class EdenComponent extends \Livewire\Component
     {
         return [
             'title' => $this->getTitle(),
-            'compWith' => $this->getCardWidth(),
+            'compWidth' => $this->getCardWidth(),
             'compHeight' => $this->getCardHeight(),
         ];
     }

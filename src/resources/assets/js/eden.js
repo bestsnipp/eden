@@ -17,3 +17,16 @@ window.refresh = function ($id, $type) {
 import trix from 'trix';
 import Pickr from '@simonwep/pickr';
 window.Pickr = Pickr;
+
+
+window.iniliatizeSelect2 = function () {
+    $('#{{ $key }}')
+        .not('.select2-hidden-accessible')
+        .select2()
+        .on('select2:select', (event) => {
+            model = $(event.target).val();
+        })
+        .on('select2:unselect', (event) => {
+            model = $(event.target).val();
+        });
+}

@@ -1,4 +1,4 @@
-<div x-data x-ref="parent" class="bg-white shadow-md rounded-md relative {{ $compHeight }} {{ $compWith }}">
+<div x-data x-ref="parent" class="bg-white shadow-md rounded-md relative {{ $compWidth }} {{ $compHeight }}">
     <div class="relative h-full">
         <div class="flex flex-col items-stretch">
             @if(!$blankCanvas)
