@@ -39,11 +39,15 @@ abstract class Field
 
     protected $required = false;
 
+    protected $prefix = '';
+
+    protected $suffix = '';
+
     protected $options = [];
 
     protected $meta = [
         'type' => 'text',
-        'class' => 'border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full'
+        'class' => 'border-0 focus:ring-0 grow'
     ];
 
     protected $validator = null;
@@ -150,6 +154,30 @@ abstract class Field
     public function helpText(string $helpText)
     {
         $this->helpText = $helpText;
+        return $this;
+    }
+
+    /**
+     * Prefix of the Field
+     *
+     * @param $prefix
+     * @return $this
+     */
+    public function prefix($prefix)
+    {
+        $this->prefix = appCall($prefix);
+        return $this;
+    }
+
+    /**
+     * Suffix of the Field
+     *
+     * @param $prefix
+     * @return $this
+     */
+    public function suffix($suffix)
+    {
+        $this->suffix = appCall($suffix);
         return $this;
     }
 
@@ -296,6 +324,19 @@ abstract class Field
     }
 
     /**
+     * Make field disabled
+     *
+     * @return $this
+     */
+    public function disabled()
+    {
+        $this->meta = array_merge($this->meta, [
+            'disabled' => 'disabled'
+        ]);
+        return $this;
+    }
+
+    /**
      * Should hide from front end
      *
      * @return $this
@@ -373,7 +414,9 @@ abstract class Field
             'meta' => $this->meta,
             'required' => $this->required,
             'attributes' => $this->getMetaAttributes(),
-            'validator' => $this->validator
+            'validator' => $this->validator,
+            'prefix' => $this->prefix,
+            'suffix' => $this->suffix
         ];
     }
 

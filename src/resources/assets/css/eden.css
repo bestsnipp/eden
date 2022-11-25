@@ -79,7 +79,11 @@
 
 /* TRIX EDITOR */
 trix-editor {
-    @apply border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full;
+    /*@apply border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full;*/
+    @apply border-0;
+}
+trix-toolbar {
+    @apply px-2 pt-2;
 }
 trix-toolbar .trix-button-group {
     @apply w-auto h-auto border border-slate-300 rounded-md overflow-hidden shadow-sm shadow-slate-200;
@@ -99,3 +103,18 @@ trix-toolbar .trix-input--dialog {
 trix-toolbar .trix-button--dialog {
     @apply w-auto h-auto px-6 py-2.5 border-0 border-slate-300;
 }
+
+/* COLOR Pickr */
+.pickr {
+    @apply flex;
+}
+
+/* TODO : Need to Remove */
+[type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
+    border-color: transparent !important;
+    border-width: 0px !important;
+}
+[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
+    box-shadow: none !important;
+}
+/* END oF REMOVAL */

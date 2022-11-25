@@ -21,8 +21,8 @@ if (! function_exists('edenIcon')) {
      * @param  array $params
      * @return mixed
      */
-    function edenIcon($icon)
+    function edenIcon($icon, $scale = null)
     {
-        return \Dgharami\Eden\Facades\EdenIcon::getIcon($icon);
+        return \Dgharami\Eden\Facades\EdenIcon::getIcon($icon, $scale);
     }
 }
