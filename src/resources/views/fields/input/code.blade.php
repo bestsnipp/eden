@@ -1,18 +1,10 @@
 <div class="px-5 py-3">
-    @include('eden::widgets.fields.base.label')
-    <div x-data="{
-                model: @entangle('fields.' . $key).defer,
-            }"
-         x-init="
-             $nextTick(function () {
-                 document.addEventListener('trix-change', function (event) {
-                    model = event.target.value;
-                })
-             })
-         " wire:ignore class="mt-2">
-        <textarea id="{{ $key }}" wire:model.defer="fields.{{ $key }}" {!! $attributes !!} style="display: none !important;"></textarea>
-        <trix-editor input="{{ $key }}"></trix-editor>
+    @include('eden::fields.label')
+    <div class="flex items-start border border-slate-300 focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 rounded-md shadow-sm w-full overflow-hidden">
+        <span class="empty:hidden mt-2 ml-2">{!! edenIcon($prefix) !!}</span>
+        <textarea id="{{ $uid }}" wire:model.lazy="fields.{{ $key }}" {!! $attributes !!}></textarea>
+        <span class="empty:hidden mt-2 mr-2">{!! edenIcon($suffix) !!}</span>
     </div>
-    @include('eden::widgets.fields.base.error')
-    @include('eden::widgets.fields.base.help')
+    @include('eden::fields.error')
+    @include('eden::fields.help')
 </div>

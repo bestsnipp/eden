@@ -15,7 +15,7 @@ class Code extends Textarea
 
     public function view()
     {
-        return view('eden::fields.input.editor');
+        return view('eden::fields.input.code');
     }
 
 }

@@ -4,7 +4,7 @@
         <span class="empty:hidden ml-2">{!! edenIcon($prefix) !!}</span>
         <div class="flex grow" x-data="{model: @entangle('fields.' . $key).defer}"
              x-init="$nextTick(function () {
-                flatpickr('#{{ $key }}', {
+                flatpickr('#{{ $uid }}', {
                     noCalendar: @JSON(!$isDatePicker),
                     enableTime: @JSON($isTimePicker),
                     dateFormat: '{{ $format }}',
@@ -13,7 +13,7 @@
                  })
              })"
              wire:ignore>
-            <input id="{{ $key }}" wire:model.defer="fields.{{ $key }}" {!! $attributes !!}>
+            <input id="{{ $uid }}" wire:model.defer="fields.{{ $key }}" {!! $attributes !!}>
         </div>
         <span class="empty:hidden mr-2">{!! edenIcon($suffix) !!}</span>
     </div>

@@ -8,15 +8,11 @@
     @apply h-auto border-0 relative;
 }
 .select2-container--default .select2-selection--single .select2-selection__rendered {
-    @apply border border-gray-300 focus:border-indigo-300
-        focus:ring focus:ring-indigo-200 focus:ring-opacity-50
-        rounded-md shadow-sm mt-1 block w-full px-2 py-1.5;
+    @apply border-0 focus:border-0 focus:ring-0 focus:shadow-none focus-visible:outline-0 rounded-md block w-full px-2 py-1.5;
 }
 .select2-container--default .select2-selection--multiple,
 .select2-container--default.select2-container--focus .select2-selection--multiple{
-    @apply border border-gray-300 focus:border-indigo-300
-    focus:ring focus:ring-indigo-200 focus:ring-opacity-50
-    rounded-md shadow-sm mt-1 block w-full px-1 pt-0.5 pb-1.5;
+    @apply border-0 focus:border-0 focus:ring-0 rounded-md block w-full px-1 pt-1.5 pb-2.5;
 }
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     @apply inset-y-0 flex h-auto px-4;
@@ -25,11 +21,11 @@
     @apply relative;
 }
 .select2-container--open .select2-dropdown--below {
-    @apply border border-gray-300 focus:border-indigo-300 shadow-sm -mt-1;
+    @apply border border-slate-300 focus:border-indigo-300 shadow-sm -mt-1;
 }
 .select2-container--default .select2-search--dropdown .select2-search__field {
-    @apply border border-gray-300 focus:border-indigo-300 focus:ring-0
-        rounded-sm block w-full px-2 py-1.5;
+    @apply !border !border-slate-300 focus:border-indigo-300 focus:ring-0
+        !rounded-sm block w-full px-2 py-1.5;
 }
 .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
     @apply bg-primary-500;
@@ -46,6 +42,10 @@
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover,
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:focus {
     @apply bg-slate-300;
+}
+.select2-results__option,
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+    @apply text-slate-500;
 }
 .filterContainer .select2-container--default .select2-selection--single .select2-selection__rendered,
 .filterContainer .select2-container--default .select2-selection--multiple,
@@ -109,12 +109,6 @@ trix-toolbar .trix-button--dialog {
     @apply flex;
 }
 
-/* TODO : Need to Remove */
-[type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
-    border-color: transparent !important;
-    border-width: 0px !important;
+.border-0-force {
+    @apply !border-0;
 }
-[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
-    box-shadow: none !important;
-}
-/* END oF REMOVAL */

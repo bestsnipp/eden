@@ -23,6 +23,8 @@ abstract class Field
 
     protected $key = '';
 
+    protected $uid = '';
+
     protected $show = true;
 
     protected $createRules = '';
@@ -47,7 +49,7 @@ abstract class Field
 
     protected $meta = [
         'type' => 'text',
-        'class' => 'border-0 focus:ring-0 grow'
+        'class' => 'border-0-force focus:ring-0 grow'
     ];
 
     protected $validator = null;
@@ -58,6 +60,7 @@ abstract class Field
     {
         $this->title = $title;
         $this->key = is_null($key) ? Str::snake(Str::lower($title)) : $key;
+        $this->uid = Str::lower('__' . Str::random());
 
         if (method_exists($this, 'onMount')) {
             $this->onMount();
@@ -137,6 +140,17 @@ abstract class Field
     public function setMessages(array $messages)
     {
         $this->messages = $messages;
+        return $this;
+    }
+
+    /**
+     * Add Frontend Mark as Required
+     *
+     * @return $this
+     */
+    public function required()
+    {
+        $this->required = true;
         return $this;
     }
 
@@ -408,6 +422,7 @@ abstract class Field
         return [
             'title' => $this->title,
             'key' => $this->key,
+            'uid' => $this->uid,
             'helpText' => $this->helpText,
             'value' => $this->value,
             'options' => $this->options,

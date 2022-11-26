@@ -12,8 +12,8 @@
                 })
              })
             " wire:ignore class="flex flex-col w-full">
-            <textarea id="{{ $key }}" wire:model.defer="fields.{{ $key }}" {!! $attributes !!} style="display: none !important;"></textarea>
-            <trix-editor input="{{ $key }}"></trix-editor>
+            <textarea id="{{ $uid }}" wire:model.defer="fields.{{ $key }}" {!! $attributes !!} style="display: none !important;"></textarea>
+            <trix-editor input="{{ $uid }}"></trix-editor>
         </div>
         {{--<span class="empty:hidden mt-3 mr-2">{!! edenIcon($suffix) !!}</span>--}}
     </div>

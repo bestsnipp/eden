@@ -15,7 +15,7 @@
             <button
                 class="flex items-center gap-3 px-3 py-2 mt-1 rounded-md transition-all duration-200 ease-in hover:pl-5"
                 :class="@json($active) ? 'bg-primary-500 text-white shadow-md shadow-primary-300' : 'text-gray-700'">
-                @if($icon) <span class="scale-75">{!! $icon !!}</span> @endif
+                @if($icon) <span class="scale-75">{!! edenIcon($icon) !!}</span> @endif
                 <span class="grow">{{ $title }}</span>
             </button>
         </form>
@@ -25,7 +25,7 @@
             @if($inNewTab) target="_blank" @endif
             class="flex items-center gap-3 px-3 py-2 mt-1 rounded-md transition-all duration-200 ease-in hover:pl-5"
             :class="@json($active) ? 'bg-primary-500 text-white shadow-md shadow-primary-300' : 'text-gray-700'">
-            @if($icon) <span class="scale-75">{!! $icon !!}</span> @endif
+            @if($icon) <span class="scale-75">{!! edenIcon($icon) !!}</span> @endif
             <span class="grow">{{ $title }}</span>
         </a>
     @endif

@@ -8,7 +8,7 @@ class Number extends Field
     protected function onMount()
     {
         $this->meta = array_merge($this->meta, [
-            'type' => 'number'
+            'type' => 'tel'
         ]);
     }
 

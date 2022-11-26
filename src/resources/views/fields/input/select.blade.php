@@ -9,7 +9,7 @@
             }"
             x-init="
                 $nextTick(function () {
-                    $('#{{ $key }}')
+                    $('#{{ $uid }}')
                      .not('.select2-hidden-accessible')
                      .select2()
                      .on('select2:select', (event) => {
@@ -21,7 +21,7 @@
                  })
             "
             wire:ignore>
-            <select id="{{ $key }}" wire:model.lazy="fields.{{ $key }}" {!! $attributes !!}>
+            <select id="{{ $uid }}" wire:model.lazy="fields.{{ $key }}" {!! $attributes !!}>
                 @foreach($options as $value => $label)
                     <option value="{{ $value }}">{{ $label }}</option>
                 @endforeach

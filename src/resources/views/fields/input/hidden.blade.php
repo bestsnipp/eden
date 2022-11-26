@@ -1,4 +1,4 @@
-<div class="px-5">
-    <input id="{{ $key }}" wire:model.defer="fields.{{ $key }}" {!! $attributes !!}>
+<div class="px-5 flex w-full">
+    <input id="{{ $uid }}" wire:model.defer="fields.{{ $key }}" {!! $attributes !!}>
     @include('eden::fields.error')
 </div>
