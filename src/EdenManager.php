@@ -3,6 +3,7 @@
 namespace Dgharami\Eden;
 
 use App\Eden\Pages\DashboardPage;
+use App\Eden\Pages\DataTableTestPage;
 use App\Eden\Pages\FormCheckboxRadioPage;
 use App\Eden\Pages\FormColorPasswordPage;
 use App\Eden\Pages\FormDateTimePage;
@@ -68,7 +69,11 @@ class EdenManager
                 MenuItem::make('Editor & Code')->edenPage(FormEditorCodePage::make()),
                 MenuItem::make('Slug & Dependent')->edenPage(FormSlugDependentPage::make()),
                 MenuItem::make('Other Fields')->edenPage(FormMiscFieldsPage::make()),
-            ])->icon('queue-list')
+            ])->icon('queue-list'),
+
+            MenuGroup::make('Data Tables', [
+                MenuItem::make('Testing DataTable')->edenPage(DataTableTestPage::make())
+            ])->icon('table')
         ];
     }
 
@@ -86,6 +91,30 @@ class EdenManager
                 ->route('logout')
                 ->viaForm()
                 ->noIcon(),
+        ];
+    }
+
+    /**
+     * Global Actions for DataTable
+     *
+     * @return array
+     */
+    public function actions()
+    {
+        return [
+
+        ];
+    }
+
+    /**
+     * Global Filters for DataTable
+     *
+     * @return array
+     */
+    public function filters()
+    {
+        return [
+
         ];
     }
 

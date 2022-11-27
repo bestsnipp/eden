@@ -112,3 +112,6 @@ trix-toolbar .trix-button--dialog {
 .border-0-force {
     @apply !border-0;
 }
+.border-0-force:focus {
+    @apply !shadow-none !outline-0;
+}

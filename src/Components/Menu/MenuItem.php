@@ -192,23 +192,27 @@ class MenuItem
         return $possibilies;
     }
 
+    public function defaultViewParams()
+    {
+        return [
+            'icon' => $this->icon,
+            'title' => $this->title,
+            'route' => $this->route,
+            'inNewTab' => $this->inNewTab,
+            'isForm' => $this->isForm,
+            'method' => $this->method,
+            'data' => $this->data,
+            'formWithCsrf' => $this->formWithCsrf,
+            'active' => in_array(url()->current(), $this->getPossibleRoutes())
+        ];
+    }
+
     /**
      * @return \Illuminate\Contracts\View\View
      */
     public function view()
     {
-        return view('eden::menu.item')
-            ->with([
-                'icon' => $this->icon,
-                'title' => $this->title,
-                'route' => $this->route,
-                'inNewTab' => $this->inNewTab,
-                'isForm' => $this->isForm,
-                'method' => $this->method,
-                'data' => $this->data,
-                'formWithCsrf' => $this->formWithCsrf,
-                'active' => in_array(url()->current(), $this->getPossibleRoutes())
-            ]);
+        return view('eden::menu.item');
     }
 
 }

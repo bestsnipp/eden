@@ -4,6 +4,7 @@ namespace Dgharami\Eden\Components\Fields;
 
 use Dgharami\Eden\Traits\CanManageVisibility;
 use Dgharami\Eden\Traits\Makeable;
+use Dgharami\Eden\Traits\AsDataTableColumn;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -18,6 +19,7 @@ abstract class Field
 {
     use Makeable;
     use CanManageVisibility;
+    use AsDataTableColumn;
 
     public ?string $title = '';
 
@@ -73,6 +75,14 @@ abstract class Field
     public function getKey(): string
     {
         return $this->key;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
     }
 
     /**
@@ -445,11 +455,14 @@ abstract class Field
         $viewToRender = '';
 
         switch (strtolower($type)):
-            case 'header':
-                $viewToRender = $this->viewForTableHeader();
+            case 'table-header':
+                $viewToRender = $this->viewForIndexHeader();
                 break;
-            case 'display':
-                $viewToRender = $this->viewForDisplay();
+            case 'table-row':
+                $viewToRender = $this->viewForIndex();
+                break;
+            case 'read':
+                $viewToRender = $this->viewForRead();
                 break;
             default:
                 $viewToRender = $this->view();

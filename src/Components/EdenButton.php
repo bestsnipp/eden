@@ -9,17 +9,6 @@ class EdenButton extends Menu\MenuItem
      */
     public function view()
     {
-        return view('eden::widgets.button')
-            ->with([
-                'icon' => $this->icon,
-                'title' => $this->title,
-                'route' => $this->route,
-                'inNewTab' => $this->inNewTab,
-                'isForm' => $this->isForm,
-                'method' => $this->method,
-                'data' => $this->data,
-                'formWithCsrf' => $this->formWithCsrf,
-                'active' => in_array(url()->current(), $this->getPossibleRoutes())
-            ]);
+        return view('eden::widgets.button');
     }
 }

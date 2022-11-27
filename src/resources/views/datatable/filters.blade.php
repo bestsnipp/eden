@@ -1,0 +1,51 @@
+<div class="relative z-10" style="display: none;" x-show="showFilters" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-slate-500 bg-opacity-25 md:bg-transparent transition-opacity" @click="showFilters = false"></div>
+
+    <div -class="fixed inset-0 overflow-hidden">
+        <div -class="absolute inset-0 overflow-hidden">
+            <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                <div class="pointer-events-auto relative w-screen max-w-sm">
+                    <div class="flex h-full flex-col overflow-y-auto bg-white pt-6 shadow-xl">
+                        <div class="px-4 sm:px-6 flex justify-between items-center">
+                            <h2 class="text-xl text-slate-500">Filters</h2>
+
+                            <button @click="showFilters = false" type="button" class="rounded-md text-gray-300 hover:text-red-400 focus:outline-none focus:ring-2 focus:ring-white">
+                                <span class="sr-only">Close panel</span>
+                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="relative mt-6 flex flex-col px-4 sm:px-6">
+                            @foreach($allFilters as $filter)
+                                @php($viewToRender = $filter->render($filter->value))
+                                @if($viewToRender instanceof \Illuminate\View\View)
+                                    {!! $viewToRender->render() !!}
+                                @else
+                                    {!! $viewToRender !!}
+                                @endif
+                            @endforeach
+                            @if($showRowsPerPageFilter)
+                                {{--@include('eden::datatable.rows-per-page', [
+                                    'key' => 'rowsPerPage',
+                                    'title' => 'Rows Per Page',
+                                    'options' => $rowsPerPageOptions,
+                                    'value' => $rowsPerPage,
+                                    'initial' => $initialRowsPerPage
+                                ])--}}
+                            @endif
+                        </div>
+                        <div class="flex items-center justify-between py-5 px-5 gap-2">
+                            <button @click="showFilters = false" class="py-1.5 px-4 rounded-md flex justify-center items-center font-medium bg-slate-100 text-slate-400 w-full md:w-auto">
+                                <span>Close</span>
+                            </button>
+                            <button wire:click="applyFilters" class="py-1.5 px-4 rounded-md flex justify-center items-center font-medium bg-indigo-500 text-white w-full md:w-auto">
+                                <span>Apply Filters</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

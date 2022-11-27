@@ -1,10 +1,24 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-      "./src/**/*.blade.php",
-      "./src/*.php",
-      "./src/**/*.js",
-      "./src/**/*.vue",
+      "src/Components/*.php",
+      "src/Components/**/*.php",
+      "src/config/*.php",
+      "src/Console/*.php",
+      "src/Facades/*.php",
+      "src/RenderProviders/*.php",
+      "src/routes/*.php",
+      "src/Traits/*.php",
+      "src/*.php",
+      "src/resources/views/*.blade.php",
+      "src/resources/views/components/*.blade.php",
+      "src/resources/views/datatables/*.blade.php",
+      "src/resources/views/fields/*.blade.php",
+      "src/resources/views/fields/**/*.blade.php",
+      "src/resources/views/layouts/*.blade.php",
+      "src/resources/views/menu/*.blade.php",
+      "src/resources/views/metrics/*.blade.php",
+      "src/resources/views/widgets/*.blade.php"
   ],
   theme: {
     extend: {

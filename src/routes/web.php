@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['web', 'auth:sanctum', config('jetstream.auth_session'), 'verified'])->prefix(config('eden.entry'))->group(function () {
+Route::middleware(['web', 'auth', config('jetstream.auth_session'), 'verified'])
+    ->prefix(config('eden.entry'))
+    ->group(function () {
 
     Route::get('/', [Dgharami\Eden\RouteController::class, 'entry'])->name('eden.entry');
 
