@@ -23,8 +23,7 @@ class SelectorField extends Field
 
     public function viewForIndex()
     {
-        $this->value = Str::lower(Str::random());
-        return view('eden::datatable.column.selector');
+        return view('eden::datatable.column.selector')->with('record', $this->record);
     }
 
 }

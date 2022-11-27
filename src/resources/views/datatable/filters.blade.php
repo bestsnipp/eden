@@ -11,35 +11,32 @@
 
                             <button @click="showFilters = false" type="button" class="rounded-md text-gray-300 hover:text-red-400 focus:outline-none focus:ring-2 focus:ring-white">
                                 <span class="sr-only">Close panel</span>
-                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
+                                {!! edenIcon('x-mark') !!}
                             </button>
                         </div>
                         <div class="relative mt-6 flex flex-col px-4 sm:px-6">
                             @foreach($allFilters as $filter)
-                                @php($viewToRender = $filter->render($filter->value))
-                                @if($viewToRender instanceof \Illuminate\View\View)
-                                    {!! $viewToRender->render() !!}
-                                @else
-                                    {!! $viewToRender !!}
-                                @endif
+                                {!! $filter->render() !!}
                             @endforeach
                             @if($showRowsPerPageFilter)
-                                {{--@include('eden::datatable.rows-per-page', [
+                                @include('eden::datatable.rows-per-page', [
                                     'key' => 'rowsPerPage',
                                     'title' => 'Rows Per Page',
                                     'options' => $rowsPerPageOptions,
                                     'value' => $rowsPerPage,
                                     'initial' => $initialRowsPerPage
-                                ])--}}
+                                ])
                             @endif
                         </div>
                         <div class="flex items-center justify-between py-5 px-5 gap-2">
-                            <button @click="showFilters = false" class="py-1.5 px-4 rounded-md flex justify-center items-center font-medium bg-slate-100 text-slate-400 w-full md:w-auto">
+                            <button
+                                @click="showFilters = false"
+                                class="py-1.5 px-4 rounded-md flex justify-center items-center font-medium bg-slate-100 text-slate-400 w-full md:w-auto">
                                 <span>Close</span>
                             </button>
-                            <button wire:click="applyFilters" class="py-1.5 px-4 rounded-md flex justify-center items-center font-medium bg-indigo-500 text-white w-full md:w-auto">
+                            <button
+                                wire:click="applyFilters"
+                                class="py-1.5 px-4 rounded-md flex justify-center items-center font-medium bg-indigo-500 text-white w-full md:w-auto">
                                 <span>Apply Filters</span>
                             </button>
                         </div>

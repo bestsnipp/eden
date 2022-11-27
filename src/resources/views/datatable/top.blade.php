@@ -36,19 +36,15 @@
                     <ul class="list-inside">
                         @foreach($actions as $action)
                             <li @click="isOpen = false" wire:click="applyBulkAction('{{ $action->getKey() }}')" class="py-2 px-3 rounded cursor-pointer transition hover:bg-indigo-50 text-slate-500">
-                                <div wire:loading.remove wire:target="applyBulkAction('{{ $action->getKey() }}')" class="flex items-center">
+                                <div wire:loading.remove wire:target="applyBulkAction('{{ $action->getKey() }}')" class="flex items-center gap-3">
                                     @if(!is_null($action->icon))
-                                        <span class="mr-3">{!! $action->icon !!}</span>
+                                        {!! edenIcon($action->icon, 'scale-75') !!}
                                     @endif
-                                    <span class="">{{ $action->title ?? '' }}</span>
+                                    <span class="text-left">{{ $action->getTitle() }}</span>
                                 </div>
-                                <div wire:loading.flex wire:target="applyAction('{{ $action->getKey() }}')">
-                                        <span class="mr-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                                            </svg>
-                                        </span>
-                                    <span class="">Please Wait ...</span>
+                                <div wire:loading.flex wire:target="applyBulkAction('{{ $action->getKey() }}')" class="gap-3">
+                                    {!! edenIcon('dots-horizontal', 'scale-75') !!}
+                                    <span class="text-left">Please Wait ...</span>
                                 </div>
                             </li>
                         @endforeach

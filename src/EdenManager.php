@@ -13,6 +13,10 @@ use App\Eden\Pages\FormMiscFieldsPage;
 use App\Eden\Pages\FormSelectPage;
 use App\Eden\Pages\FormSlugDependentPage;
 use App\Eden\Pages\FormTextTextareaPage;
+use Dgharami\Eden\Components\DataTable\Actions\DeleteAction;
+use Dgharami\Eden\Components\DataTable\Actions\DetailsAction;
+use Dgharami\Eden\Components\DataTable\Actions\EditAction;
+use Dgharami\Eden\Components\DataTable\Actions\ReplicateAction;
 use Dgharami\Eden\Components\EdenPage;
 use Dgharami\Eden\Components\Menu\MenuGroup;
 use Dgharami\Eden\Components\Menu\MenuHeader;
@@ -102,7 +106,10 @@ class EdenManager
     public function actions()
     {
         return [
-
+            EditAction::make(),
+            DetailsAction::make(),
+            ReplicateAction::make(),
+            DeleteAction::make(),
         ];
     }
 

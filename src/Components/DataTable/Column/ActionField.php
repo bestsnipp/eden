@@ -1,10 +1,7 @@
 <?php
 namespace Dgharami\Eden\Components\DataTable\Column;
 
-use Dgharami\Eden\Components\DataTable\Column;
 use Dgharami\Eden\Components\Fields\Field;
-use Dgharami\Eden\Traits\HasTitleKey;
-use Illuminate\Support\Str;
 
 class ActionField extends Field
 {
@@ -27,7 +24,8 @@ class ActionField extends Field
     {
         return view('eden::datatable.column.actions')
             ->with('actions', $this->actions)
-            ->with('record', $this->record);
+            ->with('record', $this->record)
+            ->with('buttonStyle', 'bg-white hover:bg-slate-10 transition w-auto text-slate-500 rounded-md py-1 px-1 inline-block text-sm');
     }
 
 }

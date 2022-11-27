@@ -1,24 +1,19 @@
 <?php
 namespace Dgharami\Eden\Components;
 
+use App\Models\User;
 use Dgharami\Eden\Components\DataTable\Actions\Action;
 use Dgharami\Eden\Components\DataTable\Column\ActionField;
 use Dgharami\Eden\Components\DataTable\Column\SelectorField;
 use Dgharami\Eden\Components\Fields\Field;
 use Dgharami\Eden\Facades\Eden;
 use Dgharami\Eden\RenderProviders\DataTableRenderer;
-use Dgharami\Eden\Traits\CanRefresh;
-use Dgharami\Eden\Traits\HasActions;
-use Dgharami\Eden\Traits\HasModel;
-use Dgharami\Eden\Traits\HasOwner;
-use Dgharami\Eden\Traits\HasToast;
-use Dgharami\Eden\Traits\InteractsWithModal;
-use Dgharami\Eden\Traits\MakeableComponent;
-use Dgharami\Eden\Traits\RouteAware;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -151,6 +146,13 @@ abstract class DataTable extends EdenComponent
     public $selectedRows = [];
 
     /**
+     * Should use global Eden actions
+     *
+     * @var bool
+     */
+    protected $useGlobalActions = true;
+
+    /**
      * Should use global Eden filters
      *
      * @var bool
@@ -261,16 +263,14 @@ abstract class DataTable extends EdenComponent
     {
         $this->initialRowsPerPage = $this->rowsPerPage;
         //$this->resolveModel();
-        //$this->prepareActions();
-        //$this->processFields(); // -> Will Handle This During Data Preparation
+        $this->processActions();
         $this->processFilters();
     }
 
     public function hydrate()
     {
         //$this->resolveModel();
-        //$this->prepareActions();
-        //$this->processFields(); // -> Will Handle This During Data Preparation
+        $this->processActions();
         $this->processFilters();
     }
 
@@ -331,6 +331,16 @@ abstract class DataTable extends EdenComponent
         })->all();
     }
 
+    protected function processActions()
+    {
+        $globalActions = $this->useGlobalActions ? Eden::actions() : [];
+        $this->actions = collect(array_merge($this->actions(), $globalActions))
+            ->reject(function ($action) {
+                return !$action->visibilityOnIndex;
+            })
+            ->all();
+    }
+
     private function processFilters()
     {
         $filters = array_merge($this->filters(), $this->useGlobalFilters ? Eden::filters() : []);
@@ -343,6 +353,50 @@ abstract class DataTable extends EdenComponent
 
             return $filter;
         })->all();
+    }
+
+    public function getRecordIdentifier($record = null)
+    {
+        if ($record instanceof Model) {
+            return base64_encode($record->{$record->getKeyName()});
+        }
+
+        return (is_null($record)) ? base64_encode(Str::ulid()) : '';
+    }
+
+    public function applyBulkAction($actionID)
+    {
+        $this->applyAction($actionID, $this->selectedRows);
+        $this->selectedRows = [];
+    }
+
+    public function applyAction($actionID, $recordID = null)
+    {
+        $recordIDs = collect($recordID)->transform(function ($value) {
+            return base64_decode($value);
+        })->unique()->all();
+
+        $action = collect($this->actions)->first(function ($action) use ($actionID) {
+            return $action->getKey() == $actionID;
+        });
+
+        // If action not required any type of confirmation, execute it with blank data
+        $this->executeAction($action, $recordIDs);
+    }
+
+    protected function executeAction(Action $action, $records, $payload = [])
+    {
+        $allRecords = app($this->model())->whereIn(app($this->model())->getKeyName(), $records)->get();
+        if (!is_null($action)) {
+            $action->setOwner($this);
+            $action->prepare($allRecords, $payload);
+
+            if ($action instanceof ShouldQueue) { // Queue the Action
+                dispatch($action);
+            } else { // Normal Action
+                $action->handle();
+            }
+        }
     }
 
     protected function model()
@@ -368,14 +422,14 @@ abstract class DataTable extends EdenComponent
             $query = $field->apply($query);
 
             if (in_array($field->getOrderBy(), ['asc', 'desc'])) { // Sorting
-                $query = $query->orderBy($field->getKey(), $field->getOrderBy());
+                $query->orderBy($field->getKey(), $field->getOrderBy());
             }
         });
 
         // Apply Search
         if (!empty($this->searchQuery)) {
             collect($this->searchFields)->each(function ($searchField) use ($query) {
-                $query = $query->orWhere($searchField, 'LIKE', "%$this->searchQuery%");
+                $query->orWhere($searchField, 'LIKE', "%$this->searchQuery%");
             });
         }
 
@@ -445,14 +499,6 @@ abstract class DataTable extends EdenComponent
     {
         return view('eden::datatable.empty')
             ->with('fields', $this->allFields);
-    }
-
-    public function showActions($row)
-    {
-        return view('eden::datatable.actions')
-            ->with('actions', $this->actions)
-            ->with('row', $row)
-            ->with(['buttonStyle' => 'bg-white hover:bg-slate-10 transition w-auto border border-slate-200 text-slate-500 rounded-md py-2 px-3 text-sm inline-block']);
     }
 
     public function rowView($record, $fields = [], $records = [])
