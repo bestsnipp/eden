@@ -59,7 +59,9 @@
 
     </main>
 </div>
-{{--@include('eden::components.renderer', ['items' => \Dgharami\Eden\Eden::modals()])--}}
+@foreach(\Dgharami\Eden\Facades\EdenModal::modals() as $component)
+    @livewire($component->component, $component->params)
+@endforeach
 
 @livewireScripts
 @stack('js')

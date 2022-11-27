@@ -4,6 +4,7 @@ namespace Dgharami\Eden\Components;
 
 use App\Eden\DataTables\UsersDataTable;
 use App\Eden\Modals\ModalA;
+use Dgharami\Eden\RenderProviders\RenderProvider;
 use Dgharami\Eden\RenderProviders\TabRenderer;
 use Dgharami\Eden\Traits\HasToast;
 use Dgharami\Eden\Traits\InteractsWithModal;
@@ -12,52 +13,62 @@ use Dgharami\Eden\Traits\ModalEvents;
 use Dgharami\Eden\Traits\RouteAware;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use \Livewire\Component;
 
+/**
+ * @method static make()
+ */
 abstract class Modal extends EdenComponent
 {
 
     public $title = '';
 
-    public $show = false;
-
-    public $closeOnOutsideClick = false;
-
-    public $header = true;
-
-    public $footer = true;
-
-    public $confirmButtonText = 'Confirm';
-
-    public $cancelButtonText = 'Close';
-
-    public $style = 'relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full';
-
-    public $footerStyle = 'bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 sm:justify-between';
-
-    public $confirmButtonStyle = 'relative inline-flex w-full justify-center rounded-md px-4 py-2 text-base font-medium text-white shadow-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 sm:w-auto sm:text-sm';
-
-    public $cancelButtonStyle = 'mt-3 relative inline-flex w-full justify-center transition rounded-md bg-slate-100 px-4 py-2 text-base font-medium text-gray-700 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm';
+    public $data = null;
 
     public $width = 'lg';
 
+    protected $closeOnOutsideClick = false;
+
+    protected $header = true;
+
+    protected $footer = true;
+
+    protected $confirmButtonText = 'Confirm';
+
+    protected $cancelButtonText = 'Close';
+
+    protected $style = 'relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 w-full md:w-full';
+
+    protected $footerStyle = 'bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 sm:justify-between gap-3';
+
+    protected $confirmButtonStyle = 'relative inline-flex w-full md:w-auto justify-center rounded-md px-4 py-2 text-base font-medium text-white shadow-sm bg-primary-500 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 sm:w-auto sm:text-sm';
+
+    protected $cancelButtonStyle = 'mt-3 relative inline-flex w-full md:w-auto justify-center transition rounded-md bg-slate-100 px-4 py-2 text-base font-medium text-gray-700 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm';
+
     protected $resetBeforeShow = false;
 
-    public $data = null;
+    protected $show = false;
 
     protected function getListeners()
     {
+        $baseClassName = class_basename(get_called_class());
+        $componentName = self::getName();
+
         return array_merge($this->listeners, [
-            'toggle' => 'toggle',
-            'show' => 'show',
-            'dismiss' => 'dismiss'
+            "toggle$baseClassName" => 'toggle',
+            "toggle$componentName" => 'toggle',
+            "show$baseClassName" => 'show',
+            "show$componentName" => 'show',
+            "dismiss$baseClassName" => 'dismiss',
+            "dismiss$componentName" => 'dismiss'
         ]);
     }
 
     /**
      * @return void
      *
-     * Toogle Modal Visibility
+     * Toggle Modal Visibility
      */
     public function toggle()
     {
@@ -73,7 +84,7 @@ abstract class Modal extends EdenComponent
      *
      * Show Modal
      */
-    public function show($params)
+    public function show(...$params)
     {
         $this->data = $params;
         if ($this->resetBeforeShow) {
@@ -105,7 +116,7 @@ abstract class Modal extends EdenComponent
 
     }
 
-    public function view()
+    public function modalView()
     {
         // return UsersDataTable::make(); -> Eden Component
         // return '<p>Some HTML Content</p>';
@@ -140,13 +151,38 @@ abstract class Modal extends EdenComponent
         ][$this->width] ?? 'sm:max-w-lg';
     }
 
-    public function render()
+    protected function renderModalView()
     {
-        return view('eden::components.modal')
-            ->with([
-                'content' => $this->view(),
-                'width' => $this->getModalWidth()
-            ]);
+        $view = $this->modalView();
+
+        if(is_subclass_of($view, View::class)) {
+            return $view->render();
+        }
+
+        return $view;
+    }
+
+    public function defaultViewParams()
+    {
+        return [
+            'content' => $this->renderModalView(),
+            'compWidth' => $this->getModalWidth(),
+            'show' => $this->show,
+            'closeOnOutsideClick' => $this->closeOnOutsideClick,
+            'style' => $this->style,
+            'header' => $this->header,
+            'footer' => $this->footer,
+            'footerStyle' => $this->footerStyle,
+            'confirmButtonText' => $this->confirmButtonText,
+            'cancelButtonText' => $this->cancelButtonText,
+            'confirmButtonStyle' => $this->confirmButtonStyle,
+            'cancelButtonStyle' => $this->cancelButtonStyle,
+        ];
+    }
+
+    final public function view()
+    {
+        return view('eden::components.modal');
     }
 
 }

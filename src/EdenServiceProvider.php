@@ -76,6 +76,9 @@ class EdenServiceProvider extends ServiceProvider
         $this->app->singleton('routeManager', function () {
             return new \Dgharami\Eden\RouteManager();
         });
+        $this->app->singleton('modalManager', function () {
+            return new \Dgharami\Eden\ModalManager();
+        });
         $this->app->bind('eden', function () {
             return new \Dgharami\Eden\EdenManager();
         });

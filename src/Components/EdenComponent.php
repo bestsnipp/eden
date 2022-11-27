@@ -68,7 +68,7 @@ abstract class EdenComponent extends \Livewire\Component
      *
      * @return array
      */
-    public function defaultViewParams(): array
+    public function defaultViewParams()
     {
         return [
             'title' => $this->getTitle(),

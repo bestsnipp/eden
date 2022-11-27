@@ -21,6 +21,8 @@ use Dgharami\Eden\Components\EdenPage;
 use Dgharami\Eden\Components\Menu\MenuGroup;
 use Dgharami\Eden\Components\Menu\MenuHeader;
 use Dgharami\Eden\Components\Menu\MenuItem;
+use Dgharami\Eden\Components\Modal;
+use Dgharami\Eden\Facades\EdenModal;
 use Dgharami\Eden\Facades\EdenRoute;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -126,6 +128,16 @@ class EdenManager
     }
 
     /**
+     * All Modals
+     *
+     * @return array
+     */
+    public function modals()
+    {
+        return EdenModal::modals();
+    }
+
+    /**
      * @param string $directory
      * @return void
      * @throws \ReflectionException
@@ -154,6 +166,11 @@ class EdenManager
             // Register EdenPages
             if (is_subclass_of($component, EdenPage::class) && !(new ReflectionClass($component))->isAbstract()) {
                 EdenRoute::register($component);
+            }
+
+            // Register Modals
+            if (is_subclass_of($component, Modal::class) && !(new ReflectionClass($component))->isAbstract()) {
+                EdenModal::register($component);
             }
         }
     }
