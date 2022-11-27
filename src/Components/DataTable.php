@@ -225,17 +225,18 @@ abstract class DataTable extends EdenComponent
             ];
         }
 
-        collect($this->allFilters)->each(function ($filter) {
-            if ($filter->isApplied) {
-                $this->appliedFilters[] = [
-                    'key' => $filter->getKey(),
-                    'title' => $filter->getTitle(),
-                    'value' => $filter->value,
-                    'canRemove' => true,
-                    'initial' => $filter->initialValue
-                ];
-            }
-        });
+        collect($this->allFilters)
+            ->each(function ($filter) {
+                if ($filter->isApplied) {
+                    $this->appliedFilters[] = [
+                        'key' => $filter->getKey(),
+                        'title' => $filter->getTitle(),
+                        'value' => $filter->value,
+                        'canRemove' => true,
+                        'initial' => $filter->initialValue
+                    ];
+                }
+            });
 
         if ($this->page > 1) {
             $this->appliedFilters[] = [

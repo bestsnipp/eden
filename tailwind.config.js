@@ -10,6 +10,7 @@ module.exports = {
       "src/routes/*.php",
       "src/Traits/*.php",
       "src/*.php",
+      "src/**/*.blade.php",
       "src/resources/views/*.blade.php",
       "src/resources/views/components/*.blade.php",
       "src/resources/views/datatables/*.blade.php",

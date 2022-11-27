@@ -8,7 +8,7 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Str;
 
 /**
- * @method static make(mixed $name, string $key = null)
+ * @method static make(mixed $name, string $column = null)
  */
 abstract class Filter
 {
@@ -18,6 +18,8 @@ abstract class Filter
     public $title = '';
 
     protected $key = '';
+
+    protected $uid = '';
 
     public $initialValue = '';
 
@@ -30,12 +32,27 @@ abstract class Filter
         $this->title = $title;
         $this->key = is_null($key) ? Str::snake(Str::lower($title)) : $key;
         $this->initialValue = $this->value;
+        $this->uid = Str::lower('__' . Str::random());
+
+        if (method_exists($this, 'onMount')) {
+            $this->onMount();
+        }
     }
 
     public function value($value)
     {
         $this->value = value($value);
         return $this;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function getKey()
+    {
+        return $this->key;
     }
 
     public function label()
@@ -68,5 +85,19 @@ abstract class Filter
      */
     abstract protected function apply($query, $value);
 
-    abstract public function render($value);
+    public function defaultViewParams()
+    {
+        return [
+            'key' => $this->key,
+            'uid' => $this->uid,
+            'title' => $this->title,
+            'value' => $this->value,
+            'initial' => $this->initialValue
+        ];
+    }
+
+    public function view()
+    {
+        return view('eden::datatable.filters.text');
+    }
 }
