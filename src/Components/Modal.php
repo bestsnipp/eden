@@ -38,7 +38,7 @@ abstract class Modal extends EdenComponent
 
     protected $cancelButtonText = 'Close';
 
-    protected $style = 'relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 w-full md:w-full';
+    protected $style = 'relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 w-full';
 
     protected $footerStyle = 'bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 sm:justify-between gap-3';
 
