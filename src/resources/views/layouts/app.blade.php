@@ -34,7 +34,10 @@
 <body class="font-sans antialiased">
 
 <div class="min-h-screen bg-slate-100 text-slate-500 flex w-full">
-    <section data-dusk="sidebar" class="py-3 px-3 bg-white min-w-[240px] w-64 shadow-md">
+    <section
+        id="sidebar"
+        data-dusk="sidebar"
+        class="py-3 px-3 bg-white min-w-[240px] w-64 shadow-md sticky top-0 h-screen">
         <div data-dusk="branding" class="mb-6">
             @include('eden::widgets.logo')
         </div>
@@ -75,6 +78,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr@1.8.2/dist/pickr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-tooltip@1.2.0/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.nicescroll@3.7.6/dist/jquery.nicescroll.min.js"></script>
 
 @include('eden::widgets.toasts')
 

@@ -22,3 +22,13 @@
 //window.Pickr = Pickr;
 
 
+if (undefined !== jQuery) {
+
+    if (undefined !== NiceScroll) {
+        $(function() {
+            $("body").niceScroll();
+            $("#sidebar").niceScroll();
+        });
+    }
+
+}

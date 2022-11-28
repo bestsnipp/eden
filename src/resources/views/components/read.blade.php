@@ -1,4 +1,4 @@
-<div class="my-4 {{ $compWidth }} {{ $compHeight }}">
+<div class="{{ $compWidth }} {{ $compHeight }}">
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl text-primary-500">{{ $title }}</h1>
     </div>

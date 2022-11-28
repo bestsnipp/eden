@@ -43,7 +43,9 @@ trait WithModel
     protected function record()
     {
         if ($this->resourceId) {
-            $this->record = app(get_class($this)::$model)->find($this->resourceId);
+            $record = app(get_class($this)::$model)->find($this->resourceId);
+            abort_if(is_null($record), 404);
+            $this->record = $record;
         }
     }
 

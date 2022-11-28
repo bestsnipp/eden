@@ -39,7 +39,7 @@ abstract class Read extends EdenComponent
      */
     public $title = '';
 
-    public $width = 'half';
+    public $width = 'full';
 
     // Dynamic Fields
     public $allFields = [];
