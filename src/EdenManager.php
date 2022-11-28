@@ -3,6 +3,7 @@
 namespace Dgharami\Eden;
 
 use App\Eden\Pages\DashboardPage;
+use App\Eden\Pages\DashboardTestPage;
 use App\Eden\Pages\DataTableTestPage;
 use App\Eden\Pages\FormCheckboxRadioPage;
 use App\Eden\Pages\FormColorPasswordPage;
@@ -40,6 +41,7 @@ class EdenManager
         return [
             MenuHeader::make('Main'),
             MenuItem::make('Dashboard')->edenPage(DashboardPage::make()),
+            MenuItem::make('Dashboard Test')->edenPage(DashboardTestPage::make()),
 
             MenuHeader::make('Links'),
             MenuGroup::make("Link Types", [
@@ -135,6 +137,20 @@ class EdenManager
     public function modals()
     {
         return EdenModal::modals();
+    }
+
+    /**
+     * Assign route params with EdenComponent
+     *
+     * @return mixed
+     */
+    public function getCurrentRoute()
+    {
+        return collect(json_decode(session()->get('_eden_request_route_current')))
+            ->transform(function ($item, $key) {
+                return collect($item)->toArray();
+            })
+            ->toArray();
     }
 
     /**

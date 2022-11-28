@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static accountMenu()
  * @method static actions()
  * @method static filters()
+ * @method static getCurrentRoute()
  * @method static registerComponents($directory, $namespace = null, $basePath = null)
  */
 class Eden extends Facade

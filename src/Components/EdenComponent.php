@@ -5,11 +5,13 @@ namespace Dgharami\Eden\Components;
 use Dgharami\Eden\Traits\CanBeRefreshed;
 use Dgharami\Eden\Traits\CanBeRendered;
 use Dgharami\Eden\Traits\HasToast;
+use Dgharami\Eden\Traits\InteractsWithEdenRoute;
 use Dgharami\Eden\Traits\MakeableComponent;
 
 abstract class EdenComponent extends \Livewire\Component
 {
     use MakeableComponent;
+    use InteractsWithEdenRoute;
     use CanBeRendered;
     use CanBeRefreshed;
     use HasToast;

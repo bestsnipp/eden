@@ -6,6 +6,7 @@ use Dgharami\Eden\Console\MakeCard;
 use Dgharami\Eden\Console\MakeEdenPage;
 use Dgharami\Eden\Facades\Eden;
 use Dgharami\Eden\Facades\EdenRoute;
+use Dgharami\Eden\Middleware\EdenRequestHandler;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
@@ -23,6 +24,7 @@ class EdenServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/config/eden.php', 'eden');
 
         $this->registerFacades();
+        $this->registerPersistentMiddleware();
         $this->registerCommands();
 
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'eden');
@@ -104,6 +106,18 @@ class EdenServiceProvider extends ServiceProvider
                 MakeEdenPage::class
             ]);
         }
+    }
+
+    /**
+     * Register middlewares for livewire render
+     *
+     * @return void
+     */
+    protected function registerPersistentMiddleware(): void
+    {
+        Livewire::addPersistentMiddleware([
+            EdenRequestHandler::class
+        ]);
     }
 
     /**

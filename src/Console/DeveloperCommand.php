@@ -3,6 +3,7 @@
 namespace Dgharami\Eden\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Http\Request;
 
 class DeveloperCommand extends Command
 {
