@@ -41,6 +41,22 @@ class DateTime extends Field
         return $this;
     }
 
+    public function viewForRead()
+    {
+        $this->value = ($this->value instanceof Carbon)
+            ? $this->value->format($this->phpFormat)
+            : Carbon::parse($this->value)->format($this->phpFormat);
+        return view('eden::fields.view.text');
+    }
+
+    public function viewForIndex()
+    {
+        $this->value = ($this->value instanceof Carbon)
+            ? $this->value->format($this->phpFormat)
+            : Carbon::parse($this->value)->format($this->phpFormat);
+        return parent::viewForIndex();
+    }
+
     public function view()
     {
         return view('eden::fields.input.date-time')

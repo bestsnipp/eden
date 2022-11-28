@@ -16,6 +16,11 @@ trait CanBeRendered
     {
         $view = $this->view();
 
+        if (method_exists($this, 'edenDefaultViewParams')) {
+            $edenDefaultViewParams = appCall([$this, 'edenDefaultViewParams']);
+            $view = $view->with($edenDefaultViewParams);
+        }
+
         if (method_exists($this, 'defaultViewParams')) {
             $defaultViewParams = appCall([$this, 'defaultViewParams']);
             $view = $view->with($defaultViewParams);

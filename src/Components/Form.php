@@ -4,6 +4,7 @@ namespace Dgharami\Eden\Components;
 use Dgharami\Eden\Components\Fields\Field;
 use Dgharami\Eden\Components\Fields\File;
 use Dgharami\Eden\RenderProviders\FormRenderer;
+use Dgharami\Eden\Traits\WithModel;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -14,26 +15,11 @@ use Livewire\WithFileUploads;
 abstract class Form extends EdenComponent
 {
     use WithFileUploads;
+    use WithModel;
 
     public $width = 'half';
 
-    const DRIVER_ELOQUENT = 'eloquent';
-    const DRIVER_DATABASE = 'database';
-    const DRIVER_MODEL = 'model';
-    const DRIVER_ARRAY = 'array';
-    const DRIVER_OBJECT = 'object';
-
-    /**
-     * @var string|array|Model
-     */
-    public static $model = null;
-
     public $resource = '';
-
-    /**
-     * @var 'model_instance'|'object'|'array'|'model_class'|'table'
-     */
-    private $modelType = self::DRIVER_ELOQUENT;
 
     protected $isUpdate = false;
 
@@ -58,13 +44,6 @@ abstract class Form extends EdenComponent
 
     // Let User Decide the Fields
     abstract protected function fields();
-
-    /**
-     * @return string|array|Model|null
-     */
-    protected function model() {
-        return self::$model;
-    }
 
     /**
      * Initial Component Mount - Only First Time
@@ -205,10 +184,10 @@ abstract class Form extends EdenComponent
 
     protected function createRecord($validated, $all, $transformed)
     {
-        if ($this->modelType == self::DRIVER_ELOQUENT) {
+        if ($this->modelType == $this->DRIVER_ELOQUENT) {
             return (new self::$model)->forceCreate($validated);
         }
-        if ($this->modelType == self::DRIVER_DATABASE) {
+        if ($this->modelType == $this->DRIVER_DATABASE) {
             $id = DB::table(self::$model)->insertGetId($all);
             if ($id) {
                 return DB::table(self::$model)->where($this->primaryKey, $id)->first();
@@ -220,11 +199,11 @@ abstract class Form extends EdenComponent
 
     protected function updateRecord($validated, $all, $transformed)
     {
-        if ($this->modelType == self::DRIVER_MODEL) {
+        if ($this->modelType == $this->DRIVER_MODEL) {
             self::$model->forceFill($all)->save();
             return self::$model->refresh();
         }
-        if ($this->modelType == self::DRIVER_OBJECT && !is_null($this->table)) {
+        if ($this->modelType == $this->DRIVER_OBJECT && !is_null($this->table)) {
             $dbRecord = DB::table($this->table)->where($this->primaryKey, self::$model->{$this->primaryKey});
             $dbRecord->update($all);
 
@@ -277,40 +256,6 @@ abstract class Form extends EdenComponent
         })->all();
     }
 
-    protected function resolveModel()
-    {
-        $model = $this->model();
-        if (is_null($model)) {
-            return;
-        }
-
-        if (is_array($model)) {
-            $this->modelType = self::DRIVER_ARRAY;
-            self::$model = $model;
-
-        } else if ($model instanceof Model) {
-            $this->modelType = self::DRIVER_MODEL;
-            self::$model = $model;
-
-        } else if (is_object($model)) {
-            $this->modelType = self::DRIVER_OBJECT;
-            self::$model = $model;
-
-        } else if (is_string($model)) {
-            try {
-                app($model);
-                $this->modelType = self::DRIVER_ELOQUENT;
-                self::$model = $model;
-
-            } catch (BindingResolutionException $exception) {
-                $this->modelType = self::DRIVER_DATABASE;
-                self::$model = $model;
-            }
-        } else {
-            throw new \Exception(sprintf('"Only Array, String and %s accepted as Model', Model::class));
-        }
-    }
-
     protected function prepareFields()
     {
         $this->allFields = collect($this->fields())
@@ -329,10 +274,10 @@ abstract class Form extends EdenComponent
             $value = $this->fields[$key] ?? $value;
 
         }else if (!is_null(self::$model)) {
-            if (in_array($this->modelType, [self::DRIVER_ARRAY, self::DRIVER_MODEL]) && Arr::exists(self::$model, $key)) {
+            if (in_array($this->modelType, [$this->DRIVER_ARRAY, $this->DRIVER_MODEL]) && Arr::exists(self::$model, $key)) {
                 $value = Arr::get(self::$model, $key) ?? $value;
 
-            } else if (in_array($this->modelType, [self::DRIVER_OBJECT]) && property_exists(self::$model, $key)) {
+            } else if (in_array($this->modelType, [$this->DRIVER_OBJECT]) && property_exists(self::$model, $key)) {
                 $value = self::$model->$key ?? $value;
             }
         }

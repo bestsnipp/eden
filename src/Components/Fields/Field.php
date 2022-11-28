@@ -445,6 +445,11 @@ abstract class Field
         ];
     }
 
+    public function viewForRead()
+    {
+        return view('eden::fields.view.text');
+    }
+
     public function view()
     {
         return view('eden::fields.input.text');
