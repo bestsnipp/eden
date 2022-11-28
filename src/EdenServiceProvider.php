@@ -12,18 +12,6 @@ use Livewire\Livewire;
 
 class EdenServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->mergeConfigFrom(__DIR__ . '/config/eden.php', 'eden');
-
-        $this->registerFacades();
-        $this->registerCommands();
-    }
 
     /**
      * Bootstrap any application services.
@@ -32,11 +20,26 @@ class EdenServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->mergeConfigFrom(__DIR__ . '/config/eden.php', 'eden');
+
+        $this->registerFacades();
+        $this->registerCommands();
+
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'eden');
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadComponents();
         $this->prepareViewComposes();
         $this->publishResources();
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+
     }
 
     /**
