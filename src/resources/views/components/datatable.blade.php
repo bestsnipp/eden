@@ -1,6 +1,6 @@
 <div
     data-dusk="dataTableContainer"
-    class="dataTableContainer my-0 col-span-4 {{ $compWidth }} {{ $compHeight }}"
+    class="dataTableContainer my-0 {{ $compWidth }} {{ $compHeight }}"
     @if($pooling) wire:poll.{{ $poolingInterval }}ms.visible @endif
     x-data="{showFilters: @entangle('showFilters').defer, selectedRows: @entangle('selectedRows').defer }">
 
@@ -19,7 +19,7 @@
     <div class="">
         @include('eden::datatable.top')
 
-        @if($isTableLayout) <div class="md:bg-white md:shadow-md"><table class="table border-collapse w-full"> @endif
+        @if($isTableLayout) <div class="md:bg-white md:shadow-md overflow-auto"><table class="table border-collapse w-full"> @endif
 
             @if($showHeader)
                 {!! $this->header($records) !!}

@@ -36,7 +36,7 @@ abstract class DataTable extends EdenComponent
 
     protected $actions = [];
 
-    public $width = 'half';
+    public $width = 'full';
 
     /**
      * is Table Layout

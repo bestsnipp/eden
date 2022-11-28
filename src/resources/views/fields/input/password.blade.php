@@ -5,7 +5,7 @@
         <input id="{{ $uid }}" wire:model.lazy="fields.{{ $key }}" x-bind:type="type" {!! $attributes !!}>
         <span class="empty:hidden mr-2">{!! edenIcon($suffix) !!}</span>
         @if($viewable)
-        <button type="button" x-on:click="type === 'password' ? type='text' : type='password'" class="px-2">
+        <button type="button" x-on:click="type === 'password' ? type='text' : type='password'" class="px-2 focus:outline-0 focus-visible:outline-0">
             <span x-cloak x-show="type === 'password'">{!! edenIcon('eye') !!}</span>
             <span x-cloak x-show="type !== 'password'">{!! edenIcon('eye-off') !!}</span>
         </button>

@@ -8,8 +8,7 @@ class Hidden extends Field
     protected function onMount()
     {
         $this->meta = array_merge($this->meta, [
-            'type' => 'hidden',
-            'class' => 'border border-slate-500'
+            'type' => 'hidden'
         ]);
     }
 
