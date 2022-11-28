@@ -1,12 +1,14 @@
 <?php
 namespace Dgharami\Eden;
 
+use App\Models\User;
 use Dgharami\Eden\Console\DeveloperCommand;
 use Dgharami\Eden\Console\MakeCard;
 use Dgharami\Eden\Console\MakeEdenPage;
 use Dgharami\Eden\Facades\Eden;
 use Dgharami\Eden\Facades\EdenRoute;
 use Dgharami\Eden\Middleware\EdenRequestHandler;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
@@ -23,6 +25,7 @@ class EdenServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/config/eden.php', 'eden');
 
+        $this->gate();
         $this->registerFacades();
         $this->registerPersistentMiddleware();
         $this->registerCommands();
@@ -118,6 +121,21 @@ class EdenServiceProvider extends ServiceProvider
         Livewire::addPersistentMiddleware([
             EdenRequestHandler::class
         ]);
+    }
+
+    /**
+     * Register Eden Gate
+     *
+     * @return void
+     */
+    protected function gate(): void
+    {
+        Gate::define('accessEden', function ($user) {
+            return true;
+            return in_array($user->email, [
+
+            ]);
+        });
     }
 
     /**

@@ -1,5 +1,5 @@
 <div class="{{ $styleContainer }} {{ $compWidth }} {{ $compHeight }}">
-    <h1 class="text-2xl text-primary-500 mt-3 mb-5">{{ $title }}</h1>
+    <h1 class="text-2xl text-primary-500 mb-4">{{ $title }}</h1>
 
     <form wire:submit.prevent="submit" class="">
         <div class="py-3 bg-white shadow sm:rounded-tl-md sm:rounded-tr-md">

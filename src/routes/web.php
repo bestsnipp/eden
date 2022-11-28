@@ -13,7 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['web', 'auth', config('jetstream.auth_session'), 'verified', \Dgharami\Eden\Middleware\EdenRequestHandler::class])
+Route::middleware([
+    'web',
+    'auth',
+    config('jetstream.auth_session'),
+    'verified',
+    \Dgharami\Eden\Middleware\EdenRequestHandler::class,
+    'can:accessEden'
+])
     ->prefix(config('eden.entry'))
     ->group(function () {
 
