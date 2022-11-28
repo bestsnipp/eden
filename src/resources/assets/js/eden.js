@@ -11,13 +11,14 @@
 //window.select2 = select2;
 
 // Import FlatPicker
-import flatpickr from "flatpickr";
-window.flatpickr = flatpickr;
+// import flatpickr from "flatpickr";
+// window.flatpickr = flatpickr;
 
 // Import Trix
-import trix from 'trix';
+//import trix from 'trix';
 
 // Import Pickr
-import Pickr from '@simonwep/pickr';
-window.Pickr = Pickr;
+//import Pickr from '@simonwep/pickr';
+//window.Pickr = Pickr;
+
 
