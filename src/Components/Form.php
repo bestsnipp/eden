@@ -327,6 +327,7 @@ abstract class Form extends EdenComponent
     {
         $this->allFields = collect($this->fields())
             ->each(function (Field $field) {
+                $field->prepare($this);
                 $this->syncField($field);
                 $this->syncFieldRule($field);
             })->all();

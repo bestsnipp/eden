@@ -2,6 +2,7 @@
 
 namespace Dgharami\Eden\Components\Fields;
 
+use Dgharami\Eden\Components\Form;
 use Dgharami\Eden\Traits\CanManageVisibility;
 use Dgharami\Eden\Traits\Makeable;
 use Dgharami\Eden\Traits\AsDataTableColumn;
@@ -67,6 +68,17 @@ abstract class Field
         if (method_exists($this, 'onMount')) {
             $this->onMount();
         }
+    }
+
+    /**
+     * Prepare anything for this field before rendering and procession on "Form" component
+     *
+     * @param Form $form
+     * @return void
+     */
+    public function prepare(Form $form)
+    {
+        // Nothing to do
     }
 
     /**
@@ -407,7 +419,7 @@ abstract class Field
 
     public function process()
     {
-        return $this->value;
+        return $this->exportToForm();
     }
 
     public function validate($isUpdate = false)
