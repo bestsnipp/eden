@@ -9,6 +9,7 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
@@ -46,33 +47,66 @@ abstract class Form extends EdenComponent
     abstract protected function fields();
 
     /**
-     * Initial Component Mount - Only First Time
+     * Initial Component Mount - Only First Render
      *
-     * @throws \Exception
+     * @return void
      */
     public function mount()
     {
-        $this->resolveModel();
-        $this->resolveRecord();
-        $this->prepareFields();
-        $this->processExistingUploads();
-        $this->finalizeFields();
+        $this->initForm('mount');
     }
 
+    /**
+     * While Field Value Changed - Dependent Field
+     *
+     * @return void
+     */
     public function hydrate()
+    {
+        $this->initForm('hydrate');
+    }
+
+    /**
+     * During form submit, any action
+     *
+     * @return void
+     */
+    public function updated()
+    {
+        $this->initForm('updated');
+    }
+
+    /**
+     * Initialize Form and Process Internal Data
+     *
+     * @param $caller
+     * @return void
+     * @throws \Exception
+     */
+    private function initForm($caller = 'mount')
     {
         $this->resolveModel();
         $this->resolveRecord();
         $this->prepareFields();
-        $this->processExistingUploads();
+        //$this->processExistingUploads();
         $this->finalizeFields();
     }
 
+    /**
+     * Is record need to be updated ?
+     *
+     * @return bool|mixed
+     */
     public function isUpdate()
     {
         return $this->isUpdate;
     }
 
+    /**
+     * Is record need to be created ?
+     *
+     * @return bool
+     */
     public function isCreate()
     {
         return !$this->isUpdate;
@@ -85,6 +119,11 @@ abstract class Form extends EdenComponent
         $this->processExistingUploads();
     }
 
+    /**
+     * Submit the form
+     *
+     * @return void
+     */
     public function submit(){
         $invalidFields = collect($this->allFields)
             ->reject(function (Field $field) {
@@ -108,11 +147,24 @@ abstract class Form extends EdenComponent
         }
     }
 
+    /**
+     * Transform $validated and $all fields to new data
+     *
+     * @param $validated
+     * @param $all
+     * @return mixed
+     */
     protected function transform($validated, $all)
     {
         return $all;
     }
 
+    /**
+     * Process validated fields
+     *
+     * @param $validatedFields
+     * @return array
+     */
     private function processValidatedFields($validatedFields): array
     {
         return collect($validatedFields)->transform(function ($item, $key) {
@@ -122,9 +174,8 @@ abstract class Form extends EdenComponent
                 if (isset($this->files[$key])) {
                     $item = $this->getTemporaryUploadFile($item);
                 }
-                $field->fromFormData($item, []);
 
-                $item = $field->process($field->getValue());
+                $item = $field->process();
 
                 // Post Process
                 $transform = $field->getTransformCallback();
@@ -138,6 +189,19 @@ abstract class Form extends EdenComponent
 
             return $item;
         })->all();
+    }
+
+    /**
+     * Get Field by key
+     *
+     * @param $key
+     * @return \Closure|mixed|null
+     */
+    private function getField($key)
+    {
+        return collect($this->allFields)->first(function ($i) use ($key) {
+            return $i->getKey() == $key;
+        });
     }
 
     /**
@@ -254,14 +318,12 @@ abstract class Form extends EdenComponent
         $this->toastError(json_encode($exception->getMessage()));
     }
 
-    private function getField($key)
-    {
-        return collect($this->allFields)->first(function ($i) use ($key) {
-            return $i->getKey() == $key;
-        });
-    }
-
-    protected function prepareFields()
+    /**
+     * Process All Fields and Collect Values
+     *
+     * @return void
+     */
+    private function prepareFields()
     {
         $this->allFields = collect($this->fields())
             ->each(function (Field $field) {
@@ -270,54 +332,76 @@ abstract class Form extends EdenComponent
             })->all();
     }
 
-    private function getFieldValue(Field $field)
+    // TODO : Need file values
+    /**
+     * Sync file value with form fields values to enable user interaction
+     *
+     * @param Field $field
+     * @return void
+     */
+    private function syncField(Field $field)
     {
         $key = $field->getKey();
-        $value = $field->toFormData();
 
-        if (isset($this->fields[$key])) {
-            $value = $this->fields[$key] ?? $value;
+        // Create Record and Sync in Files Array
+        if (is_subclass_of($field, File::class)) {
+            //$this->files[$key] = $this->fields[$key];
+        } else {
+            $this->fields[$key] = $this->getFormFieldValue($field);
+        }
+    }
 
-        }else if (!is_null(self::$model)) {
-            if (in_array($this->modelType, [$this->DRIVER_ARRAY, $this->DRIVER_MODEL]) && Arr::exists(self::$model, $key)) {
-                $value = Arr::get(self::$model, $key) ?? $value;
+    /**
+     * Get form Field value or fill that via record
+     *
+     * @param Field $field
+     * @return array|\ArrayAccess|mixed|null
+     */
+    private function getFormFieldValue(Field $field)
+    {
+        $key = $field->getKey();
+        $value = $field->exportToForm();
 
-            } else if (in_array($this->modelType, [$this->DRIVER_OBJECT]) && property_exists(self::$model, $key)) {
-                $value = self::$model->$key ?? $value;
-            }
+        if (isset($this->fields[$key])) { // Assign filled form value if exists
+            $value = $this->fields[$key];
+
+        } else { // Fill from record
+            $value = $this->getRecordValue($key, $value);
         }
 
         return $value;
     }
 
-    private function syncField(Field $field)
-    {
-        $key = $field->getKey();
-        $this->fields[$key] = $this->getFieldValue($field) ?? $field->toFormData();
-
-        // Create Record and Sync in Files Array
-        if ($field instanceof File) {
-            $this->files[$key] = $this->fields[$key];
-        }
-    }
-
+    // TODO : Need file rules
+    /**
+     * Sync field rules with the form validation rules
+     *
+     * @param Field $field
+     * @return void
+     */
     private function syncFieldRule(Field $field)
     {
         $key = $field->getKey();
         $fieldRules = $field->getRules($this->isUpdate);
-        if ((is_string($fieldRules) && !empty($fieldRules)) || (is_array($fieldRules) && count($fieldRules) > 0)) {
-            if ($field instanceof File) {
-                $multipleKey = $field->isMultiple() ? '.*' : '';
 
-                $this->rules['files.' . $key . $multipleKey] = $fieldRules;
-                $this->validationAttributes['files.' . $key . $multipleKey] = htmlentities($field->title);
+        if ((is_string($fieldRules) && !empty($fieldRules)) || (is_array($fieldRules) && count($fieldRules) > 0)) {
+            if (is_subclass_of($field, File::class)) {
+//                $multipleKey = $field->isMultiple() ? '.*' : '';
+//
+//                $this->rules['files.' . $key . $multipleKey] = $fieldRules;
+//                $this->validationAttributes['files.' . $key . $multipleKey] = htmlentities(strip_tags($field->title));
             } else {
                 $this->rules['fields.' . $key] = $fieldRules;
             }
         }
-        $this->validationAttributes['fields.' . $key] = htmlentities($field->title);
+        $this->validationAttributes['fields.' . $key] = htmlentities(strip_tags($field->title));
     }
 
+    /**
+     * Map field with form fields
+     *
+     * @return array
+     */
     private function getMappedFields()
     {
         return collect($this->allFields)->mapWithKeys(function (Field $field) {
@@ -325,21 +409,39 @@ abstract class Form extends EdenComponent
         })->all();
     }
 
+    // TODO : Need file rules
+    /**
+     * Finalize Fields with values and dependencies
+     *
+     * @return void
+     */
     private function finalizeFields()
     {
         $this->allFields = collect($this->allFields)
             ->transform(function (Field $field) {
-                return $field->fromFormData(($this->fields[$field->getKey()] ?? $field->toFormData()), $this->getMappedFields());
+                if (isset($this->fields[$field->getKey()])) {
+                    $field->importFromFrom($this->fields[$field->getKey()], $this->getMappedFields());
+                }
+                return $field;
             })
             ->transform(function (Field $field) {
-                return $field->resolveUsing($field->getValue(), $this->getMappedFields(), $this);
+                return $field->resolveUsing($field->exportToForm(), $this->getMappedFields(), $this);
             })
             ->each(function (Field $field) {
-                $this->fields[$field->getKey()] = $field->toFormData();
+                if (is_subclass_of($field, File::class)) {
+                    //$this->files[$key] = $this->fields[$key];
+                } else {
+                    $this->fields[$field->getKey()] = $field->exportToForm();
+                }
             })
             ->all();
     }
 
+    /**
+     * View for the form
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function view()
     {
         return view('eden::components.form')

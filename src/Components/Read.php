@@ -81,8 +81,8 @@ abstract class Read extends EdenComponent
 
     private function prepareFields()
     {
-        $this->allFields = collect($this->fields())->transform(function ($field) {
-            $field->default($this->syncFieldValue($field));
+        $this->allFields = collect($this->fields())->transform(function (Field $field) {
+            $field->default($this->getRecordValue($field->getKey(), $field->getValue()));
             return $field;
         })->all();
     }
@@ -94,29 +94,6 @@ abstract class Read extends EdenComponent
                 return !$action->visibilityOnDetails;
             })
             ->all();
-    }
-
-    private function syncFieldValue(Field $field)
-    {
-        $key = $field->getKey();
-        $value = $field->getValue();
-
-        if (!is_null($this->record)) {
-
-            if (is_subclass_of($this->record, Model::class) && Arr::exists($this->record, $key)) {
-                $value = Arr::get($this->record, $key) ?? $value;
-
-            } else if (in_array($this->record, ['array']) && Arr::exists($this->record, $key)) {
-                $value = Arr::get($this->record, $key) ?? $value;
-
-            } else if(in_array($this->record, [get_class($this->record)]) && Arr::exists($this->record, $key)){
-                $value = $this->record->$key ?? $value;
-
-            } else if (in_array($this->record, ['object']) && property_exists($this->record, $key)) {
-                $value = $this->record->$key ?? $value;
-            }
-        }
-        return $value;
     }
 
     /**

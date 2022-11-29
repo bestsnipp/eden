@@ -2,8 +2,10 @@
 
 namespace Dgharami\Eden\Traits;
 
+use Dgharami\Eden\Components\Fields\Field;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 trait WithModel
 {
@@ -89,6 +91,26 @@ trait WithModel
         } else {
             throw new \Exception(sprintf('"Only Array, String and %s accepted as Model', Model::class));
         }
+    }
+
+    protected function getRecordValue($key, $value = null)
+    {
+        if (!is_null($this->record)) {
+            if (is_subclass_of($this->record, Model::class) && Arr::exists($this->record, $key)) {
+                $value = Arr::get($this->record, $key) ?? $value;
+
+            } else if (in_array($this->record, ['array']) && Arr::exists($this->record, $key)) {
+                $value = Arr::get($this->record, $key) ?? $value;
+
+            } else if(in_array($this->record, [get_class($this->record)]) && Arr::exists($this->record, $key)){
+                $value = $this->record->$key ?? $value;
+
+            } else if (in_array($this->record, ['object']) && property_exists($this->record, $key)) {
+                $value = $this->record->$key ?? $value;
+            }
+        }
+
+        return $value;
     }
 
 }

@@ -318,6 +318,8 @@ abstract class Field
     }
 
     /**
+     * Get transform callback
+     *
      * @return null
      */
     public function getTransformCallback()
@@ -326,6 +328,8 @@ abstract class Field
     }
 
     /**
+     * Transform field value to another
+     *
      * @param mixed $transform
      */
     public function transform($transform)
@@ -390,20 +394,20 @@ abstract class Field
         return $this->show;
     }
 
-    public function toFormData()
+    public function exportToForm()
     {
         return $this->value;
     }
 
-    public function fromFormData($value, $fields = [])
+    public function importFromFrom($value, $fields = [])
     {
         $this->value = $value;
         return $this;
     }
 
-    public function process($value)
+    public function process()
     {
-        return $value;
+        return $this->value;
     }
 
     public function validate($isUpdate = false)
@@ -480,6 +484,15 @@ abstract class Field
         }
 
         return $viewToRender;
+    }
+
+    public function dump()
+    {
+        return [
+            'title' => $this->title,
+            'key' => $this->key,
+            'value' => $this->value,
+        ];
     }
 
 }
