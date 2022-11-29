@@ -108,6 +108,38 @@ abstract class Form extends EdenComponent
         }
     }
 
+    protected function transform($validated, $all)
+    {
+        return $all;
+    }
+
+    private function processValidatedFields($validatedFields): array
+    {
+        return collect($validatedFields)->transform(function ($item, $key) {
+            $field = $this->getField($key);
+
+            if (!is_null($field)) {
+                if (isset($this->files[$key])) {
+                    $item = $this->getTemporaryUploadFile($item);
+                }
+                $field->fromFormData($item, []);
+
+                $item = $field->process($field->getValue());
+
+                // Post Process
+                $transform = $field->getTransformCallback();
+                if (!is_null($transform)) {
+                    $item  = appCall($transform, [
+                        'value' => $item,
+                        'field' => $field
+                    ]);
+                }
+            }
+
+            return $item;
+        })->all();
+    }
+
     /**
      * LiveWire Method Override for Multiple Upload Fields
      *
@@ -229,33 +261,6 @@ abstract class Form extends EdenComponent
         });
     }
 
-    private function processValidatedFields($validatedFields): array
-    {
-        return collect($validatedFields)->transform(function ($item, $key) {
-            $field = $this->getField($key);
-
-            if (!is_null($field)) {
-                if (isset($this->files[$key])) {
-                    $item = $this->getTemporaryUploadFile($item);
-                }
-                $field->fromFormData($item, []);
-
-                $item = $field->process($field->getValue());
-
-                // Post Process
-                $transform = $field->getTransformCallback();
-                if (!is_null($transform)) {
-                    $item  = appCall($transform, [
-                        'value' => $item,
-                        'field' => $field
-                    ]);
-                }
-            }
-
-            return $item;
-        })->all();
-    }
-
     protected function prepareFields()
     {
         $this->allFields = collect($this->fields())
@@ -318,11 +323,6 @@ abstract class Form extends EdenComponent
         return collect($this->allFields)->mapWithKeys(function (Field $field) {
             return [$field->getKey() => $field];
         })->all();
-    }
-
-    protected function transform($validated, $all)
-    {
-        return $all;
     }
 
     private function finalizeFields()

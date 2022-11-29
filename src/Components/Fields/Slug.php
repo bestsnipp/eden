@@ -32,7 +32,7 @@ class Slug extends Field
     public function generateSlug($value, $field, $fields, Form $form)
     {
         if (isset($fields[$this->target]) && $form->isCreate() && empty($this->value)) {
-            $this->value = strtolower(Str::slug($fields[$this->target]->getValue(), $this->separator));
+            $field->value = strtolower(Str::slug($fields[$this->target]->getValue(), $this->separator));
         }
         return $field;
     }
