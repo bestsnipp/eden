@@ -404,6 +404,11 @@ abstract class DataTable extends EdenComponent
         return get_class($this)::$model;
     }
 
+    /**
+     * Prepare query with search, sorting, filters
+     *
+     * @return mixed
+     */
     protected function prepareData()
     {
         $this->selectedRows = [];
@@ -444,18 +449,32 @@ abstract class DataTable extends EdenComponent
         return $query;
     }
 
+    /**
+     * Work with query after processing the search, sorting, filters
+     *
+     * @param $query
+     * @return mixed
+     */
+    protected function query($query)
+    {
+        return $query;
+    }
+
     protected function paginatedData()
     {
+        $queryToPaginate = $this->query($this->prepareData());
+
         if (strtolower($this->paginationType) == 'simple') {
-            return $this->prepareData()->simplePaginate($this->rowsPerPage);
+            return $queryToPaginate->simplePaginate($this->rowsPerPage);
 
         } else if (strtolower($this->paginationType) == 'cursor') {
-            return $this->prepareData()->cursorPaginate($this->rowsPerPage);
+            return $queryToPaginate->cursorPaginate($this->rowsPerPage);
 
         }
 
-        return $this->prepareData()
+        return $queryToPaginate
             ->paginate($this->rowsPerPage)
+            ->withQueryString()
             ->onEachSide(1);
     }
 
