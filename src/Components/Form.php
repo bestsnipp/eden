@@ -53,6 +53,7 @@ abstract class Form extends EdenComponent
     public function mount()
     {
         $this->resolveModel();
+        $this->resolveRecord();
         $this->prepareFields();
         $this->processExistingUploads();
         $this->finalizeFields();
@@ -61,6 +62,7 @@ abstract class Form extends EdenComponent
     public function hydrate()
     {
         $this->resolveModel();
+        $this->resolveRecord();
         $this->prepareFields();
         $this->processExistingUploads();
         $this->finalizeFields();
@@ -184,32 +186,30 @@ abstract class Form extends EdenComponent
 
     protected function createRecord($validated, $all, $transformed)
     {
-        if ($this->modelType == $this->DRIVER_ELOQUENT) {
-            return (new self::$model)->forceCreate($validated);
-        }
-        if ($this->modelType == $this->DRIVER_DATABASE) {
-            $id = DB::table(self::$model)->insertGetId($all);
-            if ($id) {
-                return DB::table(self::$model)->where($this->primaryKey, $id)->first();
+        try {
+            $model = app($this->model());
+            $record = $model->forceFill($transformed)->save();
+            if (method_exists($this, 'afterRecordCreated')) {
+                $this->afterRecordCreated($record);
             }
-            return $id;
+            return $record;
+        } catch (\Exception $exception) {
+            throw $exception;
         }
-        return null;
     }
 
     protected function updateRecord($validated, $all, $transformed)
     {
-        if ($this->modelType == $this->DRIVER_MODEL) {
-            self::$model->forceFill($all)->save();
-            return self::$model->refresh();
+        try {
+            $model = app($this->record());
+            $record = $model->forceFill($transformed)->save();
+            if (method_exists($this, 'afterRecordUpdated')) {
+                $this->afterRecordUpdated($record);
+            }
+            return $record;
+        } catch (\Exception $exception) {
+            throw $exception;
         }
-        if ($this->modelType == $this->DRIVER_OBJECT && !is_null($this->table)) {
-            $dbRecord = DB::table($this->table)->where($this->primaryKey, self::$model->{$this->primaryKey});
-            $dbRecord->update($all);
-
-            return $dbRecord->first();
-        }
-        return null;
     }
 
     protected function onActionCompleted($data)

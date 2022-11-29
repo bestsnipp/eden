@@ -42,6 +42,14 @@ trait WithModel
      */
     protected function record()
     {
+        return $this->record;
+    }
+
+    /**
+     * @return string|array|Model|null
+     */
+    protected function resolveRecord()
+    {
         if ($this->resourceId) {
             $record = app(get_class($this)::$model)->find($this->resourceId);
             abort_if(is_null($record), 404);
@@ -83,8 +91,4 @@ trait WithModel
         }
     }
 
-    protected function resolveRecord()
-    {
-        $this->record();
-    }
 }

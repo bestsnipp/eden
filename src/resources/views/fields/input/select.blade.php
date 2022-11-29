@@ -21,7 +21,7 @@
                  })
             "
             wire:ignore>
-            <select id="{{ $uid }}" wire:model.lazy="fields.{{ $key }}" {!! $attributes !!}>
+            <select id="{{ $uid }}" wire:model.defer="fields.{{ $key }}" {!! $attributes !!}>
                 @foreach($options as $value => $label)
                     <option value="{{ $value }}">{{ $label }}</option>
                 @endforeach
