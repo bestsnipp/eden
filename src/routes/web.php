@@ -13,22 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware([
-    'web',
-    'auth',
-    config('jetstream.auth_session'),
-    'verified',
-    \Dgharami\Eden\Middleware\EdenRequestHandler::class,
-    'can:accessEden'
-])
-    ->prefix(config('eden.entry'))
-    ->group(function () {
+Route::get('/', [Dgharami\Eden\RouteController::class, 'entry'])->name('eden.entry');
 
-    Route::get('/', [Dgharami\Eden\RouteController::class, 'entry'])->name('eden.entry');
+Route::get('/{resource}', [Dgharami\Eden\RouteController::class, 'index'])->name('eden.page');
+Route::get('/{resource}/create', [Dgharami\Eden\RouteController::class, 'create'])->name('eden.create');
+Route::get('/{resource}/{resourceId}', [Dgharami\Eden\RouteController::class, 'show'])->name('eden.show');
+Route::get('/{resource}/{resourceId}/edit', [Dgharami\Eden\RouteController::class, 'edit'])->name('eden.edit');
 
-    Route::get('/{resource}', [Dgharami\Eden\RouteController::class, 'index'])->name('eden.page');
-    Route::get('/{resource}/create', [Dgharami\Eden\RouteController::class, 'create'])->name('eden.create');
-    Route::get('/{resource}/{resourceId}', [Dgharami\Eden\RouteController::class, 'show'])->name('eden.show');
-    Route::get('/{resource}/{resourceId}/edit', [Dgharami\Eden\RouteController::class, 'edit'])->name('eden.edit');
-
-});

@@ -9,6 +9,7 @@ use Dgharami\Eden\Facades\Eden;
 use Dgharami\Eden\Facades\EdenRoute;
 use Dgharami\Eden\Middleware\EdenRequestHandler;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
@@ -26,12 +27,11 @@ class EdenServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/config/eden.php', 'eden');
 
         $this->gate();
+        $this->registerRoutes();
         $this->registerFacades();
         $this->registerPersistentMiddleware();
         $this->registerCommands();
-
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'eden');
-        $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
+        $this->loadViews();
         $this->loadComponents();
         $this->prepareViewComposes();
         $this->publishResources();
@@ -72,6 +72,25 @@ class EdenServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/config/eden.php' => config_path('eden.php')
         ], ['config', 'eden-config']);
+    }
+
+    /**
+     * Register Eden routes file
+     *
+     * @return void
+     */
+    protected function registerRoutes()
+    {
+        Route::middleware([
+            'web',
+            'auth',
+            config('jetstream.auth_session'),
+            'verified',
+            EdenRequestHandler::class,
+            'can:accessEden'
+        ])
+            ->prefix(config('eden.entry'))
+            ->group(__DIR__ . '/routes/web.php');
     }
 
     /**
@@ -136,6 +155,16 @@ class EdenServiceProvider extends ServiceProvider
 
             ]);
         });
+    }
+
+    /**
+     * Load package specific views
+     *
+     * @return void
+     */
+    protected function loadViews()
+    {
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'eden');
     }
 
     /**
