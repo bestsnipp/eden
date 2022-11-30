@@ -49,4 +49,28 @@ window.addEventListener('alpine:init', function () {
             this.model = $(this.$el).val()
         }
     }))
+
+    // Eden Date/Time Picker With flatpickr
+    Alpine.data('edenDateTimePicker', (
+        value = '',
+        defaultDate = '',
+        format = '',
+        hideDatePicker = true,
+        isTimePicker = true,
+        isReadOnly = false
+    ) => ({
+        model: value,
+
+        init() {
+            flatpickr(this.$el, {
+                noCalendar: hideDatePicker,
+                enableTime: isTimePicker,
+                dateFormat: format,
+                defaultDate: new Date(defaultDate),
+                clickOpens: isReadOnly,
+            })
+            // Initial Value
+            //this.model = $(this.$el).val()
+        }
+    }))
 })
