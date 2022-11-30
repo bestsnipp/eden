@@ -22,7 +22,7 @@ trait InteractsWithEdenRoute
         $edenRoute = Eden::getCurrentRoute();
 
         if (!is_null($edenRoute)) {
-            collect($edenRoute['parameters'])
+            collect($edenRoute['parameters'] ?? '')
                 ->each(function ($item, $key) {
                     if (in_array($key, $this->params) && property_exists($this, $key)) {
                         $this->{$key} = $item;
