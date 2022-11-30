@@ -73,4 +73,15 @@ window.addEventListener('alpine:init', function () {
             //this.model = $(this.$el).val()
         }
     }))
+
+    // Eden Trix - TODO : Not Working ...
+    Alpine.data('edenTrixEditor', (value = '') => ({
+        model: value,
+
+        init() {
+            document.addEventListener('trix-change', function (event) {
+                this.model = event.target.value;
+            })
+        }
+    }))
 })

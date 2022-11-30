@@ -2,7 +2,7 @@
 
 namespace Dgharami\Eden\Components\Fields;
 
-class Editor extends Textarea
+class Trix extends Textarea
 {
 
     protected function onMount()
@@ -15,6 +15,6 @@ class Editor extends Textarea
 
     public function view()
     {
-        return view('eden::fields.input.editor');
+        return view('eden::fields.input.trix');
     }
 }
