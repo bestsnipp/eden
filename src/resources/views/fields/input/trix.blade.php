@@ -2,7 +2,7 @@
     @include('eden::fields.label')
     <div class="mt-2 flex items-start border border-slate-300 focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 rounded-md shadow-sm w-full overflow-hidden">
         <div x-data="{
-                model: @entangle('fields.' . $key).defer,
+                model: @entangle('fields.' . $key){{ $alpineModelType }},
             }"
              x-init="
              $nextTick(function () {

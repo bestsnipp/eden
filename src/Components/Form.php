@@ -350,8 +350,10 @@ abstract class Form extends EdenComponent
      */
     protected function collectDependentFields(Field $field)
     {
-        $this->dependentFields = collect(array_merge($this->dependentFields, $field->getDependentTargets()))
-            ->unique('value')->all();
+        $this->dependentFields = collect( array_merge($this->dependentFields, $field->getDependentTargets()) )
+            ->flatten()
+            ->unique()
+            ->all();
     }
 
     protected function syncDependentFields(Field $field)
@@ -473,7 +475,8 @@ abstract class Form extends EdenComponent
     {
         return view('eden::components.form')
             ->with('rules', $this->rules)
-            ->with('formFields', $this->allFields);
+            ->with('formFields', $this->allFields)
+            ->with('depends', $this->dependentFields);
     }
 
     /**

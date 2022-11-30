@@ -4,7 +4,7 @@
         <span class="empty:hidden ml-2">{!! edenIcon($prefix) !!}</span>
         <div class="flex grow" wire:ignore>
             <input x-data="edenDateTimePicker(
-                @entangle('fields.' . $key).defer,
+                @entangle('fields.' . $key){{ $alpineModelType }},
                 '{{ $value }}',
                 '{{ $format }}',
                 @JSON(!$isDatePicker),

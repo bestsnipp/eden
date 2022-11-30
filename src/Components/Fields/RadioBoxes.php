@@ -5,7 +5,7 @@ namespace Dgharami\Eden\Components\Fields;
 class RadioBoxes extends Field
 {
 
-    protected $value = [];
+    protected $value = '';
 
     protected $meta = [
         'type' => 'radio',

@@ -24,9 +24,9 @@ class Slug extends Field
         return $this;
     }
 
-    public function dependsOn($targets)
+    public function dependsOn($targets, $callback = null)
     {
-        parent::dependsOn($targets);
+        parent::dependsOn($targets, $callback);
         $this->generateFrom($this->targets[0] ?? '');
         return $this;
     }

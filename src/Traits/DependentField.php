@@ -35,15 +35,21 @@ trait DependentField
      * Set field dependency targets
      *
      * @param array|string $targets
+     * @param \Closure $callback
      * @return $this
      */
-    public function dependsOn($targets)
+    public function dependsOn($targets, $callback = null)
     {
         if (is_array($targets)) {
             $this->targets = collect(appCall($targets))->toArray();
         } else {
             $this->targets = explode(' ', collect(appCall($targets))->join('_'));
         }
+
+        if (!is_null($callback)) {
+            $this->resolveCallback = $callback;
+        }
+
         return $this;
     }
 
