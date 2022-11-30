@@ -68,7 +68,6 @@
     @livewire($component->component, $component->params)
 @endforeach
 
-@livewireScripts
 @stack('js')
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
@@ -83,5 +82,6 @@
 @include('eden::widgets.toasts')
 
 @vite('resources/js/app.js')
+@livewireScripts
 </body>
 </html>

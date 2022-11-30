@@ -32,3 +32,21 @@ if (undefined !== jQuery) {
     }
 
 }
+
+window.addEventListener('alpine:init', function () {
+
+    // Eden Select/MultiSelect With Select2
+    Alpine.data('edenSelectField', (value = '', showSearch = true) => ({
+        model: value,
+
+        init() {
+            $(this.$el).select2({
+                minimumResultsForSearch: showSearch ? 0 : Infinity
+            }).on('select2:select', (evt) => {
+                this.model = $(evt.target).val()
+            });
+            // Initial Value
+            this.model = $(this.$el).val()
+        }
+    }))
+})
