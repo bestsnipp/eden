@@ -34,6 +34,9 @@ abstract class Form extends EdenComponent
     // Dynamic File Fields
     public $files = [];
 
+    // All dependent fields keys
+    protected $dependentFields = [];
+
     // Laravel LiveWire Validation Rules
     protected $rules = [];
 
@@ -330,7 +333,30 @@ abstract class Form extends EdenComponent
                 $field->prepare($this);
                 $this->syncField($field);
                 $this->syncFieldRule($field);
-            })->all();
+                $this->collectDependentFields($field);
+                $this->syncDependentFields($field);
+            })
+            ->transform(function (Field $field) {
+                return $field->isDependent($this->dependentFields);
+            })
+            ->all();
+    }
+
+    /**
+     * Fetch and Save Dependent targets
+     *
+     * @param Field $field
+     * @return void
+     */
+    protected function collectDependentFields(Field $field)
+    {
+        $this->dependentFields = collect(array_merge($this->dependentFields, $field->getDependentTargets()))
+            ->unique('value')->all();
+    }
+
+    protected function syncDependentFields(Field $field)
+    {
+
     }
 
     // TODO : Need file values

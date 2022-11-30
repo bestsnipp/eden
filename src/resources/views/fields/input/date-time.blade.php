@@ -10,7 +10,7 @@
                 @JSON(!$isDatePicker),
                 @JSON($isTimePicker),
                 @JSON(!isset($meta['readonly']))
-            )" id="{{ $uid }}" wire:model.defer="fields.{{ $key }}" {!! $attributes !!}>
+            )" id="{{ $uid }}" wire:model.{{ $wireModelType }}="fields.{{ $key }}" {!! $attributes !!}>
         </div>
         <span class="empty:hidden mr-2">{!! edenIcon($suffix) !!}</span>
     </div>

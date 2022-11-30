@@ -3,12 +3,13 @@
 namespace Dgharami\Eden\Components\Fields;
 
 use Dgharami\Eden\Components\Form;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class Slug extends Field
 {
 
-    protected $target = null;
+    protected $generateFrom = '';
 
     protected $separator = '-';
 
@@ -17,9 +18,16 @@ class Slug extends Field
         $this->resolveCallback = [$this, 'generateSlug'];
     }
 
-    public function target($fieldKey)
+    public function generateFrom($target = '')
     {
-        $this->target = appCall($fieldKey);
+        $this->generateFrom = $target;
+        return $this;
+    }
+
+    public function dependsOn($targets)
+    {
+        parent::dependsOn($targets);
+        $this->generateFrom($this->targets[0] ?? '');
         return $this;
     }
 
@@ -31,8 +39,8 @@ class Slug extends Field
 
     public function generateSlug($value, $field, $fields, Form $form)
     {
-        if (isset($fields[$this->target]) && $form->isCreate() && empty($this->value)) {
-            $field->value = strtolower(Str::slug($fields[$this->target]->getValue(), $this->separator));
+        if (isset($fields[$this->generateFrom]) && $form->isCreate() && empty($this->value)) {
+            $field->value = strtolower(Str::slug($fields[$this->generateFrom]->getValue(), $this->separator));
         }
         return $field;
     }

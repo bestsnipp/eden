@@ -51,7 +51,7 @@
         wire:ignore>
         <label for="{{ $uid }}" class="inline-flex gap-3 items-center border border-slate-300 focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 rounded-md shadow-sm overflow-hidden">
             <span class="empty:hidden ml-2">{!! edenIcon($prefix) !!}</span>
-            <input id="{{ $uid }}" wire:model.defer="fields.{{ $key }}" {!! $attributes !!}>
+            <input id="{{ $uid }}" wire:model.{{ $wireModelType }}="fields.{{ $key }}" {!! $attributes !!}>
             <span class="empty:hidden mr-2">{!! edenIcon($suffix) !!}</span>
         </label>
     </div>

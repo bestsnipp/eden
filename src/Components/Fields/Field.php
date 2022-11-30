@@ -4,6 +4,7 @@ namespace Dgharami\Eden\Components\Fields;
 
 use Dgharami\Eden\Components\Form;
 use Dgharami\Eden\Traits\CanManageVisibility;
+use Dgharami\Eden\Traits\DependentField;
 use Dgharami\Eden\Traits\Makeable;
 use Dgharami\Eden\Traits\AsDataTableColumn;
 use Illuminate\Queue\SerializesModels;
@@ -21,6 +22,7 @@ abstract class Field
     use Makeable;
     use CanManageVisibility;
     use AsDataTableColumn;
+    use DependentField;
 
     public ?string $title = '';
 
@@ -457,7 +459,10 @@ abstract class Field
             'attributes' => $this->getMetaAttributes(),
             'validator' => $this->validator,
             'prefix' => $this->prefix,
-            'suffix' => $this->suffix
+            'suffix' => $this->suffix,
+            'isDependent' => $this->hasDependency,
+            'wireModelType' => $this->hasDependency ? 'lazy' : 'defer',
+            'alpineModelType' => $this->hasDependency ? '' : '.defer',
         ];
     }
 
@@ -504,6 +509,8 @@ abstract class Field
             'title' => $this->title,
             'key' => $this->key,
             'value' => $this->value,
+            'targets' => $this->targets,
+            'isDependent' => $this->hasDependency
         ];
     }
 
