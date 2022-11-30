@@ -42,7 +42,7 @@ abstract class EdenPage
     public function getSlug()
     {
         if (empty($this->slug)) {
-            $this->slug = Str::slug(Str::random(32));
+            $this->slug = Str::random(32);
         }
         return Str::slug(Str::snake($this->slug));
     }
