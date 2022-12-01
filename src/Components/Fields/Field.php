@@ -224,7 +224,7 @@ abstract class Field
      */
     public function getValue()
     {
-        return $this->value;
+        return $this->exportToForm();
     }
 
     /**
@@ -240,7 +240,7 @@ abstract class Field
      */
     public function default($value)
     {
-        $this->value = appCall($value);
+        $this->setValue($value);
         return $this;
     }
 
@@ -285,10 +285,16 @@ abstract class Field
     public function resolveUsing($value, $fields = [], $form = null)
     {
         if (!is_null($this->resolveCallback)) {
+            $targets = collect($fields)
+                ->filter(function ($item, $key) {
+                    return in_array($key, $this->targets);
+                });
             return appCall($this->resolveCallback, [
                 'field' => $this,
                 'value' => $value,
                 'fields' => collect($fields),
+                'targets' => $targets,
+                'target' => $targets->first(),
                 'form' => $form,
             ]);
         }
@@ -410,18 +416,18 @@ abstract class Field
 
     public function exportToForm()
     {
-        return $this->value;
+        return $this->value();
     }
 
     public function importFromFrom($value, $fields = [])
     {
-        $this->value = $value;
+        $this->setValue($value);
         return $this;
     }
 
     public function process()
     {
-        return $this->exportToForm();
+        return $this->value();
     }
 
     public function validate($isUpdate = false)
