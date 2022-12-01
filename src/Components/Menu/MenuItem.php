@@ -3,6 +3,7 @@
 namespace Dgharami\Eden\Components\Menu;
 
 use Dgharami\Eden\Components\EdenPage;
+use Dgharami\Eden\Components\EdenResource;
 use Dgharami\Eden\Components\PageView;
 use Dgharami\Eden\Components\Resource;
 use Dgharami\Eden\RouteManager;
@@ -131,12 +132,14 @@ class MenuItem
     /**
      * Link to a Resource
      *
-     * @param \Closure $resource
+     * @param EdenResource|\Closure $resource
      * @return $this
      */
     public function resource($resource)
     {
-        // TODO -> Add Resource Support
+        if (is_subclass_of($resource, EdenResource::class)) {
+            $this->route = route('eden.page', appCall($resource)->getSlug());
+        }
         return $this;
     }
 
@@ -148,7 +151,7 @@ class MenuItem
      */
     public function edenPage($page)
     {
-        if ($page instanceof EdenPage) {
+        if (is_subclass_of($page, EdenPage::class)) {
             $this->route = route('eden.page', appCall($page)->getSlug());
         }
         return $this;

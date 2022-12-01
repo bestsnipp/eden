@@ -16,6 +16,7 @@ use App\Eden\Pages\FormMiscFieldsPage;
 use App\Eden\Pages\FormSelectPage;
 use App\Eden\Pages\FormSlugDependentPage;
 use App\Eden\Pages\FormTextTextareaPage;
+use App\Eden\Resources\TestResourcePage;
 use Dgharami\Eden\Components\DataTable\Actions\DeleteAction;
 use Dgharami\Eden\Components\DataTable\Actions\DetailsAction;
 use Dgharami\Eden\Components\DataTable\Actions\EditAction;
@@ -45,6 +46,9 @@ class EdenManager
             MenuItem::make('Dashboard')->edenPage(DashboardPage::make()),
             MenuItem::make('Dashboard Test')->edenPage(DashboardTestPage::make()),
             MenuItem::make('Crud Testing')->edenPage(CrudTestingPage::make()),
+
+            MenuHeader::make('Resources'),
+            MenuItem::make('Resource Test')->resource(TestResourcePage::make()),
 
             MenuHeader::make('Links'),
             MenuGroup::make("Link Types", [

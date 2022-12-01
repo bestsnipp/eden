@@ -12,11 +12,26 @@ use Illuminate\Support\Str;
 abstract class EdenPage
 {
     use Makeable;
-    use InteractsWithEdenRoute;
 
     protected $slug = '';
 
+    public $title = null;
+
     protected bool $isTransparent = false;
+
+    public function __construct()
+    {
+        $this->generateInitialSlug();
+    }
+
+    private function generateInitialSlug()
+    {
+        if (empty($this->slug)) {
+            $namespace = app()->getNamespace() . config('eden.base', 'Eden') . '\Resources\\';
+            $classPath = get_called_class();
+            $this->slug = Str::slug(Str::snake(Str::replace($namespace, '', $classPath)));
+        }
+    }
 
     /**
      * Get Singular form of Title
@@ -25,7 +40,8 @@ abstract class EdenPage
      */
     public function labelSingular()
     {
-        return Str::singular(Str::title(Str::snake(class_basename(get_called_class()), ' ')));
+        $title = empty($this->title) ? class_basename(get_called_class()) : $this->title;
+        return Str::singular(Str::title(Str::snake($title, ' ')));
     }
 
     /**
@@ -35,7 +51,8 @@ abstract class EdenPage
      */
     public function labelPlural()
     {
-        return Str::plural(Str::title(Str::snake(class_basename(get_called_class()), ' ')));
+        $title = empty($this->title) ? class_basename(get_called_class()) : $this->title;
+        return Str::plural(Str::title(Str::snake($title, ' ')));
     }
 
     /**
@@ -43,9 +60,6 @@ abstract class EdenPage
      */
     public function getSlug()
     {
-        if (empty($this->slug)) {
-            $this->slug = Str::random(32);
-        }
         return Str::slug(Str::snake($this->slug));
     }
 
@@ -59,39 +73,44 @@ abstract class EdenPage
 
     public function index($slug)
     {
-        return $this->prepareView($this->labelPlural());
+        return $this->prepareView(true);
     }
 
     public function create($slug)
     {
-        return $this->prepareView($this->labelSingular());
+        return $this->prepareView();
     }
 
     public function edit($slug, $id)
     {
-        return $this->prepareView($this->labelSingular());
+        return $this->prepareView();
     }
 
     public function show($slug, $id)
     {
-        return $this->prepareView($this->labelSingular());
+        return $this->prepareView();
+    }
+
+    protected function viewParams($isPlural = false)
+    {
+        return [
+            'title' => $isPlural ? $this->labelPlural() : $this->labelSingular(),
+            'slug' => $this->slug,
+            'components' => collect($this->components())->all(),
+            'transparent' => $this->isTransparent
+        ];
     }
 
     /**
      * Generate Generic View for EdenPage
      *
-     * @param $title
+     * @param string $title
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    final public function prepareView($title = '')
+    final public function prepareView($isPlural = false)
     {
         return view('eden::app')
-            ->with([
-                'title' => $title,
-                'slug' => $this->slug,
-                'components' => collect($this->components())->all(),
-                'transparent' => $this->isTransparent
-            ]);
+            ->with($this->viewParams($isPlural));
     }
 
 }

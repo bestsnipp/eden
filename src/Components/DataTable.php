@@ -23,6 +23,11 @@ abstract class DataTable extends EdenComponent
     use WithPagination;
 
     /**
+     * @var string|array|Model
+     */
+    public static $model = null;
+
+    /**
      * Title to show in front end
      *
      * @var string
@@ -30,12 +35,10 @@ abstract class DataTable extends EdenComponent
     public $title = '';
 
     /**
-     * @var string|array|Model
+     * Define component width
+     *
+     * @var string
      */
-    public static $model = null;
-
-    protected $actions = [];
-
     public $width = 'full';
 
     /**
@@ -73,6 +76,10 @@ abstract class DataTable extends EdenComponent
      */
     public $searchQuery = '';
 
+    protected $queryString = [
+        'searchQuery' => ['except' => '', 'as' => 'q']
+    ];
+
     /**
      * Columns which will be used to search the query
      *
@@ -87,7 +94,12 @@ abstract class DataTable extends EdenComponent
      */
     public $showRowsPerPageFilter = true;
 
-    public $paginationType = 'paginate'; // simple, cursor, paginate
+    /**
+     * pagination styles. Available values simple, cursor, paginate [default]
+     *
+     * @var string
+     */
+    public $paginationType = 'paginate';
 
     /**
      * Rows per page
@@ -116,14 +128,6 @@ abstract class DataTable extends EdenComponent
         100 => 100
     ];
 
-    private $allFilters = [];
-    public $filters = [];
-
-    private $allFields = [];
-    public $sorting = [];
-
-    private $appliedFilters = [];
-
     /**
      * Should show actions in table row
      *
@@ -139,25 +143,18 @@ abstract class DataTable extends EdenComponent
     protected $isMultiSelectable = true;
 
     /**
-     * Multiple Rows that is selected by User
-     *
-     * @var array
-     */
-    public $selectedRows = [];
-
-    /**
      * Should use global Eden actions
      *
      * @var bool
      */
-    protected $useGlobalActions = true;
+    protected $useGlobalActions = false;
 
     /**
      * Should use global Eden filters
      *
      * @var bool
      */
-    protected $useGlobalFilters = true;
+    protected $useGlobalFilters = false;
 
     /**
      * is Pooling enabled or not
@@ -167,19 +164,58 @@ abstract class DataTable extends EdenComponent
     public $pooling = false;
 
     /**
-     * Pooling time in milliseconds - Default 5 Seconds
+     * Pooling time in milliseconds - Default 5000 Milliseconds
      *
      * @var int
      */
     public $poolingInterval = 5000;
 
+    /**
+     * Table Header Style
+     *
+     * @var string
+     */
     public $headerStyle = 'bg-white shadow-md rounded-t-md md:rounded-t-md py-5 px-5';
 
+    /**
+     * Applied Filters Style
+     *
+     * @var string
+     */
     public $appliedFilterStyle = 'py-3 px-5 bg-white shadow-md border-y border-slate-100 flex flex-wrap gap-3 items-center mt-3 md:mt-0 md:rounded-none border-t';
 
+    /**
+     * Table Body Style
+     *
+     * @var string
+     */
     public $bodyStyle = '';
 
+    /**
+     * Pagination Area Style
+     *
+     * @var string
+     */
     public $paginationStyle = 'flex flex-col md:flex-row justify-between items-center bg-white shadow-md rounded-md md:rounded-none md:rounded-b-md overflow-hidden';
+
+    /**
+     * Multiple Rows that is selected by User
+     *
+     * @var array
+     */
+    public $selectedRows = [];
+
+    private $allFilters = [];
+
+    public $filters = [];
+
+    private $allFields = [];
+
+    public $sorting = [];
+
+    private $appliedFilters = [];
+
+    protected $actions = [];
 
     abstract protected function fields();
     abstract protected function filters();

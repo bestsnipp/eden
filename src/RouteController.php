@@ -4,6 +4,7 @@ namespace Dgharami\Eden;
 
 use App\Http\Controllers\Controller;
 use Dgharami\Eden\Components\EdenPage;
+use Dgharami\Eden\Components\EdenResource;
 use Dgharami\Eden\Components\Resource;
 use Dgharami\Eden\Facades\EdenRoute;
 use Illuminate\Support\Facades\Gate;
@@ -66,8 +67,8 @@ class RouteController extends Controller
         abort_if(!EdenRoute::has($slug), 404);
         $page = EdenRoute::get($slug);
 
-        if (!($page instanceof EdenPage || $page instanceof Resource)) {
-            abort(422,  sprintf('Invalid Resource Provided, Resource Must be a %1$s %2$s and provided %3$s', EdenPage::class, Resource::class, gettype($page)));
+        if (!(is_subclass_of($page, EdenPage::class) || is_subclass_of($page, EdenResource::class))) {
+            abort(422,  sprintf('Invalid Resource Provided, Resource Must be a %1$s %2$s and provided %3$s', EdenPage::class, EdenResource::class, gettype($page)));
         }
 
         return $page;
