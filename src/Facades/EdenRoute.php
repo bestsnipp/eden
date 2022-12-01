@@ -12,10 +12,8 @@ use Illuminate\Support\Facades\Facade;
  */
 class EdenRoute extends Facade
 {
-
     protected static function getFacadeAccessor()
     {
         return 'routeManager';
     }
-
 }

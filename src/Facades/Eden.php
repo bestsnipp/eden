@@ -14,10 +14,8 @@ use Illuminate\Support\Facades\Facade;
  */
 class Eden extends Facade
 {
-
     protected static function getFacadeAccessor()
     {
         return 'eden';
     }
-
 }

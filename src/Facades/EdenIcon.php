@@ -9,10 +9,8 @@ use Illuminate\Support\Facades\Facade;
  */
 class EdenIcon extends Facade
 {
-
     protected static function getFacadeAccessor()
     {
         return 'iconManager';
     }
-
 }

@@ -12,10 +12,8 @@ use Illuminate\Support\Facades\Facade;
  */
 class EdenModal extends Facade
 {
-
     protected static function getFacadeAccessor()
     {
         return 'modalManager';
     }
-
 }
