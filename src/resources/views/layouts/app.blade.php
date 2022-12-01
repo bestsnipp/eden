@@ -31,10 +31,10 @@
 
     @vite('resources/css/app.css')
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased" x-data x-eden-nice-scroll>
 
 <div class="min-h-screen bg-slate-100 text-slate-500 flex w-full">
-    <section x-data
+    <section x-data x-eden-nice-scroll
         data-dusk="sidebar"
         class="py-3 px-3 bg-white min-w-[240px] w-64 shadow-md sticky top-0 h-screen">
         <div data-dusk="branding" class="mb-6">

@@ -29,21 +29,26 @@ if (undefined !== jQuery) {
     if (undefined !== NiceScroll) {
         $(function() {
             //$("body").niceScroll();
-            $("#sidebar").niceScroll();
+            //$("#sidebar").niceScroll();
         });
     }
 
-    $('#sidebar').on('DOMSubtreeModified', _.debounce(() => {
-        $("#sidebar").niceScroll().resize();
-        console.log('CHANGED');
-    }, 300))
+
 }
 
 window.addEventListener('alpine:init', function () {
 
     // Eden NiceScroll
-    Alpine.directive('[name]', (el, { value, modifiers, expression }, { Alpine, effect, cleanup }) => {
-        alert('Nice Scroll');
+    Alpine.directive('eden-nice-scroll', (el, { value, modifiers, expression }, { Alpine, effect, cleanup }) => {
+        $(el).niceScroll();
+
+        $(el).on('DOMSubtreeModified', _.debounce(() => {
+            $(el).niceScroll().resize();
+        }, 300))
+
+        cleanup(() => {
+            $(el).off('DOMSubtreeModified')
+        })
     })
 
     // Eden Select/MultiSelect With Select2
