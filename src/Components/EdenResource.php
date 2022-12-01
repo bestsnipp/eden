@@ -3,6 +3,7 @@
 namespace Dgharami\Eden\Components;
 
 
+use Dgharami\Eden\Assembled\ResourceCreateForm;
 use Dgharami\Eden\Assembled\ResourceDataTable;
 
 /**
@@ -17,7 +18,7 @@ abstract class EdenResource extends EdenPage
      */
     public static $model = null;
 
-    /** DATA TABLE - FIELDS **/
+    /** DATA TABLE - Index **/
     /**
      * is Table Layout
      *
@@ -150,6 +151,20 @@ abstract class EdenResource extends EdenPage
      */
     public $appliedFilterStyle = 'py-3 px-5 bg-white shadow-md border-y border-slate-100 flex flex-wrap gap-3 items-center mt-3 md:mt-0 md:rounded-none border-t';
 
+    /** FORM - Create/Update **/
+    /**
+     * Is Updating Data or Creating
+     *
+     * @var bool
+     */
+    protected $isUpdate = false;
+
+    /**
+     * Container Style
+     *
+     * @var string
+     */
+    public $styleContainer = '';
 
     /**
      * @return array
@@ -195,6 +210,16 @@ abstract class EdenResource extends EdenPage
         ];
     }
 
+    public function toForm()
+    {
+        return [
+            'model' => self::$model,
+            'title' => $this->labelSingular(),
+            'isUpdate' => $this->isUpdate,
+            'styleContainer' => $this->styleContainer,
+        ];
+    }
+
     public function getFields()
     {
         return $this->fields();
@@ -234,21 +259,17 @@ abstract class EdenResource extends EdenPage
     /**
      * Create Screen
      *
-     * @return array
+     * @return mixed
      */
     public function create($slug)
     {
-//        $resourceForm = ResourceCreateForm::make(['resource' => get_called_class()]);
-//
-//        return [
-//            'title' => $this->label(),
-//            'slug' => $this->slug,
-//            'tabs' => collect($this->tabs())->all(),
-//            'cards' => collect($this->cards())->all(),
-//            'tables' => [],
-//            'forms' => collect([$resourceForm])->all(),
-//            'read' => []
-//        ];
+        $viewParams = $this->viewParams();
+        $viewParams['components'] = array_merge(
+            $this->cards(),
+            [ResourceCreateForm::make(['edenResource' => get_called_class()])]
+        );
+
+        return view('eden::app')->with($viewParams);
     }
 
     /**

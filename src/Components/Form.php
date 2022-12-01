@@ -18,35 +18,81 @@ abstract class Form extends EdenComponent
     use WithFileUploads;
     use WithModel;
 
+    /**
+     * Component Width
+     *
+     * @var string
+     */
     public $width = 'half';
 
-    public $resource = '';
-
+    /**
+     * Is Updating Data or Creating
+     *
+     * @var bool
+     */
     protected $isUpdate = false;
 
-    protected $primaryKey = 'id';
-
+    /**
+     * Container Style
+     *
+     * @var string
+     */
     public $styleContainer = '';
 
-    // Dynamic Fields
+    /**
+     * Primary Key of Model
+     *
+     * @var string
+     */
+    protected $___primaryKey = 'id';
+
+    /**
+     * Fields that will be bind with form in FrontEnd
+     *
+     * @var array
+     */
     public $fields = [];
 
-    // Dynamic File Fields
+    /**
+     * Fields that will be bind with form in FrontEnd for Files
+     *
+     * @var array
+     */
     public $files = [];
 
-    // All dependent fields keys
+    /**
+     * Keys that has some dependent
+     *
+     * @var array
+     */
     protected $dependentFields = [];
 
-    // Laravel LiveWire Validation Rules
+    /**
+     * Laravel LiveWire Validation Rules
+     *
+     * @var array
+     */
     protected $rules = [];
 
-    // Laravel LiveWire Validation Attributes
+    /**
+     * Laravel LiveWire Validation Attributes
+     *
+     * @var array
+     */
     protected $validationAttributes = [];
 
-    // All Mentioned Fields
+    /**
+     * All Mentioned Fields
+     *
+     * @var array
+     */
     private $allFields = [];
 
-    // Let User Decide the Fields
+    /**
+     * Form Fields
+     *
+     * @return mixed
+     */
     abstract protected function fields();
 
     /**
