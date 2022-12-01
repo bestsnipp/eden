@@ -14,6 +14,6 @@ class EdenModal extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'modalManager';
+        return 'edenModalManager';
     }
 }

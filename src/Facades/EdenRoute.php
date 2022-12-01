@@ -14,6 +14,6 @@ class EdenRoute extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'routeManager';
+        return 'edenRouteManager';
     }
 }

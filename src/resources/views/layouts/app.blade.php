@@ -20,11 +20,10 @@
         [x-cloak] { display: none !important; }
     </style>
 
-    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/trix@2.0.1/dist/trix.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr@1.8.2/dist/themes/nano.min.css">
+    <!-- Assets - Styles -->
+    @foreach(\Dgharami\Eden\Facades\EdenAssets::styles() as $style)
+        <link rel="stylesheet" data-key="{{ $style['key'] }}" href="{{ $style['url'] }}" />
+    @endforeach
 
     @livewireStyles
     @stack('css')
@@ -69,14 +68,10 @@
 
 @stack('js')
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script src="https://cdn.jsdelivr.net/npm/trix@2.0.1/dist/trix.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr@1.8.2/dist/pickr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-tooltip@1.2.0/dist/cdn.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery.nicescroll@3.7.6/dist/jquery.nicescroll.min.js"></script>
+<!-- Assets - Scripts -->
+@foreach(\Dgharami\Eden\Facades\EdenAssets::scripts() as $script)
+<script data-key="{{ $script['key'] }}" src="{{ $script['url'] }}"></script>
+@endforeach
 
 @include('eden::widgets.toasts')
 

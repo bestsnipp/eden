@@ -6,6 +6,7 @@ use Dgharami\Eden\Console\DeveloperCommand;
 use Dgharami\Eden\Console\MakeCard;
 use Dgharami\Eden\Console\MakeEdenPage;
 use Dgharami\Eden\Facades\Eden;
+use Dgharami\Eden\Facades\EdenAssets;
 use Dgharami\Eden\Facades\EdenRoute;
 use Dgharami\Eden\Middleware\EdenRequestHandler;
 use Illuminate\Support\Facades\Gate;
@@ -24,11 +25,12 @@ class EdenServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->mergeConfigFrom(__DIR__ . '/config/eden.php', 'eden');
+        $this->mergeConfigFrom(__DIR__ . '/Config/eden.php', 'eden');
 
         $this->gate();
         $this->registerRoutes();
         $this->registerFacades();
+        $this->registerStyleAndScripts();
         $this->registerPersistentMiddleware();
         $this->registerCommands();
         $this->loadViews();
@@ -70,8 +72,45 @@ class EdenServiceProvider extends ServiceProvider
     protected function publishResources()
     {
         $this->publishes([
-            __DIR__.'/config/eden.php' => config_path('eden.php')
+            __DIR__.'/Config/eden.php' => config_path('eden.php')
         ], ['config', 'eden-config']);
+    }
+
+    /**
+     * Register Eden specific Styles and Scripts
+     *
+     * @return void
+     */
+    protected function registerStyleAndScripts()
+    {
+        // jQuery
+        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js', 'jquery');
+
+        // ApexChart
+        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/apexcharts', 'apexcharts');
+
+        // Trix
+        EdenAssets::registerStyle('https://cdn.jsdelivr.net/npm/trix@2.0.1/dist/trix.css', 'trix');
+        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/trix@2.0.1/dist/trix.umd.min.js', 'trix');
+
+        // FlatPickr
+        EdenAssets::registerStyle('https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css', 'flatpickr');
+        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js', 'flatpickr');
+
+        // Pickr
+        EdenAssets::registerStyle('https://cdn.jsdelivr.net/npm/@simonwep/pickr@1.8.2/dist/themes/nano.min.css', 'pickr');
+        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/@simonwep/pickr@1.8.2/dist/pickr.min.js', 'pickr');
+
+        // Select 2
+        EdenAssets::registerStyle('https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css', 'select2');
+        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', 'select2');
+
+        // ToolTip - Alpine
+        EdenAssets::registerStyle('https://unpkg.com/tippy.js@6/dist/tippy.css', 'tippy');
+        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-tooltip@1.2.0/dist/cdn.min.js', 'alpine-tooltip');
+
+        // NiceScroll
+        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/jquery.nicescroll@3.7.6/dist/jquery.nicescroll.min.js', 'nicescroll');
     }
 
     /**
@@ -100,17 +139,20 @@ class EdenServiceProvider extends ServiceProvider
      */
     protected function registerFacades()
     {
-        $this->app->singleton('routeManager', function () {
+        $this->app->singleton('edenRouteManager', function () {
             return new \Dgharami\Eden\RouteManager();
         });
-        $this->app->singleton('modalManager', function () {
+        $this->app->singleton('edenModalManager', function () {
             return new \Dgharami\Eden\ModalManager();
         });
         $this->app->bind('eden', function () {
             return new \Dgharami\Eden\EdenManager();
         });
-        $this->app->singleton('iconManager', function () {
+        $this->app->singleton('edenIconManager', function () {
             return new \Dgharami\Eden\IconManager();
+        });
+        $this->app->singleton('edenAssetsManager', function () {
+            return new \Dgharami\Eden\AssetsManager();
         });
     }
 

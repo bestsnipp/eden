@@ -5,6 +5,7 @@ namespace Dgharami\Eden;
 use App\Eden\Pages\CrudTestingPage;
 use App\Eden\Pages\DashboardPage;
 use App\Eden\Pages\DashboardTestPage;
+use App\Eden\Pages\DataTablePages\DataTableDefaultTestPage;
 use App\Eden\Pages\DataTableTestPage;
 use App\Eden\Pages\FormCheckboxRadioPage;
 use App\Eden\Pages\FormColorPasswordPage;
@@ -82,7 +83,8 @@ class EdenManager
             ])->icon('queue-list'),
 
             MenuGroup::make('Data Tables', [
-                MenuItem::make('Testing DataTable')->edenPage(DataTableTestPage::make())
+                MenuItem::make('Default DataTable')->edenPage(DataTableDefaultTestPage::make()),
+                MenuItem::make('Custom DataTable')->edenPage(DataTableTestPage::make()),
             ])->icon('table')
         ];
     }
