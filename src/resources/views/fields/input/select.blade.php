@@ -3,7 +3,7 @@
     <div class="flex items-center border border-slate-300 focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 rounded-md shadow-sm w-full overflow-hidden">
         <span class="empty:hidden ml-2">{!! edenIcon($prefix) !!}</span>
         <div class="w-full flex" wire:ignore>
-            <select style="width: 100%;" id="{{ $uid }}" x-data="edenSelectField(@entangle('fields.' . $key){{ $alpineModelType }})" wire:model.{{ $wireModelType }}="fields.{{ $key }}" {!! $attributes !!}>
+            <select style="width: 100%;" id="{{ $uid }}" x-data="edenSelectField(@entangle('fields.' . $key).defer)" wire:model.{{ $alpineModelType }}="fields.{{ $key }}" {!! $attributes !!}>
                 @foreach($options as $value => $label)
                     <option value="{{ $value }}">{{ $label }}</option>
                 @endforeach
