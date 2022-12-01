@@ -19,4 +19,3 @@ Route::get('/{resource}', [Dgharami\Eden\RouteController::class, 'index'])->name
 Route::get('/{resource}/create', [Dgharami\Eden\RouteController::class, 'create'])->name('eden.create');
 Route::get('/{resource}/{resourceId}', [Dgharami\Eden\RouteController::class, 'show'])->name('eden.show');
 Route::get('/{resource}/{resourceId}/edit', [Dgharami\Eden\RouteController::class, 'edit'])->name('eden.edit');
-
