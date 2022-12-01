@@ -26,7 +26,7 @@
             @endif
 
             @if(count($records) > 0)
-                @if($this->isTableLayout) <tbody> @else <div data-dusk="DataTableBody"> @endif
+                @if($this->isTableLayout) <tbody class="{{ $bodyStyle }}"> @else <div data-dusk="DataTableBody" class="{{ $bodyStyle }}"> @endif
                     @foreach($records as $record)
                         {!! $this->row($record, $records) !!}
                     @endforeach

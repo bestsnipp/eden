@@ -488,12 +488,16 @@ abstract class Field
 
         switch (strtolower($type)):
             case 'table-header':
+            case 'header':
                 $viewToRender = $this->viewForIndexHeader();
                 break;
             case 'table-row':
+            case 'row':
                 $viewToRender = $this->viewForIndex();
                 break;
             case 'read':
+            case 'details':
+            case 'view':
                 $viewToRender = $this->viewForRead();
                 break;
             default:

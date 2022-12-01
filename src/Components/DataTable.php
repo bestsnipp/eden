@@ -177,6 +177,8 @@ abstract class DataTable extends EdenComponent
 
     public $appliedFilterStyle = 'py-3 px-5 bg-white shadow-md border-y border-slate-100 flex flex-wrap gap-3 items-center mt-3 md:mt-0 md:rounded-none border-t';
 
+    public $bodyStyle = '';
+
     public $paginationStyle = 'flex flex-col md:flex-row justify-between items-center bg-white shadow-md rounded-md md:rounded-none md:rounded-b-md overflow-hidden';
 
     abstract protected function fields();

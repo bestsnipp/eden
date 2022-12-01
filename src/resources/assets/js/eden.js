@@ -21,19 +21,30 @@
 //import Pickr from '@simonwep/pickr';
 //window.Pickr = Pickr;
 
+import _ from 'lodash';
+window._ = _;
 
 if (undefined !== jQuery) {
 
     if (undefined !== NiceScroll) {
         $(function() {
-            $("body").niceScroll();
+            //$("body").niceScroll();
             $("#sidebar").niceScroll();
         });
     }
 
+    $('#sidebar').on('DOMSubtreeModified', _.debounce(() => {
+        $("#sidebar").niceScroll().resize();
+        console.log('CHANGED');
+    }, 300))
 }
 
 window.addEventListener('alpine:init', function () {
+
+    // Eden NiceScroll
+    Alpine.directive('[name]', (el, { value, modifiers, expression }, { Alpine, effect, cleanup }) => {
+        alert('Nice Scroll');
+    })
 
     // Eden Select/MultiSelect With Select2
     Alpine.data('edenSelectField', (value = '', showSearch = true) => ({

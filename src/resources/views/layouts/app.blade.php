@@ -34,8 +34,7 @@
 <body class="font-sans antialiased">
 
 <div class="min-h-screen bg-slate-100 text-slate-500 flex w-full">
-    <section
-        id="sidebar"
+    <section x-data
         data-dusk="sidebar"
         class="py-3 px-3 bg-white min-w-[240px] w-64 shadow-md sticky top-0 h-screen">
         <div data-dusk="branding" class="mb-6">
