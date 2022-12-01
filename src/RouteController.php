@@ -27,8 +27,7 @@ class RouteController extends Controller
     public function index($slug)
     {
         $resource = $this->checkSlugValidity($slug);
-        return view('eden::app')
-            ->with($resource->index($slug));
+        return $resource->index($slug);
     }
 
     /**
@@ -37,8 +36,7 @@ class RouteController extends Controller
     public function create($slug)
     {
         $resource = $this->checkSlugValidity($slug);
-        return view('eden::app')
-            ->with($resource->create($slug));
+        return $resource->create($slug);
     }
 
     /**
@@ -47,8 +45,7 @@ class RouteController extends Controller
     public function show($slug, $id)
     {
         $resource = $this->checkSlugValidity($slug);
-        return view('eden::app')
-            ->with($resource->show($slug, $id));
+        return $resource->show($slug, $id);
     }
 
     /**
@@ -57,8 +54,7 @@ class RouteController extends Controller
     public function edit($slug, $id)
     {
         $resource = $this->checkSlugValidity($slug);
-        return view('eden::app')
-            ->with($resource->edit($slug, $id));
+        return $resource->edit($slug, $id);
     }
 
     /**

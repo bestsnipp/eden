@@ -2,6 +2,7 @@
 
 namespace Dgharami\Eden\Components;
 
+use Dgharami\Eden\Traits\InteractsWithEdenRoute;
 use Dgharami\Eden\Traits\Makeable;
 use Illuminate\Support\Str;
 
@@ -11,6 +12,7 @@ use Illuminate\Support\Str;
 abstract class EdenPage
 {
     use Makeable;
+    use InteractsWithEdenRoute;
 
     protected $slug = '';
 
@@ -76,16 +78,20 @@ abstract class EdenPage
     }
 
     /**
-     * @return array
+     * Generate Generic View for EdenPage
+     *
+     * @param $title
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     final public function prepareView($title = '')
     {
-        return [
-            'title' => $title,
-            'slug' => $this->slug,
-            'components' => collect($this->components())->all(),
-            'transparent' => $this->isTransparent
-        ];
+        return view('eden::app')
+            ->with([
+                'title' => $title,
+                'slug' => $this->slug,
+                'components' => collect($this->components())->all(),
+                'transparent' => $this->isTransparent
+            ]);
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace Dgharami\Eden;
 
+use App\Eden\Pages\CrudTestingPage;
 use App\Eden\Pages\DashboardPage;
 use App\Eden\Pages\DashboardTestPage;
 use App\Eden\Pages\DataTableTestPage;
@@ -42,6 +43,7 @@ class EdenManager
             MenuHeader::make('Main'),
             MenuItem::make('Dashboard')->edenPage(DashboardPage::make()),
             MenuItem::make('Dashboard Test')->edenPage(DashboardTestPage::make()),
+            MenuItem::make('Crud Testing')->edenPage(CrudTestingPage::make()),
 
             MenuHeader::make('Links'),
             MenuGroup::make("Link Types", [
