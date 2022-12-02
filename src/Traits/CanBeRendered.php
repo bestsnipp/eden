@@ -14,7 +14,7 @@ trait CanBeRendered
      */
     public final function render()
     {
-        $view = $this->view();
+        $view = call_user_func_array([$this, 'view'], func_get_args());
 
         if (method_exists($this, 'edenDefaultViewParams')) {
             $edenDefaultViewParams = appCall([$this, 'edenDefaultViewParams']);

@@ -2,6 +2,7 @@
 namespace Dgharami\Eden\Components\DataTable\Actions;
 
 use Dgharami\Eden\Components\DataTable;
+use Dgharami\Eden\Traits\CanBeRendered;
 use Dgharami\Eden\Traits\CanManageVisibility;
 use Dgharami\Eden\Traits\HasOwner;
 use Dgharami\Eden\Traits\HasParentToast;
@@ -21,6 +22,7 @@ abstract class Action
 {
     use Makeable;
     use CanManageVisibility;
+    use CanBeRendered;
 
     public $title = '';
 
@@ -143,4 +145,11 @@ abstract class Action
         $this->toastMessage($message, 'normal', $title);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function view($type, $action, $record, $buttonStyle)
+    {
+        return view('eden::actions.dynamic', compact('type', 'action', 'record', 'buttonStyle'));
+    }
 }
