@@ -1,5 +1,7 @@
 <?php
 
+use Dgharami\Eden\Middleware\EdenRequestHandler;
+
 return [
 
     /**
@@ -28,4 +30,15 @@ return [
      */
     'action_buttons_count' => 5,
 
+    /**
+     * Eden MiddleWare Group
+     */
+    'middleware' => [
+        'web',
+        'auth',
+        config('jetstream.auth_session'),
+        'verified',
+        EdenRequestHandler::class,
+        'can:accessEden'
+    ],
 ];

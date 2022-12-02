@@ -24,7 +24,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Dgharami\\Eden\\EdenServiceProvider"
+                "Dgharami\\Eden\\Providers\\EdenCoreServiceProvider"
             ],
             "aliases": {
                 "Eden": "Dgharami\\Eden\\Facades\\Eden"

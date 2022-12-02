@@ -39,7 +39,7 @@ class EdenManager
     /**
      * @return array
      */
-    public static function menu()
+    public function menu()
     {
         return [
             MenuHeader::make('Main'),
@@ -96,7 +96,7 @@ class EdenManager
     /**
      * @return array
      */
-    public static function accountMenu()
+    public function accountMenu()
     {
         return [
             MenuHeader::make('Account Info'),
