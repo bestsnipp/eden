@@ -127,7 +127,7 @@ class EdenCoreServiceProvider extends ServiceProvider
         $this->app->singleton('edenModalManager', function () {
             return new \Dgharami\Eden\ModalManager();
         });
-        $this->app->bind('eden', function () {
+        $this->app->singleton('eden', function () {
             return new \Dgharami\Eden\EdenManager();
         });
         $this->app->singleton('edenIconManager', function () {
