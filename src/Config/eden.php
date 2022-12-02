@@ -1,7 +1,5 @@
 <?php
 
-use Dgharami\Eden\Middleware\EdenRequestHandler;
-
 return [
 
     /**
@@ -36,9 +34,9 @@ return [
     'middleware' => [
         'web',
         'auth',
-        config('jetstream.auth_session'),
+        //config('jetstream.auth_session'),
         'verified',
-        EdenRequestHandler::class,
+        Dgharami\Eden\Middleware\EdenRequestHandler::class,
         'can:accessEden'
     ],
 ];

@@ -2,6 +2,7 @@
 
 namespace Dgharami\Eden\Providers;
 
+use Dgharami\Eden\Facades\Eden;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,6 +18,10 @@ class EdenAppServiceProvider extends ServiceProvider
     {
         $this->gate();
         $this->plugins();
+
+        // Register Global Actions and Filters
+        Eden::registerActions($this->actions());
+        Eden::registerFilters($this->filters());
     }
 
     /**
@@ -42,6 +47,30 @@ class EdenAppServiceProvider extends ServiceProvider
     protected function plugins()
     {
 
+    }
+
+    /**
+     * Register Global Actions
+     *
+     * @return array
+     */
+    protected function actions()
+    {
+        return [
+
+        ];
+    }
+
+    /**
+     * Register Global Filters
+     *
+     * @return array
+     */
+    protected function filters()
+    {
+        return [
+
+        ];
     }
 
     /**

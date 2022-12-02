@@ -2,32 +2,11 @@
 
 namespace Dgharami\Eden;
 
-use App\Eden\Pages\CrudTestingPage;
-use App\Eden\Pages\DashboardPage;
-use App\Eden\Pages\DashboardTestPage;
-use App\Eden\Pages\DataTablePages\DataTableDefaultTestPage;
-use App\Eden\Pages\DataTableTestPage;
-use App\Eden\Pages\FormCheckboxRadioPage;
-use App\Eden\Pages\FormColorPasswordPage;
-use App\Eden\Pages\FormDateTimePage;
-use App\Eden\Pages\FormEditorCodePage;
-use App\Eden\Pages\FormEmailNumberPage;
-use App\Eden\Pages\FormMiscFieldsPage;
-use App\Eden\Pages\FormSelectPage;
-use App\Eden\Pages\FormSlugDependentPage;
-use App\Eden\Pages\FormTextTextareaPage;
-use App\Eden\Resources\TestResourcePage;
-use Dgharami\Eden\Components\DataTable\Actions\DeleteAction;
-use Dgharami\Eden\Components\DataTable\Actions\DetailsAction;
-use Dgharami\Eden\Components\DataTable\Actions\EditAction;
-use Dgharami\Eden\Components\DataTable\Actions\ReplicateAction;
 use Dgharami\Eden\Components\EdenPage;
-use Dgharami\Eden\Components\Menu\MenuGroup;
-use Dgharami\Eden\Components\Menu\MenuHeader;
-use Dgharami\Eden\Components\Menu\MenuItem;
 use Dgharami\Eden\Components\Modal;
 use Dgharami\Eden\Facades\EdenModal;
 use Dgharami\Eden\Facades\EdenRoute;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\Livewire;
@@ -36,93 +15,92 @@ use Symfony\Component\Finder\Finder;
 
 class EdenManager
 {
+    protected $menuCallback = null;
+
+    protected $accountMenuCallback = null;
+
+    protected $footerCallback = null;
+
+    protected $actions = [];
+
+    protected $filters = [];
+
     /**
-     * @return array
+     * Provide Main Menu Items
+     *
+     * @return void
      */
-    public function menu()
+    public function mainMenu($callback = null)
     {
-        return [
-            MenuHeader::make('Main'),
-            MenuItem::make('Dashboard')->edenPage(DashboardPage::make()),
-            MenuItem::make('Dashboard Test')->edenPage(DashboardTestPage::make()),
-            MenuItem::make('Crud Testing')->edenPage(CrudTestingPage::make()),
-
-            MenuHeader::make('Resources'),
-            MenuItem::make('Resource Test')->resource(TestResourcePage::make()),
-
-            MenuHeader::make('Links'),
-            MenuGroup::make("Link Types", [
-                MenuItem::make('Route - Newtab')
-                    ->route('test-eden-page')
-                    ->openInNewTab(),
-                MenuItem::make('Route - Icon')
-                    ->route('test-eden-page')
-                    ->icon('adjustments-horizontal'),
-                MenuItem::make('Path')
-                    ->path('/test-page?via=path'),
-                MenuItem::make('External Link - Icon')
-                    ->external('https://www.google.com')
-                    ->openInNewTab()
-                    ->icon('external-link'),
-                MenuItem::make(' Route')
-                    ->route('test-eden-page'),
-                MenuItem::make('Form - POST')
-                    ->icon('chat-bubble-bottom-center-text')
-                    ->external('https://810f20c74cd0b56b20ab9f26fd71e62d.m.pipedream.net')
-                    ->viaForm('POST', ['name' => 'Debasish Gharami', 'age' => 28])
-                    ->openInNewTab()
-            ]),
-
-            MenuHeader::make('Forms & Pages'),
-            MenuGroup::make('Forms', [
-                MenuItem::make('Text & Textarea')->edenPage(FormTextTextareaPage::make()),
-                MenuItem::make('Select & Multi Select')->edenPage(FormSelectPage::make()),
-                MenuItem::make('Checkbox and Radio')->edenPage(FormCheckboxRadioPage::make()),
-                MenuItem::make('Email & Number')->edenPage(FormEmailNumberPage::make()),
-                MenuItem::make('Color & Password')->edenPage(FormColorPasswordPage::make()),
-                MenuItem::make('Date & Time')->edenPage(FormDateTimePage::make()),
-                MenuItem::make('Editor & Code')->edenPage(FormEditorCodePage::make()),
-                MenuItem::make('Slug & Dependent')->edenPage(FormSlugDependentPage::make()),
-                MenuItem::make('Other Fields')->edenPage(FormMiscFieldsPage::make()),
-            ])->icon('queue-list'),
-
-            MenuGroup::make('Data Tables', [
-                MenuItem::make('Default DataTable')->edenPage(DataTableDefaultTestPage::make()),
-                MenuItem::make('Custom DataTable')->edenPage(DataTableTestPage::make()),
-            ])->icon('table')
-        ];
+        $this->menuCallback = $callback;
     }
 
     /**
+     * Get Main Menu Items
+     *
      * @return array
      */
-    public function accountMenu()
+    public function getMainMenu()
     {
-        return [
-            MenuHeader::make('Account Info'),
-            MenuItem::make('My Profile')->noIcon(),
-            MenuItem::make('Account Settings')->noIcon(),
-
-            MenuItem::make("Logout")
-                ->route('logout')
-                ->viaForm()
-                ->noIcon(),
-        ];
+        if (!is_null($this->menuCallback) && is_callable($this->menuCallback)) {
+            $caller = $this->menuCallback;
+            return appCall($caller);
+        }
+        return [];
     }
 
     /**
-     * Global Actions for DataTable
+     * Set Account Menu
+     *
+     * @return void
+     */
+    public function accountMenu($callback = null)
+    {
+        $this->accountMenuCallback = $callback;
+    }
+
+    /**
+     * Get Account Menu Items
+     *
+     * @return array
+     */
+    public function getAccountMenu()
+    {
+        if (!is_null($this->accountMenuCallback) && is_callable($this->accountMenuCallback)) {
+            $caller = $this->accountMenuCallback;
+            return appCall($caller);
+        }
+        return [];
+    }
+
+    /**
+     * Set Global Actions for DataTable
+     *
+     * @return void
+     */
+    public function registerActions($actions = [])
+    {
+        $this->actions = array_merge($this->actions, collect($actions)->all());
+    }
+
+    /**
+     * Get Global Actions for DataTable
      *
      * @return array
      */
     public function actions()
     {
-        return [
-            EditAction::make(),
-            DetailsAction::make(),
-            ReplicateAction::make(),
-            DeleteAction::make(),
-        ];
+        return $this->actions;
+    }
+
+    /**
+     * Set Global Filters for DataTable
+     *
+     * @return void
+     */
+    public function registerFilters($filters = [])
+    {
+        $this->filters = array_merge($this->filters, collect($filters)->all());
     }
 
     /**
@@ -132,9 +110,31 @@ class EdenManager
      */
     public function filters()
     {
-        return [
+        return $this->filters;
+    }
 
-        ];
+    /**
+     * Set Footer View
+     *
+     * @return void
+     */
+    public function footer($callback = null)
+    {
+        $this->footerCallback = $callback;
+    }
+
+    /**
+     * Set Footer View
+     *
+     * @return mixed
+     */
+    public function getFooter()
+    {
+        if (!is_null($this->footerCallback)) {
+            $caller = $this->footerCallback;
+            return appCall($caller);
+        }
+        return view('eden::widgets.footer');
     }
 
     /**
@@ -168,6 +168,10 @@ class EdenManager
      */
     public function registerComponents($directory, $namespace = null, $basePath = null)
     {
+        if (!File::exists($directory)) {
+            return;
+        }
+
         if (is_null($namespace)) {
             $namespace = app()->getNamespace();
         }

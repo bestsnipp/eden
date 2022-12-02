@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Providers;
+
+use Dgharami\Eden\Providers\EdenAppServiceProvider;
+
+class EdenServiceProvider extends EdenAppServiceProvider
+{
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        parent::boot();
+
+        // -
+    }
+
+    /**
+     * Register any events for your application.
+     *
+     * @return void
+     */
+    public function register()
+    {
+
+    }
+
+}

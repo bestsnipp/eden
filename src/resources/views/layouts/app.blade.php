@@ -56,8 +56,10 @@
             </div>
         </header>
 
-        <div data-dusk="container" class="p-4">
+        <div data-dusk="container" class="px-4 py-4">
             @yield('content')
+
+            {!! \Dgharami\Eden\Facades\Eden::getFooter() !!}
         </div>
 
     </main>

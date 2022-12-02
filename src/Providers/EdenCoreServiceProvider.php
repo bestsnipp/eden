@@ -6,6 +6,7 @@ use Dgharami\Eden\Assembled\ResourceDataTable;
 use Dgharami\Eden\Assembled\ResourceEditForm;
 use Dgharami\Eden\Assembled\ResourceRead;
 use Dgharami\Eden\Console\DeveloperCommand;
+use Dgharami\Eden\Console\EdenInstall;
 use Dgharami\Eden\Console\MakeCard;
 use Dgharami\Eden\Console\MakeEdenPage;
 use Dgharami\Eden\Events\EdenServiceProviderRegistered;
@@ -82,10 +83,10 @@ class EdenCoreServiceProvider extends ServiceProvider
     protected function prepareViewComposes()
     {
         View::composer('eden::menu.index', function ($view) {
-           return $view->with('menu', Eden::menu());
+           return $view->with('menu', Eden::getMainMenu());
         });
         View::composer('eden::widgets.header-right', function ($view) {
-           return $view->with('menu', Eden::accountMenu());
+           return $view->with('menu', Eden::getAccountMenu());
         });
     }
 
@@ -96,6 +97,10 @@ class EdenCoreServiceProvider extends ServiceProvider
      */
     protected function publishResources()
     {
+        $this->publishes([
+            __DIR__.'/../stubs/EdenServiceProvider.stub' => app_path('Providers/EdenServiceProvider.php'),
+        ], 'eden-provider');
+
         $this->publishes([
             __DIR__.'/../Config/eden.php' => config_path('eden.php')
         ], ['config', 'eden-config']);
@@ -148,6 +153,7 @@ class EdenCoreServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 DeveloperCommand::class,
+                EdenInstall::class,
                 MakeCard::class,
                 MakeEdenPage::class
             ]);
