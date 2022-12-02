@@ -41,10 +41,18 @@ abstract class Read extends EdenComponent
 
     public $width = 'full';
 
-    // Dynamic Fields
-    public $allFields = [];
+    /**
+     * Dynamic Fields
+     *
+     * @var array
+     */
+    private $allFields = [];
 
-    // Let User Decide the Fields
+    /**
+     * Let User Decide the Fields
+     *
+     * @return mixed
+     */
     abstract protected function fields();
 
     protected function actions() {
@@ -65,6 +73,14 @@ abstract class Read extends EdenComponent
     }
 
     public function hydrate()
+    {
+        $this->resolveModel();
+        $this->resolveRecord();
+        $this->prepareFields();
+        $this->prepareActions();
+    }
+
+    public function updated()
     {
         $this->resolveModel();
         $this->resolveRecord();

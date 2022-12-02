@@ -53,7 +53,7 @@ trait WithModel
     protected function resolveRecord()
     {
         if ($this->resourceId) {
-            $record = app(get_class($this)::$model)->find($this->resourceId);
+            $record = app($this->model())->find($this->resourceId);
             abort_if(is_null($record), 404);
             $this->record = $record;
         }

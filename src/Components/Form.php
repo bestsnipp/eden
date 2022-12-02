@@ -346,8 +346,7 @@ abstract class Form extends EdenComponent
     protected function updateRecord($validated, $all, $transformed)
     {
         try {
-            $model = app($this->record());
-            $record = $model->forceFill($transformed)->save();
+            $record = $this->record()->forceFill($transformed)->save();
             if (method_exists($this, 'afterRecordUpdated')) {
                 $this->afterRecordUpdated($record);
             }

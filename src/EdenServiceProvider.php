@@ -4,6 +4,8 @@ namespace Dgharami\Eden;
 use App\Models\User;
 use Dgharami\Eden\Assembled\ResourceCreateForm;
 use Dgharami\Eden\Assembled\ResourceDataTable;
+use Dgharami\Eden\Assembled\ResourceEditForm;
+use Dgharami\Eden\Assembled\ResourceRead;
 use Dgharami\Eden\Console\DeveloperCommand;
 use Dgharami\Eden\Console\MakeCard;
 use Dgharami\Eden\Console\MakeEdenPage;
@@ -223,8 +225,8 @@ class EdenServiceProvider extends ServiceProvider
         //Livewire::component(TabGroup::getName(), TabGroup::class);
         Livewire::component(ResourceDataTable::getName(), ResourceDataTable::class);
         Livewire::component(ResourceCreateForm::getName(), ResourceCreateForm::class);
-        //Livewire::component(ResourceEditForm::getName(), ResourceEditForm::class);
-        //Livewire::component(ResourceRead::getName(), ResourceRead::class);
+        Livewire::component(ResourceEditForm::getName(), ResourceEditForm::class);
+        Livewire::component(ResourceRead::getName(), ResourceRead::class);
 
         // Auto Register Components that is inside \App\Http\Eden Folder
 //        Eden::registerComponents(

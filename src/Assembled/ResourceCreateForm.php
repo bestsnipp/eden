@@ -4,6 +4,7 @@ namespace Dgharami\Eden\Assembled;
 
 use Dgharami\Eden\Components\Form;
 use Dgharami\Eden\Traits\HasEdenResource;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class ResourceCreateForm extends Form
@@ -27,11 +28,6 @@ class ResourceCreateForm extends Form
     public function mount()
     {
         $this->init();
-
-        // RowsPerPage
-        $this->getResourceData(function ($edenResource) {
-            $this->rowsPerPage = $edenResource->rowsPerPage;
-        });
         parent::mount();
     }
 
@@ -51,7 +47,6 @@ class ResourceCreateForm extends Form
     {
         self::$model = $edenResource::$model;
         $this->title = $params['title'];
-        $this->isUpdate = $params['isUpdate'];
         $this->styleContainer = $params['styleContainer'];
     }
 

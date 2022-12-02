@@ -5,6 +5,8 @@ namespace Dgharami\Eden\Components;
 
 use Dgharami\Eden\Assembled\ResourceCreateForm;
 use Dgharami\Eden\Assembled\ResourceDataTable;
+use Dgharami\Eden\Assembled\ResourceEditForm;
+use Dgharami\Eden\Assembled\ResourceRead;
 
 /**
  * @inheritDoc
@@ -166,6 +168,9 @@ abstract class EdenResource extends EdenPage
      */
     public $styleContainer = '';
 
+    /** READ **/
+
+
     /**
      * @return array
      */
@@ -217,6 +222,15 @@ abstract class EdenResource extends EdenPage
             'title' => $this->labelSingular(),
             'isUpdate' => $this->isUpdate,
             'styleContainer' => $this->styleContainer,
+        ];
+    }
+
+    public function toDetails()
+    {
+        return [
+            'model' => self::$model,
+            'title' => $this->labelSingular(),
+            'useGlobalActions' => $this->useGlobalActions
         ];
     }
 
@@ -275,47 +289,35 @@ abstract class EdenResource extends EdenPage
     /**
      * Edit Screen
      *
-     * @return array
+     * @return mixed
      */
     public function edit($slug, $id)
     {
-//        $resourceForm = ResourceEditForm::make([
-//            'resource' => get_called_class(),
-//            'modelID' => $id
-//        ]);
-//
-//        return [
-//            'title' => $this->label(),
-//            'slug' => $this->slug,
-//            'tabs' => collect($this->tabs())->all(),
-//            'cards' => collect($this->cards())->all(),
-//            'tables' => collect([])->all(),
-//            'forms' => collect([$resourceForm])->all(),
-//            'read' => []
-//        ];
+        // Force Form that This is an Edit Form
+        $this->isUpdate = true;
+
+        $viewParams = $this->viewParams();
+        $viewParams['components'] = array_merge(
+            $this->cards(),
+            [ResourceEditForm::make(['edenResource' => get_called_class()])]
+        );
+        return view('eden::app')->with($viewParams);
     }
 
     /**
      * Details Screen
      *
-     * @return array
+     * @return mixed
      */
     public function show($slug, $id)
     {
-//        $resourceRead = ResourceRead::make([
-//            'resource' => get_called_class(),
-//            'modelID' => $id
-//        ]);
-//
-//        return [
-//            'title' => $this->label(),
-//            'slug' => $this->slug,
-//            'tabs' => collect($this->tabs())->all(),
-//            'cards' => collect($this->cards())->all(),
-//            'tables' => collect([])->all(),
-//            'forms' => [],
-//            'read' => collect([$resourceRead])->all()
-//        ];
+        $viewParams = $this->viewParams();
+        $viewParams['components'] = array_merge(
+            $this->cards(),
+            [ResourceRead::make(['edenResource' => get_called_class()])]
+        );
+
+        return view('eden::app')->with($viewParams);
     }
 
 }
