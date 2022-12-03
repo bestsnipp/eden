@@ -1,0 +1,46 @@
+<?php
+
+namespace {{ namespace }};
+
+use Dgharami\Eden\Components\DataTable\Actions\Action;
+
+class {{ class }} extends Action
+{
+
+    /**
+     * Title to show in action renderer
+     *
+     * @var string
+     */
+    public $title = '{{ title }}';
+
+    /**
+     * Icon to show in action renderer
+     *
+     * @var string
+     */
+    public $icon = 'cursor-click';
+
+    /**
+     * Is action available for bulk apply in DataTable
+     *
+     * @return false
+     */
+    public function allowBulk()
+    {
+        return false;
+    }
+
+    /**
+     * Apply the logic for the action
+     *
+     * @param array $records
+     * @param array $payload
+     * @return void
+     */
+    public function apply($records = [], $payload = [])
+    {
+
+    }
+
+}

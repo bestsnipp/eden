@@ -7,6 +7,7 @@ use Dgharami\Eden\Assembled\ResourceEditForm;
 use Dgharami\Eden\Assembled\ResourceRead;
 use Dgharami\Eden\Console\DeveloperCommand;
 use Dgharami\Eden\Console\EdenInstall;
+use Dgharami\Eden\Console\MakeAction;
 use Dgharami\Eden\Console\MakeCard;
 use Dgharami\Eden\Console\MakeEdenPage;
 use Dgharami\Eden\Console\MakeEdenResource;
@@ -174,7 +175,10 @@ class EdenCoreServiceProvider extends ServiceProvider
 
                 // Page & Resource
                 MakeEdenResource::class,
-                MakeEdenPage::class
+                MakeEdenPage::class,
+
+                // Fields, Actions, Filters
+                MakeAction::class,
             ]);
         }
     }
