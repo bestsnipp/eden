@@ -44,6 +44,7 @@ class {{ class }} extends Modal
      */
     public function modalView()
     {
-        return view('...');
+        // return view('...');
+        return '<p class="text-slate-500 px-5">Welcome</p>';
     }
 }
