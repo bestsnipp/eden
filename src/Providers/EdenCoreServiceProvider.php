@@ -9,6 +9,7 @@ use Dgharami\Eden\Console\DeveloperCommand;
 use Dgharami\Eden\Console\EdenInstall;
 use Dgharami\Eden\Console\MakeCard;
 use Dgharami\Eden\Console\MakeEdenPage;
+use Dgharami\Eden\Console\MakeEdenResource;
 use Dgharami\Eden\Console\MakeListMetric;
 use Dgharami\Eden\Console\MakeProgressMetric;
 use Dgharami\Eden\Console\MakeSplitMetric;
@@ -172,6 +173,7 @@ class EdenCoreServiceProvider extends ServiceProvider
                 MakeViewMetric::class,
 
                 // Page & Resource
+                MakeEdenResource::class,
                 MakeEdenPage::class
             ]);
         }

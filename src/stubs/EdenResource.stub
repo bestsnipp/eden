@@ -1,0 +1,90 @@
+<?php
+
+namespace {{ namespace }};
+
+use Dgharami\Eden\Components\EdenResource;
+
+class {{ class }} extends EdenResource
+{
+
+    /**
+     * The model that linked with this resource
+     *
+     * @var string
+     */
+    public static $model = \App\Models\User::class;
+
+    /**
+     * URL Slug for the resource
+     *
+     * @var string
+     */
+    protected $slug = '{{ slug }}';
+
+    /**
+     * Title in singular form to display in different pages
+     *
+     * @var string
+     */
+    public $title = '{{ title }}';
+
+    /**
+     * Available cards for the resource
+     *
+     * @return array
+     */
+    public function cards()
+    {
+        return [
+
+        ];
+    }
+
+    /**
+     * Fields to be displayed by the resource
+     *
+     * @return array
+     */
+    protected function fields()
+    {
+        return [
+
+        ];
+    }
+
+    /**
+     * Available Filters for the resource
+     *
+     * @return array
+     */
+    protected function filters()
+    {
+        return [
+
+        ];
+    }
+
+    /**
+     * Available resource actions
+     *
+     * @return array
+     */
+    protected function actions()
+    {
+        return [
+
+        ];
+    }
+
+    /**
+     * Additional secondary operations to show
+     *
+     * @return array
+     */
+    protected function operations()
+    {
+        return [
+
+        ];
+    }
+}
