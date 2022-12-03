@@ -53,14 +53,17 @@ class MakeEdenPage extends Command
     /**
      * Map the stub variables present in stub to its value
      *
-     * Default `namespace` and `class` auto assigned but you can override that
+     * Default `namespace` and `class` auto assigned, but you can override that
      *
      * @return array
      */
     public function variables()
     {
+        $resourceName = Str::replaceLast('-page', '', Str::slug(Str::snake(class_basename($this->name))));
+
         return [
-            'slug' => Str::slug(Str::snake($this->name))
+            'slug' => Str::plural($resourceName),
+            'title' => Str::singular($resourceName)
         ];
     }
 }

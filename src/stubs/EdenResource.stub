@@ -6,13 +6,12 @@ use Dgharami\Eden\Components\EdenResource;
 
 class {{ class }} extends EdenResource
 {
-
     /**
-     * The model that linked with this resource
+     * Title in singular form to display in different pages
      *
      * @var string
      */
-    public static $model = \App\Models\User::class;
+    public $title = '{{ title }}';
 
     /**
      * URL Slug for the resource
@@ -22,11 +21,11 @@ class {{ class }} extends EdenResource
     protected $slug = '{{ slug }}';
 
     /**
-     * Title in singular form to display in different pages
+     * The model that linked with this resource
      *
      * @var string
      */
-    public $title = '{{ title }}';
+    public static $model = \App\Models\User::class;
 
     /**
      * Available cards for the resource

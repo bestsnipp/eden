@@ -59,7 +59,7 @@ class MakeEdenResource extends Command
      */
     public function variables()
     {
-        $resourceName = Str::replaceLast('-resource', '', Str::slug(Str::snake($this->name)));
+        $resourceName = Str::replaceLast('-resource', '', Str::slug(Str::snake(class_basename($this->name))));
 
         return [
             'slug' => Str::plural($resourceName),
