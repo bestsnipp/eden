@@ -24,6 +24,15 @@ Laravel Eden supports modern versions of the following browsers:
 
 ## Installing Via Composer
 
-```bash
-composer require dgharami/laravel-eden
+```shell
+"repositories":[
+    {
+        "type": "vcs",
+        "url": "https://github.com/dgharami/laravel-eden-latest"
+    }
+]
+```
+
+```shell
+composer require dgharami/eden
 ```

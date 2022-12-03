@@ -33,7 +33,9 @@
 <body class="font-sans antialiased" x-data x-eden-nice-scroll>
 
 <div class="min-h-screen bg-slate-100 text-slate-500 flex w-full">
-    <section x-data x-eden-nice-scroll
+    <section
+        x-data
+        x-eden-nice-scroll
         data-dusk="sidebar"
         class="py-3 px-3 bg-white min-w-[240px] w-64 shadow-md sticky top-0 h-screen">
         <div data-dusk="branding" class="mb-6">
@@ -58,9 +60,11 @@
 
         <div data-dusk="container" class="px-4 py-4">
             @yield('content')
-
-            {!! \Dgharami\Eden\Facades\Eden::getFooter() !!}
         </div>
+
+        <footer class="px-4">
+            {!! \Dgharami\Eden\Facades\Eden::getFooter() !!}
+        </footer>
 
     </main>
 </div>

@@ -2,7 +2,17 @@
 
 namespace App\Providers;
 
+use App\Eden\Pages\Dashboard;
+use Dgharami\Eden\Components\DataTable\Actions\DeleteAction;
+use Dgharami\Eden\Components\DataTable\Actions\DetailsAction;
+use Dgharami\Eden\Components\DataTable\Actions\EditAction;
+use Dgharami\Eden\Components\DataTable\Actions\ReplicateAction;
+use Dgharami\Eden\Components\Menu\MenuHeader;
+use Dgharami\Eden\Components\Menu\MenuItem;
+use Dgharami\Eden\Facades\Eden;
 use Dgharami\Eden\Providers\EdenAppServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Request;
 
 class EdenServiceProvider extends EdenAppServiceProvider
 {
@@ -16,7 +26,74 @@ class EdenServiceProvider extends EdenAppServiceProvider
     {
         parent::boot();
 
-        // -
+        Eden::mainMenu(function () {
+            return [
+                MenuHeader::make('Main'),
+                MenuItem::make('Dashboard')->edenPage(Dashboard::make()),
+            ];
+        });
+
+        Eden::accountMenu(function (Request $request) {
+            return [
+                MenuHeader::make('Account Info'),
+                MenuItem::make('My Profile')->noIcon(),
+                MenuItem::make('Account Settings')->noIcon(),
+
+                MenuItem::make("Logout")
+                    ->route('logout')
+                    ->viaForm()
+                    ->noIcon(),
+            ];
+        });
+    }
+
+    /**
+     * Register Eden Gate
+     *
+     * @return void
+     */
+    protected function gate()
+    {
+        Gate::define('accessEden', function ($user) {
+            return true;
+        });
+    }
+
+    /**
+     * Register Global Actions
+     *
+     * @return array
+     */
+    protected function actions()
+    {
+        return [
+            EditAction::make(),
+            DetailsAction::make(),
+            ReplicateAction::make(),
+            DeleteAction::make()
+        ];
+    }
+
+    /**
+     * Register Global Filters
+     *
+     * @return array
+     */
+    protected function filters()
+    {
+        return [
+
+        ];
+    }
+
+    /**
+     * Register Application Plugins
+     *
+     * @return array
+     */
+    protected function plugins()
+    {
+
     }
 
     /**
