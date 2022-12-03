@@ -42,7 +42,7 @@ class EdenInstall extends Command
                 return 1;
             }
 
-            $this->callSilent('jetstream:install', ['livewire']);
+            $this->call('jetstream:install', ['livewire']);
         }
 
         $this->info('Publishing Eden Service Provider...');

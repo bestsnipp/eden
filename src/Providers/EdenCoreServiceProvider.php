@@ -9,6 +9,12 @@ use Dgharami\Eden\Console\DeveloperCommand;
 use Dgharami\Eden\Console\EdenInstall;
 use Dgharami\Eden\Console\MakeCard;
 use Dgharami\Eden\Console\MakeEdenPage;
+use Dgharami\Eden\Console\MakeListMetric;
+use Dgharami\Eden\Console\MakeProgressMetric;
+use Dgharami\Eden\Console\MakeSplitMetric;
+use Dgharami\Eden\Console\MakeStatisticMetric;
+use Dgharami\Eden\Console\MakeTrendMetric;
+use Dgharami\Eden\Console\MakeViewMetric;
 use Dgharami\Eden\Events\EdenServiceProviderRegistered;
 use Dgharami\Eden\Exceptions\EdenExceptionHandler;
 use Dgharami\Eden\Facades\Eden;
@@ -153,8 +159,19 @@ class EdenCoreServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 DeveloperCommand::class,
+                // Install
                 EdenInstall::class,
+
+                // Cards
                 MakeCard::class,
+                MakeStatisticMetric::class,
+                MakeProgressMetric::class,
+                MakeTrendMetric::class,
+                MakeSplitMetric::class,
+                MakeListMetric::class,
+                MakeViewMetric::class,
+
+                // Page & Resource
                 MakeEdenPage::class
             ]);
         }
