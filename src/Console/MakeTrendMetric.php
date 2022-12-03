@@ -14,7 +14,7 @@ class MakeTrendMetric extends Command
      *
      * @var string
      */
-    protected $signature = 'eden:trend-card
+    protected $signature = 'eden:card-trend
                             {name : The Name of the Card}';
 
     /**

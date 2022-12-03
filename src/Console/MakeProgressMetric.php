@@ -14,7 +14,7 @@ class MakeProgressMetric extends Command
      *
      * @var string
      */
-    protected $signature = 'eden:progress-card
+    protected $signature = 'eden:card-progress
                             {name : The Name of the Card}';
 
     /**

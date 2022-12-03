@@ -14,7 +14,7 @@ class MakeViewMetric extends Command
      *
      * @var string
      */
-    protected $signature = 'eden:custom-card
+    protected $signature = 'eden:card-custom
                             {name : The Name of the Card}';
 
     /**

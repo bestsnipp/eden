@@ -14,7 +14,7 @@ class MakeListMetric extends Command
      *
      * @var string
      */
-    protected $signature = 'eden:list-card
+    protected $signature = 'eden:card-list
                             {name : The Name of the Card}';
 
     /**

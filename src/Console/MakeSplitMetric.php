@@ -14,7 +14,7 @@ class MakeSplitMetric extends Command
      *
      * @var string
      */
-    protected $signature = 'eden:split-card
+    protected $signature = 'eden:card-split
                             {name : The Name of the Card}';
 
     /**

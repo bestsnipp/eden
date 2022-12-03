@@ -14,7 +14,7 @@ class MakeStatisticMetric extends Command
      *
      * @var string
      */
-    protected $signature = 'eden:stat-card
+    protected $signature = 'eden:card-stat
                             {name : The Name of the Card}';
 
     /**
