@@ -1,0 +1,112 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Support\Facades\Validator;
+use Dgharami\Eden\Components\Fields\Field;
+
+class {{ class }} extends Field
+{
+
+    /**
+     * Field property - 1
+     *
+     * @var string
+     */
+    protected $firstName = '';
+
+    /**
+     * Field property - 2
+     *
+     * @var string
+     */
+    protected $lastName = '';
+
+    /**
+     * Export field value to Form to use
+     *
+     * @return array
+     */
+    public function value()
+    {
+        return [
+            'first' => $this->firstName,
+            'last' => $this->lastName
+        ];
+    }
+
+    /**
+     * Import and Map property values from Form
+     *
+     * @param mixed $value
+     * @param array $fields
+     * @return $this|\Dgharami\Eden\Components\Fields\Field
+     */
+    public function setValue($value, $fields = [])
+    {
+        $this->firstName = $value['first'];
+        $this->lastName= $value['last'];
+        return $this;
+    }
+
+    /**
+     * Validate current field values
+     *
+     * @param $isUpdate
+     * @return \Illuminate\Contracts\Validation\Validator|\Illuminate\Validation\Validator
+     */
+    public function validate($isUpdate = false)
+    {
+        return Validator::make(
+            [
+                'first_name' => $this->firstName,
+                'last_name' => $this->lastName
+            ],
+            [
+                'first_name' => $this->getRules($isUpdate),
+                'last_name' => $this->getRules($isUpdate)
+            ]
+        );
+    }
+
+    /**
+     * Provide `view` to Form to render the field
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function view()
+    {
+        return view('fields.full-name');
+    }
+
+    /**
+     * Provide `view` to DataTable Header to render the field
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function viewForIndexHeader()
+    {
+        return parent::viewForIndexHeader();
+    }
+
+    /**
+     * Provide `view` to DataTable Cell to render the field
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function viewForIndex()
+    {
+        return parent::viewForIndex();
+    }
+
+    /**
+     * Provide `view` to Read/Details to render the field
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function viewForRead()
+    {
+        return parent::viewForRead();
+    }
+
+}

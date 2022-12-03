@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Eden\Filters;
+
+use Dgharami\Eden\Components\DataTable\Filters\Filter;
+
+class {{ class }} extends Filter
+{
+    /**
+     * Apply the logic for the Filter
+     *
+     * @param $query
+     * @param $value
+     * @return mixed|void
+     */
+    protected function apply($query, $value)
+    {
+
+    }
+}

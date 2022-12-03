@@ -11,6 +11,8 @@ use Dgharami\Eden\Console\MakeAction;
 use Dgharami\Eden\Console\MakeCard;
 use Dgharami\Eden\Console\MakeEdenPage;
 use Dgharami\Eden\Console\MakeEdenResource;
+use Dgharami\Eden\Console\MakeField;
+use Dgharami\Eden\Console\MakeFilter;
 use Dgharami\Eden\Console\MakeListMetric;
 use Dgharami\Eden\Console\MakeProgressMetric;
 use Dgharami\Eden\Console\MakeSplitMetric;
@@ -178,7 +180,9 @@ class EdenCoreServiceProvider extends ServiceProvider
                 MakeEdenPage::class,
 
                 // Fields, Actions, Filters
+                MakeField::class,
                 MakeAction::class,
+                MakeFilter::class
             ]);
         }
     }

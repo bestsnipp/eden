@@ -513,15 +513,4 @@ abstract class Field
         return $viewToRender;
     }
 
-    public function dump()
-    {
-        return [
-            'title' => $this->title,
-            'key' => $this->key,
-            'value' => $this->value,
-            'targets' => $this->targets,
-            'isDependent' => $this->hasDependency
-        ];
-    }
-
 }
