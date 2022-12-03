@@ -46,7 +46,7 @@
     </section>
 
     <!-- Page Content -->
-    <main class="grow">
+    <main class="grow flex flex-col">
 
         <!-- Page Heading -->
         <header data-dusk="header" class="bg-white shadow-md mx-4 mt-4 rounded-md flex items-center py-4 px-4 sm:px-6">
@@ -58,7 +58,7 @@
             </div>
         </header>
 
-        <div data-dusk="container" class="px-4 py-4">
+        <div data-dusk="container" class="px-4 py-4 grow">
             @yield('content')
         </div>
 
