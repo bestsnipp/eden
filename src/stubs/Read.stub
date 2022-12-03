@@ -1,0 +1,58 @@
+<?php
+
+namespace {{ namespace }};
+
+use Dgharami\Eden\Components\Read;
+
+class {{ class }} extends Read
+{
+    /**
+     * Title in singular form to display in DataTable
+     *
+     * @var string
+     */
+    public $title = '';
+
+    /**
+     * The model that linked with this DataTable
+     *
+     * @var string
+     */
+    public static $model = \App\Models\User::class;
+
+    /**
+     * Fields to be displayed by the DataTable
+     *
+     * @return array
+     */
+    protected function fields()
+    {
+        return [
+
+        ];
+    }
+
+    /**
+     * Available DataTable actions
+     *
+     * @return array
+     */
+    protected function actions()
+    {
+        return [
+
+        ];
+    }
+
+    /**
+     * Additional secondary operations to show
+     *
+     * @return array
+     */
+    protected function operations()
+    {
+        return [
+
+        ];
+    }
+}

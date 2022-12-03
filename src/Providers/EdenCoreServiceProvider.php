@@ -9,12 +9,16 @@ use Dgharami\Eden\Console\DeveloperCommand;
 use Dgharami\Eden\Console\EdenInstall;
 use Dgharami\Eden\Console\MakeAction;
 use Dgharami\Eden\Console\MakeCard;
+use Dgharami\Eden\Console\MakeDataTable;
 use Dgharami\Eden\Console\MakeEdenPage;
 use Dgharami\Eden\Console\MakeEdenResource;
 use Dgharami\Eden\Console\MakeField;
 use Dgharami\Eden\Console\MakeFilter;
+use Dgharami\Eden\Console\MakeForm;
 use Dgharami\Eden\Console\MakeListMetric;
+use Dgharami\Eden\Console\MakeModal;
 use Dgharami\Eden\Console\MakeProgressMetric;
+use Dgharami\Eden\Console\MakeRead;
 use Dgharami\Eden\Console\MakeSplitMetric;
 use Dgharami\Eden\Console\MakeStatisticMetric;
 use Dgharami\Eden\Console\MakeTrendMetric;
@@ -178,6 +182,12 @@ class EdenCoreServiceProvider extends ServiceProvider
                 // Page & Resource
                 MakeEdenResource::class,
                 MakeEdenPage::class,
+
+                // DataTables, Forms, Read, Modal
+                MakeDataTable::class,
+                MakeForm::class,
+                MakeRead::class,
+                MakeModal::class,
 
                 // Fields, Actions, Filters
                 MakeField::class,

@@ -1,0 +1,47 @@
+<?php
+
+namespace {{ namespace }};
+
+use Dgharami\Eden\Components\Form;
+
+class {{ class }} extends Form
+{
+    /**
+     * Title in singular form to display in DataTable
+     *
+     * @var string
+     */
+    public $title = '';
+
+    /**
+     * The model that linked with this DataTable
+     *
+     * @var string
+     */
+    public static $model = \App\Models\User::class;
+
+    /**
+     * Fields to be displayed by the DataTable
+     *
+     * @return array
+     */
+    protected function fields()
+    {
+        return [
+
+        ];
+    }
+
+    /**
+     * Action to run after validating the form
+     *
+     * @param array $validated
+     * @param array $all
+     * @param array $transformed
+     * @return void
+     */
+    //protected function action($validated = [], $all = [], $transformed = [])
+    //{
+    //    // TODO : You can remove this method if you want to use default Form behaviour like create/update the $model
+    //}
+}
