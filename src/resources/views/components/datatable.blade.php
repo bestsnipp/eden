@@ -19,7 +19,7 @@
     <div class="">
         @include('eden::datatable.top')
 
-        @if($isTableLayout) <div class="md:bg-white md:shadow-md overflow-auto"><table class="table border-collapse w-full"> @endif
+        @if($isTableLayout) <div class="md:bg-white md:shadow-md overflow-x-auto"><table class="table border-collapse w-full"> @endif
 
             @if($showHeader)
                 {!! $this->header($records) !!}
