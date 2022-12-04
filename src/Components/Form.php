@@ -418,8 +418,8 @@ abstract class Form extends EdenComponent
         $key = $field->getKey();
 
         // Create Record and Sync in Files Array
-        if (is_subclass_of($field, File::class)) {
-            //$this->files[$key] = $this->fields[$key];
+        if ($field instanceof File) {
+            $this->files[$key] = $this->getFormFieldValue($field);
         } else {
             $this->fields[$key] = $this->getFormFieldValue($field);
         }
@@ -436,8 +436,11 @@ abstract class Form extends EdenComponent
         $key = $field->getKey();
         $value = $field->exportToForm();
 
-        if (isset($this->fields[$key])) { // Assign filled form value if exists
+        if (isset($this->fields[$key])) { // Assign filled form value if exists - Non Files
             $value = $this->fields[$key];
+
+        } else if (isset($this->files[$key])) { // Assign filled form value if exists - Files
+            $value = $this->files[$key];
 
         } else { // Fill from record
             $value = $this->getRecordValue($key, $value);
@@ -446,7 +449,6 @@ abstract class Form extends EdenComponent
         return $value;
     }
 
-    // TODO : Need file rules
     /**
      * Sync field rules with the form validation rules
      *
@@ -459,11 +461,11 @@ abstract class Form extends EdenComponent
         $fieldRules = $field->getRules($this->isUpdate);
 
         if ((is_string($fieldRules) && !empty($fieldRules)) || (is_array($fieldRules) && count($fieldRules) > 0)) {
-            if (is_subclass_of($field, File::class)) {
-//                $multipleKey = $field->isMultiple() ? '.*' : '';
-//
-//                $this->rules['files.' . $key . $multipleKey] = $fieldRules;
-//                $this->validationAttributes['files.' . $key . $multipleKey] = htmlentities(strip_tags($field->title));
+            if ($field instanceof File) {
+                $multipleKey = $field->isMultiple() ? '.*' : '';
+
+                $this->rules['files.' . $key . $multipleKey] = $fieldRules;
+                $this->validationAttributes['files.' . $key . $multipleKey] = htmlentities(strip_tags($field->title));
             } else {
                 $this->rules['fields.' . $key] = $fieldRules;
             }

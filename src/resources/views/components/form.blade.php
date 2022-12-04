@@ -11,12 +11,6 @@
         </div>
 
         <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
-            <div x-data="{ shown: false, timeout: null }" x-init="$wire.on('formSaved', () => { clearTimeout(timeout); shown = true; timeout = setTimeout(() => { shown = false }, 2000);  })" x-show.transition.out.opacity.duration.1500ms="shown" x-transition:leave.opacity.duration.1500ms="" style="display: none;" class="text-sm text-gray-600 mr-3">
-                Saved.
-            </div>
-            <div x-data="{ showError: false, showErrorTimeout: null, showErrorMsg: '' }" x-init="$wire.on('autoRecordFailed', (errorMsg) => { showErrorMsg = errorMsg; clearTimeout(showErrorTimeout); showError = true; showErrorTimeout = setTimeout(() => { showError = false }, 5000);  })" x-show.transition.out.opacity.duration.1500ms="showError" x-transition:leave.opacity.duration.1500ms="" style="display: none;" class="text-sm text-gray-600 mr-3">
-                <span x-html="showErrorMsg"></span>
-            </div>
             <button
                 type="submit"
                 wire:loading.attr="disabled"

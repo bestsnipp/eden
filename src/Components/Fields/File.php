@@ -13,12 +13,14 @@ class File extends Field
 
     protected $publicly = true;
 
+    protected $displayValues = '';
+
     protected $meta = [
         'type' => 'file',
         'class' => 'opacity-0 absolute hidden'
     ];
 
-    public function prepare()
+    public function onMounted()
     {
         $this->storage = config('filesystems.default');
     }
@@ -45,12 +47,12 @@ class File extends Field
         })->toArray();
     }
 
-    public function process($value)
+    public function process()
     {
-        if (is_array($value)) {
-            return $this->processMultipleFile($value);
-        }
-        return $this->processSingleFile($value);
+        $value = $this->value;
+        return is_array($value)
+            ? $this->processMultipleFile($value)
+            : $this->processSingleFile($value);
     }
 
     /**
@@ -92,28 +94,18 @@ class File extends Field
         return $this;
     }
 
-    public function render()
+    protected function prepareDisplayValues()
     {
-        return view('eden::widgets.fields.file')
-            ->with([
-                'title' => $this->title,
-                'key' => $this->key,
-                'helpText' => $this->helpText,
-                'value' => $this->value,
-                'options' => $this->options,
-                'meta' => $this->meta,
-                'required' => $this->required,
-                'attributes' => $this->getMetaAttributes(),
-            ]);
+        $this->displayValues = $this->value;
     }
 
-    public function renderView()
+    public function view()
     {
-        return view('eden::widgets.fields.view.file')
+        $this->prepareDisplayValues();
+
+        return view('eden::fields.input.file')
             ->with([
-                'title' => $this->title,
-                'key' => $this->key,
-                'value' => collect($this->value)->all()
+                'displayValues' => $this->displayValues
             ]);
     }
 
