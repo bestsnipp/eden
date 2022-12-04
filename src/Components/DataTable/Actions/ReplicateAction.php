@@ -8,29 +8,19 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
 
-class ReplicateAction extends Action
+class ReplicateAction extends StaticAction
 {
 
     public $title = 'Replicate';
 
     public $icon = 'duplicate';
 
-    public function allowBulk()
+    public function beforeApply()
     {
-        return false;
-    }
-
-    public function apply($records, $payload)
-    {
-        $record = collect($records)->first();
-        if (is_null($record)) {
-            throw new \Exception("Null not allowed as record");
-        }
-        return $this->redirectRoute('eden.create', [
-            'slug' => $this->getRouteParam('slug'),
-            'key' => $record->id,
+        $this->route = route('eden.create', [
+            'resource' => $this->resource,
+            'resourceId' => ($this->resourceId->id ?? $this->resourceId),
             'replicate' => true
         ]);
     }
-
 }

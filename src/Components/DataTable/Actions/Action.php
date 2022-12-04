@@ -15,6 +15,7 @@ use Dgharami\Eden\Traits\RouteAware;
 use Dgharami\Eden\Traits\RouteAwareViaOwner;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -35,6 +36,10 @@ abstract class Action
     private $payload = [];
 
     protected $owner = null;
+
+    protected $resource = '';
+
+    protected $resourceId = '';
 
     public function __construct()
     {
@@ -80,7 +85,31 @@ abstract class Action
     {
         $this->records = $records;
         $this->payload = $payload;
+
+        $this->assignResourceAndId();
+
+        if (method_exists(static::class, 'beforeApply')) {
+            appCall([$this, 'beforeApply'], [
+                'records' => $this->records,
+                'payload' => $this->payload
+            ]);
+        }
+
         return $this;
+    }
+
+    protected function assignResourceAndId()
+    {
+        if (!is_null($this->owner)) {
+            $this->resource = $this->owner->resource;
+        }
+
+        $firstRecord = collect($this->records)->first();
+        if ($firstRecord instanceof Model && isset($firstRecord->{$firstRecord->getKeyName()})) {
+            $this->resourceId = $firstRecord->{$firstRecord->getKeyName()};
+        } else if (is_object($firstRecord) && isset($firstRecord->id)) {
+            $this->resourceId = $firstRecord->id;
+        }
     }
 
     /**

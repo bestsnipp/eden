@@ -3,6 +3,7 @@ namespace Dgharami\Eden\Components;
 
 use App\Models\User;
 use Dgharami\Eden\Components\DataTable\Actions\Action;
+use Dgharami\Eden\Components\DataTable\Actions\StaticAction;
 use Dgharami\Eden\Components\DataTable\Column\ActionField;
 use Dgharami\Eden\Components\DataTable\Column\SelectorField;
 use Dgharami\Eden\Components\Fields\Field;
@@ -347,7 +348,6 @@ abstract class DataTable extends EdenComponent
      */
     private function processFieldOrdering(Field $field)
     {
-        Log::debug($field->getKey() . ' = ' . json_encode(isset($this->sorting[ $field->getKey() ])) );
         if ( isset($this->sorting[ $field->getKey() ]) ) {
             $field->orderBy( $this->sorting[ $field->getKey() ] );
         } else {
@@ -360,7 +360,7 @@ abstract class DataTable extends EdenComponent
     private function getBulkActions()
     {
         return collect($this->actions)->filter(function (Action $action) {
-            return $action->allowBulk();
+            return $action->allowBulk() && !($action instanceof StaticAction);
         })->all();
     }
 
@@ -370,6 +370,9 @@ abstract class DataTable extends EdenComponent
         $this->actions = collect(array_merge($this->actions(), $globalActions))
             ->reject(function ($action) {
                 return !$action->visibilityOnIndex;
+            })
+            ->transform(function ($action) {
+                return $action->setOwner($this);
             })
             ->all();
     }

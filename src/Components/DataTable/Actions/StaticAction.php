@@ -12,6 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 class StaticAction extends Action
 {
@@ -33,7 +34,7 @@ class StaticAction extends Action
 
     protected bool $isResource = false;
 
-    public function allowBulk()
+    final public function allowBulk()
     {
         return false;
     }
@@ -172,10 +173,17 @@ class StaticAction extends Action
 
     public function defaultViewParams()
     {
+        $route = Str::replace([
+            '__resource__',
+            '__resourceId__'
+        ], [
+            $this->resource,
+            $this->resourceId
+        ], $this->route);
         return [
             'icon' => $this->icon,
             'title' => $this->title,
-            'route' => $this->route,
+            'route' => $route,
             'inNewTab' => $this->inNewTab,
             'isForm' => $this->isForm,
             'method' => $this->method,

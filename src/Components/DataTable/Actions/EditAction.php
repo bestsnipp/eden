@@ -10,27 +10,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
-class EditAction extends Action
+class EditAction extends StaticAction
 {
 
     public $title = 'Edit';
 
     public $icon = 'pencil-alt';
 
-    public function allowBulk()
+    public function beforeApply()
     {
-        return false;
+        $this->route = route('eden.edit', [
+            'resource' => $this->resource,
+            'resourceId' => ($this->resourceId->id ?? $this->resourceId)
+        ]);
     }
-
-    public function apply($records, $payload = [])
-    {
-        $record = collect($records)->first();
-        if (is_null($record)) {
-            throw new \Exception("Null not allowed as record");
-        }
-
-        $this->toastSuccess('Success Toast');
-        //redirect()->route('eden.page', 'dashboard');
-    }
-
 }

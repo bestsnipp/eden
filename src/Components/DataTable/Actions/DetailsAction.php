@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
-class DetailsAction extends Action
+class DetailsAction extends StaticAction
 {
 
     public $title = 'View Details';
@@ -19,21 +19,11 @@ class DetailsAction extends Action
 
     public $visibilityOnDetails = false;
 
-    public function allowBulk()
+    public function beforeApply()
     {
-        return false;
-    }
-
-
-    public function apply($records, $payload)
-    {
-        $record = collect($records)->first();
-        if (is_null($record)) {
-            throw new \Exception("Null not allowed as record");
-        }
-        return $this->redirectRoute('eden.show', [
-            'slug' => 'tets',
-            'id' => $record->id
+        $this->route = route('eden.show', [
+            'resource' => $this->resource,
+            'resourceId' => ($this->resourceId->id ?? $this->resourceId)
         ]);
     }
 
