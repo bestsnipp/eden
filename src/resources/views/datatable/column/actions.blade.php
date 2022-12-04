@@ -14,9 +14,9 @@
             <ul class="list-inside">
                 @foreach($actions as $action)
                     @if($action instanceof \Dgharami\Eden\Components\DataTable\Actions\StaticAction)
-                        {!! $action->setOwner($this)->prepare([$record], [])->render('button', $action, $record, $buttonStyle) !!}
+                        {!! $action->setOwner($this)->prepare([$record], [])->render('list', $action, $record, $buttonStyle) !!}
                     @else
-                        {!! $action->render('button', $action, $record, $buttonStyle) !!}
+                        {!! $action->render('list', $action, $record, $buttonStyle) !!}
                     @endif
                 @endforeach
             </ul>
