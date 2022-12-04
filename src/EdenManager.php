@@ -19,6 +19,8 @@ class EdenManager
 
     protected $accountMenuCallback = null;
 
+    protected $logoCallback = null;
+
     protected $footerCallback = null;
 
     protected $actions = [];
@@ -124,7 +126,7 @@ class EdenManager
     }
 
     /**
-     * Set Footer View
+     * Get Footer View
      *
      * @return mixed
      */
@@ -135,6 +137,30 @@ class EdenManager
             return appCall($caller);
         }
         return view('eden::widgets.footer');
+    }
+
+    /**
+     * Set Logo View
+     *
+     * @return void
+     */
+    public function logo($callback = null)
+    {
+        $this->logoCallback = $callback;
+    }
+
+    /**
+     * Get Logo View
+     *
+     * @return mixed
+     */
+    public function getLogo()
+    {
+        if (!is_null($this->logoCallback)) {
+            $caller = $this->logoCallback;
+            return appCall($caller);
+        }
+        return view('eden::widgets.logo');
     }
 
     /**

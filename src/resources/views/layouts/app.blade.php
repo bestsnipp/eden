@@ -39,6 +39,7 @@
         data-dusk="sidebar"
         class="py-3 px-3 bg-white min-w-[240px] w-64 shadow-md sticky top-0 h-screen">
         <div data-dusk="branding" class="mb-6">
+            {!! \Dgharami\Eden\Facades\Eden::getLogo() !!}
             @include('eden::widgets.logo')
         </div>
 

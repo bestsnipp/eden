@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static filters()
  * @method static footer($callback = null)
  * @method static getFooter()
+ * @method static logo($callback = null)
+ * @method static getLogo()
  * @method static getCurrentRoute()
  * @method static registerComponents($directory, $namespace = null, $basePath = null)
  */
