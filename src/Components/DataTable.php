@@ -8,6 +8,7 @@ use Dgharami\Eden\Components\DataTable\Column\SelectorField;
 use Dgharami\Eden\Components\Fields\Field;
 use Dgharami\Eden\Facades\Eden;
 use Dgharami\Eden\RenderProviders\DataTableRenderer;
+use Dgharami\Eden\Traits\WithModel;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pipeline\Pipeline;
@@ -21,11 +22,7 @@ use Livewire\WithPagination;
 abstract class DataTable extends EdenComponent
 {
     use WithPagination;
-
-    /**
-     * @var string|array|Model
-     */
-    public static $model = null;
+    use WithModel;
 
     /**
      * Title to show in front end
@@ -300,14 +297,12 @@ abstract class DataTable extends EdenComponent
     public function mount()
     {
         $this->initialRowsPerPage = $this->rowsPerPage;
-        //$this->resolveModel();
         $this->processActions();
         $this->processFilters();
     }
 
     public function hydrate()
     {
-        //$this->resolveModel();
         $this->processActions();
         $this->processFilters();
     }
@@ -435,11 +430,6 @@ abstract class DataTable extends EdenComponent
                 $action->handle();
             }
         }
-    }
-
-    protected function model()
-    {
-        return get_class($this)::$model;
     }
 
     /**

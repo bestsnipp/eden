@@ -23,9 +23,9 @@ class {{ class }} extends EdenResource
     /**
      * The model that linked with this resource
      *
-     * @var string
+     * @var class-string<\App\Models\{{ model }}>
      */
-    public static $model = \App\Models\User::class;
+    public static $model = \App\Models\{{ model }}::class;
 
     /**
      * Available cards for the resource

@@ -63,7 +63,8 @@ class MakeEdenResource extends Command
 
         return [
             'slug' => Str::plural($resourceName),
-            'title' => Str::singular($resourceName)
+            'title' => Str::ucfirst(Str::singular(Str::slug($resourceName, ' '))),
+            'model' => Str::ucfirst(Str::camel(Str::slug($resourceName)))
         ];
     }
 }
