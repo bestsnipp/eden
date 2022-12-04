@@ -262,11 +262,11 @@ abstract class Field
     }
 
     /**
-     * @param array $options
+     * @param array|\Closure $options
      */
     public function options(array $options)
     {
-        $this->options = $options;
+        $this->options = appCall($options);
         return $this;
     }
 
