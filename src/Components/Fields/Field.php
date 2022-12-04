@@ -474,6 +474,10 @@ abstract class Field
 
     public function viewForRead()
     {
+        $this->value = is_null($this->displayCallback) ? $this->value : appCall($this->displayCallback, [
+            'value' => $this->value,
+            'field' => $this
+        ]);
         return view('eden::fields.view.text');
     }
 
