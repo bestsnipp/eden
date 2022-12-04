@@ -314,8 +314,31 @@ abstract class Form extends EdenComponent
         return null;
     }
 
+    /**
+     * Model properties needed to be removed before save/update
+     *
+     * @return array
+     */
+    protected function propertiesToRemove()
+    {
+        return [
+            'id', 'created_at', 'updated_at'
+        ];
+    }
+
+    /**
+     * Transformed properties and remove unwanted before action
+     *
+     * @return mixed
+     */
+    protected function filterTransformedProperties($data = [])
+    {
+        return Arr::except($data, $this->propertiesToRemove());
+    }
+
     protected function action($validated = [], $all = [], $transformed = [])
     {
+        $transformed = $this->filterTransformedProperties($transformed);
         try {
             if ($this->isUpdate) {
                 $actionData = $this->updateRecord($validated, $all, $transformed);
