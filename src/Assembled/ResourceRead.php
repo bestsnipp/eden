@@ -12,8 +12,6 @@ class ResourceRead extends Read
 {
     use HasEdenResource;
 
-    protected $edenResourceObject = null;
-
     protected function init()
     {
         $this->getResourceData(function ($edenResource) {

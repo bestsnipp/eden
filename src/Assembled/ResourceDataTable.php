@@ -16,10 +16,10 @@ final class ResourceDataTable extends DataTable
 
     protected function init()
     {
-        $edenResource = app($this->edenResource);
-        if (!is_null($edenResource)) {
+        $this->getResourceData(function ($edenResource) {
+            $this->edenResourceObject = $edenResource;
             $this->mapResourceProperties($edenResource, $edenResource->toDataTable());
-        }
+        });
     }
 
     public function mount()
@@ -108,5 +108,15 @@ final class ResourceDataTable extends DataTable
                 return !$action->visibilityOnIndex;
             })
             ->all();
+    }
+
+    protected function indexQuery($query)
+    {
+        if ($this->edenResourceObject->hasMethod('query') ?? false) {
+            $this->edenResourceObject->callMethod('query', $query);
+            return;
+        }
+
+        parent::query($query);
     }
 }

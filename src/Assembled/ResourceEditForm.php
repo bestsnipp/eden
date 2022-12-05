@@ -10,7 +10,6 @@ class ResourceEditForm extends ResourceCreateForm
         $this->isUpdate = true; // Force the form as Update Form
     }
 
-
     protected function fields()
     {
         return collect($this->getResourceData(function ($resource) {
@@ -20,6 +19,11 @@ class ResourceEditForm extends ResourceCreateForm
                 return !$field->visibilityOnUpdate;
             })
             ->all();
+    }
+
+    protected function view()
+    {
+        return $this->edenResourceObject->getViewForEdit() ?? parent::view();
     }
 
 }

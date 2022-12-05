@@ -6,6 +6,8 @@ trait HasEdenResource
 {
     public $edenResource = '';
 
+    protected $edenResourceObject = null;
+
     protected function getResourceData(callable $callback, $default = '')
     {
         $edenResource = app($this->edenResource);

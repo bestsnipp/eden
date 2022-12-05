@@ -19,10 +19,10 @@ class ResourceCreateForm extends Form
 
     protected function init()
     {
-        $edenResource = app($this->edenResource);
-        if (!is_null($edenResource)) {
+        $this->getResourceData(function ($edenResource) {
+            $this->edenResourceObject = $edenResource;
             $this->mapResourceProperties($edenResource, $edenResource->toForm());
-        }
+        });
     }
 
     public function mount()
@@ -59,6 +59,71 @@ class ResourceCreateForm extends Form
                 return !$field->visibilityOnCreate;
             })
             ->all();
+    }
+
+    protected function transform($validated, $all)
+    {
+        return $this->edenResourceObject->getTransformMethod($validated, $all) ?? parent::transform($validated, $all);
+    }
+
+    protected function propertiesToRemove($isUpdate = false)
+    {
+        return $this->edenResourceObject->getPropertiesToRemoveMethod($isUpdate) ?? parent::propertiesToRemove($isUpdate);
+    }
+
+    protected function action($validated = [], $all = [], $transformed = [])
+    {
+        if ($this->edenResourceObject->hasMethod('action') ?? false) {
+            $this->edenResourceObject->callMethod('action', $validated, $all, $transformed);
+            return;
+        }
+
+        parent::action($validated, $all, $transformed);
+    }
+
+    protected function createRecord($validated = [], $all = [], $transformed = [])
+    {
+        if ($this->edenResourceObject->hasMethod('createRecord') ?? false) {
+            $this->edenResourceObject->callMethod('createRecord', $validated, $all, $transformed);
+            return;
+        }
+
+        parent::createRecord($validated, $all, $transformed);
+    }
+
+    protected function updateRecord($validated = [], $all = [], $transformed = [])
+    {
+        if ($this->edenResourceObject->hasMethod('updateRecord') ?? false) {
+            $this->edenResourceObject->callMethod('updateRecord', $validated, $all, $transformed);
+            return;
+        }
+
+        parent::updateRecord($validated, $all, $transformed);
+    }
+
+    protected function onActionCompleted($data)
+    {
+        if ($this->edenResourceObject->hasMethod('onActionCompleted') ?? false) {
+            $this->edenResourceObject->callMethod('onActionCompleted', $data);
+            return;
+        }
+
+        parent::onActionCompleted($data);
+    }
+
+    protected function onActionException(\Exception $exception)
+    {
+        if ($this->edenResourceObject->hasMethod('onActionException') ?? false) {
+            $this->edenResourceObject->callMethod('onActionException', $exception);
+            return;
+        }
+
+        parent::onActionException($exception);
+    }
+
+    protected function view()
+    {
+        return $this->edenResourceObject->getViewForCreate() ?? parent::view();
     }
 
 }

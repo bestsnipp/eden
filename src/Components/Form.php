@@ -319,7 +319,7 @@ abstract class Form extends EdenComponent
      *
      * @return array
      */
-    protected function propertiesToRemove()
+    protected function propertiesToRemove($isUpdate = false)
     {
         return [
             'id', 'created_at', 'updated_at'
@@ -331,9 +331,9 @@ abstract class Form extends EdenComponent
      *
      * @return mixed
      */
-    protected function filterTransformedProperties($data = [])
+    private function filterTransformedProperties($data = [])
     {
-        return Arr::except($data, $this->propertiesToRemove());
+        return Arr::except($data, $this->propertiesToRemove($this->isUpdate));
     }
 
     protected function action($validated = [], $all = [], $transformed = [])
@@ -429,7 +429,6 @@ abstract class Form extends EdenComponent
 
     }
 
-    // TODO : Need file values
     /**
      * Sync file value with form fields values to enable user interaction
      *
@@ -536,17 +535,24 @@ abstract class Form extends EdenComponent
             ->all();
     }
 
+    public function defaultViewParams()
+    {
+        return [
+            'rules' => $this->rules,
+            'formFields' => $this->allFields,
+            'depends' => $this->dependentFields,
+            'record' => $this->record
+        ];
+    }
+
     /**
      * View for the form
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function view()
+    protected function view()
     {
-        return view('eden::components.form')
-            ->with('rules', $this->rules)
-            ->with('formFields', $this->allFields)
-            ->with('depends', $this->dependentFields);
+        return view('eden::components.form');
     }
 
     /**

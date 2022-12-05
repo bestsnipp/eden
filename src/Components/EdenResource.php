@@ -334,4 +334,78 @@ abstract class EdenResource extends EdenPage
     {
         return $this->viewForRead();
     }
+
+    /**
+     * Override view for Edit page
+     *
+     * @return null
+     */
+    protected function viewForEdit()
+    {
+        return null;
+    }
+
+    public function getViewForEdit()
+    {
+        return $this->viewForEdit();
+    }
+
+    /**
+     * Override view for Create page
+     *
+     * @return null
+     */
+    protected function viewForCreate()
+    {
+        return null;
+    }
+
+    public function getViewForCreate()
+    {
+        return $this->viewForCreate();
+    }
+
+    /**
+     * Transform $validated and $all fields to new data
+     *
+     * @param $validated
+     * @param $all
+     * @return mixed
+     */
+    protected function transform($validated, $all)
+    {
+        return $all;
+    }
+
+    public function getTransformMethod($validated, $all)
+    {
+        return $this->transform($validated, $all);
+    }
+
+    /**
+     * Model properties needed to be removed before save/update
+     *
+     * @return array
+     */
+    protected function propertiesToRemove($isUpdate = false)
+    {
+        return [
+            'id', 'created_at', 'updated_at'
+        ];
+    }
+
+    public function getPropertiesToRemoveMethod($isUpdate = false)
+    {
+        return $this->propertiesToRemove($isUpdate);
+    }
+
+    public function hasMethod($method)
+    {
+        return method_exists($this, $method);
+    }
+
+    public function callMethod(string $method, ... $arguments)
+    {
+        return call_user_func_array([$this, $method], $arguments);
+    }
 }
