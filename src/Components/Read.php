@@ -59,6 +59,11 @@ abstract class Read extends EdenComponent
         return [];
     }
 
+    protected function operations()
+    {
+        return [];
+    }
+
     /**
      * Initial Component Mount - Only First Time
      *
@@ -128,6 +133,7 @@ abstract class Read extends EdenComponent
             'fields' => $this->allFields,
             'actions' => $this->actions,
             'record' => $this->record,
+            'operations' => $this->operations()
         ];
     }
 

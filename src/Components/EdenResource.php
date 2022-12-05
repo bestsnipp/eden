@@ -320,4 +320,18 @@ abstract class EdenResource extends EdenPage
         return view('eden::app')->with($viewParams);
     }
 
+    /**
+     * Override view for Read page
+     *
+     * @return null
+     */
+    protected function viewForRead()
+    {
+        return null;
+    }
+
+    public function getViewForRead()
+    {
+        return $this->viewForRead();
+    }
 }

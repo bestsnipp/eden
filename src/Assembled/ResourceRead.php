@@ -2,6 +2,7 @@
 
 namespace Dgharami\Eden\Assembled;
 
+use Dgharami\Eden\Components\EdenButton;
 use Dgharami\Eden\Components\Read;
 use Dgharami\Eden\Facades\Eden;
 use Dgharami\Eden\Traits\HasEdenResource;
@@ -11,12 +12,14 @@ class ResourceRead extends Read
 {
     use HasEdenResource;
 
+    protected $edenResourceObject = null;
+
     protected function init()
     {
-        $edenResource = app($this->edenResource);
-        if (!is_null($edenResource)) {
+        $this->getResourceData(function ($edenResource) {
+            $this->edenResourceObject = $edenResource;
             $this->mapResourceProperties($edenResource, $edenResource->toDetails());
-        }
+        });
     }
 
     public function mount()
@@ -67,4 +70,17 @@ class ResourceRead extends Read
             ->all();
     }
 
+    protected function operations()
+    {
+        $operations = $this->getResourceData(function ($edenResource) {
+            return $edenResource->getOperations();
+        }, []);
+
+        return $operations;
+    }
+
+    protected function view()
+    {
+        return $this->edenResourceObject->getViewForRead() ?? parent::view();
+    }
 }
