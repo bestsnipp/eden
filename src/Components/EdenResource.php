@@ -366,6 +366,66 @@ abstract class EdenResource extends EdenPage
     }
 
     /**
+     * Override view for Index
+     *
+     * @return null
+     */
+    protected function viewForIndex()
+    {
+        return null;
+    }
+
+    public function getViewForIndex()
+    {
+        return $this->viewForIndex();
+    }
+
+    /**
+     * Override empty view for Index
+     *
+     * @return null
+     */
+    protected function emptyViewForIndex()
+    {
+        return null;
+    }
+
+    public function getEmptyViewForIndex()
+    {
+        return $this->emptyViewForIndex();
+    }
+
+    /**
+     * Override row view for Index
+     *
+     * @return null
+     */
+    protected function rowViewForIndex($record, $fields = [], $records = [])
+    {
+        return null;
+    }
+
+    public function getRowViewForIndex($record, $fields = [], $records = [])
+    {
+        return $this->rowViewForIndex($record, $fields, $records);
+    }
+
+    /**
+     * Override table header view for Index
+     *
+     * @return null
+     */
+    protected function headerViewForIndex($fields = [], $records = [])
+    {
+        return null;
+    }
+
+    public function getHeaderViewForIndex($fields = [], $records = [])
+    {
+        return $this->headerViewForIndex($fields, $records);
+    }
+
+    /**
      * Transform $validated and $all fields to new data
      *
      * @param $validated

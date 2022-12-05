@@ -14,6 +14,7 @@ final class ResourceDataTable extends DataTable
 {
     use HasEdenResource;
 
+
     protected function init()
     {
         $this->getResourceData(function ($edenResource) {
@@ -117,5 +118,25 @@ final class ResourceDataTable extends DataTable
         }
 
         return parent::query($query);
+    }
+
+    protected function view()
+    {
+        return $this->edenResourceObject->getViewForIndex() ?? parent::view();
+    }
+
+    public function emptyView()
+    {
+        return $this->edenResourceObject->getEmptyViewForIndex() ?? parent::emptyView();
+    }
+
+    public function rowView($record, $fields = [], $records = [])
+    {
+        return $this->edenResourceObject->getRowViewForIndex($record, $fields, $records) ?? parent::rowView($record, $fields, $records);
+    }
+
+    public function headerView($fields = [], $records = [])
+    {
+        return $this->edenResourceObject->getHeaderViewForIndex($fields, $records) ?? parent::headerView($fields, $records);
     }
 }

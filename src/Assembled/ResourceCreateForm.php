@@ -11,11 +11,14 @@ class ResourceCreateForm extends Form
 {
     use HasEdenResource;
 
-    public $key = null;
+    public $replicateId = null;
 
-    public $replicate = null;
+    public bool $replicate = false;
 
-    protected $queryString = ['key', 'replicate'];
+    protected $queryString = [
+        'replicateId' => ['exclude' => '', 'as' => 'resourceId'],
+        'replicate' => ['exclude' => false]
+    ];
 
     protected function init()
     {
@@ -23,6 +26,14 @@ class ResourceCreateForm extends Form
             $this->edenResourceObject = $edenResource;
             $this->mapResourceProperties($edenResource, $edenResource->toForm());
         });
+    }
+
+    protected function resolveRecord()
+    {
+        if ($this->replicate) {
+            $this->resourceId = $this->replicateId;
+        }
+        parent::resolveRecord();
     }
 
     public function mount()

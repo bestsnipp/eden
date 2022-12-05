@@ -519,20 +519,26 @@ abstract class DataTable extends EdenComponent
         return new DataTableRenderer($class, $params);
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function view()
+    public function defaultViewParams()
     {
         $records = $this->paginatedData();
 
-        return view('eden::components.datatable')
-            ->with('fields', $this->allFields)
-            ->with('appliedFilters', $this->getAppliedFilters())
-            ->with('allFilters', $this->allFilters)
-            ->with('actions', $this->getBulkActions())
-            ->with('operations', $this->operations())
-            ->with('records', $records);
+        return [
+            'fields' => $this->allFields,
+            'appliedFilters' => $this->getAppliedFilters(),
+            'allFilters' => $this->allFilters,
+            'actions' => $this->getBulkActions(),
+            'operations' => $this->operations(),
+            'records' => $records
+        ];
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
+    protected function view()
+    {
+        return view('eden::components.datatable');
     }
 
     public function paginationView()
@@ -559,6 +565,12 @@ abstract class DataTable extends EdenComponent
             ->with('fields', $fields);
     }
 
+    public function headerView($fields = [], $records = [])
+    {
+        return view('eden::datatable.header')
+            ->with(compact('fields', 'records'));
+    }
+
     /**
      * Calling from front end to render row
      *
@@ -582,12 +594,6 @@ abstract class DataTable extends EdenComponent
         }
 
         return is_null($view) ? '' : $view;
-    }
-
-    public function headerView($fields = [], $records = [])
-    {
-        return view('eden::datatable.header')
-            ->with(compact('fields', 'records'));
     }
 
     /**

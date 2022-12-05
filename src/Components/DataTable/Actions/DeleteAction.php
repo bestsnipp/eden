@@ -20,10 +20,10 @@ class DeleteAction extends Action
 //            'model' => is_string($this->getOwner()->model) ? $this->getOwner()->model : get_class($this->getOwner()->model),
 //            'records' => $records->pluck('id')
 //        ]);
-//        foreach ($records as $record) {
-//            $record->delete();
-//            $this->actionSuccess("Record #{$record->id} Removed");
-//        }
+        foreach ($records as $record) {
+            $record->delete();
+            $this->toastSuccess("Record #{$record->id} Removed");
+        }
     }
 
 }

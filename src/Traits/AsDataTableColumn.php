@@ -85,6 +85,11 @@ trait AsDataTableColumn
         return $this;
     }
 
+    public function withRecord($record)
+    {
+        return $this->record($record);
+    }
+
     /**
      * @return null
      */
