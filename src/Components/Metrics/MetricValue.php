@@ -5,6 +5,7 @@ namespace Dgharami\Eden\Components\Metrics;
 use Carbon\CarbonImmutable;
 use DateTime;
 use DateTimeZone;
+use Dgharami\Eden\Traits\CanBeRendered;
 use Dgharami\Eden\Traits\HasDatabaseQueryFilters;
 use Dgharami\Eden\Traits\Makeable;
 
@@ -15,6 +16,7 @@ abstract class MetricValue
 {
     use Makeable;
     use HasDatabaseQueryFilters;
+    use CanBeRendered;
 
     protected mixed $activeFilter = null;
 

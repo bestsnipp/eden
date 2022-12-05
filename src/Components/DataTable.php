@@ -391,15 +391,6 @@ abstract class DataTable extends EdenComponent
         })->all();
     }
 
-    public function getRecordIdentifier($record = null)
-    {
-        if ($record instanceof Model) {
-            return base64_encode($record->{$record->getKeyName()});
-        }
-
-        return (is_null($record)) ? base64_encode(Str::ulid()) : '';
-    }
-
     public function applyBulkAction($actionID)
     {
         $this->applyAction($actionID, $this->selectedRows);

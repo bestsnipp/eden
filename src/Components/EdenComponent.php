@@ -2,6 +2,7 @@
 
 namespace Dgharami\Eden\Components;
 
+use Dgharami\Eden\Traits\AuthorizedToSee;
 use Dgharami\Eden\Traits\CanBeRefreshed;
 use Dgharami\Eden\Traits\CanBeRendered;
 use Dgharami\Eden\Traits\HasToast;
@@ -15,6 +16,7 @@ abstract class EdenComponent extends \Livewire\Component
     use CanBeRendered;
     use CanBeRefreshed;
     use HasToast;
+    use AuthorizedToSee;
 
     public $title = '';
 

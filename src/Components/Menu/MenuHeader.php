@@ -2,6 +2,7 @@
 
 namespace Dgharami\Eden\Components\Menu;
 
+use Dgharami\Eden\Traits\AuthorizedToSee;
 use Dgharami\Eden\Traits\CanBeRendered;
 use Dgharami\Eden\Traits\Makeable;
 
@@ -12,6 +13,7 @@ class MenuHeader
 {
     use Makeable;
     use CanBeRendered;
+    use AuthorizedToSee;
 
     protected string $title;
 

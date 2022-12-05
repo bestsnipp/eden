@@ -5,6 +5,8 @@
             @foreach($operations as $operation)
                 {!! $operation->render() !!}
             @endforeach
+
+            {!! $actionButtons->render('read') !!}
         </div>
     </div>
 

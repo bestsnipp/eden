@@ -22,7 +22,7 @@
 
             @if(!is_null($data) && ($data instanceof \Dgharami\Eden\Components\Metrics\MetricValue))
                 @if(!is_null($data->view()))
-                    {!! $data->view()->render() !!}
+                    {!! $data->render() !!}
                 @else
                     <p class="px-4 py-4 text-red-300 break-words">{{ sprintf('Unable to find view for current %s', get_class($data)) }}</p>
                 @endif

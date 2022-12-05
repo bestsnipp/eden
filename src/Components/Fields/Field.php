@@ -3,6 +3,7 @@
 namespace Dgharami\Eden\Components\Fields;
 
 use Dgharami\Eden\Components\Form;
+use Dgharami\Eden\Traits\AuthorizedToSee;
 use Dgharami\Eden\Traits\CanManageVisibility;
 use Dgharami\Eden\Traits\DependentField;
 use Dgharami\Eden\Traits\Makeable;
@@ -23,6 +24,7 @@ abstract class Field
     use CanManageVisibility;
     use AsDataTableColumn;
     use DependentField;
+    use AuthorizedToSee;
 
     public ?string $title = '';
 
@@ -488,6 +490,13 @@ abstract class Field
 
     public function render($type = 'form')
     {
+        if (in_array(AuthorizedToSee::class, class_uses_recursive($this)) && !$this->isAuthorizedToSee()) {
+            return '';
+        }
+        if (!$this->shouldShow()) {
+            return '';
+        }
+
         $viewToRender = '';
 
         switch (strtolower($type)):

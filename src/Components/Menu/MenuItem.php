@@ -7,6 +7,7 @@ use Dgharami\Eden\Components\EdenResource;
 use Dgharami\Eden\Components\PageView;
 use Dgharami\Eden\Components\Resource;
 use Dgharami\Eden\RouteManager;
+use Dgharami\Eden\Traits\AuthorizedToSee;
 use Dgharami\Eden\Traits\CanBeRendered;
 use Dgharami\Eden\Traits\HasTitleKey;
 use Dgharami\Eden\Traits\HasView;
@@ -22,6 +23,7 @@ class MenuItem
 {
     use Makeable;
     use CanBeRendered;
+    use AuthorizedToSee;
 
     protected string $title = '';
 

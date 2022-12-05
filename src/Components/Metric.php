@@ -7,9 +7,6 @@ use Dgharami\Eden\Components\Metrics\MetricValue;
 use Dgharami\Eden\Components\Metrics\SplitMetric;
 use Dgharami\Eden\Components\Metrics\TrendMetric;
 use Dgharami\Eden\RenderProviders\CardRenderer;
-use Dgharami\Eden\RenderProviders\RenderProvider;
-use Illuminate\Database\Eloquent\Builder;
-use \Livewire\Component;
 
 /**
  * @method static make(array $params = [])
@@ -81,18 +78,22 @@ abstract class Metric extends EdenComponent
         return $calculatedData;
     }
 
+    public function defaultViewParams()
+    {
+        return [
+            'blankCanvas' => $this->blankCanvas,
+            'hasFilters' => count($this->filters()) > 0,
+            'filters' => collect($this->filters())->toArray(),
+            'data' => $this->prepareForRender()
+        ];
+    }
+
     /**
      * @return \Illuminate\Contracts\View\View
      */
     public function view()
     {
-        return view('eden::components.card')
-            ->with([
-                'blankCanvas' => $this->blankCanvas,
-                'hasFilters' => count($this->filters()) > 0,
-                'filters' => collect($this->filters())->toArray(),
-                'data' => $this->prepareForRender()
-            ]);
+        return view('eden::components.card');
     }
 
     /**

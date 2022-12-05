@@ -6,6 +6,7 @@ use Dgharami\Eden\Components\Fields\Field;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 trait WithModel
 {
@@ -111,6 +112,15 @@ trait WithModel
         }
 
         return $value;
+    }
+
+    public function getRecordIdentifier($record = null)
+    {
+        if ($record instanceof Model) {
+            return base64_encode($record->{$record->getKeyName()});
+        }
+
+        return (is_null($record)) ? base64_encode(Str::ulid()) : '';
     }
 
 }

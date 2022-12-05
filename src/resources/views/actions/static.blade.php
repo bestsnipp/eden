@@ -16,15 +16,15 @@
         @if($type == 'button')
             <button x-data="{ tooltip: '{{ $action->getTitle() }}' }" x-tooltip="tooltip" title="{{ $action->getTitle() }}" class="{{ $buttonStyle }}">
                 @if(!is_null($action->icon))
-                    {!! edenIcon($action->icon, 'scale-50') !!}
+                    {!! edenIcon($action->icon, $iconSize) !!}
                 @else
-                    {!! edenIcon('cursor-arrow-rays', 'scale-50') !!}
+                    {!! edenIcon('cursor-arrow-rays', $iconSize) !!}
                 @endif
             </button>
         @else
             <button @click="isOpen = !isOpen" class="flex items-center gap-3 py-2 px-3 rounded cursor-pointer transition w-full block hover:bg-indigo-50 text-slate-500">
                 @if(!is_null($action->icon))
-                    {!! edenIcon($action->icon, 'scale-75') !!}
+                    {!! edenIcon($action->icon, $iconSize) !!}
                 @endif
                 <span class="text-left">{{ $action->getTitle() }}</span>
             </button>
@@ -35,9 +35,9 @@
         <a href="{{ $route }}" x-data="{ tooltip: '{{ $action->getTitle() }}' }" x-tooltip="tooltip" title="{{ $action->getTitle() }}" class="{{ $buttonStyle }}"
             @if($inNewTab) target="_blank" @endif >
             @if(!is_null($action->icon))
-                {!! edenIcon($action->icon, 'scale-50') !!}
+                {!! edenIcon($action->icon, $iconSize) !!}
             @else
-                {!! edenIcon('cursor-arrow-rays', 'scale-50') !!}
+                {!! edenIcon('cursor-arrow-rays', $iconSize) !!}
             @endif
         </a>
     @else
@@ -45,7 +45,7 @@
             @if($inNewTab) target="_blank" @endif
             class="flex items-center gap-3 py-2 px-3 rounded cursor-pointer transition w-full block hover:bg-indigo-50 text-slate-500">
             @if(!is_null($action->icon))
-                {!! edenIcon($action->icon, 'scale-75') !!}
+                {!! edenIcon($action->icon, $iconSize) !!}
             @endif
             <span class="text-left">{{ $action->getTitle() }}</span>
         </a>

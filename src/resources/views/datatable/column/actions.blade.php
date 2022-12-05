@@ -2,9 +2,9 @@
     @if(count($actions) <= config('eden.action_buttons_count', 3))
         @foreach($actions as $action)
             @if($action instanceof \Dgharami\Eden\Components\DataTable\Actions\StaticAction)
-                {!! $action->setOwner($this)->prepare([$record], [])->render('button', $action, $record, $buttonStyle) !!}
+                {!! $action->setOwner($this)->prepare([$record], [])->render('button', $action, $record, $buttonStyle, $iconSize) !!}
             @else
-                {!! $action->render('button', $action, $record, $buttonStyle) !!}
+                {!! $action->render('button', $action, $record, $buttonStyle, $iconSize) !!}
             @endif
         @endforeach
     @else
@@ -14,9 +14,9 @@
             <ul class="list-inside">
                 @foreach($actions as $action)
                     @if($action instanceof \Dgharami\Eden\Components\DataTable\Actions\StaticAction)
-                        {!! $action->setOwner($this)->prepare([$record], [])->render('list', $action, $record, $buttonStyle) !!}
+                        {!! $action->setOwner($this)->prepare([$record], [])->render('list', $action, $record, $buttonStyle, $iconSize) !!}
                     @else
-                        {!! $action->render('list', $action, $record, $buttonStyle) !!}
+                        {!! $action->render('list', $action, $record, $buttonStyle, $iconSize) !!}
                     @endif
                 @endforeach
             </ul>

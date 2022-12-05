@@ -12,8 +12,12 @@ trait CanBeRendered
      * @return \Illuminate\Contracts\View\View|string
      * @throws \Throwable
      */
-    public final function render()
+    final public function render()
     {
+        if (in_array(AuthorizedToSee::class, class_uses_recursive($this)) && !$this->isAuthorizedToSee()) {
+           return '';
+        }
+
         $view = call_user_func_array([$this, 'view'], func_get_args());
 
         if (method_exists($this, 'edenDefaultViewParams')) {

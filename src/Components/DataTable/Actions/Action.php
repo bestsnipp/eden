@@ -2,6 +2,7 @@
 namespace Dgharami\Eden\Components\DataTable\Actions;
 
 use Dgharami\Eden\Components\DataTable;
+use Dgharami\Eden\Traits\AuthorizedToSee;
 use Dgharami\Eden\Traits\CanBeRendered;
 use Dgharami\Eden\Traits\CanManageVisibility;
 use Dgharami\Eden\Traits\HasOwner;
@@ -16,6 +17,7 @@ use Dgharami\Eden\Traits\RouteAwareViaOwner;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -24,6 +26,7 @@ abstract class Action
     use Makeable;
     use CanManageVisibility;
     use CanBeRendered;
+    use AuthorizedToSee;
 
     public $title = '';
 
@@ -177,8 +180,8 @@ abstract class Action
     /**
      * @return \Illuminate\Contracts\View\View
      */
-    public function view($type, $action, $record, $buttonStyle)
+    public function view($type, $action, $record, $buttonStyle, $iconSize)
     {
-        return view('eden::actions.dynamic', compact('type', 'action', 'record', 'buttonStyle'));
+        return view('eden::actions.dynamic', compact('type', 'action', 'record', 'buttonStyle', 'iconSize'));
     }
 }

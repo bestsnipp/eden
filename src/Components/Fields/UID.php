@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 
 class UID extends Hidden
 {
+    public $visibilityOnUpdate = false;
 
     protected function onMount()
     {

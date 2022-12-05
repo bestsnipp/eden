@@ -4,9 +4,7 @@
     <form wire:submit.prevent="submit" class="">
         <div class="py-3 bg-white shadow sm:rounded-tl-md sm:rounded-tr-md">
             @foreach($formFields as $field)
-                @if($field->shouldShow())
-                    {!! $field->render('form') !!}
-                @endif
+                {!! $field->render('form') !!}
             @endforeach
         </div>
 

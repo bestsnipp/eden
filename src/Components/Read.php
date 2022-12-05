@@ -2,6 +2,7 @@
 namespace Dgharami\Eden\Components;
 
 use App\Models\User;
+use Dgharami\Eden\Components\DataTable\Column\ActionField;
 use Dgharami\Eden\Components\Fields\Field;
 use Dgharami\Eden\Components\Fields\File;
 use Dgharami\Eden\Eden;
@@ -129,11 +130,15 @@ abstract class Read extends EdenComponent
 
     public function defaultViewParams()
     {
+        $actionColumn = ActionField::make("Actions")
+            ->withActions($this->actions)
+            ->withRecord($this->record);
         return [
             'fields' => $this->allFields,
             'actions' => $this->actions,
             'record' => $this->record,
-            'operations' => $this->operations()
+            'operations' => $this->operations(),
+            'actionButtons' => $actionColumn
         ];
     }
 
