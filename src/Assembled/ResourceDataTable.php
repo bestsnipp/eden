@@ -113,10 +113,9 @@ final class ResourceDataTable extends DataTable
     protected function indexQuery($query)
     {
         if ($this->edenResourceObject->hasMethod('query') ?? false) {
-            $this->edenResourceObject->callMethod('query', $query);
-            return;
+            return $this->edenResourceObject->callMethod('query', $query);
         }
 
-        parent::query($query);
+        return parent::query($query);
     }
 }
