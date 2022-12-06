@@ -70,7 +70,7 @@ class DeleteModal extends Modal
     /**
      * Remove records once confirmed
      *
-     * @return void
+     * @return mixed|void
      */
     public function confirm()
     {
@@ -79,6 +79,9 @@ class DeleteModal extends Modal
             $primaryKey = app($model)->getKeyName();
             $recordsToRemove = collect(Arr::wrap($this->getData('records', [])))->pluck($primaryKey)->all();
             app($model)->whereIn($primaryKey, $recordsToRemove)->delete();
+        }
+        if (!empty($this->resourceId)) { // Calling from Details Page, need to go back to index page
+            return $this->redirectRoute('eden.page', ['resource' => $this->resource]);
         }
         $this->emit('refresh' . $this->getData('caller'));
     }

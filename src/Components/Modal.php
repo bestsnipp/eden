@@ -111,6 +111,11 @@ abstract class Modal extends EdenComponent
         return $default;
     }
 
+    /**
+     * Remove records once confirmed
+     *
+     * @return mixed|void
+     */
     public function confirm()
     {
 

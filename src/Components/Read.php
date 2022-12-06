@@ -12,6 +12,7 @@ use Dgharami\Eden\Traits\HasActions;
 use Dgharami\Eden\Traits\HasModel;
 use Dgharami\Eden\Traits\HasOwner;
 use Dgharami\Eden\Traits\HasToast;
+use Dgharami\Eden\Traits\InteractsWithAction;
 use Dgharami\Eden\Traits\InteractsWithModal;
 use Dgharami\Eden\Traits\MakeableComponent;
 use Dgharami\Eden\Traits\RouteAware;
@@ -32,6 +33,7 @@ use Livewire\WithFileUploads;
 abstract class Read extends EdenComponent
 {
     use WithModel;
+    use InteractsWithAction;
 
     /**
      * Title to show in front end

@@ -9,6 +9,7 @@ use Dgharami\Eden\Components\DataTable\Column\SelectorField;
 use Dgharami\Eden\Components\Fields\Field;
 use Dgharami\Eden\Facades\Eden;
 use Dgharami\Eden\RenderProviders\DataTableRenderer;
+use Dgharami\Eden\Traits\InteractsWithAction;
 use Dgharami\Eden\Traits\WithModel;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,7 @@ abstract class DataTable extends EdenComponent
 {
     use WithPagination;
     use WithModel;
+    use InteractsWithAction;
 
     /**
      * Title to show in front end
@@ -395,35 +397,6 @@ abstract class DataTable extends EdenComponent
     {
         $this->applyAction($actionID, $this->selectedRows);
         $this->selectedRows = [];
-    }
-
-    public function applyAction($actionID, $recordID = null)
-    {
-        $recordIDs = collect($recordID)->transform(function ($value) {
-            return base64_decode($value);
-        })->unique()->all();
-
-        $action = collect($this->actions)->first(function ($action) use ($actionID) {
-            return $action->getKey() == $actionID;
-        });
-
-        // If action not required any type of confirmation, execute it with blank data
-        $this->executeAction($action, $recordIDs);
-    }
-
-    protected function executeAction(Action $action, $records, $payload = [])
-    {
-        $allRecords = app($this->model())->whereIn(app($this->model())->getKeyName(), $records)->get();
-        if (!is_null($action)) {
-            $action->setOwner($this);
-            $action->prepare($allRecords, $payload);
-
-            if ($action instanceof ShouldQueue) { // Queue the Action
-                dispatch($action);
-            } else { // Normal Action
-                $action->handle();
-            }
-        }
     }
 
     /**

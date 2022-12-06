@@ -13,11 +13,11 @@ class ResourceCreateForm extends Form
 
     public $replicateId = null;
 
-    public bool $replicate = false;
+    public $isReplicating = null;
 
     protected $queryString = [
         'replicateId' => ['exclude' => '', 'as' => 'resourceId'],
-        'replicate' => ['exclude' => false]
+        'isReplicating' => ['exclude' => '', 'as' => 'replicate']
     ];
 
     protected function init()
@@ -30,7 +30,7 @@ class ResourceCreateForm extends Form
 
     protected function resolveRecord()
     {
-        if ($this->replicate) {
+        if (!empty($this->isReplicating) && boolval($this->isReplicating) && !empty($this->replicateId)) {
             $this->resourceId = $this->replicateId;
         }
         parent::resolveRecord();
