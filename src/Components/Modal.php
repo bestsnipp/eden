@@ -153,8 +153,12 @@ abstract class Modal extends EdenComponent
 
     public function defaultViewParams()
     {
+        $modalView = $this->modalView();
+        $isEdenComponentRendering = ($modalView instanceof \Dgharami\Eden\RenderProviders\RenderProvider);
+
         return [
-            'content' => $this->modalView(),
+            'content' => $modalView,
+            'isEdenComponent' => $isEdenComponentRendering,
             'compWidth' => $this->getModalWidth(),
             'show' => $this->show,
             'closeOnOutsideClick' => $this->closeOnOutsideClick,

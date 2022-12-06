@@ -16,13 +16,11 @@
                     </div>
                     @endif
 
-                    <div>
-                        @if(is_subclass_of($content, \Dgharami\Eden\RenderProviders\RenderProvider::class))
-                            @livewire($content->component, $content->params)
-                        @else
-                            {!! $content !!}
-                        @endif
-                    </div>
+                    @if($isEdenComponent)
+                        <div class="">@livewire($content->component, $content->params)</div>
+                    @else
+                        <div>{!! $content !!}</div>
+                    @endif
 
                     @if($footer)
                     <div class="{{ $footerStyle }}">
