@@ -27,8 +27,10 @@ use Dgharami\Eden\Events\EdenServiceProviderRegistered;
 use Dgharami\Eden\Exceptions\EdenExceptionHandler;
 use Dgharami\Eden\Facades\Eden;
 use Dgharami\Eden\Facades\EdenAssets;
+use Dgharami\Eden\Facades\EdenModal;
 use Dgharami\Eden\Listeners\PrepareEden;
 use Dgharami\Eden\Middleware\EdenRequestHandler;
+use Dgharami\Eden\Modals\DeleteModal;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -237,12 +239,11 @@ class EdenCoreServiceProvider extends ServiceProvider
         Livewire::component(ResourceEditForm::getName(), ResourceEditForm::class);
         Livewire::component(ResourceRead::getName(), ResourceRead::class);
 
-        // Auto Register Components that is inside \App\Http\Eden Folder
-//        Eden::registerComponents(
-//            dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Modals',
-//            __NAMESPACE__. '\\',
-//            dirname(__FILE__) . DIRECTORY_SEPARATOR
-//        );
+        // Register Predefined Modals
+        Livewire::component(DeleteModal::getName(), DeleteModal::class);
+        EdenModal::register(DeleteModal::class);
+
+        // Auto Discover Components on App/Eden Folder
         Eden::registerComponents(app_path('Eden'));
     }
 

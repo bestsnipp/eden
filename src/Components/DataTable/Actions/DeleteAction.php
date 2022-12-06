@@ -2,10 +2,7 @@
 
 namespace Dgharami\Eden\Components\DataTable\Actions;
 
-use Dgharami\Eden\Modals\ModalConfirmDelete;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\DB;
+use Dgharami\Eden\Modals\DeleteModal;
 
 class DeleteAction extends Action
 {
@@ -16,14 +13,11 @@ class DeleteAction extends Action
 
     public function apply($records, $payload)
     {
-//        $this->showModal(ModalConfirmDelete::getName(), [
-//            'model' => is_string($this->getOwner()->model) ? $this->getOwner()->model : get_class($this->getOwner()->model),
-//            'records' => $records->pluck('id')
-//        ]);
-        foreach ($records as $record) {
-            $record->delete();
-            $this->toastSuccess("Record #{$record->id} Removed");
-        }
+        $this->emit('show' . DeleteModal::getName(), [
+            'caller' => $this->owner->getName(),
+            'model' => $this->owner::$model,
+            'records' => $records
+        ]);
     }
 
 }

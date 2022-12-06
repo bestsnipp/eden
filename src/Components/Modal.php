@@ -84,7 +84,7 @@ abstract class Modal extends EdenComponent
      *
      * Show Modal
      */
-    public function show(...$params)
+    public function show($params = [])
     {
         $this->data = $params;
         if ($this->resetBeforeShow) {
@@ -151,21 +151,10 @@ abstract class Modal extends EdenComponent
         ][$this->width] ?? 'sm:max-w-lg';
     }
 
-    protected function renderModalView()
-    {
-        $view = $this->modalView();
-
-        if(is_subclass_of($view, View::class)) {
-            return $view->render();
-        }
-
-        return $view;
-    }
-
     public function defaultViewParams()
     {
         return [
-            'content' => $this->renderModalView(),
+            'content' => $this->modalView(),
             'compWidth' => $this->getModalWidth(),
             'show' => $this->show,
             'closeOnOutsideClick' => $this->closeOnOutsideClick,
