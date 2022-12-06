@@ -75,11 +75,15 @@ final class ResourceDataTable extends DataTable
             return $edenResource->getOperations();
         }, []);
 
-        return array_merge($operations, [
+        return collect(array_merge($operations, [
             EdenButton::make('Create New')->route('eden.create', [
                 'resource' => $this->resource
             ])->noIcon()
-        ]);
+        ]))
+        ->reject(function ($field) {
+            return !$field->visibilityOnIndex;
+        })
+        ->all();
     }
 
     protected function fields()

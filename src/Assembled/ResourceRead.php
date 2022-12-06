@@ -74,7 +74,11 @@ class ResourceRead extends Read
             return $edenResource->getOperations();
         }, []);
 
-        return $operations;
+        return collect($operations)
+            ->reject(function ($field) {
+                return !$field->visibilityOnDetails;
+            })
+            ->all();
     }
 
     protected function view()
