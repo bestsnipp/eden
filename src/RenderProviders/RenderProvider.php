@@ -2,8 +2,12 @@
 
 namespace Dgharami\Eden\RenderProviders;
 
+use Dgharami\Eden\Traits\AuthorizedToSee;
+
 class RenderProvider
 {
+    use AuthorizedToSee;
+    
     public $component = null;
 
     public $params = [];
