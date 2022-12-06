@@ -11,7 +11,7 @@
                 })
              })
             " wire:ignore class="flex flex-col w-full">
-            <textarea id="{{ $uid }}" wire:model.{{ $wireModelType }}="fields.{{ $key }}" {!! $attributes !!} style="display: none !important;"></textarea>
+            <textarea id="{{ $uid }}" wire:model.{{ $wireModelType }}="fields.{{ $key }}" {!! $attributes !!} style="display: none !important;">{{ $value }}</textarea>
             <trix-editor input="{{ $uid }}"></trix-editor>
         </div>
     </div>

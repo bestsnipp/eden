@@ -281,5 +281,12 @@ class EdenCoreServiceProvider extends ServiceProvider
 
         // NiceScroll
         EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/jquery.nicescroll@3.7.6/dist/jquery.nicescroll.min.js', 'nicescroll');
+
+        // CodeMirror
+        EdenAssets::registerStyle('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css', 'codemirror');
+        EdenAssets::registerStyle('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/monokai.min.css', 'codemirror-monokai');
+        EdenAssets::registerScripts('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js', 'codemirror');
+        EdenAssets::registerScripts('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js', 'codemirror-javascript');
+        EdenAssets::registerScripts('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/css/css.min.js', 'codemirror-css');
     }
 }
