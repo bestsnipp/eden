@@ -4,7 +4,7 @@ namespace Dgharami\Eden\Components\Fields;
 
 class Hidden extends Field
 {
-
+    public $visibilityOnIndex = false;
     protected function onMount()
     {
         $this->meta = array_merge($this->meta, [

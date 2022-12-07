@@ -25,4 +25,15 @@ class CheckBoxes extends Field
         return view('eden::fields.input.radio-checkbox');
     }
 
+    public function viewForIndex()
+    {
+        return view('eden::fields.row.checkbox');
+    }
+
+    public function viewForRead()
+    {
+        return view('eden::fields.view.checkbox')
+            ->with('hideUnchecked', $this->hideUnchecked);
+    }
+
 }

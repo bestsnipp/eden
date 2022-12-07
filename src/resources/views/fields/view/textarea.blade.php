@@ -3,8 +3,8 @@
         <strong>{{ $title }}</strong>
     </div>
     <div x-data="{show: false}" class="w-full md:w-4/5">
-        <template x-if="!show"><div class="prose prose-slate max-w-full">{!! $preview !!}</div></template>
-        <template x-if="show"><div class="prose prose-slate max-w-full">{!! $value !!}</div></template>
+        <template x-if="!show"><div class="prose-slate max-w-full">{!! $preview !!}</div></template>
+        <template x-if="show"><div class="prose-slate max-w-full">{!! $value !!}</div></template>
         @if($hasExtra)
         <a href="#"
            @click.prevent="show = !show"

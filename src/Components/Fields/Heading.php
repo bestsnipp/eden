@@ -5,6 +5,8 @@ namespace Dgharami\Eden\Components\Fields;
 class Heading extends Field
 {
 
+    public $visibilityOnIndex = false;
+
     protected $textColor = 'text-slate-500';
 
     protected $background = 'bg-slate-100';
@@ -40,6 +42,15 @@ class Heading extends Field
                 'textColor' => $this->textColor,
                 'bgColor' => $this->background
             ]);
+    }
+
+    public function viewForRead()
+    {
+        return view('eden::fields.view.heading')
+        ->with([
+            'textColor' => $this->textColor,
+            'bgColor' => $this->background
+        ]);
     }
 
 }

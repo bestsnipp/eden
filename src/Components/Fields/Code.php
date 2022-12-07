@@ -4,6 +4,7 @@ namespace Dgharami\Eden\Components\Fields;
 
 class Code extends Textarea
 {
+    public $visibilityOnIndex = false;
 
     protected function onMount()
     {
@@ -18,4 +19,8 @@ class Code extends Textarea
         return view('eden::fields.input.code');
     }
 
+    public function viewForRead()
+    {
+        return view('eden::fields.view.code');
+    }
 }

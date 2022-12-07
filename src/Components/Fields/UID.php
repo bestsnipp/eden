@@ -8,6 +8,8 @@ class UID extends Hidden
 {
     public $visibilityOnUpdate = false;
 
+    public $visibilityOnIndex = true;
+
     protected function onMount()
     {
         $this->meta = array_merge($this->meta, [

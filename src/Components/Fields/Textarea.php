@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 
 class Textarea extends Field
 {
+    protected $previewCharLimit = 37;
 
     protected function onMount()
     {
@@ -34,6 +35,24 @@ class Textarea extends Field
     public function view()
     {
         return view('eden::fields.input.textarea');
+    }
+
+    public function viewForIndex()
+    {
+        return view('eden::fields.row.textarea')
+            ->with([
+                'preview' => Str::limit(strip_tags($this->value), 37),
+                'hasExtra' => Str::length(strip_tags($this->value)) > 100
+            ]);
+    }
+
+    public function viewForRead()
+    {
+        return view('eden::fields.view.textarea')
+            ->with([
+                'preview' => Str::limit(strip_tags($this->value), $this->previewCharLimit),
+                'hasExtra' => Str::length(strip_tags($this->value)) > $this->previewCharLimit
+            ]);
     }
 
 }

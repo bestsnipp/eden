@@ -12,4 +12,14 @@ class Color extends Field
         return view('eden::fields.input.color');
     }
 
+    public function viewForIndex()
+    {
+        return view('eden::fields.row.color');
+    }
+
+    public function viewForRead()
+    {
+        return view('eden::fields.view.color');
+    }
+
 }

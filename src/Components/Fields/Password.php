@@ -4,6 +4,7 @@ namespace Dgharami\Eden\Components\Fields;
 
 class Password extends Field
 {
+    public $visibilityOnIndex = false;
 
     protected $viewable = true;
 
@@ -39,6 +40,12 @@ class Password extends Field
     public function view()
     {
         return view('eden::fields.input.password')
+            ->with('viewable', $this->viewable);
+    }
+
+    public function viewForRead()
+    {
+        return view('eden::fields.view.password')
             ->with('viewable', $this->viewable);
     }
 

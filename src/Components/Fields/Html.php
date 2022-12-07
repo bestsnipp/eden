@@ -4,7 +4,7 @@ namespace Dgharami\Eden\Components\Fields;
 
 class Html extends Field
 {
-
+    public $visibilityOnIndex = false;
     protected $usingFullSpace = false;
 
     /**
@@ -21,6 +21,12 @@ class Html extends Field
     public function view()
     {
         return view('eden::fields.input.html')
+            ->with('usingFullSpace', $this->usingFullSpace);
+    }
+
+    public function viewForRead()
+    {
+        return view('eden::fields.view.html')
             ->with('usingFullSpace', $this->usingFullSpace);
     }
 
