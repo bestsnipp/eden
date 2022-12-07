@@ -51,9 +51,9 @@ class File extends Field
         try {
             if ($value instanceof TemporaryUploadedFile) {
                 if ($this->publicly) {
-                    return $value->storePublicly($this->path, $this->storage);
+                    return basename($value->storePublicly($this->path, $this->storage));
                 }
-                return $value->store($this->path, $this->storage);
+                return basename($value->store($this->path, $this->storage));
             }
             return $value;
         } catch (\Exception $exception) {
@@ -125,7 +125,7 @@ class File extends Field
         return collect(Arr::wrap($this->value))->transform(function ($path) {
            return [
                'name' => basename($path),
-               'url' => strtolower($this->path) == 'public' ? asset('storage/' . basename($path)) : asset('storage/' . $path)
+               'url' => asset('storage/' . $path)
            ];
         })->all();
     }
@@ -138,6 +138,11 @@ class File extends Field
             ->with([
                 'displayValues' => $this->displayValues
             ]);
+    }
+
+    public function viewForIndex()
+    {
+        return view('eden::fields.row.file');
     }
 
     public function viewForRead()
