@@ -2,6 +2,7 @@
 
 namespace Dgharami\Eden\Components\Fields;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Livewire\TemporaryUploadedFile;
 
@@ -25,8 +26,28 @@ class File extends Field
         $this->storage = config('filesystems.default');
     }
 
+    /**
+     * Process Already LiveWire Uploaded File
+     *
+     * @return null|array|TemporaryUploadedFile
+     */
+    protected function getTemporaryUploadFile($path)
+    {
+        if (!is_null($path)) {
+            if (is_array($path)) {
+                return collect($path)->map(function ($i) {
+                    return TemporaryUploadedFile::createFromLivewire($i);
+                })->all();
+            }
+            return TemporaryUploadedFile::createFromLivewire($path);
+        }
+        return null;
+    }
+
     protected function processSingleFile($value)
     {
+        $value = $this->getTemporaryUploadFile($value);
+
         try {
             if ($value instanceof TemporaryUploadedFile) {
                 if ($this->publicly) {
@@ -99,6 +120,16 @@ class File extends Field
         $this->displayValues = $this->value;
     }
 
+    protected function prepareFilePreviews()
+    {
+        return collect(Arr::wrap($this->value))->transform(function ($path) {
+           return [
+               'name' => basename($path),
+               'url' => strtolower($this->path) == 'public' ? asset('storage/' . basename($path)) : asset('storage/' . $path)
+           ];
+        })->all();
+    }
+
     public function view()
     {
         $this->prepareDisplayValues();
@@ -107,6 +138,13 @@ class File extends Field
             ->with([
                 'displayValues' => $this->displayValues
             ]);
+    }
+
+    public function viewForRead()
+    {
+        $this->value = $this->prepareFilePreviews();
+
+        return view('eden::fields.view.file');
     }
 
 }

@@ -158,7 +158,7 @@ abstract class Form extends EdenComponent
     {
         $this->syncInput('fields.' . $key, $value);
         $this->syncInput('files.' . $key, $value);
-        $this->processExistingUploads();
+        //$this->processExistingUploads();
     }
 
     /**
@@ -256,7 +256,7 @@ abstract class Form extends EdenComponent
         $sourceKey = str_ireplace('files.', '', $name);
 
         $this->cleanupOldUploads();
-        $this->processExistingUploads();
+        //$this->processExistingUploads();
 
         // Process New Upload
         if ($isMultiple) {
