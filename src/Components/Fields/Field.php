@@ -54,6 +54,8 @@ abstract class Field
 
     protected $options = [];
 
+    protected $owner = null;
+
     protected $meta = [
         'type' => 'text',
         'class' => 'border-0-force focus:ring-0 grow'
@@ -82,7 +84,10 @@ abstract class Field
      */
     public function prepare(Form $form)
     {
-        // Nothing to do
+        // Set Field Owner
+        $this->owner = $form;
+
+        // Do Other Setup if Needed
     }
 
     /**

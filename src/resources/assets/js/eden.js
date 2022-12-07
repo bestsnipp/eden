@@ -59,7 +59,9 @@ window.addEventListener('alpine:init', function () {
             $(this.$el).select2({
                 minimumResultsForSearch: showSearch ? 0 : Infinity
             }).on('select2:select', (evt) => {
-                this.model = $(evt.target).val()
+                this.model = $(evt.target).val();
+            }).on('select2:unselect', (evt) => {
+                this.model = $(evt.target).val();
             });
             // Initial Value
             this.model = $(this.$el).val()

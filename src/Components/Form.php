@@ -40,13 +40,6 @@ abstract class Form extends EdenComponent
     public $styleContainer = '';
 
     /**
-     * Primary Key of Model
-     *
-     * @var string
-     */
-    protected $___primaryKey = 'id';
-
-    /**
      * Fields that will be bind with form in FrontEnd
      *
      * @var array

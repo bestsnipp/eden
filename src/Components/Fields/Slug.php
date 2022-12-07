@@ -50,7 +50,8 @@ class Slug extends Field
 
     public function view()
     {
-        return view('eden::fields.input.text');
+        return view('eden::fields.input.slug')
+            ->with('isCreate', (!is_null($this->owner) && $this->owner->isCreate()));
     }
 
 }
