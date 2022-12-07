@@ -4,6 +4,7 @@ namespace Dgharami\Eden\Components\Fields;
 
 class Select extends Field
 {
+    protected $filterable = true;
 
     public function multiple()
     {
@@ -13,9 +14,16 @@ class Select extends Field
         return $this;
     }
 
+    public function disableSearchFilter()
+    {
+        $this->filterable = false;
+        return $this;
+    }
+
     public function view()
     {
-        return view('eden::fields.input.select');
+        return view('eden::fields.input.select')
+                ->with('searchFilterEnabled', $this->filterable);
     }
 
     public function viewForIndex()

@@ -16,6 +16,11 @@ class Email extends Field
         return view('eden::fields.input.text');
     }
 
+    public function viewForIndex()
+    {
+        return view('eden::fields.row.email');
+    }
+
     public function viewForRead()
     {
         return view('eden::fields.view.email');
