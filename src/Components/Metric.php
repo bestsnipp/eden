@@ -17,6 +17,8 @@ abstract class Metric extends EdenComponent
 
     public $blankCanvas = false;
 
+    protected $styleCard = 'bg-white shadow-md rounded-md relative ';
+
     /**
      * @return MetricValue
      */
@@ -84,6 +86,7 @@ abstract class Metric extends EdenComponent
             'blankCanvas' => $this->blankCanvas,
             'hasFilters' => count($this->filters()) > 0,
             'filters' => collect($this->filters())->toArray(),
+            'styleCard' => $this->styleCard,
             'data' => $this->prepareForRender()
         ];
     }

@@ -5,6 +5,7 @@ use Dgharami\Eden\Assembled\ResourceCreateForm;
 use Dgharami\Eden\Assembled\ResourceDataTable;
 use Dgharami\Eden\Assembled\ResourceEditForm;
 use Dgharami\Eden\Assembled\ResourceRead;
+use Dgharami\Eden\Cards\EdenIntro;
 use Dgharami\Eden\Console\DeveloperCommand;
 use Dgharami\Eden\Console\EdenInstall;
 use Dgharami\Eden\Console\MakeAction;
@@ -238,6 +239,9 @@ class EdenCoreServiceProvider extends ServiceProvider
         Livewire::component(ResourceCreateForm::getName(), ResourceCreateForm::class);
         Livewire::component(ResourceEditForm::getName(), ResourceEditForm::class);
         Livewire::component(ResourceRead::getName(), ResourceRead::class);
+
+        // Cards
+        Livewire::component(EdenIntro::getName(), EdenIntro::class);
 
         // Register Predefined Modals
         Livewire::component(DeleteModal::getName(), DeleteModal::class);
