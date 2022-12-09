@@ -14,7 +14,7 @@
             @endforeach
             <button
                 class="flex items-center gap-3 px-3 py-2 mt-1 rounded-md transition-all duration-200 ease-in hover:pl-5"
-                :class="@json($active) ? 'bg-primary-500 text-white shadow-md shadow-primary-300' : 'text-gray-700'">
+                :class="@json($active) ? 'bg-primary-500 text-white shadow-md shadow-primary-300 dark:shadow-slate-800' : 'text-slate-700 dark:text-slate-200'">
                 @if($icon) <span class="scale-75">{!! edenIcon($icon) !!}</span> @endif
                 <span class="grow">{{ $title }}</span>
             </button>
@@ -24,7 +24,7 @@
             href="{{ $route }}"
             @if($inNewTab) target="_blank" @endif
             class="flex items-center gap-3 px-3 py-2 mt-1 rounded-md transition-all duration-200 ease-in hover:pl-5"
-            :class="@json($active) ? 'bg-primary-500 text-white shadow-md shadow-primary-300' : 'text-gray-700'">
+            :class="@json($active) ? 'bg-primary-500 text-white shadow-md shadow-primary-300 dark:shadow-slate-800' : 'text-slate-700 dark:text-slate-200'">
             @if($icon) <span class="scale-75">{!! edenIcon($icon) !!}</span> @endif
             <span class="grow">{{ $title }}</span>
         </a>
