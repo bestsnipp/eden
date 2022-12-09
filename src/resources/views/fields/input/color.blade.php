@@ -49,7 +49,7 @@
              })
             "
         wire:ignore>
-        <label for="{{ $uid }}" class="inline-flex gap-3 items-center border border-slate-300 focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 rounded-md shadow-sm overflow-hidden">
+        <label for="{{ $uid }}" class="inline-flex gap-3 items-center border border-slate-300 focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 rounded-lg shadow-sm overflow-hidden dark:bg-slate-600 dark:border-slate-700 focus-within:border-indigo-700 dark:text-slate-300">
             <span class="empty:hidden ml-2">{!! edenIcon($prefix) !!}</span>
             <input id="{{ $uid }}" wire:model.{{ $wireModelType }}="fields.{{ $key }}" {!! $attributes !!}>
             <span class="empty:hidden mr-2">{!! edenIcon($suffix) !!}</span>

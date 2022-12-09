@@ -7,9 +7,9 @@ class Heading extends Field
 
     public $visibilityOnIndex = false;
 
-    protected $textColor = 'text-slate-500';
+    protected $textColor = 'text-slate-500 dark:text-slate-200';
 
-    protected $background = 'bg-slate-100';
+    protected $background = 'bg-slate-100 dark:bg-slate-500';
 
     /**
      * Set Background Color

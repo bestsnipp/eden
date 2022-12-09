@@ -58,7 +58,7 @@ abstract class Field
 
     protected $meta = [
         'type' => 'text',
-        'class' => 'border-0-force focus:ring-0 grow'
+        'class' => 'border-0-force focus:ring-0 grow bg-transparent dark:text-slate-300'
     ];
 
     protected $validator = null;

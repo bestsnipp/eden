@@ -1,6 +1,6 @@
 <div class="px-5 py-3">
     @include('eden::fields.label')
-    <div x-data="{type: 'password'}" class="flex items-center border border-slate-300 focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 rounded-md shadow-sm w-full overflow-hidden">
+    <div x-data="{type: 'password'}" class="flex items-center border border-slate-300 focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 rounded-md shadow-sm w-full overflow-hidden dark:bg-slate-600 dark:border-slate-700 focus-within:border-indigo-700 dark:text-slate-300">
         <span class="empty:hidden ml-2">{!! edenIcon($prefix) !!}</span>
         <input id="{{ $uid }}" wire:model.{{ $wireModelType }}="fields.{{ $key }}" x-bind:type="type" {!! $attributes !!}>
         <span class="empty:hidden mr-2">{!! edenIcon($suffix) !!}</span>
