@@ -2,10 +2,10 @@
 
     @foreach($fields as $field)
         @if($this->isTableLayout)
-            <th class="py-2 px-2 bg-slate-100 text-slate-500 text-sm @if($field->isSortable()) cursor-pointer @endif"
+            <th class="py-2 px-2 bg-slate-100 text-slate-500 dark:text-slate-300 dark:bg-slate-700 text-sm @if($field->isSortable()) cursor-pointer @endif"
                 @if($field->isSortable()) wire:click="sortField('{{ $field->getKey() }}')" @endif>
         @else
-            <div class="grow py-2 px-2 bg-slate-100 text-slate-500 text-sm @if($field->isSortable()) cursor-pointer @endif"
+            <div class="grow py-2 px-2 bg-slate-100 text-slate-500 dark:text-slate-300 dark:bg-slate-700 text-sm @if($field->isSortable()) cursor-pointer @endif"
                 @if($field->isSortable()) wire:click="sortField('{{ $field->getKey() }}')" @endif  style="width: {{ 100/count($fields) }}%;">
         @endif
 

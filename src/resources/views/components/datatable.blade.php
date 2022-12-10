@@ -7,7 +7,7 @@
     {{--  Show title and table links - otherwise hide  --}}
     @if(strlen($title) > 0 || count($operations) > 0)
         <div class="flex justify-between items-center mb-4">
-            <h1 class="text-2xl text-primary-500">{{ $title }}</h1>
+            <h1 class="text-2xl text-primary-500 dark:text-primary-400">{{ $title }}</h1>
             <div class="flex gap-3 items-center">
                 @foreach($operations as $operation)
                     {!! $operation->render() !!}

@@ -4,7 +4,7 @@
 
         <nav role="navigation" aria-label="Pagination Navigation" class="flex flex-col md:flex-row justify-between items-center w-full">
             <div class="sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                <p class="text-slate-500 block md:inline-block md:mb-0 py-3 px-3 font-medium">
+                <p class="text-slate-500 dark:text-slate-300 block md:inline-block md:mb-0 py-3 px-3 font-medium">
                     <span>{!! __('Showing') !!}</span>
                     <span class="font-bold">{{ $paginator->firstItem() }}</span>
                     <span>{!! __('to') !!}</span>
@@ -14,7 +14,7 @@
                     <span>{!! __('results') !!}</span>
                 </p>
 
-                <div class="flex justify-between text-center divide-x border-t w-full sm:hidden">
+                <div class="flex justify-between text-center divide-x border-t w-full sm:hidden dark:border-slate-600">
                     @if ($paginator->onFirstPage())
                         <span class="py-3 px-4 w-full">
                         {!! __('pagination.previous') !!}
@@ -36,7 +36,7 @@
                     @endif
                 </div>
 
-                <div class="hidden sm:flex justify-end divide-x">
+                <div class="hidden sm:flex justify-end divide-x dark:divide-slate-500">
                     {{-- Previous Page Link --}}
                     @if ($paginator->onFirstPage())
                         <span aria-disabled="true" aria-label="{{ __('pagination.previous') }}" class="relative inline-block py-3 px-4 text-slate-400">

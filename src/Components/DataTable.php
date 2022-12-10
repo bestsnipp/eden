@@ -60,7 +60,7 @@ abstract class DataTable extends EdenComponent
      *
      * @var bool
      */
-    public $showFilters = false;
+    public $showFilters = true;
 
     /**
      * Should show search field
@@ -175,14 +175,14 @@ abstract class DataTable extends EdenComponent
      *
      * @var string
      */
-    public $headerStyle = 'bg-white shadow-md rounded-t-md md:rounded-t-md py-5 px-5';
+    public $headerStyle = 'bg-white shadow-md rounded-t-md md:rounded-t-md py-5 px-5 dark:bg-slate-600';
 
     /**
      * Applied Filters Style
      *
      * @var string
      */
-    public $appliedFilterStyle = 'py-3 px-5 bg-white shadow-md border-y border-slate-100 flex flex-wrap gap-3 items-center mt-3 md:mt-0 md:rounded-none border-t';
+    public $appliedFilterStyle = 'py-3 px-5 bg-white shadow-md border-y border-slate-100 flex flex-wrap gap-3 items-center mt-3 md:mt-0 md:rounded-none border-t dark:bg-slate-600 dark:border-slate-500';
 
     /**
      * Table Body Style
@@ -196,7 +196,7 @@ abstract class DataTable extends EdenComponent
      *
      * @var string
      */
-    public $paginationStyle = 'flex flex-col md:flex-row justify-between items-center bg-white shadow-md rounded-md md:rounded-none md:rounded-b-md overflow-hidden';
+    public $paginationStyle = 'flex flex-col md:flex-row justify-between items-center bg-white shadow-md rounded-md md:rounded-none md:rounded-b-md overflow-hidden dark:bg-slate-600 dark:text-slate-300';
 
     /**
      * Multiple Rows that is selected by User

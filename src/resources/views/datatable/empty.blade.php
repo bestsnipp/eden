@@ -1,9 +1,9 @@
 @if($this->isTableLayout)
-    <tr class="block md:table-row bg-white shadow-md my-4 rounded-md md:bg-transparent md:shadow-none md:my-0 md:rounded-none">
-        <td colspan="{{ count($fields) }}" class="py-4 px-5 md:py-4 md:px-2 text-slate-600 border border-slate-100">
+    <tr class="block md:table-row bg-white shadow-md my-4 rounded-md md:bg-transparent md:shadow-none md:my-0 md:rounded-none dark:bg-slate-600">
+        <td colspan="{{ count($fields) }}" class="py-4 px-5 md:py-4 md:px-2 text-slate-600 border border-slate-100 dark:text-slate-300 dark:border-slate-600">
 @else
     <div class="flex">
-        <div class="grow py-3 px-2 bg-white w-full">
+        <div class="grow py-3 px-2 bg-white w-full dark:bg-slate-600">
 @endif
 
     <div class="py-8 flex flex-col items-center justify-center">
