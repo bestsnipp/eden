@@ -1,8 +1,9 @@
 <div class="mb-4 py-3">
-    <h1 class="text-primary-500 font-bold text-xl">Let's Get Started</h1>
+    <h1 class="text-primary-500 dark:text-primary-400 font-bold text-xl">Let's Get Started</h1>
     <p>Welcome to Eden 👋 Let's explore its features in the documentation</p>
 </div>
 
+<h1 class="text-primary-500 dark:text-primary-400 font-bold text-xl mb-2">UI Components</h1>
 <div class="grid grid-cols-2 mb-4 bg-white rounded-lg shadow-md dark:bg-slate-700 dark:shadow-gray-900">
     <div class="py-6 px-5 md:border-r md:border-b md:border-slate-200 dark:md:border-slate-600" role="alert">
         <div class="flex gap-6">
@@ -69,6 +70,7 @@
     </div>
 </div>
 
+<h1 class="text-primary-500 dark:text-primary-400 font-bold text-xl mt-4 mb-2">Controls</h1>
 <div class="grid grid-cols-3 mb-4 bg-white rounded-lg shadow-md  dark:bg-slate-700 dark:shadow-gray-900">
     <div class="py-6 px-5" role="alert">
         <div class="flex gap-6">
@@ -119,6 +121,7 @@
     </div>
 </div>
 
+<h1 class="text-primary-500 dark:text-primary-400 font-bold text-xl mt-4 mb-2">CRUD and Pages</h1>
 <div class="grid grid-cols-2 mb-4 md:divide-x md:divide-slate-200 dark:md:divide-slate-600 bg-white rounded-lg shadow-md  dark:bg-slate-700 dark:shadow-gray-900">
     <div class="py-6 px-5" role="alert">
         <div class="flex gap-6">

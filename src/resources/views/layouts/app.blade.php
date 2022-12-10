@@ -7,6 +7,36 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <!-- Dark Mode -->
+    <script>
+        let switchColorScheme = function (theme) {
+            if (undefined !== theme) {
+                switch (theme.toString().toLowerCase()) {
+                    case 'light':
+                        localStorage.edenTheme = 'light';
+                        break;
+                    case 'dark':
+                        localStorage.edenTheme = 'dark';
+                        break;
+                    case 'system':
+                        localStorage.removeItem('edenTheme');
+                        break;
+                    default:
+                        // Nothing to do
+                }
+            }
+
+            // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+            if (localStorage.edenTheme === 'dark' || (!('edenTheme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark')
+            } else {
+                document.documentElement.classList.remove('dark')
+            }
+        };
+        // Check Initial Color Scheme
+        (switchColorScheme)()
+    </script>
+
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 
