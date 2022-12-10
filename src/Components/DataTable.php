@@ -60,7 +60,7 @@ abstract class DataTable extends EdenComponent
      *
      * @var bool
      */
-    public $showFilters = true;
+    public $showFilters = false;
 
     /**
      * Should show search field
