@@ -1,8 +1,8 @@
 <?php
 
-namespace Dgharami\Eden\Traits;
+namespace BestSnipp\Eden\Traits;
 
-use Dgharami\Eden\Components\Fields\Field;
+use BestSnipp\Eden\Components\Fields\Field;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;

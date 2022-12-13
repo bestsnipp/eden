@@ -1,37 +1,37 @@
 <?php
-namespace Dgharami\Eden\Providers;
+namespace BestSnipp\Eden\Providers;
 
-use Dgharami\Eden\Assembled\ResourceCreateForm;
-use Dgharami\Eden\Assembled\ResourceDataTable;
-use Dgharami\Eden\Assembled\ResourceEditForm;
-use Dgharami\Eden\Assembled\ResourceRead;
-use Dgharami\Eden\Cards\EdenIntro;
-use Dgharami\Eden\Console\DeveloperCommand;
-use Dgharami\Eden\Console\EdenInstall;
-use Dgharami\Eden\Console\MakeAction;
-use Dgharami\Eden\Console\MakeCard;
-use Dgharami\Eden\Console\MakeDataTable;
-use Dgharami\Eden\Console\MakeEdenPage;
-use Dgharami\Eden\Console\MakeEdenResource;
-use Dgharami\Eden\Console\MakeField;
-use Dgharami\Eden\Console\MakeFilter;
-use Dgharami\Eden\Console\MakeForm;
-use Dgharami\Eden\Console\MakeListMetric;
-use Dgharami\Eden\Console\MakeModal;
-use Dgharami\Eden\Console\MakeProgressMetric;
-use Dgharami\Eden\Console\MakeRead;
-use Dgharami\Eden\Console\MakeSplitMetric;
-use Dgharami\Eden\Console\MakeStatisticMetric;
-use Dgharami\Eden\Console\MakeTrendMetric;
-use Dgharami\Eden\Console\MakeViewMetric;
-use Dgharami\Eden\Events\EdenServiceProviderRegistered;
-use Dgharami\Eden\Exceptions\EdenExceptionHandler;
-use Dgharami\Eden\Facades\Eden;
-use Dgharami\Eden\Facades\EdenAssets;
-use Dgharami\Eden\Facades\EdenModal;
-use Dgharami\Eden\Listeners\PrepareEden;
-use Dgharami\Eden\Middleware\EdenRequestHandler;
-use Dgharami\Eden\Modals\DeleteModal;
+use BestSnipp\Eden\Assembled\ResourceCreateForm;
+use BestSnipp\Eden\Assembled\ResourceDataTable;
+use BestSnipp\Eden\Assembled\ResourceEditForm;
+use BestSnipp\Eden\Assembled\ResourceRead;
+use BestSnipp\Eden\Cards\EdenIntro;
+use BestSnipp\Eden\Console\DeveloperCommand;
+use BestSnipp\Eden\Console\EdenInstall;
+use BestSnipp\Eden\Console\MakeAction;
+use BestSnipp\Eden\Console\MakeCard;
+use BestSnipp\Eden\Console\MakeDataTable;
+use BestSnipp\Eden\Console\MakeEdenPage;
+use BestSnipp\Eden\Console\MakeEdenResource;
+use BestSnipp\Eden\Console\MakeField;
+use BestSnipp\Eden\Console\MakeFilter;
+use BestSnipp\Eden\Console\MakeForm;
+use BestSnipp\Eden\Console\MakeListMetric;
+use BestSnipp\Eden\Console\MakeModal;
+use BestSnipp\Eden\Console\MakeProgressMetric;
+use BestSnipp\Eden\Console\MakeRead;
+use BestSnipp\Eden\Console\MakeSplitMetric;
+use BestSnipp\Eden\Console\MakeStatisticMetric;
+use BestSnipp\Eden\Console\MakeTrendMetric;
+use BestSnipp\Eden\Console\MakeViewMetric;
+use BestSnipp\Eden\Events\EdenServiceProviderRegistered;
+use BestSnipp\Eden\Exceptions\EdenExceptionHandler;
+use BestSnipp\Eden\Facades\Eden;
+use BestSnipp\Eden\Facades\EdenAssets;
+use BestSnipp\Eden\Facades\EdenModal;
+use BestSnipp\Eden\Listeners\PrepareEden;
+use BestSnipp\Eden\Middleware\EdenRequestHandler;
+use BestSnipp\Eden\Modals\DeleteModal;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -144,19 +144,19 @@ class EdenCoreServiceProvider extends ServiceProvider
     protected function registerFacades()
     {
         $this->app->singleton('edenRouteManager', function () {
-            return new \Dgharami\Eden\RouteManager();
+            return new \BestSnipp\Eden\RouteManager();
         });
         $this->app->singleton('edenModalManager', function () {
-            return new \Dgharami\Eden\ModalManager();
+            return new \BestSnipp\Eden\ModalManager();
         });
         $this->app->singleton('eden', function () {
-            return new \Dgharami\Eden\EdenManager();
+            return new \BestSnipp\Eden\EdenManager();
         });
         $this->app->singleton('edenIconManager', function () {
-            return new \Dgharami\Eden\IconManager();
+            return new \BestSnipp\Eden\IconManager();
         });
         $this->app->singleton('edenAssetsManager', function () {
-            return new \Dgharami\Eden\AssetsManager();
+            return new \BestSnipp\Eden\AssetsManager();
         });
     }
 

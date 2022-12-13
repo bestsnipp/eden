@@ -23,6 +23,6 @@ if (! function_exists('edenIcon')) {
      */
     function edenIcon($icon, $scale = null)
     {
-        return \Dgharami\Eden\Facades\EdenIcon::getIcon($icon, $scale);
+        return \BestSnipp\Eden\Facades\EdenIcon::getIcon($icon, $scale);
     }
 }

@@ -1,16 +1,16 @@
 <?php
 
-namespace Dgharami\Eden\Components;
+namespace BestSnipp\Eden\Components;
 
 use App\Eden\DataTables\UsersDataTable;
 use App\Eden\Modals\ModalA;
-use Dgharami\Eden\RenderProviders\RenderProvider;
-use Dgharami\Eden\RenderProviders\TabRenderer;
-use Dgharami\Eden\Traits\HasToast;
-use Dgharami\Eden\Traits\InteractsWithModal;
-use Dgharami\Eden\Traits\MakeableComponent;
-use Dgharami\Eden\Traits\ModalEvents;
-use Dgharami\Eden\Traits\RouteAware;
+use BestSnipp\Eden\RenderProviders\RenderProvider;
+use BestSnipp\Eden\RenderProviders\TabRenderer;
+use BestSnipp\Eden\Traits\HasToast;
+use BestSnipp\Eden\Traits\InteractsWithModal;
+use BestSnipp\Eden\Traits\MakeableComponent;
+use BestSnipp\Eden\Traits\ModalEvents;
+use BestSnipp\Eden\Traits\RouteAware;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -159,7 +159,7 @@ abstract class Modal extends EdenComponent
     public function defaultViewParams()
     {
         $modalView = $this->modalView();
-        $isEdenComponentRendering = ($modalView instanceof \Dgharami\Eden\RenderProviders\RenderProvider);
+        $isEdenComponentRendering = ($modalView instanceof \BestSnipp\Eden\RenderProviders\RenderProvider);
 
         return [
             'content' => $modalView,

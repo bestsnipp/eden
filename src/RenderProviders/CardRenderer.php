@@ -1,6 +1,6 @@
 <?php
 
-namespace Dgharami\Eden\RenderProviders;
+namespace BestSnipp\Eden\RenderProviders;
 
 class CardRenderer extends RenderProvider
 {

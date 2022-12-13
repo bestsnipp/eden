@@ -1,10 +1,10 @@
 <?php
 
-namespace Dgharami\Eden\Components\Menu;
+namespace BestSnipp\Eden\Components\Menu;
 
-use Dgharami\Eden\Traits\AuthorizedToSee;
-use Dgharami\Eden\Traits\CanBeRendered;
-use Dgharami\Eden\Traits\Makeable;
+use BestSnipp\Eden\Traits\AuthorizedToSee;
+use BestSnipp\Eden\Traits\CanBeRendered;
+use BestSnipp\Eden\Traits\Makeable;
 
 /**
  * @method static static make(\Closure|string $title)

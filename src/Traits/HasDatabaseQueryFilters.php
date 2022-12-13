@@ -1,8 +1,8 @@
 <?php
 
-namespace Dgharami\Eden\Traits;
+namespace BestSnipp\Eden\Traits;
 
-use Dgharami\Eden\Components\DataTable\Filters\Filter;
+use BestSnipp\Eden\Components\DataTable\Filters\Filter;
 use Illuminate\Support\Collection;
 
 trait HasDatabaseQueryFilters

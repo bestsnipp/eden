@@ -1,17 +1,17 @@
 <?php
 
-namespace Dgharami\Eden\Components\Menu;
+namespace BestSnipp\Eden\Components\Menu;
 
-use Dgharami\Eden\Components\EdenPage;
-use Dgharami\Eden\Components\EdenResource;
-use Dgharami\Eden\Components\PageView;
-use Dgharami\Eden\Components\Resource;
-use Dgharami\Eden\RouteManager;
-use Dgharami\Eden\Traits\AuthorizedToSee;
-use Dgharami\Eden\Traits\CanBeRendered;
-use Dgharami\Eden\Traits\HasTitleKey;
-use Dgharami\Eden\Traits\HasView;
-use Dgharami\Eden\Traits\Makeable;
+use BestSnipp\Eden\Components\EdenPage;
+use BestSnipp\Eden\Components\EdenResource;
+use BestSnipp\Eden\Components\PageView;
+use BestSnipp\Eden\Components\Resource;
+use BestSnipp\Eden\RouteManager;
+use BestSnipp\Eden\Traits\AuthorizedToSee;
+use BestSnipp\Eden\Traits\CanBeRendered;
+use BestSnipp\Eden\Traits\HasTitleKey;
+use BestSnipp\Eden\Traits\HasView;
+use BestSnipp\Eden\Traits\Makeable;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;

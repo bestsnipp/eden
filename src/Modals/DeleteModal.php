@@ -1,8 +1,8 @@
 <?php
 
-namespace Dgharami\Eden\Modals;
+namespace BestSnipp\Eden\Modals;
 
-use Dgharami\Eden\Components\Modal;
+use BestSnipp\Eden\Components\Modal;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 

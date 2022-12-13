@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Dgharami\Eden\Components\Modal;
+use BestSnipp\Eden\Components\Modal;
 
 class {{ class }} extends Modal
 {

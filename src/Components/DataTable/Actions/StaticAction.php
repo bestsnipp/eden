@@ -1,11 +1,11 @@
 <?php
 
-namespace Dgharami\Eden\Components\DataTable\Actions;
+namespace BestSnipp\Eden\Components\DataTable\Actions;
 
 use App\Models\User;
-use Dgharami\Eden\Components\EdenPage;
-use Dgharami\Eden\Components\EdenResource;
-use Dgharami\Eden\Traits\CanBeRendered;
+use BestSnipp\Eden\Components\EdenPage;
+use BestSnipp\Eden\Components\EdenResource;
+use BestSnipp\Eden\Traits\CanBeRendered;
 use Faker\Factory;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

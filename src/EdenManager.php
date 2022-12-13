@@ -1,11 +1,11 @@
 <?php
 
-namespace Dgharami\Eden;
+namespace BestSnipp\Eden;
 
-use Dgharami\Eden\Components\EdenPage;
-use Dgharami\Eden\Components\Modal;
-use Dgharami\Eden\Facades\EdenModal;
-use Dgharami\Eden\Facades\EdenRoute;
+use BestSnipp\Eden\Components\EdenPage;
+use BestSnipp\Eden\Components\Modal;
+use BestSnipp\Eden\Facades\EdenModal;
+use BestSnipp\Eden\Facades\EdenRoute;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Livewire\Component;

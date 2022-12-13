@@ -1,6 +1,6 @@
 <?php
 
-namespace Dgharami\Eden\Traits;
+namespace BestSnipp\Eden\Traits;
 
 use Illuminate\View\View;
 use Livewire\Component;

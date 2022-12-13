@@ -1,8 +1,8 @@
 <?php
 
-namespace Dgharami\Eden\Providers;
+namespace BestSnipp\Eden\Providers;
 
-use Dgharami\Eden\Facades\Eden;
+use BestSnipp\Eden\Facades\Eden;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 

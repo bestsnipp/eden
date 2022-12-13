@@ -1,13 +1,13 @@
 <?php
 
-namespace Dgharami\Eden\Components\Fields;
+namespace BestSnipp\Eden\Components\Fields;
 
-use Dgharami\Eden\Components\Form;
-use Dgharami\Eden\Traits\AuthorizedToSee;
-use Dgharami\Eden\Traits\CanManageVisibility;
-use Dgharami\Eden\Traits\DependentField;
-use Dgharami\Eden\Traits\Makeable;
-use Dgharami\Eden\Traits\AsDataTableColumn;
+use BestSnipp\Eden\Components\Form;
+use BestSnipp\Eden\Traits\AuthorizedToSee;
+use BestSnipp\Eden\Traits\CanManageVisibility;
+use BestSnipp\Eden\Traits\DependentField;
+use BestSnipp\Eden\Traits\Makeable;
+use BestSnipp\Eden\Traits\AsDataTableColumn;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;

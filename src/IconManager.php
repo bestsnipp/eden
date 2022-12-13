@@ -1,6 +1,6 @@
 <?php
 
-namespace Dgharami\Eden;
+namespace BestSnipp\Eden;
 
 class IconManager
 {

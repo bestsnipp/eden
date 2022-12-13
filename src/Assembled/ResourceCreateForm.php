@@ -1,9 +1,9 @@
 <?php
 
-namespace Dgharami\Eden\Assembled;
+namespace BestSnipp\Eden\Assembled;
 
-use Dgharami\Eden\Components\Form;
-use Dgharami\Eden\Traits\HasEdenResource;
+use BestSnipp\Eden\Components\Form;
+use BestSnipp\Eden\Traits\HasEdenResource;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 

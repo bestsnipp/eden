@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [Dgharami\Eden\RouteController::class, 'entry'])->name('eden.entry');
+Route::get('/', [BestSnipp\Eden\RouteController::class, 'entry'])->name('eden.entry');
 
-Route::get('/{resource}', [Dgharami\Eden\RouteController::class, 'index'])->name('eden.page');
-Route::get('/{resource}/create', [Dgharami\Eden\RouteController::class, 'create'])->name('eden.create');
-Route::get('/{resource}/{resourceId}', [Dgharami\Eden\RouteController::class, 'show'])->name('eden.show');
-Route::get('/{resource}/{resourceId}/edit', [Dgharami\Eden\RouteController::class, 'edit'])->name('eden.edit');
+Route::get('/{resource}', [BestSnipp\Eden\RouteController::class, 'index'])->name('eden.page');
+Route::get('/{resource}/create', [BestSnipp\Eden\RouteController::class, 'create'])->name('eden.create');
+Route::get('/{resource}/{resourceId}', [BestSnipp\Eden\RouteController::class, 'show'])->name('eden.show');
+Route::get('/{resource}/{resourceId}/edit', [BestSnipp\Eden\RouteController::class, 'edit'])->name('eden.edit');

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dgharami\Eden\Console;
+namespace BestSnipp\Eden\Console;
 
 use App\Models\Car;
 use App\Models\User;

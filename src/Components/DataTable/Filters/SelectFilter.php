@@ -1,6 +1,6 @@
 <?php
 
-namespace Dgharami\Eden\Components\DataTable\Filters;
+namespace BestSnipp\Eden\Components\DataTable\Filters;
 
 class SelectFilter extends Filter
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Dgharami\Eden\Components\Metrics;
+namespace BestSnipp\Eden\Components\Metrics;
 
 use Carbon\CarbonImmutable;
 use DateTime;
 use DateTimeZone;
-use Dgharami\Eden\Traits\CanBeRendered;
-use Dgharami\Eden\Traits\HasDatabaseQueryFilters;
-use Dgharami\Eden\Traits\Makeable;
+use BestSnipp\Eden\Traits\CanBeRendered;
+use BestSnipp\Eden\Traits\HasDatabaseQueryFilters;
+use BestSnipp\Eden\Traits\Makeable;
 
 /**
  * @method static make($filter = null)

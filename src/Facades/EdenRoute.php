@@ -1,6 +1,6 @@
 <?php
 
-namespace Dgharami\Eden\Facades;
+namespace BestSnipp\Eden\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

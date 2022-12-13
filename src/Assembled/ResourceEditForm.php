@@ -1,6 +1,6 @@
 <?php
 
-namespace Dgharami\Eden\Assembled;
+namespace BestSnipp\Eden\Assembled;
 
 
 class ResourceEditForm extends ResourceCreateForm

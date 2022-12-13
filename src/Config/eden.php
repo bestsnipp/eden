@@ -36,7 +36,7 @@ return [
         'auth',
         //config('jetstream.auth_session'),
         'verified',
-        Dgharami\Eden\Middleware\EdenRequestHandler::class,
+        BestSnipp\Eden\Middleware\EdenRequestHandler::class,
         'can:accessEden'
     ],
 ];

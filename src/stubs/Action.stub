@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Dgharami\Eden\Components\DataTable\Actions\Action;
+use BestSnipp\Eden\Components\DataTable\Actions\Action;
 
 class {{ class }} extends Action
 {

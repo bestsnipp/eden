@@ -1,6 +1,6 @@
 <?php
 
-namespace Dgharami\Eden\Components\DataTable\Actions;
+namespace BestSnipp\Eden\Components\DataTable\Actions;
 
 use App\Models\User;
 use Faker\Factory;

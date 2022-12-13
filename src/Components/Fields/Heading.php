@@ -1,6 +1,6 @@
 <?php
 
-namespace Dgharami\Eden\Components\Fields;
+namespace BestSnipp\Eden\Components\Fields;
 
 class Heading extends Field
 {

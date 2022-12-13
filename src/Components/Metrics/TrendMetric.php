@@ -1,9 +1,9 @@
 <?php
 
-namespace Dgharami\Eden\Components\Metrics;
+namespace BestSnipp\Eden\Components\Metrics;
 
 
-use Dgharami\Eden\Traits\Makeable;
+use BestSnipp\Eden\Traits\Makeable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as ModelBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;

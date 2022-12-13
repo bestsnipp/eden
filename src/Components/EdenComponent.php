@@ -1,13 +1,13 @@
 <?php
 
-namespace Dgharami\Eden\Components;
+namespace BestSnipp\Eden\Components;
 
-use Dgharami\Eden\Traits\AuthorizedToSee;
-use Dgharami\Eden\Traits\CanBeRefreshed;
-use Dgharami\Eden\Traits\CanBeRendered;
-use Dgharami\Eden\Traits\HasToast;
-use Dgharami\Eden\Traits\InteractsWithEdenRoute;
-use Dgharami\Eden\Traits\MakeableComponent;
+use BestSnipp\Eden\Traits\AuthorizedToSee;
+use BestSnipp\Eden\Traits\CanBeRefreshed;
+use BestSnipp\Eden\Traits\CanBeRendered;
+use BestSnipp\Eden\Traits\HasToast;
+use BestSnipp\Eden\Traits\InteractsWithEdenRoute;
+use BestSnipp\Eden\Traits\MakeableComponent;
 
 abstract class EdenComponent extends \Livewire\Component
 {

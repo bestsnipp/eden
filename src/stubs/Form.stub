@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Dgharami\Eden\Components\Form;
+use BestSnipp\Eden\Components\Form;
 
 class {{ class }} extends Form
 {

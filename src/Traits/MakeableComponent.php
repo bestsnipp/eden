@@ -1,8 +1,8 @@
 <?php
 
-namespace Dgharami\Eden\Traits;
+namespace BestSnipp\Eden\Traits;
 
-use Dgharami\Eden\RenderProviders\RenderProvider;
+use BestSnipp\Eden\RenderProviders\RenderProvider;
 use Livewire\Component;
 
 trait MakeableComponent

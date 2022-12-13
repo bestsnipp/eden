@@ -51,7 +51,7 @@
     </style>
 
     <!-- Assets - Styles -->
-    @foreach(\Dgharami\Eden\Facades\EdenAssets::styles() as $style)
+    @foreach(\BestSnipp\Eden\Facades\EdenAssets::styles() as $style)
         <link rel="stylesheet" data-key="{{ $style['key'] }}" href="{{ $style['url'] }}" />
     @endforeach
 
@@ -69,7 +69,7 @@
         data-dusk="sidebar"
         class="py-3 px-3 bg-white min-w-[240px] w-64 shadow-md sticky top-0 h-screen dark:bg-slate-700 dark:text-white">
         <div data-dusk="branding" class="mb-6">
-            {!! \Dgharami\Eden\Facades\Eden::getLogo() !!}
+            {!! \BestSnipp\Eden\Facades\Eden::getLogo() !!}
         </div>
 
         @include('eden::menu.index')
@@ -93,19 +93,19 @@
         </div>
 
         <footer class="px-4">
-            {!! \Dgharami\Eden\Facades\Eden::getFooter() !!}
+            {!! \BestSnipp\Eden\Facades\Eden::getFooter() !!}
         </footer>
 
     </main>
 </div>
-@foreach(\Dgharami\Eden\Facades\EdenModal::modals() as $component)
+@foreach(\BestSnipp\Eden\Facades\EdenModal::modals() as $component)
     @livewire($component->component, $component->params)
 @endforeach
 
 @stack('js')
 
 <!-- Assets - Scripts -->
-@foreach(\Dgharami\Eden\Facades\EdenAssets::scripts() as $script)
+@foreach(\BestSnipp\Eden\Facades\EdenAssets::scripts() as $script)
 <script data-key="{{ $script['key'] }}" src="{{ $script['url'] }}"></script>
 @endforeach
 

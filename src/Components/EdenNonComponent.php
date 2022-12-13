@@ -1,9 +1,9 @@
 <?php
 
-namespace Dgharami\Eden\Components;
+namespace BestSnipp\Eden\Components;
 
-use Dgharami\Eden\Components\DataTable\Actions\Action;
-use Dgharami\Eden\Traits\InteractsWithEdenRoute;
+use BestSnipp\Eden\Components\DataTable\Actions\Action;
+use BestSnipp\Eden\Traits\InteractsWithEdenRoute;
 
 abstract class EdenNonComponent
 {

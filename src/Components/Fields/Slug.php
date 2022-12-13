@@ -1,8 +1,8 @@
 <?php
 
-namespace Dgharami\Eden\Components\Fields;
+namespace BestSnipp\Eden\Components\Fields;
 
-use Dgharami\Eden\Components\Form;
+use BestSnipp\Eden\Components\Form;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 

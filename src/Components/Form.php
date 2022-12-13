@@ -1,10 +1,10 @@
 <?php
-namespace Dgharami\Eden\Components;
+namespace BestSnipp\Eden\Components;
 
-use Dgharami\Eden\Components\Fields\Field;
-use Dgharami\Eden\Components\Fields\File;
-use Dgharami\Eden\RenderProviders\FormRenderer;
-use Dgharami\Eden\Traits\WithModel;
+use BestSnipp\Eden\Components\Fields\Field;
+use BestSnipp\Eden\Components\Fields\File;
+use BestSnipp\Eden\RenderProviders\FormRenderer;
+use BestSnipp\Eden\Traits\WithModel;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;

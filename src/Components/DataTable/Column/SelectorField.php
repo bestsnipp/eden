@@ -1,9 +1,9 @@
 <?php
-namespace Dgharami\Eden\Components\DataTable\Column;
+namespace BestSnipp\Eden\Components\DataTable\Column;
 
-use Dgharami\Eden\Components\DataTable\Column;
-use Dgharami\Eden\Components\Fields\Field;
-use Dgharami\Eden\Traits\HasTitleKey;
+use BestSnipp\Eden\Components\DataTable\Column;
+use BestSnipp\Eden\Components\Fields\Field;
+use BestSnipp\Eden\Traits\HasTitleKey;
 use Illuminate\Support\Str;
 
 class SelectorField extends Field

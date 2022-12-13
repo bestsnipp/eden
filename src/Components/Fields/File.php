@@ -1,6 +1,6 @@
 <?php
 
-namespace Dgharami\Eden\Components\Fields;
+namespace BestSnipp\Eden\Components\Fields;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Dgharami\Eden\Cards;
+namespace BestSnipp\Eden\Cards;
 
-use Dgharami\Eden\Components\Metrics\ViewMetric;
+use BestSnipp\Eden\Components\Metrics\ViewMetric;
 
-class EdenIntro extends \Dgharami\Eden\Components\Metric
+class EdenIntro extends \BestSnipp\Eden\Components\Metric
 {
     public $width = 'full';
 

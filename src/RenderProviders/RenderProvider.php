@@ -1,13 +1,13 @@
 <?php
 
-namespace Dgharami\Eden\RenderProviders;
+namespace BestSnipp\Eden\RenderProviders;
 
-use Dgharami\Eden\Traits\AuthorizedToSee;
+use BestSnipp\Eden\Traits\AuthorizedToSee;
 
 class RenderProvider
 {
     use AuthorizedToSee;
-    
+
     public $component = null;
 
     public $params = [];

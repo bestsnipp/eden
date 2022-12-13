@@ -3,7 +3,7 @@
 namespace {{ namespace }};
 
 use Illuminate\Support\Facades\Validator;
-use Dgharami\Eden\Components\Fields\Field;
+use BestSnipp\Eden\Components\Fields\Field;
 
 class {{ class }} extends Field
 {
@@ -40,7 +40,7 @@ class {{ class }} extends Field
      *
      * @param mixed $value
      * @param array $fields
-     * @return $this|\Dgharami\Eden\Components\Fields\Field
+     * @return $this|\BestSnipp\Eden\Components\Fields\Field
      */
     public function setValue($value, $fields = [])
     {

@@ -1,7 +1,7 @@
 <div class="flex justify-end gap-2">
     @if(count($actions) <= config('eden.action_buttons_count', 3))
         @foreach($actions as $action)
-            @if($action instanceof \Dgharami\Eden\Components\DataTable\Actions\StaticAction)
+            @if($action instanceof \BestSnipp\Eden\Components\DataTable\Actions\StaticAction)
                 {!! $action->setOwner($this)->prepare([$record], [])->render('button', $action, $record, $buttonStyle, $iconSize) !!}
             @else
                 {!! $action->render('button', $action, $record, $buttonStyle, $iconSize) !!}
@@ -13,7 +13,7 @@
         <div x-show="isOpen" x-transition.scale class="absolute z-50 border border-slate-50 mt-2 rounded-md shadow origin-top-right right-0 bg-white shadow-lg px-1 py-1 bg-white rounded-md w-44" style="display: none;">
             <ul class="list-inside">
                 @foreach($actions as $action)
-                    @if($action instanceof \Dgharami\Eden\Components\DataTable\Actions\StaticAction)
+                    @if($action instanceof \BestSnipp\Eden\Components\DataTable\Actions\StaticAction)
                         {!! $action->setOwner($this)->prepare([$record], [])->render('list', $action, $record, $buttonStyle, $iconSize) !!}
                     @else
                         {!! $action->render('list', $action, $record, $buttonStyle, $iconSize) !!}

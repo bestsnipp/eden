@@ -1,6 +1,6 @@
 {
-    "name": "dgharami/eden",
-    "description": "Beautifully Crafter Dashboard for Your Awesome Project",
+    "name": "bestsnipp/eden",
+    "description": "Create modern beautiful admin panel in no time",
     "license": "MIT",
     "require": {
         "php": ">=7.4",
@@ -10,7 +10,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Dgharami\\Eden\\": "src/"
+            "BestSnipp\\Eden\\": "src/"
         },
         "files": [
             "src/helpers.php"
@@ -25,10 +25,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Dgharami\\Eden\\Providers\\EdenCoreServiceProvider"
+                "BestSnipp\\Eden\\Providers\\EdenCoreServiceProvider"
             ],
             "aliases": {
-                "Eden": "Dgharami\\Eden\\Facades\\Eden"
+                "Eden": "BestSnipp\\Eden\\Facades\\Eden"
             }
         }
     }

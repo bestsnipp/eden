@@ -1,8 +1,8 @@
 <?php
 
-namespace Dgharami\Eden\Traits;
+namespace BestSnipp\Eden\Traits;
 
-use Dgharami\Eden\Facades\Eden;
+use BestSnipp\Eden\Facades\Eden;
 
 trait InteractsWithEdenRoute
 {

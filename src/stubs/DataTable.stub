@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Dgharami\Eden\Components\DataTable;
+use BestSnipp\Eden\Components\DataTable;
 
 class {{ class }} extends DataTable
 {

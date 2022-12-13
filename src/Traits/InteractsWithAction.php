@@ -1,7 +1,7 @@
 <?php
 
-namespace Dgharami\Eden\Traits;
-use Dgharami\Eden\Components\DataTable\Actions\Action;
+namespace BestSnipp\Eden\Traits;
+use BestSnipp\Eden\Components\DataTable\Actions\Action;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 trait InteractsWithAction

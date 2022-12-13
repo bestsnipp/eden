@@ -1,6 +1,6 @@
 <?php
 
-namespace Dgharami\Eden\Events;
+namespace BestSnipp\Eden\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 

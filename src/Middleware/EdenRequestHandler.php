@@ -1,9 +1,9 @@
 <?php
 
-namespace Dgharami\Eden\Middleware;
+namespace BestSnipp\Eden\Middleware;
 
 use Closure;
-use Dgharami\Eden\EdenRequest;
+use BestSnipp\Eden\EdenRequest;
 use Illuminate\Http\Request;
 use Livewire\LivewireManager;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Dgharami\Eden;
+namespace BestSnipp\Eden;
 
-use Dgharami\Eden\Components\EdenPage;
+use BestSnipp\Eden\Components\EdenPage;
 
 class RouteManager
 {

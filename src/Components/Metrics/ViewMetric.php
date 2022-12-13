@@ -1,8 +1,8 @@
 <?php
 
-namespace Dgharami\Eden\Components\Metrics;
+namespace BestSnipp\Eden\Components\Metrics;
 
-use Dgharami\Eden\Traits\Makeable;
+use BestSnipp\Eden\Traits\Makeable;
 use Illuminate\View\View;
 
 class ViewMetric extends MetricValue

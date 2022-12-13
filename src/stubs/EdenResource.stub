@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Dgharami\Eden\Components\EdenResource;
+use BestSnipp\Eden\Components\EdenResource;
 
 class {{ class }} extends EdenResource
 {

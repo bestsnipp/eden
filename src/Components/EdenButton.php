@@ -1,8 +1,8 @@
 <?php
 
-namespace Dgharami\Eden\Components;
+namespace BestSnipp\Eden\Components;
 
-use Dgharami\Eden\Traits\CanManageVisibility;
+use BestSnipp\Eden\Traits\CanManageVisibility;
 
 class EdenButton extends Menu\MenuItem
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Dgharami\Eden\Components;
+namespace BestSnipp\Eden\Components;
 
-use Dgharami\Eden\Traits\InteractsWithEdenRoute;
-use Dgharami\Eden\Traits\Makeable;
+use BestSnipp\Eden\Traits\InteractsWithEdenRoute;
+use BestSnipp\Eden\Traits\Makeable;
 use Illuminate\Support\Str;
 
 /**

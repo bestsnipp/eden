@@ -2,7 +2,7 @@
 
 namespace App\Eden\Filters;
 
-use Dgharami\Eden\Components\DataTable\Filters\Filter;
+use BestSnipp\Eden\Components\DataTable\Filters\Filter;
 
 class {{ class }} extends Filter
 {

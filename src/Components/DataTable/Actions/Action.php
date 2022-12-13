@@ -1,19 +1,19 @@
 <?php
-namespace Dgharami\Eden\Components\DataTable\Actions;
+namespace BestSnipp\Eden\Components\DataTable\Actions;
 
-use Dgharami\Eden\Components\DataTable;
-use Dgharami\Eden\Traits\AuthorizedToSee;
-use Dgharami\Eden\Traits\CanBeRendered;
-use Dgharami\Eden\Traits\CanManageVisibility;
-use Dgharami\Eden\Traits\HasOwner;
-use Dgharami\Eden\Traits\HasParentToast;
-use Dgharami\Eden\Traits\HasTitleKey;
-use Dgharami\Eden\Traits\HasToast;
-use Dgharami\Eden\Traits\InteractsWithModalViaOwner;
-use Dgharami\Eden\Traits\Makeable;
-use Dgharami\Eden\Traits\PerformsParentRedirects;
-use Dgharami\Eden\Traits\RouteAware;
-use Dgharami\Eden\Traits\RouteAwareViaOwner;
+use BestSnipp\Eden\Components\DataTable;
+use BestSnipp\Eden\Traits\AuthorizedToSee;
+use BestSnipp\Eden\Traits\CanBeRendered;
+use BestSnipp\Eden\Traits\CanManageVisibility;
+use BestSnipp\Eden\Traits\HasOwner;
+use BestSnipp\Eden\Traits\HasParentToast;
+use BestSnipp\Eden\Traits\HasTitleKey;
+use BestSnipp\Eden\Traits\HasToast;
+use BestSnipp\Eden\Traits\InteractsWithModalViaOwner;
+use BestSnipp\Eden\Traits\Makeable;
+use BestSnipp\Eden\Traits\PerformsParentRedirects;
+use BestSnipp\Eden\Traits\RouteAware;
+use BestSnipp\Eden\Traits\RouteAwareViaOwner;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;

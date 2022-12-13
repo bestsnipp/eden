@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Dgharami\Eden\Components\EdenPage;
+use BestSnipp\Eden\Components\EdenPage;
 
 class {{ class }} extends EdenPage
 {

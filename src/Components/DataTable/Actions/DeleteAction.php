@@ -1,8 +1,8 @@
 <?php
 
-namespace Dgharami\Eden\Components\DataTable\Actions;
+namespace BestSnipp\Eden\Components\DataTable\Actions;
 
-use Dgharami\Eden\Modals\DeleteModal;
+use BestSnipp\Eden\Modals\DeleteModal;
 
 class DeleteAction extends Action
 {

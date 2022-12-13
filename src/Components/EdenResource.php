@@ -1,12 +1,12 @@
 <?php
 
-namespace Dgharami\Eden\Components;
+namespace BestSnipp\Eden\Components;
 
 
-use Dgharami\Eden\Assembled\ResourceCreateForm;
-use Dgharami\Eden\Assembled\ResourceDataTable;
-use Dgharami\Eden\Assembled\ResourceEditForm;
-use Dgharami\Eden\Assembled\ResourceRead;
+use BestSnipp\Eden\Assembled\ResourceCreateForm;
+use BestSnipp\Eden\Assembled\ResourceDataTable;
+use BestSnipp\Eden\Assembled\ResourceEditForm;
+use BestSnipp\Eden\Assembled\ResourceRead;
 
 /**
  * @inheritDoc

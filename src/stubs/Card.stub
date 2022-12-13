@@ -2,15 +2,15 @@
 
 namespace {{ namespace }};
 
-use Dgharami\Eden\Components\Metric;
-use Dgharami\Eden\Components\Metrics\{{ type }};
+use BestSnipp\Eden\Components\Metric;
+use BestSnipp\Eden\Components\Metrics\{{ type }};
 
 class {{ class }} extends Metric
 {
     public $title = '{{ class }}';
 
     /**
-     * @return \Dgharami\Eden\Components\Metrics\{{ type }}
+     * @return \BestSnipp\Eden\Components\Metrics\{{ type }}
      */
     public function calculate()
     {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Dgharami\Eden\Components\DataTable\Filters;
+namespace BestSnipp\Eden\Components\DataTable\Filters;
 
-use Dgharami\Eden\Traits\CanBeRendered;
-use Dgharami\Eden\Traits\Makeable;
+use BestSnipp\Eden\Traits\CanBeRendered;
+use BestSnipp\Eden\Traits\Makeable;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Str;
 

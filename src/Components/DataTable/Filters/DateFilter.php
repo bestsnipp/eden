@@ -1,6 +1,6 @@
 <?php
 
-namespace Dgharami\Eden\Components\DataTable\Filters;
+namespace BestSnipp\Eden\Components\DataTable\Filters;
 
 use Illuminate\Database\Query\Builder;
 

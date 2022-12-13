@@ -1,9 +1,9 @@
 <?php
 
-namespace Dgharami\Eden\Traits;
+namespace BestSnipp\Eden\Traits;
 
-use Dgharami\Eden\Traits\HasTitleKey;
-use Dgharami\Eden\Traits\Makeable;
+use BestSnipp\Eden\Traits\HasTitleKey;
+use BestSnipp\Eden\Traits\Makeable;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;

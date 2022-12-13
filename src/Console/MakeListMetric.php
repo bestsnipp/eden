@@ -1,8 +1,8 @@
 <?php
 
-namespace Dgharami\Eden\Console;
+namespace BestSnipp\Eden\Console;
 
-use Dgharami\Eden\Traits\StubPublisher;
+use BestSnipp\Eden\Traits\StubPublisher;
 use Illuminate\Console\Command;
 
 class MakeListMetric extends Command

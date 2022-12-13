@@ -1,16 +1,16 @@
 <?php
-namespace Dgharami\Eden\Components;
+namespace BestSnipp\Eden\Components;
 
 use App\Models\User;
-use Dgharami\Eden\Components\DataTable\Actions\Action;
-use Dgharami\Eden\Components\DataTable\Actions\StaticAction;
-use Dgharami\Eden\Components\DataTable\Column\ActionField;
-use Dgharami\Eden\Components\DataTable\Column\SelectorField;
-use Dgharami\Eden\Components\Fields\Field;
-use Dgharami\Eden\Facades\Eden;
-use Dgharami\Eden\RenderProviders\DataTableRenderer;
-use Dgharami\Eden\Traits\InteractsWithAction;
-use Dgharami\Eden\Traits\WithModel;
+use BestSnipp\Eden\Components\DataTable\Actions\Action;
+use BestSnipp\Eden\Components\DataTable\Actions\StaticAction;
+use BestSnipp\Eden\Components\DataTable\Column\ActionField;
+use BestSnipp\Eden\Components\DataTable\Column\SelectorField;
+use BestSnipp\Eden\Components\Fields\Field;
+use BestSnipp\Eden\Facades\Eden;
+use BestSnipp\Eden\RenderProviders\DataTableRenderer;
+use BestSnipp\Eden\Traits\InteractsWithAction;
+use BestSnipp\Eden\Traits\WithModel;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pipeline\Pipeline;

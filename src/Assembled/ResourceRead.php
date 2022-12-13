@@ -1,11 +1,11 @@
 <?php
 
-namespace Dgharami\Eden\Assembled;
+namespace BestSnipp\Eden\Assembled;
 
-use Dgharami\Eden\Components\EdenButton;
-use Dgharami\Eden\Components\Read;
-use Dgharami\Eden\Facades\Eden;
-use Dgharami\Eden\Traits\HasEdenResource;
+use BestSnipp\Eden\Components\EdenButton;
+use BestSnipp\Eden\Components\Read;
+use BestSnipp\Eden\Facades\Eden;
+use BestSnipp\Eden\Traits\HasEdenResource;
 use Illuminate\Support\Str;
 
 class ResourceRead extends Read

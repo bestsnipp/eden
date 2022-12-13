@@ -1,11 +1,11 @@
 <?php
 
-namespace Dgharami\Eden\Assembled;
+namespace BestSnipp\Eden\Assembled;
 
 use App\Models\User;
-use Dgharami\Eden\Components\DataTable;
-use Dgharami\Eden\Components\EdenButton;
-use Dgharami\Eden\Traits\HasEdenResource;
+use BestSnipp\Eden\Components\DataTable;
+use BestSnipp\Eden\Components\EdenButton;
+use BestSnipp\Eden\Traits\HasEdenResource;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;

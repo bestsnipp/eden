@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Dgharami\Eden\Components\Read;
+use BestSnipp\Eden\Components\Read;
 
 class {{ class }} extends Read
 {

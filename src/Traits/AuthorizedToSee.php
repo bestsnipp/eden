@@ -1,6 +1,6 @@
 <?php
 
-namespace Dgharami\Eden\Traits;
+namespace BestSnipp\Eden\Traits;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Dgharami\Eden\Listeners;
+namespace BestSnipp\Eden\Listeners;
 
 
-use Dgharami\Eden\Providers\EdenCoreServiceProvider;
+use BestSnipp\Eden\Providers\EdenCoreServiceProvider;
 
 class PrepareEden
 {

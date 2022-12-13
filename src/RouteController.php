@@ -1,12 +1,12 @@
 <?php
 
-namespace Dgharami\Eden;
+namespace BestSnipp\Eden;
 
 use App\Http\Controllers\Controller;
-use Dgharami\Eden\Components\EdenPage;
-use Dgharami\Eden\Components\EdenResource;
-use Dgharami\Eden\Components\Resource;
-use Dgharami\Eden\Facades\EdenRoute;
+use BestSnipp\Eden\Components\EdenPage;
+use BestSnipp\Eden\Components\EdenResource;
+use BestSnipp\Eden\Components\Resource;
+use BestSnipp\Eden\Facades\EdenRoute;
 use Illuminate\Support\Facades\Gate;
 
 class RouteController extends Controller

@@ -1,12 +1,12 @@
 <?php
 
-namespace Dgharami\Eden\Components;
+namespace BestSnipp\Eden\Components;
 
 use Carbon\CarbonImmutable;
-use Dgharami\Eden\Components\Metrics\MetricValue;
-use Dgharami\Eden\Components\Metrics\SplitMetric;
-use Dgharami\Eden\Components\Metrics\TrendMetric;
-use Dgharami\Eden\RenderProviders\CardRenderer;
+use BestSnipp\Eden\Components\Metrics\MetricValue;
+use BestSnipp\Eden\Components\Metrics\SplitMetric;
+use BestSnipp\Eden\Components\Metrics\TrendMetric;
+use BestSnipp\Eden\RenderProviders\CardRenderer;
 
 /**
  * @method static make(array $params = [])
