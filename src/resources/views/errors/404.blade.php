@@ -1,6 +1,6 @@
 @extends("eden::layouts.app")
 
-@section('header', 'Error - 404!')
+@section('header', 'Error - 404')
 
 @section('content')
 
