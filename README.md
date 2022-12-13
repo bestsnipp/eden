@@ -2,6 +2,8 @@
 
 > An awesome admin panel to make your development easier.
 
+> **Attention** ---
+> This is in active development, still you can use that
 
 ## Requirements
 
@@ -25,14 +27,5 @@ Laravel Eden supports modern versions of the following browsers:
 ## Installing Via Composer
 
 ```shell
-"repositories":[
-    {
-        "type": "vcs",
-        "url": "https://github.com/dgharami/laravel-eden-latest"
-    }
-]
-```
-
-```shell
-composer require dgharami/eden
+composer require bestsnipp/eden
 ```
