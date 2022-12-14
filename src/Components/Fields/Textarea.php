@@ -39,6 +39,8 @@ class Textarea extends Field
 
     public function viewForIndex()
     {
+        parent::viewForIndex();
+
         return view('eden::fields.row.textarea')
             ->with([
                 'preview' => Str::limit(strip_tags($this->value), 37),
@@ -48,6 +50,8 @@ class Textarea extends Field
 
     public function viewForRead()
     {
+        parent::viewForRead();
+
         return view('eden::fields.view.textarea')
             ->with([
                 'preview' => Str::limit(strip_tags($this->value), $this->previewCharLimit),

@@ -18,11 +18,15 @@ class Email extends Field
 
     public function viewForIndex()
     {
+        parent::viewForIndex();
+
         return view('eden::fields.row.email');
     }
 
     public function viewForRead()
     {
+        parent::viewForRead();
+
         return view('eden::fields.view.email');
     }
 

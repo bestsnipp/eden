@@ -21,6 +21,8 @@ class Code extends Textarea
 
     public function viewForRead()
     {
+        parent::viewForRead();
+
         return view('eden::fields.view.code');
     }
 }

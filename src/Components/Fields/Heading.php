@@ -46,6 +46,8 @@ class Heading extends Field
 
     public function viewForRead()
     {
+        parent::viewForRead();
+
         return view('eden::fields.view.heading')
         ->with([
             'textColor' => $this->textColor,

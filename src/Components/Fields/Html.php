@@ -26,6 +26,8 @@ class Html extends Field
 
     public function viewForRead()
     {
+        parent::viewForRead();
+
         return view('eden::fields.view.html')
             ->with('usingFullSpace', $this->usingFullSpace);
     }

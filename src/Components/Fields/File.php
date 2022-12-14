@@ -142,12 +142,15 @@ class File extends Field
 
     public function viewForIndex()
     {
+        parent::viewForIndex();
+
         return view('eden::fields.row.file');
     }
 
     public function viewForRead()
     {
         $this->value = $this->prepareFilePreviews();
+        parent::viewForRead();
 
         return view('eden::fields.view.file');
     }

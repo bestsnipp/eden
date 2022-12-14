@@ -45,6 +45,8 @@ class Password extends Field
 
     public function viewForRead()
     {
+        parent::viewForRead();
+
         return view('eden::fields.view.password')
             ->with('viewable', $this->viewable);
     }

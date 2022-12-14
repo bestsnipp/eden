@@ -19,11 +19,15 @@ class RadioBoxes extends Field
 
     public function viewForIndex()
     {
+        parent::viewForIndex();
+
         return view('eden::fields.row.radio');
     }
 
     public function viewForRead()
     {
+        parent::viewForRead();
+
         return view('eden::fields.view.radio');
     }
 

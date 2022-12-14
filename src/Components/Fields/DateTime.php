@@ -46,6 +46,9 @@ class DateTime extends Field
         $this->value = ($this->value instanceof Carbon)
             ? $this->value->format($this->phpFormat)
             : Carbon::parse($this->value)->format($this->phpFormat);
+
+        parent::viewForRead();
+
         return view('eden::fields.view.text');
     }
 
@@ -54,6 +57,9 @@ class DateTime extends Field
         $this->value = ($this->value instanceof Carbon)
             ? $this->value->format($this->phpFormat)
             : Carbon::parse($this->value)->format($this->phpFormat);
+
+        parent::viewForIndex();
+
         return parent::viewForIndex();
     }
 

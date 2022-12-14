@@ -14,11 +14,15 @@ class Color extends Field
 
     public function viewForIndex()
     {
+        parent::viewForIndex();
+
         return view('eden::fields.row.color');
     }
 
     public function viewForRead()
     {
+        parent::viewForRead();
+
         return view('eden::fields.view.color');
     }
 

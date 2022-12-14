@@ -27,11 +27,15 @@ class CheckBoxes extends Field
 
     public function viewForIndex()
     {
+        parent::viewForIndex();
+
         return view('eden::fields.row.checkbox');
     }
 
     public function viewForRead()
     {
+        parent::viewForRead();
+
         return view('eden::fields.view.checkbox')
             ->with('hideUnchecked', $this->hideUnchecked);
     }
