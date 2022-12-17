@@ -45,16 +45,44 @@ class EdenInstall extends Command
             $this->call('jetstream:install', ['livewire']);
         }
 
-        $this->info('Publishing Eden Service Provider...');
+        $this->info('Publishing Eden Service Provider ...');
         $this->callSilent('vendor:publish', ['--tag' => 'eden-provider']);
         $this->installEdenServiceProvider();
 
-        $this->info('Publishing Eden Config File...');
+        $this->info('Publishing Eden Config File ...');
         $this->callSilent('vendor:publish', ['--tag' => 'eden-config']);
+
+        $this->info('Publishing Eden Entry Page ...');
+        $this->prepareDashboardPage();
 
         $this->warn('Success ...');
         $this->output->newLine();
         return 0;
+    }
+
+    /**
+     * Add Default Eden Page
+     *
+     * @return void
+     */
+    protected function prepareDashboardPage()
+    {
+        $this->callSilently('eden:page', ['name' => 'Dashboard']);
+
+        $namespace = Str::replaceLast('\\', '', $this->laravel->getNamespace());
+        $filePath = app_path('/Eden/Pages/Dashboard.php');
+
+        $dashboardPage = file_get_contents($filePath);
+        $eol = $this->getEOL($dashboardPage);
+
+        if (!Str::contains($dashboardPage, "\\BestSnipp\\Eden\\Cards\\EdenIntro::make()")) {
+            file_put_contents($filePath, str_replace(
+                "return [$eol",
+                "return [$eol            \\BestSnipp\\Eden\\Cards\\EdenIntro::make()",
+                $dashboardPage
+            ));
+        }
+
     }
 
     /**
@@ -85,5 +113,17 @@ class EdenInstall extends Command
             "{$namespace}\\Providers\EventServiceProvider::class,".$eol."        {$namespace}\Providers\EdenServiceProvider::class,".$eol,
             $appConfig
         ));
+    }
+
+    protected function getEOL($data)
+    {
+        $lineEndingCount = [
+            "\r\n" => substr_count($data, "\r\n"),
+            "\r" => substr_count($data, "\r"),
+            "\n" => substr_count($data, "\n"),
+        ];
+
+        $eol = array_keys($lineEndingCount, max($lineEndingCount))[0];
+        return $eol;
     }
 }

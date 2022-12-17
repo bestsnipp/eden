@@ -62,8 +62,8 @@ class MakeEdenPage extends Command
         $resourceName = Str::replaceLast('-page', '', Str::slug(Str::snake(class_basename($this->name))));
 
         return [
-            'slug' => Str::plural($resourceName),
-            'title' => Str::singular($resourceName)
+            'slug' => Str::singular($resourceName),
+            'title' => Str::ucfirst(Str::singular($resourceName))
         ];
     }
 }

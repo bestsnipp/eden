@@ -132,7 +132,7 @@ trait StubPublisher
     protected function makeDirectory($path)
     {
         if (! $this->files->isDirectory($path)) {
-            $this->files->makeDirectory($path, 0777, true, true);
+            $this->files->makeDirectory($path, 0775, true, true);
         }
 
         return $path;
