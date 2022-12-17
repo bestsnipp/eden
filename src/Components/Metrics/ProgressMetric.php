@@ -212,7 +212,7 @@ class ProgressMetric extends MetricValue
     public function view()
     {
         $calculatedPercentage = $this->calculatePercentage();
-        $valueLabel = is_null($this->valueCallback) ? $calculatedPercentage . '%' : appCall($this->valueCallback, [
+        $valueLabel = is_null($this->valueCallback) ? number_format($calculatedPercentage, 2) . '%' : appCall($this->valueCallback, [
             'percentage' => $calculatedPercentage,
             'value' => $this->progress,
             'target' => $this->target

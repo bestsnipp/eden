@@ -146,7 +146,7 @@ class StatisticMetric extends MetricValue
     {
         $change = 0;
         try {
-            $change = (($present - $previous) / $previous) * 100;
+            $change = (($present - $previous) / ($previous ?: 100)) * 100;
         } catch (\Exception $exception) {
             if ($present != $previous) {
                 $change = 100;
