@@ -64,11 +64,12 @@
 <body class="font-sans antialiased" x-data x-eden-nice-scroll>
 
 <div class="min-h-screen bg-slate-100 text-slate-500 flex w-full dark:bg-slate-800 dark:text-slate-400">
+    <!-- Sidebar -->
     <section
         x-data
         x-eden-nice-scroll
         data-dusk="sidebar"
-        class="py-3 px-3 bg-white min-w-[240px] w-64 shadow-md sticky top-0 h-screen dark:bg-slate-700 dark:text-white">
+        class="py-3 px-3 bg-white w-64 shadow-md fixed top-0 h-screen z-[9999] hidden lg:block dark:bg-slate-700 dark:text-white">
         <div data-dusk="branding" class="mb-6">
             {!! \BestSnipp\Eden\Facades\Eden::getLogo() !!}
         </div>
@@ -77,10 +78,11 @@
     </section>
 
     <!-- Page Content -->
-    <main class="grow flex flex-col">
+    <main class="grow flex flex-col lg:ml-64 transition-[margin]">
 
         <!-- Page Heading -->
-        <header data-dusk="header" class="bg-white shadow-md mx-4 mt-4 rounded-md flex items-center py-4 px-4 sm:px-6 dark:bg-slate-700 dark:shadow-slate-900 dark:text-white">
+        <header data-dusk="header" class="bg-white shadow-md mx-4 mt-4 rounded-md flex items-center gap-4 py-4 px-4 sm:px-6 dark:bg-slate-700 dark:shadow-slate-900 dark:text-white">
+            <button type="button" class="lg:hidden">{!! edenIcon('menu-alt-1') !!}</button>
             <div class="grow">
                 @yield('header')
             </div>

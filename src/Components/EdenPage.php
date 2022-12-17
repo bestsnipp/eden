@@ -109,7 +109,7 @@ abstract class EdenPage
      */
     final public function prepareView($isPlural = false)
     {
-        return view('eden::app')
+        return view('eden::eden')
             ->with($this->viewParams($isPlural));
     }
 

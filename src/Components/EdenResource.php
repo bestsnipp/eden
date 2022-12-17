@@ -267,7 +267,7 @@ abstract class EdenResource extends EdenPage
             [ResourceDataTable::make(['edenResource' => get_called_class()])]
         );
 
-        return view('eden::app')->with($viewParams);
+        return view('eden::eden')->with($viewParams);
     }
 
     /**
@@ -283,7 +283,7 @@ abstract class EdenResource extends EdenPage
             [ResourceCreateForm::make(['edenResource' => get_called_class()])]
         );
 
-        return view('eden::app')->with($viewParams);
+        return view('eden::eden')->with($viewParams);
     }
 
     /**
@@ -301,7 +301,7 @@ abstract class EdenResource extends EdenPage
             $this->cards(),
             [ResourceEditForm::make(['edenResource' => get_called_class()])]
         );
-        return view('eden::app')->with($viewParams);
+        return view('eden::eden')->with($viewParams);
     }
 
     /**
@@ -317,7 +317,7 @@ abstract class EdenResource extends EdenPage
             [ResourceRead::make(['edenResource' => get_called_class()])]
         );
 
-        return view('eden::app')->with($viewParams);
+        return view('eden::eden')->with($viewParams);
     }
 
     /**
