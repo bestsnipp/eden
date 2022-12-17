@@ -34,9 +34,9 @@ abstract class Action
 
     public $icon = null;
 
-    private $records = [];
+    protected $records = [];
 
-    private $payload = [];
+    protected $payload = [];
 
     protected $owner = null;
 

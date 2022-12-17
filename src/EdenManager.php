@@ -7,6 +7,7 @@ use BestSnipp\Eden\Components\Modal;
 use BestSnipp\Eden\Facades\EdenModal;
 use BestSnipp\Eden\Facades\EdenRoute;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\Livewire;
@@ -185,6 +186,21 @@ class EdenManager
                 return collect($item)->toArray();
             })
             ->toArray();
+    }
+
+    /**
+     * Check user ability for a particular action is it allowed or not, if policy not exists it will allow by default
+     *
+     * @param $ability
+     * @param $modelOrClass
+     * @return bool
+     */
+    public function isActionAuthorized($ability, $modelOrClass)
+    {
+        if (!is_null(Gate::getPolicyFor($modelOrClass))) { // Policy Available for the model/class
+            return auth()->user()->can($ability, $modelOrClass);
+        }
+        return true;
     }
 
     /**

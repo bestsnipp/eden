@@ -69,7 +69,7 @@
         x-data
         x-eden-nice-scroll
         data-dusk="sidebar"
-        class="py-3 px-3 bg-white w-64 shadow-md fixed top-0 h-screen z-[9999] hidden lg:block dark:bg-slate-700 dark:text-white">
+        class="py-3 px-3 bg-white w-64 shadow-md fixed top-0 h-screen z-50 hidden lg:block dark:bg-slate-700 dark:text-white">
         <div data-dusk="branding" class="mb-6">
             {!! \BestSnipp\Eden\Facades\Eden::getLogo() !!}
         </div>

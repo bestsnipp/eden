@@ -7,6 +7,15 @@ use Livewire\Component;
 
 trait CanBeRendered
 {
+    protected $show = true;
+
+    /**
+     * @return boolean
+     */
+    public function shouldShow()
+    {
+        return $this->show;
+    }
 
     /**
      * @return \Illuminate\Contracts\View\View|string
@@ -15,6 +24,10 @@ trait CanBeRendered
     final public function render()
     {
         if (in_array(AuthorizedToSee::class, class_uses_recursive($this)) && !$this->isAuthorizedToSee()) {
+           return '';
+        }
+
+        if (!$this->shouldShow()) {
            return '';
         }
 

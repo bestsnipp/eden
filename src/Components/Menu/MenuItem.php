@@ -6,6 +6,7 @@ use BestSnipp\Eden\Components\EdenPage;
 use BestSnipp\Eden\Components\EdenResource;
 use BestSnipp\Eden\Components\PageView;
 use BestSnipp\Eden\Components\Resource;
+use BestSnipp\Eden\Facades\Eden;
 use BestSnipp\Eden\RouteManager;
 use BestSnipp\Eden\Traits\AuthorizedToSee;
 use BestSnipp\Eden\Traits\CanBeRendered;
@@ -140,6 +141,7 @@ class MenuItem
     public function resource($resource)
     {
         if (is_subclass_of($resource, EdenResource::class)) {
+            $this->show = Eden::isActionAuthorized('viewAny', $resource::$model);
             $this->route = route('eden.page', appCall($resource)->getSlug());
         }
         return $this;

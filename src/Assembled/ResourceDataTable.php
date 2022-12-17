@@ -14,7 +14,6 @@ final class ResourceDataTable extends DataTable
 {
     use HasEdenResource;
 
-
     protected function init()
     {
         $this->getResourceData(function ($edenResource) {
@@ -78,7 +77,7 @@ final class ResourceDataTable extends DataTable
         return collect(array_merge($operations, [
             EdenButton::make('Create New')->route('eden.create', [
                 'resource' => $this->resource
-            ])->noIcon()
+            ])->noIcon()->canSeeWhen('create', $this->model())
         ]))
         ->reject(function ($field) {
             return !$field->visibilityOnIndex;

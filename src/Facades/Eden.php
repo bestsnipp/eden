@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static logo($callback = null)
  * @method static getLogo()
  * @method static getCurrentRoute()
+ * @method static isActionAuthorized($ability, $modelOrClass)
  * @method static registerComponents($directory, $namespace = null, $basePath = null)
  */
 class Eden extends Facade

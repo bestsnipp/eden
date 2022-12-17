@@ -7,6 +7,10 @@ use BestSnipp\Eden\Assembled\ResourceCreateForm;
 use BestSnipp\Eden\Assembled\ResourceDataTable;
 use BestSnipp\Eden\Assembled\ResourceEditForm;
 use BestSnipp\Eden\Assembled\ResourceRead;
+use BestSnipp\Eden\Facades\Eden;
+use BestSnipp\Eden\Traits\WithModel;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Gate;
 
 /**
  * @inheritDoc
@@ -261,6 +265,8 @@ abstract class EdenResource extends EdenPage
      */
     final public function index($slug)
     {
+        abort_if(!Eden::isActionAuthorized('viewAny', $this->model()), 403);
+
         $viewParams = $this->viewParams(true);
         $viewParams['components'] = array_merge(
             $this->cards(),
@@ -277,6 +283,8 @@ abstract class EdenResource extends EdenPage
      */
     public function create($slug)
     {
+        abort_if(!Eden::isActionAuthorized('create', $this->model()), 403);
+
         $viewParams = $this->viewParams();
         $viewParams['components'] = array_merge(
             $this->cards(),
@@ -293,6 +301,12 @@ abstract class EdenResource extends EdenPage
      */
     public function edit($slug, $id)
     {
+        $this->resource = $slug;
+        $this->resourceId = $id;
+        $this->resolveRecord();
+
+        abort_if(!Eden::isActionAuthorized('update', $this->record()), 403);
+
         // Force Form that This is an Edit Form
         $this->isUpdate = true;
 
@@ -311,6 +325,12 @@ abstract class EdenResource extends EdenPage
      */
     public function show($slug, $id)
     {
+        $this->resource = $slug;
+        $this->resourceId = $id;
+        $this->resolveRecord();
+
+        abort_if(!Eden::isActionAuthorized('view', $this->record()), 403);
+
         $viewParams = $this->viewParams();
         $viewParams['components'] = array_merge(
             $this->cards(),
@@ -318,6 +338,11 @@ abstract class EdenResource extends EdenPage
         );
 
         return view('eden::eden')->with($viewParams);
+    }
+
+    protected function isAuthorizedToSee($ability, $modelOrClass)
+    {
+
     }
 
     /**

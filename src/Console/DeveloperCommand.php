@@ -39,6 +39,8 @@ class DeveloperCommand extends Command
         $user = auth()->user();
         $car = Car::latest()->first();
 
+        dd(Gate::has('accessEden'));
+
         dd(Gate::getPolicyFor(Car::class), Gate::getPolicyFor($car));
         $isAllowed = Gate::inspect('view', $car);
         dd($user->can('view', $car));

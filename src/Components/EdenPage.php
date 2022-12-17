@@ -4,6 +4,7 @@ namespace BestSnipp\Eden\Components;
 
 use BestSnipp\Eden\Traits\InteractsWithEdenRoute;
 use BestSnipp\Eden\Traits\Makeable;
+use BestSnipp\Eden\Traits\WithModel;
 use Illuminate\Support\Str;
 
 /**
@@ -12,6 +13,8 @@ use Illuminate\Support\Str;
 abstract class EdenPage
 {
     use Makeable;
+    use InteractsWithEdenRoute;
+    use WithModel;
 
     protected $slug = '';
 

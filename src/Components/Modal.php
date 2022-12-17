@@ -48,7 +48,7 @@ abstract class Modal extends EdenComponent
 
     protected $resetBeforeShow = false;
 
-    protected $show = false;
+    protected $visible = false;
 
     protected function getListeners()
     {
@@ -90,7 +90,7 @@ abstract class Modal extends EdenComponent
         if ($this->resetBeforeShow) {
             $this->resetExcept();
         }
-        $this->show = true;
+        $this->visible = true;
     }
 
     /**
@@ -100,7 +100,7 @@ abstract class Modal extends EdenComponent
      */
     public function dismiss()
     {
-        $this->show = false;
+        $this->visible = false;
     }
 
     public function getData($key, $default = '')
@@ -165,7 +165,7 @@ abstract class Modal extends EdenComponent
             'content' => $modalView,
             'isEdenComponent' => $isEdenComponentRendering,
             'compWidth' => $this->getModalWidth(),
-            'show' => $this->show,
+            'show' => $this->visible,
             'closeOnOutsideClick' => $this->closeOnOutsideClick,
             'style' => $this->style,
             'header' => $this->header,
