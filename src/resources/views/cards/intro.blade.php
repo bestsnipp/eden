@@ -2,7 +2,7 @@
     <div class="p-6 sm:px-20 bg-white border-slate-200 text-center">
         <div class="mb-3 text-2xl">let's create something great with</div>
 
-        <div class="scale-150">
+        <div class="scale-150 my-5">
             @include('eden::widgets.logo')
         </div>
 
