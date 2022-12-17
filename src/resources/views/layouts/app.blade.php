@@ -50,15 +50,16 @@
         [x-cloak] { display: none !important; }
     </style>
 
+    @livewireStyles
+
     <!-- Assets - Styles -->
     @foreach(\BestSnipp\Eden\Facades\EdenAssets::styles() as $style)
         <link rel="stylesheet" data-key="{{ $style['key'] }}" href="{{ $style['url'] }}" />
     @endforeach
 
-    @livewireStyles
-    @stack('css')
-
     @vite('resources/css/app.css')
+
+    @stack('css')
 </head>
 <body class="font-sans antialiased" x-data x-eden-nice-scroll>
 
@@ -104,6 +105,8 @@
 
 @stack('js')
 
+@livewireScripts
+
 <!-- Assets - Scripts -->
 @foreach(\BestSnipp\Eden\Facades\EdenAssets::scripts() as $script)
 <script data-key="{{ $script['key'] }}" src="{{ $script['url'] }}"></script>
@@ -112,6 +115,6 @@
 @include('eden::widgets.toasts')
 
 @vite('resources/js/app.js')
-@livewireScripts
+
 </body>
 </html>
