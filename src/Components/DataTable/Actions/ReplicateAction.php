@@ -16,7 +16,7 @@ class ReplicateAction extends StaticAction
 
     public $icon = 'duplicate';
 
-    public function beforeApply()
+    public function onMount()
     {
         $this->show = Eden::isActionAuthorized('create', collect($this->records)->first());
 

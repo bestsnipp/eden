@@ -20,7 +20,7 @@ class DetailsAction extends StaticAction
 
     public $visibilityOnDetails = false;
 
-    public function beforeApply()
+    public function onMount()
     {
         $this->show = Eden::isActionAuthorized('view', collect($this->records)->first());
 

@@ -18,7 +18,7 @@ class EditAction extends StaticAction
 
     public $icon = 'pencil-alt';
 
-    public function beforeApply()
+    public function onMount()
     {
         $this->show = Eden::isActionAuthorized('update', collect($this->records)->first());
 

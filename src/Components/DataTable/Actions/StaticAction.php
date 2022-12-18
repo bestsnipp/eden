@@ -5,6 +5,7 @@ namespace BestSnipp\Eden\Components\DataTable\Actions;
 use App\Models\User;
 use BestSnipp\Eden\Components\EdenPage;
 use BestSnipp\Eden\Components\EdenResource;
+use BestSnipp\Eden\Facades\Eden;
 use BestSnipp\Eden\Traits\CanBeRendered;
 use Faker\Factory;
 use Illuminate\Bus\Queueable;
@@ -137,6 +138,7 @@ class StaticAction extends Action
     public function resource($resource)
     {
         if (is_subclass_of($resource, EdenResource::class)) {
+            $this->show = Eden::isActionAuthorized('viewAny', $resource::$model);
             $this->route = route('eden.page', appCall($resource)->getSlug());
         }
         return $this;

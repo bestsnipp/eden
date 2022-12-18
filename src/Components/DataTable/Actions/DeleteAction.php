@@ -12,21 +12,50 @@ class DeleteAction extends Action
 
     public $icon = 'trash';
 
-    public function __construct()
+    protected $isAllowed = false;
+
+    /**
+     * Check if user allowed to remove the record or not
+     *
+     * @return void
+     */
+    public function onMount()
     {
-        parent::__construct();
-        // TODO: Needs Checking as during construction of this action models are not provided,
-        // its possible to provide for single record but will create issue for multiple records
-       // $this->show = Eden::isActionAuthorized('delete', collect($this->records)->first());
+        $this->show = Eden::isActionAuthorized('delete', collect($this->records)->first());
+    }
+
+    /**
+     * Check bulk remove permission
+     *
+     * @return void
+     */
+    public function beforeApplyBulk()
+    {
+        $this->isAllowed = Eden::isActionAuthorized('delete', collect($this->records)->first());
+        if (!$this->isAllowed) {
+            $this->toastError('You are not authorized to perform the action');
+        }
+    }
+
+    /**
+     * Check if user allowed to remove the record or not
+     *
+     * @return void
+     */
+    public function beforeApply()
+    {
+        $this->isAllowed = Eden::isActionAuthorized('delete', collect($this->records)->first());
     }
 
     public function apply($records, $payload)
     {
-        $this->emit('show' . DeleteModal::getName(), [
-            'caller' => $this->owner->getName(),
-            'model' => $this->owner::$model,
-            'records' => $records
-        ]);
+        if ($this->isAllowed) {
+            $this->emit('show' . DeleteModal::getName(), [
+                'caller' => $this->owner->getName(),
+                'model' => $this->owner::$model,
+                'records' => $records
+            ]);
+        }
     }
 
 }

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 trait InteractsWithAction
 {
 
-    public function applyAction($actionID, $recordID = null)
+    public function applyAction($actionID, $recordID = null, $isBulkAction = false)
     {
         $recordIDs = collect($recordID)->transform(function ($value) {
             return base64_decode($value);
@@ -18,14 +18,14 @@ trait InteractsWithAction
         });
 
         // If action not required any type of confirmation, execute it with blank data
-        $this->executeAction($action, $recordIDs);
+        $this->executeAction($action, $recordIDs, [], $isBulkAction);
     }
 
-    protected function executeAction(Action $action, $records, $payload = [])
+    protected function executeAction(Action $action, $records, $payload = [], $isBulkAction = false)
     {
         $allRecords = app($this->model())->whereIn(app($this->model())->getKeyName(), $records)->get();
         $action->setOwner($this);
-        $action->prepare($allRecords, $payload);
+        $action->prepare($allRecords, $payload, $isBulkAction);
 
         if ($action instanceof ShouldQueue) { // Queue the Action
             dispatch($action);

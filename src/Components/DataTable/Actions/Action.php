@@ -38,6 +38,8 @@ abstract class Action
 
     protected $payload = [];
 
+    protected $isFromBulkAction = false;
+
     protected $owner = null;
 
     protected $resource = '';
@@ -84,18 +86,60 @@ abstract class Action
         return [];
     }
 
-    final public function prepare($records = [], $payload = [])
+    /**
+     * Prepare field before render
+     *
+     * @param $records
+     * @param $payload
+     * @return $this
+     */
+    final public function prepareRender($records = [], $payload = [])
     {
         $this->records = $records;
         $this->payload = $payload;
 
         $this->assignResourceAndId();
 
-        if (method_exists(static::class, 'beforeApply')) {
-            appCall([$this, 'beforeApply'], [
+        if (method_exists(static::class, 'onMount')) {
+            appCall([$this, 'onMount'], [
                 'records' => $this->records,
                 'payload' => $this->payload
             ]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Prepare before applying the action
+     *
+     * @param $records
+     * @param $payload
+     * @param $isFromBulkAction
+     * @return $this
+     */
+    final public function prepare($records = [], $payload = [], $isFromBulkAction = false)
+    {
+        $this->records = $records;
+        $this->payload = $payload;
+        $this->isFromBulkAction = $isFromBulkAction;
+
+        $this->assignResourceAndId();
+
+        if ($isFromBulkAction) {
+            if (method_exists(static::class, 'beforeApplyBulk')) {
+                appCall([$this, 'beforeApplyBulk'], [
+                    'records' => $this->records,
+                    'payload' => $this->payload
+                ]);
+            }
+        } else {
+            if (method_exists(static::class, 'beforeApply')) {
+                appCall([$this, 'beforeApply'], [
+                    'records' => $this->records,
+                    'payload' => $this->payload
+                ]);
+            }
         }
 
         return $this;

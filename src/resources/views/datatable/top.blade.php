@@ -28,9 +28,7 @@
                 class="relative">
                 <button @click="isOpen = !isOpen" class="relative py-1.5 px-4 rounded-md flex justify-between items-center font-medium bg-white shadow-sm border border-gray-300 text-slate-400 w-full md:w-auto dark:bg-slate-500 dark:border-slate-600 dark:text-slate-300">
                     <span class="mr-3">Actions</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
+                    {!! edenIcon('chevron-down', 'scale-75') !!}
                 </button>
                 <div x-show="isOpen" x-transition.scale class="absolute z-50 border border-slate-50 mt-2 rounded-md shadow origin-top-right right-0 bg-white shadow-lg px-1 py-1 bg-white rounded-md w-44" style="display: none;">
                     <ul class="list-inside">

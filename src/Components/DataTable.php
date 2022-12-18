@@ -14,6 +14,7 @@ use BestSnipp\Eden\Traits\WithModel;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -395,7 +396,7 @@ abstract class DataTable extends EdenComponent
 
     public function applyBulkAction($actionID)
     {
-        $this->applyAction($actionID, $this->selectedRows);
+        $this->applyAction($actionID, $this->selectedRows, true);
         $this->selectedRows = [];
     }
 
