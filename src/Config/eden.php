@@ -29,9 +29,14 @@ return [
     'action_buttons_count' => 5,
 
     /**
-     * Button Styles
+     * Default Button Styles
      */
-    'button_style' => '',
+    'button_style' => 'inline-flex items-center gap-2 px-4 py-1.5 bg-slate-800 border border-transparent rounded-md text-slate-200 hover:bg-slate-700 active:bg-slate-900 tracking-wide focus:outline-none focus:border-slate-900 focus:ring focus:ring-slate-300 disabled:opacity-25 transition',
+
+    /**
+     * DataTable Action Button Styles
+     */
+    'button_style_table' => 'inline-flex items-center gap-2 rounded-md px-1 text-slate-700 tracking-wide focus:outline-none focus:border-slate-900 focus:ring focus:ring-slate-300 disabled:opacity-25 transition',
 
     /**
      * Eden MiddleWare Group

@@ -68,7 +68,7 @@
 <div class="relative bg-white h-0">
     <div wire:loading.flex class="animate-pulse">
         <div class="flex-1">
-            <div class="h-0.5 bg-primary-50 dark:bg-primary-400"></div>
+            <div class="h-0.5 bg-primary-500 dark:bg-primary-400"></div>
         </div>
     </div>
 </div>
