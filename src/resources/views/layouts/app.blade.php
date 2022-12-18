@@ -58,6 +58,7 @@
     @endforeach
 
     @vite('resources/css/app.css')
+    <link rel="stylesheet" href="{{ mix('/css/eden.css', 'vendor/eden') }}" />
 
     @stack('css')
 </head>
@@ -116,6 +117,7 @@
 
 @include('eden::widgets.toasts')
 
+<script src="{{ mix('/js/eden.js', 'vendor/eden') }}"></script>
 @vite('resources/js/app.js')
 
 </body>

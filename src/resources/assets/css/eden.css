@@ -1,11 +1,12 @@
-@import "select2/dist/css/select2.min.css";
-@import "flatpickr/dist/flatpickr.min.css";
-@import "trix/dist/trix.css";
-@import '@simonwep/pickr/dist/themes/nano.min.css';
+@tailwind base;
+@tailwind components;
 
 /* Customize for Select2 */
+.select2-container {
+    @apply w-full;
+}
 .select2-container .select2-selection--single {
-    @apply h-auto border-0 relative;
+    @apply h-auto border-0 relative focus-visible:outline-0;
 }
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     @apply border-0 focus:border-0 focus:ring-0 focus:shadow-none focus-visible:outline-0 rounded-md block w-full px-2 py-1.5;
@@ -24,14 +25,13 @@
     @apply border border-slate-300 focus:border-indigo-300 shadow-sm -mt-1;
 }
 .select2-container--default .select2-search--dropdown .select2-search__field {
-    @apply !border !border-slate-300 focus:border-indigo-300 focus:ring-0
-        !rounded-sm block w-full px-2 py-1.5;
+    @apply border border-slate-300 focus:border-indigo-300 focus:ring-0 rounded-md block w-full px-2 py-1.5;
 }
 .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
     @apply bg-primary-500;
 }
 .select2-container--default .select2-results__option--selected{
-    @apply bg-slate-300;
+    @apply bg-slate-200;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     @apply bg-slate-200 border border-slate-300;
@@ -45,7 +45,10 @@
 }
 .select2-results__option,
 .select2-container--default .select2-selection--single .select2-selection__rendered{
-    @apply text-slate-500;
+    @apply text-slate-500 min-h-[40px];
+}
+.select2-dropdown {
+    @apply border-slate-300
 }
 .filterContainer .select2-container--default .select2-selection--single .select2-selection__rendered,
 .filterContainer .select2-container--default .select2-selection--multiple,
@@ -110,8 +113,10 @@ trix-toolbar .trix-button--dialog {
 }
 
 .border-0-force {
-    @apply !border-0;
+    @apply border-0;
 }
 .border-0-force:focus {
-    @apply !shadow-none !outline-0;
+    @apply shadow-none outline-0;
 }
+
+@tailwind utilities;

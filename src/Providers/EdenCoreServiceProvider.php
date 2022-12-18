@@ -120,7 +120,11 @@ class EdenCoreServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../Config/eden.php' => config_path('eden.php')
-        ], ['config', 'eden-config']);
+        ], 'eden-config');
+
+        $this->publishes([
+            __DIR__.'/../../public' => public_path('vendor/eden')
+        ], ['laravel-assets', 'eden-assets']);
     }
 
     /**

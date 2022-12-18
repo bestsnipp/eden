@@ -52,6 +52,9 @@ class EdenInstall extends Command
         $this->info('Publishing Eden Config File ...');
         $this->callSilent('vendor:publish', ['--tag' => 'eden-config']);
 
+        $this->info('Publishing Eden Assets ...');
+        $this->callSilent('vendor:publish', ['--tag' => 'eden-assets']);
+
         $this->info('Publishing Eden Entry Page ...');
         $this->prepareDashboardPage();
 

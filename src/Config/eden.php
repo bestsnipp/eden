@@ -29,6 +29,11 @@ return [
     'action_buttons_count' => 5,
 
     /**
+     * Button Styles
+     */
+    'button_style' => '',
+
+    /**
      * Eden MiddleWare Group
      */
     'middleware' => [
