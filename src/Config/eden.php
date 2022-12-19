@@ -13,6 +13,27 @@ return [
     'entry_component' => 'dashboard',
 
     /**
+     * Brand Color
+     *
+     * You can use rgb color, hex color, tailwind color set
+     * '255, 0, 0', '255 0 0', '#f00', '#ff0000'
+     * [
+     *    50  => '#f50',
+     *    100 => '#f10',
+     *    200 => '#f20',
+     *    300 => '#f30',
+     *    400 => '#f40',
+     *    500 => '#f50',
+     *    600 => '#f60',
+     *    700 => '#f70',
+     *    800 => '#f80',
+     *    900 => '#f90',
+     * ]
+     *
+     */
+    'color' => null,
+
+    /**
      * Toast Message Positions
      * top-right | top-left | bottom-right | bottom-left | top-center | bottom-center | center-center
      */

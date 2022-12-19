@@ -1,4 +1,5 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
+const defaultConfig = require("tailwindcss/defaultConfig");
 const eden = require("./tailwind.plugin");
 
 /** @type {import('tailwindcss').Config} */
@@ -12,6 +13,7 @@ module.exports = {
         "src/**/*.php",
         "src/**/*.blade.php",
     ],
+
     theme: {
         extend: {
             fontFamily: {
@@ -21,6 +23,14 @@ module.exports = {
             colors: eden.generateTailwindColors()
         }
     },
+
+    safelist: [
+        {
+            pattern: /(.+)-primary-(.+)/,
+            variants: ['*'],
+        },
+    ],
+
     plugins: [
         require('@tailwindcss/line-clamp'),
         function ({ addBase }) {

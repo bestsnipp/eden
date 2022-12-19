@@ -59,6 +59,7 @@
 
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ mix('/css/eden.css', 'vendor/eden') }}" />
+    {!! \BestSnipp\Eden\Facades\EdenAssets::generateBrandColors() !!}
 
     @stack('css')
 </head>
