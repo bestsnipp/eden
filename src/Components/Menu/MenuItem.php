@@ -36,6 +36,8 @@ class MenuItem
 
     protected string $route = '#';
 
+    protected string $slug = '';
+
     protected bool $inNewTab = false;
 
     protected bool $isForm = false;
@@ -142,7 +144,10 @@ class MenuItem
     {
         if (is_subclass_of($resource, EdenResource::class)) {
             $this->show = Eden::isActionAuthorized('viewAny', $resource::$model);
-            $this->route = route('eden.page', appCall($resource)->getSlug());
+
+            $this->slug = appCall($resource)->getSlug();
+            $this->route = route('eden.page', $this->slug);
+            $this->isResource = true;
         }
         return $this;
     }
@@ -179,24 +184,24 @@ class MenuItem
 
     public function getPossibleRoutes()
     {
-        $possibilies = [];
+        $possibilities = [];
 
         if ($this->isResource) {
             $currentRoute = Route::current();
             $routeParams = $currentRoute->parameters();
-            if (isset($routeParams['slug'])) {
-                $possibilies[] = route('eden.page', $this->slug);
-                $possibilies[] = route('eden.create', $this->slug);
-                if (isset($routeParams['id']) && isset($routeParams['slug']) && trim($routeParams['slug']) == trim($this->slug)) {
-                    $possibilies[] = route('eden.show', ['slug' => $this->slug, 'id' => $routeParams['id']]);
-                    $possibilies[] = route('eden.edit', ['slug' => $this->slug, 'id' => $routeParams['id']]);
+            if (isset($routeParams['resource'])) {
+                $possibilities[] = route('eden.page', $this->slug);
+                $possibilities[] = route('eden.create', $this->slug);
+                if (isset($routeParams['resourceId']) && trim($routeParams['resource']) == trim($this->slug)) {
+                    $possibilities[] = route('eden.show', ['resource' => $this->slug, 'resourceId' => $routeParams['resourceId']]);
+                    $possibilities[] = route('eden.edit', ['resource' => $this->slug, 'resourceId' => $routeParams['resourceId']]);
                 }
             }
         } else {
-            $possibilies[] = $this->route;
+            $possibilities[] = $this->route;
         }
 
-        return $possibilies;
+        return $possibilities;
     }
 
     public function defaultViewParams()

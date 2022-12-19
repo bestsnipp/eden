@@ -57,7 +57,9 @@ class StatisticMetric extends MetricValue
     {
         parent::__construct($filter);
 
-        $this->iconColor = $this->iconColors[ array_rand($this->iconColors) ];
+        if (is_null($this->iconColor)) {
+            $this->iconColor = $this->iconColors[ array_rand($this->iconColors) ];
+        }
     }
 
     /**

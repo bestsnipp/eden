@@ -40,14 +40,14 @@
     @apply dark:bg-slate-600
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-    @apply bg-slate-200 border border-slate-300 dark:bg-slate-600 dark:border-slate-700 dark:text-slate-300;
+    @apply bg-slate-200 border border-slate-300 dark:bg-slate-500 dark:border-slate-400 dark:text-slate-300;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-    @apply border-r border-r-slate-300 dark:border-slate-700;
+    @apply border-r border-r-slate-300 dark:border-slate-400;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover,
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:focus {
-    @apply bg-slate-300 dark:bg-slate-600;
+    @apply bg-slate-300 dark:bg-slate-400;
 }
 .select2-results__option,
 .select2-container--default .select2-selection--single .select2-selection__rendered{
