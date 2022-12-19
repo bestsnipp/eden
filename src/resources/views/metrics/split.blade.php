@@ -14,7 +14,7 @@
                 <template x-if="null !== chart">
                     <ul>
                         <template x-for="(label, labelIndex) in chart.w.globals.labels">
-                            <li class="text-sm my-1 text-slate-500 cursor-pointer" @click="chart.toggleDataPointSelection(labelIndex);">
+                            <li class="text-sm my-1 text-slate-500 cursor-pointer dark:text-slate-300" @click="chart.toggleDataPointSelection(labelIndex);">
                                 <span class="w-3 h-3 rounded-full inline-block" :style="{'background-color': chart.w.globals.colors[labelIndex]}"></span>
                                 <span x-text="label"></span>
                                 ( <span x-text="`${parseFloat(chart.w.globals.series[labelIndex]).toFixed(2)}`"></span> - <span x-text="`${parseFloat(chart.w.globals.seriesPercent[labelIndex]).toFixed(2)}%`"></span> )

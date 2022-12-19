@@ -17,7 +17,7 @@ abstract class Metric extends EdenComponent
 
     public $blankCanvas = false;
 
-    protected $styleCard = 'bg-white shadow-md rounded-md relative ';
+    protected $styleCard = 'bg-white shadow-md rounded-md relative dark:bg-slate-700';
 
     /**
      * @return MetricValue

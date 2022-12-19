@@ -1,7 +1,7 @@
 <div class="px-4 mt-2 mb-1">
     <div data-dusk="listMetric" class="-max-h-44 overflow-y-auto">
         @foreach($items as $item)
-            <div class="flex items-center justify-between text-slate-500 mt-2 border-t pt-2 first:pt-0 first:border-t-0">
+            <div class="flex items-center justify-between text-slate-500 mt-2 border-t pt-2 first:pt-0 first:border-t-0 dark:text-slate-300 dark:border-slate-600">
                 @if(!empty($item['icon']))
                 <span class="mr-2">
                     {!! $item['icon'] !!}
