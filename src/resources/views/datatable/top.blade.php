@@ -30,10 +30,10 @@
                     <span class="mr-3">Actions</span>
                     {!! edenIcon('chevron-down', 'scale-75') !!}
                 </button>
-                <div x-show="isOpen" x-transition.scale class="absolute z-50 border border-slate-50 mt-2 rounded-md shadow origin-top-right right-0 bg-white shadow-lg px-1 py-1 bg-white rounded-md w-44" style="display: none;">
+                <div x-show="isOpen" x-transition.scale class="absolute z-50 border border-slate-50 mt-2 rounded-md shadow origin-top-right right-0 bg-white shadow-lg px-1 py-1 bg-white rounded-md w-44 dark:bg-slate-700 dark:border-slate-600" style="display: none;">
                     <ul class="list-inside">
                         @foreach($actions as $action)
-                            <li @click="isOpen = false" wire:click="applyBulkAction('{{ $action->getKey() }}')" class="py-2 px-3 rounded cursor-pointer transition hover:bg-indigo-50 text-slate-500">
+                            <li @click="isOpen = false" wire:click="applyBulkAction('{{ $action->getKey() }}')" class="py-2 px-3 rounded cursor-pointer transition hover:bg-primary-50 text-slate-500 dark:text-slate-300">
                                 <div wire:loading.remove wire:target="applyBulkAction('{{ $action->getKey() }}')" class="flex items-center gap-3">
                                     @if(!is_null($action->icon))
                                         {!! edenIcon($action->icon, 'scale-75') !!}
@@ -57,7 +57,7 @@
                 <span class="mr-2">Filters</span>
                 {!! edenIcon('funnel', 'scale-75') !!}
                 @if($appliedFilters)
-                    <span class="absolute top-0 right-0 transform -translate-y-1/2 w-3.5 h-3.5 bg-indigo-400 rounded-full"></span>
+                    <span class="absolute top-0 right-0 transform -translate-y-1/2 w-3.5 h-3.5 bg-primary-400 rounded-full"></span>
                 @endif
             </button>
         </div>

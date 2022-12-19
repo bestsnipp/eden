@@ -31,7 +31,7 @@
                         <div class="flex items-center justify-between py-5 px-5 gap-2">
                             <button
                                 @click="showFilters = false"
-                                class="py-1.5 px-4 rounded-md flex justify-center items-center font-medium bg-slate-100 text-slate-400 w-full md:w-auto">
+                                class="py-1.5 px-4 rounded-md flex justify-center items-center font-medium bg-slate-100 text-slate-400 w-full md:w-auto dark:bg-slate-500 dark:text-slate-300">
                                 <span>Close</span>
                             </button>
                             <button

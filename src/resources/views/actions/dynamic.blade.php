@@ -12,7 +12,7 @@
         @endif
     </a>
 @else
-    <li @click="isOpen = false" wire:click="applyAction('{{ $action->getKey() }}', '{{ $this->getRecordIdentifier($record) }}')" class="py-2 px-3 rounded cursor-pointer transition hover:bg-indigo-50 text-slate-500">
+    <li @click="isOpen = false" wire:click="applyAction('{{ $action->getKey() }}', '{{ $this->getRecordIdentifier($record) }}')" class="py-2 px-3 rounded cursor-pointer transition hover:bg-primary-50 text-slate-500 dark:text-slate-300">
         <div wire:loading.remove wire:target="applyAction('{{ $action->getKey() }}', '{{ json_encode($record) }}')" class="flex items-center gap-3">
             @if(!is_null($action->icon))
                 {!! edenIcon($action->icon, $iconSize) !!}
