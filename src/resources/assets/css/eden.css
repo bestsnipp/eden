@@ -24,31 +24,37 @@
 .select2-container--open .select2-dropdown--below {
     @apply border border-slate-300 focus:border-indigo-300 shadow-sm -mt-1;
 }
+.select2-container--default .select2-search--dropdown {
+    @apply dark:bg-slate-600;
+}
 .select2-container--default .select2-search--dropdown .select2-search__field {
-    @apply border border-slate-300 focus:border-indigo-300 focus:ring-0 rounded-md block w-full px-2 py-1.5;
+    @apply border border-slate-300 focus:border-indigo-300 focus:ring-0 rounded-md block w-full px-2 py-1.5 dark:border-slate-500 dark:bg-slate-700 dark:text-slate-300;
 }
 .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
     @apply bg-primary-500;
 }
 .select2-container--default .select2-results__option--selected{
-    @apply bg-slate-200;
+    @apply bg-slate-200 dark:bg-slate-500 dark:text-slate-200;
+}
+.select2-container--default .select2-selection--multiple {
+    @apply dark:bg-slate-600
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-    @apply bg-slate-200 border border-slate-300;
+    @apply bg-slate-200 border border-slate-300 dark:bg-slate-600 dark:border-slate-700 dark:text-slate-300;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-    @apply border-r border-r-slate-300;
+    @apply border-r border-r-slate-300 dark:border-slate-700;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover,
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:focus {
-    @apply bg-slate-300;
+    @apply bg-slate-300 dark:bg-slate-600;
 }
 .select2-results__option,
 .select2-container--default .select2-selection--single .select2-selection__rendered{
-    @apply text-slate-500 min-h-[40px];
+    @apply text-slate-500 min-h-[40px] dark:text-slate-300 dark:bg-slate-600
 }
 .select2-dropdown {
-    @apply border-slate-300
+    @apply border-slate-300 dark:border-slate-700
 }
 .filterContainer .select2-container--default .select2-selection--single .select2-selection__rendered,
 .filterContainer .select2-container--default .select2-selection--multiple,
@@ -62,13 +68,35 @@
 }
 
 /* Customize for Flatpicker */
+.flatpickr-calendar {
+    @apply dark:bg-slate-600 dark:text-slate-300 dark:border-slate-500 dark:shadow-md dark:shadow-slate-700 dark:border dark:border-solid
+}
+.flatpickr-calendar .flatpickr-time{
+    @apply dark:border-slate-500
+}
+.flatpickr-calendar .flatpickr-weekday,
+.flatpickr-calendar .flatpickr-day {
+    @apply dark:text-inherit
+}
+.flatpickr-months .flatpickr-prev-month svg,
+.flatpickr-months .flatpickr-next-month svg {
+    @apply dark:fill-slate-300
+}
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+    @apply dark:text-slate-500
+}
+.flatpickr-current-month .flatpickr-monthDropdown-months,
+.flatpickr-current-month input.cur-year{
+    @apply dark:text-slate-200
+}
 .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange,
 .flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange, .flatpickr-day.endRange.inRange,
 .flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus,
 .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover,
 .flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay,
 .flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay {
-    @apply bg-primary-500 border-primary-500 rounded-md;
+    @apply bg-primary-500 border-primary-500 rounded-md dark:border-slate-600;
 }
 .flatpickr-day.inRange, .flatpickr-day.prevMonthDay.inRange, .flatpickr-day.nextMonthDay.inRange,
 .flatpickr-day.today.inRange, .flatpickr-day.prevMonthDay.today.inRange, .flatpickr-day.nextMonthDay.today.inRange,
@@ -77,34 +105,55 @@
     @apply bg-slate-300 border-slate-300 rounded-md;
 }
 .flatpickr-day.today {
-    @apply border-slate-300 rounded-md;
+    @apply border-slate-300 rounded-md dark:border-slate-700 dark:text-slate-300;
+}
+.flatpickr-time input,
+.flatpickr-time .flatpickr-time-separator,
+.flatpickr-time .flatpickr-am-pm{
+    @apply dark:bg-slate-600 dark:text-slate-300
+}
+.flatpickr-time input:focus,
+.flatpickr-time .flatpickr-time-separator:focus,
+.flatpickr-time .flatpickr-am-pm:focus{
+    @apply dark:bg-slate-700
+}
+.flatpickr-time input.flatpickr-hour {
+    @apply rounded-l-md
+}
+.flatpickr-time .flatpickr-am-pm {
+    @apply rounded-r-md
 }
 
 /* TRIX EDITOR */
 trix-editor {
-    /*@apply border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full;*/
     @apply border-0;
 }
 trix-toolbar {
     @apply px-2 pt-2;
 }
 trix-toolbar .trix-button-group {
-    @apply w-auto h-auto border border-slate-300 rounded-md overflow-hidden shadow-sm shadow-slate-200;
+    @apply w-auto h-auto border border-slate-300 rounded-md overflow-hidden shadow-sm shadow-slate-200 dark:shadow-slate-800 dark:bg-slate-700 dark:border-slate-800;
 }
 trix-toolbar .trix-button-group button {
-    @apply w-auto h-auto px-6 py-1 border-0 border-slate-300;
+    @apply w-auto h-auto px-6 py-1 border-0 border-slate-300 dark:border-slate-800;
 }
 trix-toolbar .trix-button-group button.trix-button--icon::before {
-    @apply w-1/2 left-[25%];
+    @apply w-1/2 left-[25%] dark:invert;
 }
 trix-toolbar .trix-button.trix-active {
-    @apply bg-slate-200;
+    @apply bg-slate-200 dark:bg-slate-800;
+}
+trix-toolbar .trix-dialog--link {
+    @apply dark:bg-slate-500 dark:shadow-sm dark:shadow-slate-700
 }
 trix-toolbar .trix-input--dialog {
-    @apply border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full;
+    @apply border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full dark:bg-slate-600 dark:text-slate-300 dark:border-slate-500;
 }
 trix-toolbar .trix-button--dialog {
-    @apply w-auto h-auto px-6 py-2.5 border-0 border-slate-300;
+    @apply w-auto h-auto px-6 py-2.5 border-0 border-slate-300 dark:bg-slate-600 dark:border-slate-700 dark:text-slate-300;
+}
+trix-toolbar [data-trix-dialog] [data-trix-validate]:invalid {
+    @apply dark:text-slate-700
 }
 
 /* COLOR Pickr */

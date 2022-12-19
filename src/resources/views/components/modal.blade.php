@@ -9,7 +9,7 @@
 
                     @if($header)
                     <div class="px-4 py-4 sm:px-6 flex justify-between items-start">
-                        <h3 class="text-lg font-medium text-slate-500" id="modal-title">{{ $title }}</h3>
+                        <h3 class="text-lg font-medium text-slate-500 dark:text-slate-200" id="modal-title">{{ $title }}</h3>
                         <button type="button" wire:click.prevent="dismiss()" class="transition text-slate-300 hover:text-red-500">
                             {!! edenIcon('x-mark') !!}
                         </button>
@@ -26,11 +26,11 @@
                     <div class="{{ $footerStyle }}">
                         <button type="button" wire:click.prevent="confirm()" class="{{ $confirmButtonStyle }}">
                             <span>{{ $confirmButtonText }}</span>
-                            <span wire:loading.flex wire:target="confirm" class="absolute inset-0 bg-white/75 text-slate-500 items-center justify-center">{!! edenIcon('dots-horizontal') !!}</span>
+                            <span wire:loading.flex wire:target="confirm" class="absolute inset-0 bg-white/75 text-slate-500 items-center justify-center dark:bg-white/15">{!! edenIcon('dots-horizontal') !!}</span>
                         </button>
                         <button type="button" wire:click.prevent="dismiss()" class="{{ $cancelButtonStyle }}">
                             <span>{{ $cancelButtonText }}</span>
-                            <span wire:loading.flex wire:target="dismiss" class="absolute inset-0 bg-white/75 text-slate-500 items-center justify-center">{!! edenIcon('dots-horizontal') !!}</span>
+                            <span wire:loading.flex wire:target="dismiss" class="absolute inset-0 bg-white/75 text-slate-500 items-center justify-centerr dark:bg-white/15">{!! edenIcon('dots-horizontal') !!}</span>
                         </button>
                     </div>
                     @endif

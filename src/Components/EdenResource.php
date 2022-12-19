@@ -148,14 +148,14 @@ abstract class EdenResource extends EdenPage
      *
      * @var string
      */
-    public $headerStyle = 'bg-white shadow-md rounded-t-md md:rounded-t-md py-5 px-5';
+    public $headerStyle = 'bg-white shadow-md rounded-t-md md:rounded-t-md py-5 px-5 dark:bg-slate-600';
 
     /**
      * Applied Filters Style
      *
      * @var string
      */
-    public $appliedFilterStyle = 'py-3 px-5 bg-white shadow-md border-y border-slate-100 flex flex-wrap gap-3 items-center mt-3 md:mt-0 md:rounded-none border-t';
+    public $appliedFilterStyle = 'py-3 px-5 bg-white shadow-md border-y border-slate-100 flex flex-wrap gap-3 items-center mt-3 md:mt-0 md:rounded-none border-t dark:bg-slate-600 dark:border-slate-500';
 
     /** FORM - Create/Update **/
     /**

@@ -15,4 +15,4 @@
             $($refs.multi_selector_parent).prop('checked', false);
         }
     })"
-    class="focus:ring-0 h-5 w-5 text-indigo-600 border-gray-300 rounded">
+    class="focus:ring-0 h-5 w-5 text-indigo-600 border-gray-300 rounded dark:bg-slate-600 dark:border-slate-500">
