@@ -10,7 +10,7 @@
          }"
          class="">
         <div class="flex justify-between items-center pl-4">
-            <div wire:ignore class="max-h-28 overflow-auto grow">
+            <div wire:ignore class="max-h-28 overflow-auto grow" x-data x-eden-nice-scroll>
                 <template x-if="null !== chart">
                     <ul>
                         <template x-for="(label, labelIndex) in chart.w.globals.labels">
