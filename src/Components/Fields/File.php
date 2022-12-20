@@ -21,7 +21,7 @@ class File extends Field
         'class' => 'opacity-0 absolute hidden'
     ];
 
-    public function onMounted()
+    public function onMount()
     {
         $this->storage = config('filesystems.default');
     }
@@ -36,10 +36,10 @@ class File extends Field
         if (!is_null($path)) {
             if (is_array($path)) {
                 return collect($path)->map(function ($i) {
-                    return TemporaryUploadedFile::createFromLivewire($i);
+                    return ($i instanceof TemporaryUploadedFile) ? $i : TemporaryUploadedFile::createFromLivewire($i);
                 })->all();
             }
-            return TemporaryUploadedFile::createFromLivewire($path);
+            return ($path instanceof TemporaryUploadedFile) ? $path : TemporaryUploadedFile::createFromLivewire($path);
         }
         return null;
     }
@@ -117,7 +117,11 @@ class File extends Field
 
     protected function prepareDisplayValues()
     {
-        $this->displayValues = $this->value;
+        if (!$this->isMultiple() && $this->value instanceof TemporaryUploadedFile) {
+            $this->displayValues = $this->value->getClientOriginalName();
+        } else {
+            $this->displayValues = $this->value;
+        }
     }
 
     protected function prepareFilePreviews()

@@ -124,7 +124,7 @@
 @vite('resources/js/app.js')
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    /*document.addEventListener("DOMContentLoaded", () => {
         Livewire.hook('component.initialized', (component) => {
             // console.log("component.initialized")
             // console.log(component)
@@ -170,7 +170,7 @@
             // console.log(message, component)
             // console.log('==========================================')
         })
-    });
+    });*/
 </script>
 </body>
 </html>

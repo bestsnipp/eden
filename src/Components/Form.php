@@ -81,6 +81,7 @@ abstract class Form extends EdenComponent
      */
     private $allFields = [];
 
+    public $filesaaa = ['image' => ''];
     /**
      * Form Fields
      *
@@ -130,7 +131,7 @@ abstract class Form extends EdenComponent
         $this->resolveModel();
         $this->resolveRecord();
         $this->prepareFields();
-        //$this->processExistingUploads();
+        $this->processExistingUploads();
         $this->finalizeFields();
     }
 
@@ -157,8 +158,8 @@ abstract class Form extends EdenComponent
     public function clearUploadedPhoto($key, $value = '')
     {
         $this->syncInput('fields.' . $key, $value);
-        $this->syncInput('files.' . $key, $value);
-        //$this->processExistingUploads();
+        //$this->syncInput('files.' . $key, $value);
+        $this->processExistingUploads();
     }
 
     /**
@@ -247,51 +248,17 @@ abstract class Form extends EdenComponent
     }
 
     /**
-     * LiveWire Method Override for Multiple Upload Fields
-     *
-     * @return void
-     */
-    public function finishUpload($name, $tmpPath, $isMultiple)
-    {
-        $sourceKey = str_ireplace('files.', '', $name);
-
-        $this->cleanupOldUploads();
-        //$this->processExistingUploads();
-
-        // Process New Upload
-        if ($isMultiple) {
-            $file = collect($tmpPath)->map(function ($i) {
-                return $this->getTemporaryUploadFile($i);
-            })->toArray();
-            $this->emit('upload:finished', $name, collect($file)->map->getFilename()->toArray())->self();
-            $this->fields[$sourceKey] = $tmpPath;
-        } else {
-            $file = $this->getTemporaryUploadFile($tmpPath[0]);
-            $this->emit('upload:finished', $name, [$file->getFilename()])->self();
-            $this->fields[$sourceKey] = head($tmpPath);
-
-            // If the property is an array, but the upload ISNT set to "multiple"
-            // then APPEND the upload to the array, rather than replacing it.
-            if (is_array($value = $this->getPropertyValue($name))) {
-                $file = array_merge($value, [$file]);
-            }
-        }
-
-        $this->syncInput($name, $file, false);
-    }
-
-    /**
      * Process Already LiveWire Uploaded File
      *
      * @return void
      */
     protected function processExistingUploads()
     {
-        collect($this->fields)->each(function ($itemValue, $itemKey) {
-            if (isset($this->files[$itemKey]) && !empty($itemValue)) {
-                $this->files[$itemKey] = $this->getTemporaryUploadFile($itemValue);
-            }
-        });
+//        collect($this->fields)->each(function ($itemValue, $itemKey) {
+//            if (isset($this->files[$itemKey]) && !empty($itemValue)) {
+//                $this->files[$itemKey] = $this->getTemporaryUploadFile($itemValue);
+//            }
+//        });
     }
 
     protected function getTemporaryUploadFile($path)
@@ -433,11 +400,11 @@ abstract class Form extends EdenComponent
         $key = $field->getKey();
 
         // Create Record and Sync in Files Array
-        if ($field instanceof File) {
-            $this->files[$key] = $this->getFormFieldValue($field);
-        } else {
+        //if ($field instanceof File) {
+            //$this->files[$key] = $this->getFormFieldValue($field);
+        //} else {
             $this->fields[$key] = $this->getFormFieldValue($field);
-        }
+        //}
     }
 
     /**
@@ -454,8 +421,8 @@ abstract class Form extends EdenComponent
         if (isset($this->fields[$key])) { // Assign filled form value if exists - Non Files
             $value = $this->fields[$key];
 
-        } else if (isset($this->files[$key])) { // Assign filled form value if exists - Files
-            $value = $this->files[$key];
+        //} else if (isset($this->files[$key])) { // Assign filled form value if exists - Files
+        //    $value = $this->files[$key];
 
         } else { // Fill from record
             $value = $this->getRecordValue($key, $value);
@@ -479,8 +446,8 @@ abstract class Form extends EdenComponent
             if ($field instanceof File) {
                 $multipleKey = $field->isMultiple() ? '.*' : '';
 
-                $this->rules['files.' . $key . $multipleKey] = $fieldRules;
-                $this->validationAttributes['files.' . $key . $multipleKey] = htmlentities(strip_tags($field->title));
+                $this->rules['fields.' . $key . $multipleKey] = $fieldRules;
+                $this->validationAttributes['fields.' . $key . $multipleKey] = htmlentities(strip_tags($field->title));
             } else {
                 $this->rules['fields.' . $key] = $fieldRules;
             }
@@ -511,7 +478,7 @@ abstract class Form extends EdenComponent
         $this->allFields = collect($this->allFields)
             ->transform(function (Field $field) {
                 if (isset($this->fields[$field->getKey()])) {
-                    $field->importFromFrom($this->fields[$field->getKey()], $this->getMappedFields());
+                    return $field->importFromFrom($this->fields[$field->getKey()], $this->getMappedFields());
                 }
                 return $field;
             })
@@ -519,11 +486,11 @@ abstract class Form extends EdenComponent
                 return $field->resolveUsing($field->exportToForm(), $this->getMappedFields(), $this);
             })
             ->each(function (Field $field) {
-                if (is_subclass_of($field, File::class)) {
+                //if (is_subclass_of($field, File::class)) {
                     //$this->files[$key] = $this->fields[$key];
-                } else {
+                //} else {
                     $this->fields[$field->getKey()] = $field->exportToForm();
-                }
+                //}
             })
             ->all();
     }

@@ -5,9 +5,9 @@
         x-on:livewire-upload-start="isUploading = true"
         x-on:livewire-upload-finish="isUploading = false"
         x-on:livewire-upload-error="isUploading = false"
-        x-on:livewire-upload-progress="progress = console.log($event)"
+        x-on:livewire-upload-progress="progress = $event.detail.progress"
         class="relative border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-1 block w-full dark:bg-slate-600 dark:border-slate-700 focus-within:border-indigo-700 dark:text-slate-300">
-        <input id="{{ $uid }}" wire:model="files.{{ $key }}" {!! $attributes !!}>
+        <input id="{{ $uid }}" wire:model="fields.{{ $key }}" {!! $attributes !!} >
 
         <label class="flex items-center" for="{{ $uid }}">
             <label for="{{ $uid }}" class="whitespace-nowrap bg-white py-2 px-3 border border-gray-200 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-700 dark:shadow-slate-800 dark:text-slate-300">Choose File</label>
@@ -16,7 +16,7 @@
                 @if (empty($displayValues))
                     No file chosen
                 @else
-                    @if(is_array($displayValues) > 0)
+                    @if(is_array($displayValues))
                         {{ count($displayValues) }} {{ \Illuminate\Support\Str::pluralStudly('File', count($displayValues)) }} Selected
                     @else
                         {{ $displayValues }}
