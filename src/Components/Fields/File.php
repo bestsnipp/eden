@@ -49,7 +49,7 @@ class File extends Field
         $value = $this->getTemporaryUploadFile($value);
 
         try {
-            if ($value instanceof TemporaryUploadedFile) {
+            if ($value instanceof TemporaryUploadedFile && $value->exists()) {
                 if ($this->publicly) {
                     return basename($value->storePublicly($this->path, $this->storage));
                 }

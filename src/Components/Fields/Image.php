@@ -1,0 +1,73 @@
+<?php
+
+namespace BestSnipp\Eden\Components\Fields;
+
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Livewire\TemporaryUploadedFile;
+
+class Image extends File
+{
+
+    protected $meta = [
+        'type' => 'file',
+        'class' => 'opacity-0 absolute hidden'
+    ];
+
+    protected function prepareDisplayValues()
+    {
+        $this->displayValues = collect(Arr::wrap($this->value))
+            ->transform(function ($item) {
+                if ($item instanceof TemporaryUploadedFile) {
+                    if ($item->isPreviewable()) {
+                        return $item->temporaryUrl();
+                    } else {
+                        return $item->getClientOriginalName();
+                    }
+                }
+                return $item;
+            })
+            ->filter(function ($item) {
+                return !empty($item);
+            })
+            ->all();
+    }
+
+    protected function prepareFilePreviews()
+    {
+        return collect(Arr::wrap($this->value))->transform(function ($path) {
+            if(filter_var($path, FILTER_VALIDATE_URL)) {
+                return $path;
+            }
+            return asset('storage/' . $path);
+        })->all();
+    }
+
+    public function view()
+    {
+        $this->prepareDisplayValues();
+
+        return view('eden::fields.input.image')
+            ->with([
+                'displayValues' => $this->displayValues,
+                'isMultiple' => $this->isMultiple()
+            ]);
+    }
+
+    public function viewForIndex()
+    {
+        parent::viewForIndex();
+
+        return view('eden::fields.row.image');
+    }
+
+    public function viewForRead()
+    {
+        $this->value = $this->prepareFilePreviews();
+        parent::viewForRead();
+
+        return view('eden::fields.view.image');
+    }
+
+}
