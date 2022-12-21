@@ -9,6 +9,7 @@ use BestSnipp\Eden\Traits\DependentField;
 use BestSnipp\Eden\Traits\Makeable;
 use BestSnipp\Eden\Traits\AsDataTableColumn;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -339,9 +340,7 @@ abstract class Field
         if (isset($this->meta['wire:model.defer']))
             unset($this->meta['wire:model.defer']);*/
 
-        $compiled = join('="%s" ', array_keys($this->meta)).'="%s"';
-
-        return vsprintf($compiled, array_map('htmlspecialchars', array_values($this->meta)));
+        return Arr::toHtmlAttribute($this->meta);
     }
 
     /**

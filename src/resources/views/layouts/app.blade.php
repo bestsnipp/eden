@@ -54,7 +54,7 @@
 
     <!-- Assets - Styles -->
     @foreach(\BestSnipp\Eden\Facades\EdenAssets::styles() as $style)
-        <link rel="stylesheet" data-key="{{ $style['key'] }}" href="{{ $style['url'] }}" />
+        <link rel="stylesheet" data-key="{{ $style['key'] }}" href="{{ $style['url'] }}" {!! \Illuminate\Support\Arr::toHtmlAttribute($style['attributes']) !!} />
     @endforeach
 
     @vite('resources/css/app.css')
@@ -115,7 +115,7 @@
 
 <!-- Assets - Scripts -->
 @foreach(\BestSnipp\Eden\Facades\EdenAssets::scripts() as $script)
-<script data-key="{{ $script['key'] }}" src="{{ $script['url'] }}"></script>
+<script data-key="{{ $script['key'] }}" src="{{ $script['url'] }}" {!! \Illuminate\Support\Arr::toHtmlAttribute($script['attributes']) !!}></script>
 @endforeach
 
 @include('eden::widgets.toasts')

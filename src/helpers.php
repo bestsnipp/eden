@@ -15,10 +15,10 @@ if (! function_exists('appCall')) {
 
 if (! function_exists('edenIcon')) {
     /**
-     * Return the default value of the given value with dependency injection.
+     * Return Eden defined icon if found otherwise the original value
      *
-     * @param  mixed $component
-     * @param  array $params
+     * @param string $icon
+     * @param string $scale
      * @return mixed
      */
     function edenIcon($icon, $scale = null)

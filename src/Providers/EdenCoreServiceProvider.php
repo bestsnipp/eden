@@ -32,6 +32,7 @@ use BestSnipp\Eden\Facades\EdenModal;
 use BestSnipp\Eden\Listeners\PrepareEden;
 use BestSnipp\Eden\Middleware\EdenRequestHandler;
 use BestSnipp\Eden\Modals\DeleteModal;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,7 @@ class EdenCoreServiceProvider extends ServiceProvider
         }
 
         $this->registerPersistentMiddleware();
+        $this->registerMacos();
         $this->registerRoutes();
 
         $this->registerEvents();
@@ -125,6 +127,25 @@ class EdenCoreServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../../public' => public_path('vendor/eden')
         ], ['laravel-assets', 'eden-assets']);
+    }
+
+    /**
+     * Register Eden Macros
+     *
+     * @return void
+     */
+    protected function registerMacos()
+    {
+        if (!Arr::hasMacro('toHtmlAttribute')) {
+            Arr::macro('toHtmlAttribute', function ($arr) {
+                if (empty($arr)) {
+                    return '';
+                }
+
+                $compiled = join('="%s" ', array_keys($arr)).'="%s"';
+                return vsprintf($compiled, array_map('htmlspecialchars', array_values($arr)));
+            });
+        };
     }
 
     /**
