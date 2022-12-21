@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static scripts()
  * @method static generateBrandColors()
  * @method static registerStyle(string $url, $key = null, $attributes = [])
- * @method static registerScripts(string $url, $key = null, $attributes = [])
+ * @method static registerScript(string $url, $key = null, $attributes = [])
  */
 class EdenAssets extends Facade
 {

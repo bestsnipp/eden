@@ -32,7 +32,7 @@ class AssetsManager
         }
     }
 
-    public function registerScripts($url, $key = null, $attributes = [])
+    public function registerScript($url, $key = null, $attributes = [])
     {
         $key = is_null($key) ? strtolower(Str::random()) : Str::slug($key);
         if (!isset($this->scripts[$key])) {

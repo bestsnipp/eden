@@ -284,39 +284,39 @@ class EdenCoreServiceProvider extends ServiceProvider
     protected function registerStyleAndScripts()
     {
         // jQuery
-        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js', 'jquery');
+        EdenAssets::registerScript('https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js', 'jquery');
 
         // ApexChart
-        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/apexcharts', 'apexcharts');
+        EdenAssets::registerScript('https://cdn.jsdelivr.net/npm/apexcharts', 'apexcharts');
 
         // Trix
         EdenAssets::registerStyle('https://cdn.jsdelivr.net/npm/trix@2.0.1/dist/trix.css', 'trix');
-        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/trix@2.0.1/dist/trix.umd.min.js', 'trix');
+        EdenAssets::registerScript('https://cdn.jsdelivr.net/npm/trix@2.0.1/dist/trix.umd.min.js', 'trix');
 
         // FlatPickr
         EdenAssets::registerStyle('https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css', 'flatpickr');
-        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js', 'flatpickr');
+        EdenAssets::registerScript('https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js', 'flatpickr');
 
         // Pickr
         EdenAssets::registerStyle('https://cdn.jsdelivr.net/npm/@simonwep/pickr@1.8.2/dist/themes/nano.min.css', 'pickr');
-        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/@simonwep/pickr@1.8.2/dist/pickr.min.js', 'pickr');
+        EdenAssets::registerScript('https://cdn.jsdelivr.net/npm/@simonwep/pickr@1.8.2/dist/pickr.min.js', 'pickr');
 
         // Select 2
         EdenAssets::registerStyle('https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css', 'select2');
-        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', 'select2');
+        EdenAssets::registerScript('https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', 'select2');
 
         // ToolTip - Alpine
         EdenAssets::registerStyle('https://unpkg.com/tippy.js@6/dist/tippy.css', 'tippy');
-        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-tooltip@1.2.0/dist/cdn.min.js', 'alpine-tooltip');
+        EdenAssets::registerScript('https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-tooltip@1.2.0/dist/cdn.min.js', 'alpine-tooltip');
 
         // NiceScroll
-        EdenAssets::registerScripts('https://cdn.jsdelivr.net/npm/jquery.nicescroll@3.7.6/dist/jquery.nicescroll.min.js', 'nicescroll');
+        EdenAssets::registerScript('https://cdn.jsdelivr.net/npm/jquery.nicescroll@3.7.6/dist/jquery.nicescroll.min.js', 'nicescroll');
 
         // CodeMirror
         EdenAssets::registerStyle('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css', 'codemirror');
         EdenAssets::registerStyle('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/monokai.min.css', 'codemirror-monokai');
-        EdenAssets::registerScripts('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js', 'codemirror');
-        EdenAssets::registerScripts('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js', 'codemirror-javascript');
-        EdenAssets::registerScripts('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/css/css.min.js', 'codemirror-css');
+        EdenAssets::registerScript('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js', 'codemirror');
+        EdenAssets::registerScript('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js', 'codemirror-javascript');
+        EdenAssets::registerScript('https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/css/css.min.js', 'codemirror-css');
     }
 }
