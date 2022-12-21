@@ -3,6 +3,7 @@ namespace BestSnipp\Eden\Components;
 
 use BestSnipp\Eden\Components\Fields\Field;
 use BestSnipp\Eden\Components\Fields\File;
+use BestSnipp\Eden\Facades\Eden;
 use BestSnipp\Eden\RenderProviders\FormRenderer;
 use BestSnipp\Eden\Traits\WithModel;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -81,7 +82,6 @@ abstract class Form extends EdenComponent
      */
     private $allFields = [];
 
-    public $filesaaa = ['image' => ''];
     /**
      * Form Fields
      *
@@ -307,6 +307,10 @@ abstract class Form extends EdenComponent
             }
 
             $this->onActionCompleted($actionData);
+
+            if (!is_null(Eden::getPreviousUrl())) {
+                return $this->redirect(Eden::getPreviousUrl());
+            }
         } catch (\Exception $exception) {
             $this->onActionException($exception);
         }

@@ -11,7 +11,7 @@
                     </svg>
                     {{ $file['name'] ?? $file }}
                 </span>
-                <a download href="{{ $file['url'] ?? $file }}" class="py-1 px-2 bg-slate-50 rounded hover:bg-slate-100 transition-all">{!! edenIcon('arrow-down-tray') !!}</a>
+                @if($downloadEnabled) <a download href="{{ $file['url'] ?? $file }}" class="py-1 px-2 bg-slate-50 rounded hover:bg-slate-100 transition-all">{!! edenIcon('arrow-down-tray') !!}</a> @endif
             </div>
         @endforeach
     </div>

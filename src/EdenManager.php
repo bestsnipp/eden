@@ -189,6 +189,36 @@ class EdenManager
     }
 
     /**
+     * Get Current URL
+     *
+     * @return mixed
+     */
+    public function getCurrentUrl()
+    {
+        $route = $this->getCurrentRoute();
+        $url = '';
+
+        if (isset($route['uri'][0])) {
+            $url = $route['uri'][0];
+            foreach ($route['parameters'] as $key => $value) {
+                $url = str_ireplace('{'.$key.'}', $value, $url);
+            }
+            $url = url($url);
+        }
+        return $url;
+    }
+
+    /**
+     * Get Previous URL
+     *
+     * @return mixed
+     */
+    public function getPreviousUrl()
+    {
+        return session()->get('_eden_request_route_previous', null);
+    }
+
+    /**
      * Check user ability for a particular action is it allowed or not, if policy not exists it will allow by default
      *
      * @param $ability

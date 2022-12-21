@@ -15,6 +15,33 @@ class Image extends File
         'class' => 'opacity-0 absolute hidden'
     ];
 
+    protected $largePreviewEnabled = true;
+
+    protected $fileLabelEnabled = true;
+
+    public function disableLargePreview($should = true)
+    {
+        $this->largePreviewEnabled = !appCall($should);
+
+        return $this;
+    }
+
+    public function disableFileLabel($should = true)
+    {
+        $this->fileLabelEnabled = !appCall($should);
+
+        return $this;
+    }
+
+    public function disableFileActions()
+    {
+        $this->fileLabelEnabled = false;
+        $this->downloadEnabled = false;
+        $this->largePreviewEnabled = false;
+
+        return $this;
+    }
+
     protected function prepareDisplayValues()
     {
         $this->displayValues = collect(Arr::wrap($this->value))
@@ -67,7 +94,11 @@ class Image extends File
         $this->value = $this->prepareFilePreviews();
         parent::viewForRead();
 
-        return view('eden::fields.view.image');
+        return view('eden::fields.view.image')->with([
+            'downloadEnabled' => $this->downloadEnabled,
+            'largePreviewEnabled' => $this->largePreviewEnabled,
+            'fileLabelEnabled' => $this->fileLabelEnabled
+        ]);
     }
 
 }

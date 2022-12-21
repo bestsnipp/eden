@@ -53,5 +53,6 @@ class EdenRequestHandler
         $edenRequest['query'] = $request->query->all();
 
         session()->put('_eden_request_route_current', json_encode($edenRequest));
+        session()->put('_eden_request_route_previous', url()->previous());
     }
 }

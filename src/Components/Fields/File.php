@@ -16,6 +16,8 @@ class File extends Field
 
     protected $displayValues = '';
 
+    protected $downloadEnabled = true;
+
     protected $meta = [
         'type' => 'file',
         'class' => 'opacity-0 absolute hidden'
@@ -24,6 +26,17 @@ class File extends Field
     public function onMount()
     {
         $this->storage = config('filesystems.default');
+    }
+
+    /**
+     * @param bool|boolean|\Closure $should
+     * @return $this
+     */
+    public function disableDownload($should = true)
+    {
+        $this->downloadEnabled = !appCall($should);
+
+        return $this;
     }
 
     /**
@@ -156,7 +169,9 @@ class File extends Field
         $this->value = $this->prepareFilePreviews();
         parent::viewForRead();
 
-        return view('eden::fields.view.file');
+        return view('eden::fields.view.file')->with([
+            'downloadEnabled' => $this->downloadEnabled
+        ]);
     }
 
 }

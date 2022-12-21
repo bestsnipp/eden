@@ -17,9 +17,9 @@
                     @endif
 
                     @if($isEdenComponent)
-                        <div class="">@livewire($content->component, $content->params)</div>
+                        <div class="{{ $contentStyle }}">@livewire($content->component, $content->params)</div>
                     @else
-                        <div>{!! $content !!}</div>
+                        <div class="{{ $contentStyle }}">{!! $content !!}</div>
                     @endif
 
                     @if($footer)

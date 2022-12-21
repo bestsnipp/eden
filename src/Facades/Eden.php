@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static logo($callback = null)
  * @method static getLogo()
  * @method static getCurrentRoute()
+ * @method static getCurrentUrl()
+ * @method static getPreviousUrl()
  * @method static isActionAuthorized($ability, $modelOrClass)
  * @method static registerComponents($directory, $namespace = null, $basePath = null)
  */
