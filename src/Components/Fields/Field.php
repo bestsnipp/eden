@@ -333,11 +333,11 @@ abstract class Field
         if (isset($this->meta['id']))
             unset($this->meta['id']);
 
-        if (isset($this->meta['wire:model']))
+        /*if (isset($this->meta['wire:model']))
             unset($this->meta['wire:model']);
 
         if (isset($this->meta['wire:model.defer']))
-            unset($this->meta['wire:model.defer']);
+            unset($this->meta['wire:model.defer']);*/
 
         $compiled = join('="%s" ', array_keys($this->meta)).'="%s"';
 
