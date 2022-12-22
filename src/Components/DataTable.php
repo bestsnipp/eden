@@ -200,7 +200,7 @@ abstract class DataTable extends EdenComponent
      */
     public $selectedRows = [];
 
-    private $allFilters = [];
+    protected $allFilters = [];
 
     public $filters = [];
 
@@ -208,7 +208,7 @@ abstract class DataTable extends EdenComponent
 
     public $sorting = [];
 
-    private $appliedFilters = [];
+    protected $appliedFilters = [];
 
     protected $actions = [];
 
