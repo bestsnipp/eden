@@ -497,9 +497,16 @@ abstract class DataTable extends EdenComponent
     {
         $records = $this->afterPaginated($this->paginatedData());
 
+        $shouldShowPagination = false;
+        try {
+            $records->links();
+            $shouldShowPagination = true;
+        } catch (\Exception $exception) {}
+
         return [
             'fields' => $this->allFields,
             'appliedFilters' => $this->getAppliedFilters(),
+            'shouldShowPagination' => $shouldShowPagination,
             'allFilters' => $this->allFilters,
             'actions' => $this->getBulkActions(),
             'operations' => $this->operations(),

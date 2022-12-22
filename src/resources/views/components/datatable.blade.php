@@ -37,12 +37,10 @@
 
         @if($isTableLayout) </table></div> @endif
 
-        <div class="{{ $paginationStyle }}">
-            @if(method_exists($records, 'links'))
-                {{ $records->links() }}
-            @endif
-        </div>
-    </div>
+        @if($shouldShowPagination)
+            <div class="{{ $paginationStyle }}">{{ $records->links() }}</div>
+        @endif
+</div>
 
     @include('eden::datatable.filters')
 </div>
