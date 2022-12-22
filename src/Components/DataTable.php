@@ -473,6 +473,17 @@ abstract class DataTable extends EdenComponent
     }
 
     /**
+     * Work with paginated data before displaying to view
+     *
+     * @param $records
+     * @return mixed
+     */
+    protected function afterPaginated($records)
+    {
+        return $records;
+    }
+
+    /**
      * @param string $class
      * @param array $params
      * @return DataTableRenderer
@@ -484,7 +495,7 @@ abstract class DataTable extends EdenComponent
 
     public function defaultViewParams()
     {
-        $records = $this->paginatedData();
+        $records = $this->afterPaginated($this->paginatedData());
 
         return [
             'fields' => $this->allFields,
