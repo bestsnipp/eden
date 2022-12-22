@@ -11,17 +11,9 @@ use BestSnipp\Eden\Facades\Eden;
 use BestSnipp\Eden\RenderProviders\DataTableRenderer;
 use BestSnipp\Eden\Traits\InteractsWithAction;
 use BestSnipp\Eden\Traits\WithModel;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Pipeline\Pipeline;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
-use Livewire\Component;
 use Livewire\WithPagination;
 
 abstract class DataTable extends EdenComponent
@@ -462,7 +454,7 @@ abstract class DataTable extends EdenComponent
     {
         $queryToPaginate = $this->query($this->prepareData());
 
-        if ($queryToPaginate instanceof Collection || $queryToPaginate instanceof Paginator) {
+        if (!($queryToPaginate instanceof \Illuminate\Database\Query\Builder || $queryToPaginate instanceof \Illuminate\Database\Eloquent\Builder)) {
             return $queryToPaginate;
         }
 

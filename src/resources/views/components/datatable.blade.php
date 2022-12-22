@@ -38,7 +38,9 @@
         @if($isTableLayout) </table></div> @endif
 
         <div class="{{ $paginationStyle }}">
-            {{ $records->links() }}
+            @if(method_exists($records, 'links'))
+                {{ $records->links() }}
+            @endif
         </div>
     </div>
 
