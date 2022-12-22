@@ -40,9 +40,9 @@ abstract class Modal extends EdenComponent
 
     protected $style = 'relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 w-full dark:bg-slate-600 dark:text-slate-300';
 
-    protected $contentStyle = '';
+    protected $contentStyle = 'px-5 py-3';
 
-    protected $footerStyle = 'bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 sm:justify-between gap-3 dark:bg-slate-700';
+    protected $footerStyle = 'bg-slate-50 px-5 py-3 sm:flex sm:flex-row-reverse sm:px-6 sm:justify-between gap-3 dark:bg-slate-700';
 
     protected $confirmButtonStyle = 'relative inline-flex w-full md:w-auto justify-center rounded-md px-4 py-2 text-base font-medium text-white shadow-sm bg-primary-500 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 sm:w-auto sm:text-sm';
 

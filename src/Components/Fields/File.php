@@ -59,7 +59,8 @@ class File extends Field
 
     protected function processSingleFile($value)
     {
-        $value = $this->getTemporaryUploadFile($value);
+
+        $value = empty($value) ? $value : $this->getTemporaryUploadFile($value);
 
         try {
             if ($value instanceof TemporaryUploadedFile && $value->exists()) {
@@ -84,7 +85,8 @@ class File extends Field
     public function process()
     {
         $value = $this->value;
-        return is_array($value)
+
+        $data = is_array($value)
             ? $this->processMultipleFile($value)
             : $this->processSingleFile($value);
     }

@@ -64,7 +64,7 @@ class DeleteModal extends Modal
             })
             ->all();
 
-        return '<div class="px-6 pb-6 text-slate-500 dark:text-slate-300"><p>Are you sure to remove the ' . Str::pluralStudly('record', count($dataToShow)) . ' ' . implode(', ', $dataToShow) . ' ?</p></div>';
+        return '<div class="text-slate-500 dark:text-slate-300"><p>Are you sure to remove the ' . Str::pluralStudly('record', count($dataToShow)) . ' ' . implode(', ', $dataToShow) . ' ?</p></div>';
     }
 
     /**

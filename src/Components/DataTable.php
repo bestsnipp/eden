@@ -13,8 +13,10 @@ use BestSnipp\Eden\Traits\InteractsWithAction;
 use BestSnipp\Eden\Traits\WithModel;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -459,6 +461,10 @@ abstract class DataTable extends EdenComponent
     protected function paginatedData()
     {
         $queryToPaginate = $this->query($this->prepareData());
+
+        if ($queryToPaginate instanceof Collection || $queryToPaginate instanceof Paginator) {
+            return $queryToPaginate;
+        }
 
         if (strtolower($this->paginationType) == 'simple') {
             return $queryToPaginate->simplePaginate($this->rowsPerPage);

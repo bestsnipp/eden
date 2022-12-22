@@ -4,6 +4,7 @@ namespace BestSnipp\Eden\Components\Fields;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Livewire\TemporaryUploadedFile;
 
@@ -52,6 +53,8 @@ class Image extends File
                     } else {
                         return $item->getClientOriginalName();
                     }
+                } else if (!empty($item) && Storage::exists($this->path . '/' . $item)) {
+                    return asset($item);
                 }
                 return $item;
             })
@@ -67,7 +70,7 @@ class Image extends File
             if(filter_var($path, FILTER_VALIDATE_URL)) {
                 return $path;
             }
-            return asset('storage/' . $path);
+            return empty($path) ? $path : asset('storage/' . $path);
         })->all();
     }
 
