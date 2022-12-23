@@ -55,6 +55,8 @@ class StatisticMetric extends MetricValue
 
     protected $showPerntageChange = true;
 
+    protected $iconSize = '70px';
+
     protected function __construct($filter = null)
     {
         parent::__construct($filter);
@@ -105,6 +107,17 @@ class StatisticMetric extends MetricValue
     public function disablePercentageChange($should = true)
     {
         $this->showPerntageChange = !appCall($should);
+
+        return $this;
+    }
+
+    /**
+     * @param bool|boolean|\Closure $value
+     * @return $this
+     */
+    public function iconSize($size = '70px')
+    {
+        $this->iconSize = $size;
 
         return $this;
     }
@@ -298,6 +311,7 @@ class StatisticMetric extends MetricValue
             'icon' => $this->icon,
             'showIcon' => $this->showIcon,
             'iconColor' => $this->iconColor,
+            'iconSize' => $this->iconSize,
             'showPerntageChange' => $this->showPerntageChange,
             'change' => $this->calculatePercentageChange($this->value, $this->previous)
         ]);

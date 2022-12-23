@@ -25,7 +25,7 @@
         </div>
         @if($showIcon)
             <div class="ml-3">
-                <span class="p-4 rounded-full {{ $iconColor }} relative inline-block">{!! $icon !!}</span>
+                <span class="p-2 rounded-full {{ $iconColor }} relative inline-block aspect-square flex justify-center items-center" style="width: {{ $iconSize }};">{!! $icon !!}</span>
             </div>
         @endif
     </div>
