@@ -35,7 +35,9 @@ class SelectFilter extends Filter
     {
         $options = (empty($this->resolveOptions())) ? $this->options : $this->resolveOptions();
         if (count($options) > 0) {
-            $options = array_merge(['' => 'Select'], $options);
+            $options = $this->isKeyValue
+                ? array_merge([['value' => '', 'label' => 'Select']], $options)
+                : array_merge(['' => 'Select'], $options);
         }
 
         return view('eden::datatable.filters.select')
