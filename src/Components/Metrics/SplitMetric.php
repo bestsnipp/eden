@@ -30,7 +30,7 @@ class SplitMetric extends MetricValue
         "labels" => [],
         "chart" => [
             "type" => "pie",
-            "height" => "120px",
+            "height" => "auto",
             "stacked" => false,
             "sparkline" => [
                 "enabled" => true
