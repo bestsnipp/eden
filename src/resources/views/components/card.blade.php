@@ -1,6 +1,6 @@
 <div x-data x-ref="parent" class="{{ $styleCard }} {{ $compWidth }} {{ $compHeight }}">
     <div class="relative h-full">
-        <div class="flex flex-col items-stretch">
+        <div class="flex flex-col items-stretch h-full">
             @if(!$blankCanvas)
             <div class="px-4 pt-4">
                 <div class="flex justify-between items-start">

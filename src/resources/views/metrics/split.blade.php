@@ -1,4 +1,4 @@
-<div class="px-0 my-1">
+<div class="px-0 my-1 grow">
     <div x-data="{options: @js($chart), chart: null}" x-init="$nextTick(() => {
             chart = new ApexCharts($refs.chart, options);
             chart.render();
@@ -8,9 +8,9 @@
                 chart.updateOptions(event.detail, true);
             }
          }"
-         class="">
-        <div class="flex justify-between items-center pl-4">
-            <div wire:ignore class="max-h-28 overflow-auto grow" x-data x-eden-nice-scroll>
+         class="h-full">
+        <div class="flex justify-between items-start pl-4 h-full">
+            <div wire:ignore class="-max-h-28 overflow-auto grow" x-data x-eden-nice-scroll>
                 <template x-if="null !== chart">
                     <ul>
                         <template x-for="(label, labelIndex) in chart.w.globals.labels">
