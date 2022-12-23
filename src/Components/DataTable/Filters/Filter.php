@@ -60,6 +60,11 @@ abstract class Filter
         return $this->value;
     }
 
+    public function getAppliedValue()
+    {
+        return $this->value;
+    }
+
     // Handle Pipeline Actions
     public function handle($request, \Closure $next)
     {

@@ -266,7 +266,7 @@ abstract class DataTable extends EdenComponent
                     $this->appliedFilters[] = [
                         'key' => $filter->getKey(),
                         'title' => $filter->getTitle(),
-                        'value' => $filter->value,
+                        'value' => $filter->getAppliedValue(),
                         'canRemove' => true,
                         'initial' => $filter->initialValue
                     ];

@@ -32,6 +32,19 @@ class MultiSelectFilter extends Filter
         return $this;
     }
 
+    public function getAppliedValue()
+    {
+        if ($this->isKeyValue) {
+            return collect($this->options)->filter(function ($item) {
+                return in_array($item['value'], $this->value);
+            })->pluck('label')->all() ?? $this->value;
+        } else {
+            return collect($this->options)->filter(function ($item, $key) {
+                return in_array($key, $this->value);
+            })->all() ?? $this->value;
+        }
+    }
+
     public function apply($query, $value) {
         return $query->whereIn($this->key, $value);
     }

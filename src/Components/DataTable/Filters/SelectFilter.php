@@ -27,6 +27,17 @@ class SelectFilter extends Filter
         return $this;
     }
 
+    public function getAppliedValue()
+    {
+        if ($this->isKeyValue) {
+            return collect($this->options)->first(function ($item) {
+                return $item['value'] == $this->value;
+            })['label'] ?? $this->value;
+        } else {
+            return (isset($this->options[$this->value])) ? $this->options[$this->value] : $this->value;
+        }
+    }
+
     protected function apply($query, $value) {
         return $query->where($this->key, 'LIKE', "%$value%");
     }
