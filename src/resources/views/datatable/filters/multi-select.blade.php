@@ -24,7 +24,11 @@
         class="relative group block filterContainer">
         <select x-ref="{{ $key }}" wire:model.defer="filters.{{$key}}" class="relative border-0 group block w-full dark:bg-slate-600 dark:text-slate-100" id="{{ $key }}" multiple>
             @foreach($options as $optionKey => $optionValue)
-                <option value="{{ $optionKey }}">{{ $optionValue }}</option>
+                @if($isKeyValue)
+                    <option value="{{ $optionValue['value'] }}">{{ $optionValue['label'] }}</option>
+                @else
+                    <option value="{{ $optionKey }}">{{ $optionValue }}</option>
+                @endif
             @endforeach
         </select>
     </div>

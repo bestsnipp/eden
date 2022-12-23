@@ -12,6 +12,8 @@ class MultiSelectFilter extends Filter
 
     protected $options = [];
 
+    protected $isKeyValue = false;
+
     public function options($options = [])
     {
         $this->options = $options;
@@ -23,6 +25,13 @@ class MultiSelectFilter extends Filter
         return [];
     }
 
+    public function keyValueOptions($options = [])
+    {
+        $this->options = $options;
+        $this->isKeyValue = true;
+        return $this;
+    }
+
     public function apply($query, $value) {
         return $query->whereIn($this->key, $value);
     }
@@ -30,6 +39,8 @@ class MultiSelectFilter extends Filter
     public function view()
     {
         $options = (empty($this->resolveOptions())) ? $this->options : $this->resolveOptions();
-        return view('eden::datatable.filters.multi-select')->with('options', $options);
+        return view('eden::datatable.filters.multi-select')
+            ->with('options', $options)
+            ->with('isKeyValue', $this->isKeyValue);
     }
 }

@@ -7,6 +7,8 @@ class SelectFilter extends Filter
 
     protected $options = [];
 
+    protected $isKeyValue = false;
+
     public function options($options = [])
     {
         $this->options = $options;
@@ -16,6 +18,13 @@ class SelectFilter extends Filter
     public function resolveOptions()
     {
         return [];
+    }
+
+    public function keyValueOptions($options = [])
+    {
+        $this->options = $options;
+        $this->isKeyValue = true;
+        return $this;
     }
 
     protected function apply($query, $value) {
@@ -30,6 +39,7 @@ class SelectFilter extends Filter
         }
 
         return view('eden::datatable.filters.select')
-                ->with('options', $options);
+                ->with('options', $options)
+                ->with('isKeyValue', $this->isKeyValue);
     }
 }
