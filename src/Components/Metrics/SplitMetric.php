@@ -23,6 +23,8 @@ class SplitMetric extends MetricValue
 
     protected $chartType = 'pie';
 
+    protected $decimalPoint = 2;
+
     protected $chart = [
         "series" => [],
         "labels" => [],
@@ -95,6 +97,13 @@ class SplitMetric extends MetricValue
         if (is_callable($callback)) {
             $this->valuesCallback = $callback;
         }
+
+        return $this;
+    }
+
+    public function decimalPoint($point = 2)
+    {
+        $this->decimalPoint = $point;
 
         return $this;
     }
@@ -314,7 +323,8 @@ class SplitMetric extends MetricValue
     public function view()
     {
         return view('eden::metrics.split')->with([
-            'chart' => $this->getChartOptions()
+            'chart' => $this->getChartOptions(),
+            'decimalPoint' => $this->decimalPoint
         ]);
     }
 
