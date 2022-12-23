@@ -53,6 +53,8 @@ class StatisticMetric extends MetricValue
         'rose' => 'bg-rose-200 text-rose-500'
     ];
 
+    protected $showPerntageChange = true;
+
     protected function __construct($filter = null)
     {
         parent::__construct($filter);
@@ -92,6 +94,17 @@ class StatisticMetric extends MetricValue
     public function value($value)
     {
         $this->value = appCall($value);
+
+        return $this;
+    }
+
+    /**
+     * @param bool|boolean|\Closure $value
+     * @return $this
+     */
+    public function disablePercentageChange($should = true)
+    {
+        $this->showPerntageChange = !appCall($should);
 
         return $this;
     }
@@ -285,6 +298,7 @@ class StatisticMetric extends MetricValue
             'icon' => $this->icon,
             'showIcon' => $this->showIcon,
             'iconColor' => $this->iconColor,
+            'showPerntageChange' => $this->showPerntageChange,
             'change' => $this->calculatePercentageChange($this->value, $this->previous)
         ]);
     }

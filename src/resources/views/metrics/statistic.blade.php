@@ -13,11 +13,13 @@
                         {!! edenIcon('trending-down') !!}
                     </span>
                 @endif
+                @if($showPerntageChange)
                 <p class="text-slate-500 dark:text-slate-300">
                     @if($change > 0)<span class="font-medium text-green-500">{{ $change }}%</span> Increased @endif
                     @if($change < 0)<span class="font-medium text-red-500">{{ $change }}%</span> Decreased @endif
                     @if($change == 0) No Value for Analysis @endif
                 </p>
+                @endif
             </div>
         </div>
         @if($showIcon)
