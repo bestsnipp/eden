@@ -32,6 +32,7 @@ use BestSnipp\Eden\Facades\EdenModal;
 use BestSnipp\Eden\Listeners\PrepareEden;
 use BestSnipp\Eden\Middleware\EdenRequestHandler;
 use BestSnipp\Eden\Modals\DeleteModal;
+use BestSnipp\Eden\Modals\MediaModal;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
@@ -270,7 +271,10 @@ class EdenCoreServiceProvider extends ServiceProvider
 
         // Register Predefined Modals
         Livewire::component(DeleteModal::getName(), DeleteModal::class);
+        Livewire::component(MediaModal::getName(), MediaModal::class);
+
         EdenModal::register(DeleteModal::class);
+        EdenModal::register(MediaModal::class);
 
         // Auto Discover Components on App/Eden Folder
         Eden::registerComponents(app_path('Eden'));

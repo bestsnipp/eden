@@ -160,6 +160,9 @@ abstract class Modal extends EdenComponent
 
     public function defaultViewParams()
     {
+        if (method_exists($this, 'prepareForRender')) {
+            appCall([$this, 'prepareForRender']);
+        }
         $modalView = $this->modalView();
         $isEdenComponentRendering = ($modalView instanceof \BestSnipp\Eden\RenderProviders\RenderProvider);
 
