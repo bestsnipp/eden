@@ -1,6 +1,7 @@
 <?php
 namespace BestSnipp\Eden\Providers;
 
+use BestSnipp\Eden\Assembled\MediaManager\MediaManagerDataTable;
 use BestSnipp\Eden\Assembled\ResourceCreateForm;
 use BestSnipp\Eden\Assembled\ResourceDataTable;
 use BestSnipp\Eden\Assembled\ResourceEditForm;
@@ -55,6 +56,7 @@ class EdenCoreServiceProvider extends ServiceProvider
         if (! $this->app->configurationIsCached()) {
             $this->mergeConfigFrom(__DIR__ . '/../Config/eden.php', 'eden');
         }
+        $this->loadMigrationsFrom(__DIR__ . '/../Migrations');
 
         $this->registerPersistentMiddleware();
         $this->registerMacos();
@@ -260,11 +262,11 @@ class EdenCoreServiceProvider extends ServiceProvider
     protected function loadComponents()
     {
         // Register Package Components
-        //Livewire::component(TabGroup::getName(), TabGroup::class);
         Livewire::component(ResourceDataTable::getName(), ResourceDataTable::class);
         Livewire::component(ResourceCreateForm::getName(), ResourceCreateForm::class);
         Livewire::component(ResourceEditForm::getName(), ResourceEditForm::class);
         Livewire::component(ResourceRead::getName(), ResourceRead::class);
+        Livewire::component(MediaManagerDataTable::getName(), MediaManagerDataTable::class);
 
         // Cards
         Livewire::component(EdenIntro::getName(), EdenIntro::class);
@@ -273,8 +275,8 @@ class EdenCoreServiceProvider extends ServiceProvider
         Livewire::component(DeleteModal::getName(), DeleteModal::class);
         Livewire::component(MediaModal::getName(), MediaModal::class);
 
-        EdenModal::register(DeleteModal::class);
         EdenModal::register(MediaModal::class);
+        EdenModal::register(DeleteModal::class);
 
         // Auto Discover Components on App/Eden Folder
         Eden::registerComponents(app_path('Eden'));

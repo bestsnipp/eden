@@ -1,5 +1,6 @@
 <div class="flex gap-3 divide-x divide-slate-200">
     <div class="grow">
+        @livewire(\BestSnipp\Eden\Assembled\MediaManager\MediaManagerDataTable::getName())
         <div class="grid grid-cols-1 gap-4"
             x-bind:class="{
                 'md:grid-cols-2 lg:grid-cols-3': selected.length > 0,

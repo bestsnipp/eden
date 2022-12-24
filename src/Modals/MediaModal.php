@@ -49,19 +49,19 @@ class MediaModal extends Modal
         ];
 
         $this->files = [];
-        $faker = Factory::create();
-
-        foreach ($this->getExtensionColors() as $extension => $color) {
-            $this->files[] = [
-                'id' => md5($extension),
-                'name' => $faker->uuid() . '.' . $extension,
-                'type' => $extension,
-                'extension' => $extension,
-                'path' => $faker->filePath(),
-                'url' => $faker->imageUrl(rand(500, 1920), rand(200, 1080)),
-                'preview' => in_array($extension, $this->getImageExtensions())
-            ];
-        }
+//        $faker = Factory::create();
+//
+//        foreach ($this->getExtensionColors() as $extension => $color) {
+//            $this->files[] = [
+//                'id' => md5($extension),
+//                'name' => $faker->uuid() . '.' . $extension,
+//                'type' => $extension,
+//                'extension' => $extension,
+//                'path' => $faker->filePath(),
+//                'url' => $faker->imageUrl(rand(500, 1920), rand(200, 1080)),
+//                'preview' => in_array($extension, $this->getImageExtensions())
+//            ];
+//        }
     }
 
     /**
