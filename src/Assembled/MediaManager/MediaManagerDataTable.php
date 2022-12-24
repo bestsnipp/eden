@@ -14,11 +14,29 @@ class MediaManagerDataTable extends DataTable
 
     public $rowsPerPage = 12;
 
+    public $rowsPerPageOptions = [
+        6 => 6 ,
+        12 => 12 ,
+        24 => 24 ,
+        48 => 48 ,
+        96 => 96
+    ];
+
     public $showHeader = false;
 
     public $isTableLayout = false;
 
-    public $bodyStyle = 'grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 py-4';
+    public $headerStyle = 'border border-slate-100 dark:border-slate-500 rounded-md overflow-hidden dark:text-slate-300 py-3 px-4 bg-slate-50 dark:border-slate-800 dark:bg-slate-700';
+
+    public $appliedFilterStyle = 'py-3 flex flex-wrap gap-3 items-center mt-3 md:mt-0 md:rounded-none border-t dark:bg-slate-600 dark:border-slate-500';
+
+    public $bodyStyle = 'grid grid-cols-1 gap-4 my-6';
+
+    public $bodyAttrs = [
+        'x-bind:class' => "{'md:grid-cols-2 lg:grid-cols-3': selected.length > 0, 'md:grid-cols-3 lg:grid-cols-4': selected.length <= 0}"
+    ];
+
+    public $paginationStyle = 'flex flex-col md:flex-row justify-between items-center border border-slate-100 rounded-md overflow-hidden dark:border-slate-500 dark:bg-slate-700 dark:text-slate-300';
 
     protected function fields()
     {
@@ -48,7 +66,7 @@ class MediaManagerDataTable extends DataTable
     public function rowView($record, $fields = [], $records = [])
     {
         return view("eden::modals.media-manager.row-media")->with([
-            'file' => $record,
+            'file' => $record->toArray(),
             'fields' => $fields,
             'selectorField' => collect($fields)->firstWhere(function ($item) {
                 return $item->getKey() == 'select';

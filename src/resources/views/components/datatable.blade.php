@@ -26,7 +26,7 @@
             @endif
 
             @if(count($records) > 0)
-                @if($this->isTableLayout) <tbody class="{{ $bodyStyle }}"> @else <div data-dusk="DataTableBody" class="{{ $bodyStyle }}"> @endif
+                @if($this->isTableLayout) <tbody class="{{ $bodyStyle }}" {!! \Illuminate\Support\Arr::toHtmlAttribute($bodyAttrs) !!}> @else <div data-dusk="DataTableBody" class="{{ $bodyStyle }}" {!! \Illuminate\Support\Arr::toHtmlAttribute($bodyAttrs) !!}> @endif
                     @foreach($records as $record)
                         {!! $this->row($record, $records) !!}
                     @endforeach

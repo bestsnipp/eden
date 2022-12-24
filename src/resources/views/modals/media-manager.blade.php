@@ -1,15 +1,12 @@
 <div x-data="{selectedTab: 'library', allTabs: @js($tabs), selected: @entangle('selected').defer}" class="relative text-slate-500 dark:text-slate-300">
     <div class="flex justify-between">
         <div>
-            <div x-cloak class="group p-0.5 rounded-lg inline-flex bg-slate-200">
+            <div x-cloak class="group p-0.5 rounded-lg inline-flex bg-slate-200 dark:bg-slate-800">
                 <template x-for="mediaTab in allTabs">
                     <button type="button"
                             x-on:click.prevent="selectedTab = mediaTab.type"
-                            class="py-1.5 px-4 rounded-md flex items-center font-medium text-gray-600 hover:text-gray-900"
-                            x-bind:class="{
-                        'bg-white shadow-sm ring-1 ring-black ring-opacity-5': selectedTab === mediaTab.type,
-                        'text-gray-600': selectedTab === mediaTab.type
-                    }">
+                            class="py-1.5 px-4 rounded-md flex items-center font-medium text-slate-600 hover:text-gray-900 dark:hover:text-gray-500"
+                            x-bind:class="{'bg-white shadow-sm ring-1 ring-black ring-opacity-5 text-slate-600 dark:bg-slate-600 dark:text-slate-300': selectedTab === mediaTab.type}">
                         <span x-text="mediaTab.label"></span>
                     </button>
                 </template>

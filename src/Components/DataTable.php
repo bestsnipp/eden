@@ -187,6 +187,13 @@ abstract class DataTable extends EdenComponent
     public $bodyStyle = '';
 
     /**
+     * Additional HTML Attributes to be included in body wrapper
+     *
+     * @var string
+     */
+    public $bodyAttrs = [];
+
+    /**
      * Pagination Area Style
      *
      * @var string
