@@ -1,6 +1,6 @@
 <div class="px-5 py-3">
     @include('eden::fields.label')
-    <div class="relative">
+    <div class="relative grid grid-cols-1 {{ $cols }}">
         @foreach($options as $optionKey => $optionValue)
             <div class="mt-1">
                 <label class="inline-flex items-center gap-3">
