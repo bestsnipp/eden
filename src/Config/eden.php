@@ -50,6 +50,11 @@ return [
     'action_buttons_count' => 5,
 
     /**
+     * Use Media Manager for File and Image Upload
+     */
+    'media_manager' => false,
+
+    /**
      * Default Button Styles
      */
     'button_style' => 'inline-flex items-center gap-2 px-4 py-1.5 bg-slate-800 border border-transparent rounded-md text-slate-200 hover:bg-slate-700 active:bg-slate-900 tracking-wide focus:outline-none focus:border-slate-900 focus:ring focus:ring-slate-300 disabled:opacity-25 transition dark:bg-slate-700 dark:hover:bg-slate-500',

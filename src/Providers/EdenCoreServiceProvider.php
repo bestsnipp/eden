@@ -56,7 +56,9 @@ class EdenCoreServiceProvider extends ServiceProvider
         if (! $this->app->configurationIsCached()) {
             $this->mergeConfigFrom(__DIR__ . '/../Config/eden.php', 'eden');
         }
-        $this->loadMigrationsFrom(__DIR__ . '/../Migrations');
+        if (config('eden.media_manager')) {
+            $this->loadMigrationsFrom(__DIR__ . '/../Migrations');
+        }
 
         $this->registerPersistentMiddleware();
         $this->registerMacos();
@@ -272,10 +274,12 @@ class EdenCoreServiceProvider extends ServiceProvider
         Livewire::component(EdenIntro::getName(), EdenIntro::class);
 
         // Register Predefined Modals
-        Livewire::component(DeleteModal::getName(), DeleteModal::class);
-        Livewire::component(MediaModal::getName(), MediaModal::class);
+        if (config('eden.media_manager')) {
+            Livewire::component(MediaModal::getName(), MediaModal::class);
+            EdenModal::register(MediaModal::class);
+        }
 
-        EdenModal::register(MediaModal::class);
+        Livewire::component(DeleteModal::getName(), DeleteModal::class);
         EdenModal::register(DeleteModal::class);
 
         // Auto Discover Components on App/Eden Folder
