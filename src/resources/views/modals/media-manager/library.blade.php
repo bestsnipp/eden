@@ -39,7 +39,7 @@
         </div>--}}
     </div>
     <template x-if="selected.length > 0">
-        <div class="w-[120rem] pl-3">
+        <div class="w-[340px] pl-3">
 
             <div class="flex justify-between items-center relative">
                 <h4 class="mb-3 text-xl">Preview</h4>
@@ -48,7 +48,7 @@
             </div>
 
             <template x-if="selected.length === 1">
-                <div>
+                <div class="w-[340px]">
                     <div class="bg-slate-50 p-0.5 border-2 border-slate-100 aspect-video rounded-md text-center flex flex-col justify-center items-center gap-2 transition-all relative dark:bg-slate-500 dark:border-slate-400">
                         <template x-if="_.head(selected).preview === true">
                             <img x-bind:src="_.head(selected).url" alt="" class="w-full h-full object-cover rounded-sm" />

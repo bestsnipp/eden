@@ -2,13 +2,20 @@
 
 namespace BestSnipp\Eden\Modals;
 
+use BestSnipp\Eden\Assembled\MediaManager\MediaManagerDataTable;
 use BestSnipp\Eden\Components\Modal;
+use BestSnipp\Eden\Models\EdenMedia;
 use Faker\Factory;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Livewire\TemporaryUploadedFile;
+use Livewire\WithFileUploads;
 
 class MediaModal extends Modal
 {
+    use WithFileUploads;
+
     /**
      * Title in singular form to display in DataTable
      *
@@ -47,7 +54,13 @@ class MediaModal extends Modal
 
     public $selectionType = 'multiple';
 
+    public $fileupload = '';
+
     protected $enableJsInteractions = true;
+
+    protected $listeners = [
+        'upload:finished' => 'storeUploadedFile'
+    ];
 
     public function onMount()
     {
@@ -55,6 +68,73 @@ class MediaModal extends Modal
             'x-data' => "{selected: window.Livewire.find('".$this->id."').entangle('selected').defer, via: window.Livewire.find('".$this->id."').entangle('via').defer, selectionType: window.Livewire.find('".$this->id."').entangle('selectionType').defer, owner: 'all'}",
             '@show-media-manager.window' => '(evt) => {selected = []; isVisible = true; showFromJs = true; via = evt.detail.via; selectionType = evt.detail.selectionType; owner = evt.detail.owner}'
         ];
+    }
+
+    public function storeUploadedFile($name, $files)
+    {
+        $filesUploaded = [];
+        $filesErrored = [];
+        $filesToStore = [];
+
+        foreach ($this->fileupload as $file) {
+            try {
+                if (!($file instanceof TemporaryUploadedFile)) {
+                    continue;
+                }
+
+                $path = $file->storePublicly('public');
+                $path = Str::replace('public/', '', $path);
+                $filesUploaded[] = $path;
+                $filesToStore[] = [
+                    'id' => Str::uuid()->toString(),
+                    'name' => $file->getClientOriginalName() ?? $file->getFilename(),
+                    'type' => $file->getMimeType(),
+                    'extension' => $file->extension(),
+                    'path' => $path,
+                    'url' => asset('storage/' . $path),
+                    'folder' => null,
+                    'preview' => $file->isPreviewable(),
+                    'created_at' => now()
+                ];
+            } catch (\Exception $exception) {
+                $filesErrored[] = $exception->getMessage();
+            }
+        }
+
+        try {
+            DB::beginTransaction();
+            EdenMedia::insert($filesToStore);
+            DB::commit();
+
+            $this->toastSuccess('Media records uploaded successfully');
+            $this->emit('refresh' . MediaManagerDataTable::getName());
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            $this->toastError($exception->getMessage());
+        }
+    }
+
+    public function _finishUpload($name, $tmpPath, $isMultiple)
+    {
+        $this->cleanupOldUploads();
+
+        if ($isMultiple) {
+            $file = collect($tmpPath)->map(function ($i) {
+                return TemporaryUploadedFile::createFromLivewire($i);
+            })->toArray();
+            $this->emit('upload:finished', $name, collect($file)->map->getFilename()->toArray())->self();
+        } else {
+            $file = TemporaryUploadedFile::createFromLivewire($tmpPath[0]);
+            $this->emit('upload:finished', $name, [$file->getFilename()])->self();
+
+            // If the property is an array, but the upload ISNT set to "multiple"
+            // then APPEND the upload to the array, rather than replacing it.
+            if (is_array($value = $this->getPropertyValue($name))) {
+                $file = array_merge($value, [$file]);
+            }
+        }
+
+        $this->syncInput($name, $file);
     }
 
     public function prepareForRender()
