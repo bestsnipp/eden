@@ -38,6 +38,8 @@ class MediaManagerDataTable extends DataTable
 
     public $paginationStyle = 'flex flex-col md:flex-row justify-between items-center border border-slate-100 rounded-md overflow-hidden dark:border-slate-500 dark:bg-slate-700 dark:text-slate-300';
 
+    protected $paginationName = 'mediaManagerPage';
+
     protected $searchFields = [
         'name', 'type', 'extension', 'path', 'url', 'folder', 'preview', 'created_at'
     ];

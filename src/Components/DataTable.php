@@ -219,6 +219,8 @@ abstract class DataTable extends EdenComponent
 
     protected $actions = [];
 
+    protected $paginationName = 'page';
+
     abstract protected function fields();
     abstract protected function filters();
     abstract protected function actions();
@@ -474,7 +476,7 @@ abstract class DataTable extends EdenComponent
         }
 
         return $queryToPaginate
-            ->paginate($this->rowsPerPage)
+            ->paginate($this->rowsPerPage, ['*'], $this->paginationName)
             ->withQueryString()
             ->onEachSide(1);
     }

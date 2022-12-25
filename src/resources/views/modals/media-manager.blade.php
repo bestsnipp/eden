@@ -1,4 +1,4 @@
-<div x-data="{selectedTab: 'library', allTabs: @js($tabs), selected: @entangle('selected').defer}" class="relative text-slate-500 dark:text-slate-300">
+<div x-data="{selectedTab: 'library', allTabs: @js($tabs)}" class="relative text-slate-500 dark:text-slate-300">
     <div class="flex justify-between">
         <div>
             <div x-cloak class="group p-0.5 rounded-lg inline-flex bg-slate-200 dark:bg-slate-800">

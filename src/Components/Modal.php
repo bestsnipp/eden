@@ -28,6 +28,8 @@ abstract class Modal extends EdenComponent
 
     public $width = 'lg';
 
+    public $bodyAttrs = [];
+
     protected $closeOnOutsideClick = false;
 
     protected $header = true;
@@ -51,6 +53,8 @@ abstract class Modal extends EdenComponent
     protected $resetBeforeShow = false;
 
     protected $visible = false;
+
+    protected $enableJsInteractions = false;
 
     protected function getListeners()
     {
@@ -136,6 +140,11 @@ abstract class Modal extends EdenComponent
         return view('eden::modals.footer');
     }
 
+    protected function viewForHeader()
+    {
+        return view('eden::modals.header');
+    }
+
     protected function getModalWidth()
     {
         return [
@@ -171,6 +180,14 @@ abstract class Modal extends EdenComponent
         $modalView = $this->modalView();
         $isEdenComponentRendering = ($modalView instanceof \BestSnipp\Eden\RenderProviders\RenderProvider);
 
+        $headerView = $this->viewForHeader();
+        if ($headerView instanceof View) {
+            $headerView->with([
+                'isJsInteractionEnabled' => $this->enableJsInteractions,
+                'title' => $this->title
+            ]);
+        }
+
         $footerView = $this->viewForFooter();
         if ($footerView instanceof View) {
             $footerView->with([
@@ -185,6 +202,7 @@ abstract class Modal extends EdenComponent
         return [
             'content' => $modalView,
             'viewForFooter' => $footerView,
+            'viewForHeader' => $headerView,
             'isEdenComponent' => $isEdenComponentRendering,
             'compWidth' => $this->getModalWidth(),
             'show' => $this->visible,
@@ -192,7 +210,8 @@ abstract class Modal extends EdenComponent
             'style' => $this->style,
             'contentStyle' => $this->contentStyle,
             'header' => $this->header,
-            'footer' => $this->footer
+            'footer' => $this->footer,
+            'isJsInteractionEnabled' => $this->enableJsInteractions
         ];
     }
 

@@ -4,11 +4,18 @@
         'border-slate-100 dark:border-slate-500': _.findIndex(selected, ['id', '{{ $file['id'] }}']) <= -1
     }"
      x-on:click.prevent="() => {
+        if (selectionType === 'single' && selected.length > 0) {
+            selected = [];
+        }
         let selectedItemIndex = _.findIndex(selected, ['id', '{{ $file['id'] }}']);
         if (selectedItemIndex > -1) {
             selected.splice(selectedItemIndex, 1);
         } else {
-            selected.push(@js($file));
+            if (selectionType === 'single' && selected.length <= 0) {
+                selected.push(@js($file));
+            } else if (selectionType !== 'single') {
+                selected.push(@js($file));
+            }
         }
     }">
     <template x-if="_.findIndex(selected, ['id', '{{ $file['id'] }}']) > -1">

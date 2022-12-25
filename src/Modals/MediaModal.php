@@ -43,6 +43,20 @@ class MediaModal extends Modal
 
     public $selected = [];
 
+    public $via = 'backend';
+
+    public $selectionType = 'multiple';
+
+    protected $enableJsInteractions = true;
+
+    public function onMount()
+    {
+        $this->bodyAttrs = [
+            'x-data' => "{selected: window.Livewire.find('".$this->id."').entangle('selected').defer, via: window.Livewire.find('".$this->id."').entangle('via').defer, selectionType: window.Livewire.find('".$this->id."').entangle('selectionType').defer, owner: 'all'}",
+            '@show-media-manager.window' => '(evt) => {selected = []; isVisible = true; showFromJs = true; via = evt.detail.via; selectionType = evt.detail.selectionType; owner = evt.detail.owner}'
+        ];
+    }
+
     public function prepareForRender()
     {
         $this->tabs = [
@@ -94,8 +108,8 @@ class MediaModal extends Modal
      */
     public function confirm()
     {
-        //dd($this->selected);
-        $this->toastSuccess("Wroking ...");
+        $this->visible = false;
+        $this->emit('selectedMediaFiles', $this->selected);
     }
 
     protected function getExtensionColors()
