@@ -33,6 +33,8 @@ class MediaModal extends Modal
      */
     protected $confirmButtonText = 'Select';
 
+    protected $closeOnOutsideClick = true;
+
     protected $visible = true;
 
     protected $files = [];
@@ -78,6 +80,11 @@ class MediaModal extends Modal
                 'files' => $this->files,
                 'colors' => $this->getExtensionColors()
             ]);
+    }
+
+    protected function viewForFooter()
+    {
+        return view('eden::modals.media-manager.footer');
     }
 
     /**

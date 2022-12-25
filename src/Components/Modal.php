@@ -131,6 +131,11 @@ abstract class Modal extends EdenComponent
         return '';
     }
 
+    protected function viewForFooter()
+    {
+        return view('eden::modals.footer');
+    }
+
     protected function getModalWidth()
     {
         return [
@@ -166,8 +171,20 @@ abstract class Modal extends EdenComponent
         $modalView = $this->modalView();
         $isEdenComponentRendering = ($modalView instanceof \BestSnipp\Eden\RenderProviders\RenderProvider);
 
+        $footerView = $this->viewForFooter();
+        if ($footerView instanceof View) {
+            $footerView->with([
+                'footerStyle' => $this->footerStyle,
+                'confirmButtonText' => $this->confirmButtonText,
+                'cancelButtonText' => $this->cancelButtonText,
+                'confirmButtonStyle' => $this->confirmButtonStyle,
+                'cancelButtonStyle' => $this->cancelButtonStyle
+            ]);
+        }
+
         return [
             'content' => $modalView,
+            'viewForFooter' => $footerView,
             'isEdenComponent' => $isEdenComponentRendering,
             'compWidth' => $this->getModalWidth(),
             'show' => $this->visible,
@@ -175,12 +192,7 @@ abstract class Modal extends EdenComponent
             'style' => $this->style,
             'contentStyle' => $this->contentStyle,
             'header' => $this->header,
-            'footer' => $this->footer,
-            'footerStyle' => $this->footerStyle,
-            'confirmButtonText' => $this->confirmButtonText,
-            'cancelButtonText' => $this->cancelButtonText,
-            'confirmButtonStyle' => $this->confirmButtonStyle,
-            'cancelButtonStyle' => $this->cancelButtonStyle,
+            'footer' => $this->footer
         ];
     }
 
