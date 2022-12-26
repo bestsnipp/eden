@@ -46,7 +46,21 @@ class EdenAppServiceProvider extends ServiceProvider
      */
     protected function plugins()
     {
+        return [
+            //
+        ];
+    }
 
+    /**
+     * Register Header Actions
+     *
+     * @return array
+     */
+    protected function headerActions()
+    {
+        return [
+            //
+        ];
     }
 
     /**
@@ -57,7 +71,7 @@ class EdenAppServiceProvider extends ServiceProvider
     protected function actions()
     {
         return [
-
+            //
         ];
     }
 
@@ -69,7 +83,7 @@ class EdenAppServiceProvider extends ServiceProvider
     protected function filters()
     {
         return [
-
+            //
         ];
     }
 

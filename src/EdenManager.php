@@ -203,7 +203,11 @@ class EdenManager
             foreach ($route['parameters'] as $key => $value) {
                 $url = str_ireplace('{'.$key.'}', $value, $url);
             }
-            $url = url($url);
+            $queryParams =  http_build_query($route['query']);
+            if (!empty($queryParams)) {
+                $queryParams = '?' . $queryParams;
+            }
+            $url = url($url . $queryParams);
         }
         return $url;
     }
