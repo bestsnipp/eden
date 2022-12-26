@@ -14,7 +14,7 @@
                                 {!! edenIcon('x-mark') !!}
                             </button>
                         </div>
-                        <div class="relative mt-6 flex flex-col px-4 sm:px-6">
+                        <div class="relative mt-6 flex flex-col px-4 sm:px-6 pb-16">
                             @foreach($allFilters as $filter)
                                 {!! $filter->render() !!}
                             @endforeach
@@ -28,7 +28,7 @@
                                 ])
                             @endif
                         </div>
-                        <div class="flex items-center justify-between py-5 px-5 gap-2">
+                        <div class="flex items-center justify-between py-3 px-5 gap-2 bg-white absolute bottom-0 w-full dark:bg-slate-600">
                             <button
                                 @click="showFilters = false"
                                 class="py-1.5 px-4 rounded-md flex justify-center items-center font-medium bg-slate-100 text-slate-400 w-full md:w-auto dark:bg-slate-500 dark:text-slate-300">
@@ -36,7 +36,7 @@
                             </button>
                             <button
                                 wire:click="applyFilters"
-                                class="py-1.5 px-4 rounded-md flex justify-center items-center font-medium bg-indigo-500 text-white w-full md:w-auto">
+                                class="py-1.5 px-4 rounded-md flex justify-center items-center font-medium bg-primary-500 text-white w-full md:w-auto">
                                 <span>Apply Filters</span>
                             </button>
                         </div>
