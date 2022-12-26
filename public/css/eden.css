@@ -19804,6 +19804,10 @@ trix-toolbar .trix-button--dialog {
     display: table-row;
   }
 
+  .md\:grid {
+    display: grid;
+  }
+
   .md\:hidden {
     display: none;
   }
