@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static getFooter()
  * @method static logo($callback = null)
  * @method static getLogo()
+ * @method static registerHeaderActions($callback = null)
+ * @method static headerActions()
  * @method static getCurrentRoute()
  * @method static getCurrentUrl()
  * @method static getPreviousUrl()

@@ -30,6 +30,9 @@ use BestSnipp\Eden\Exceptions\EdenExceptionHandler;
 use BestSnipp\Eden\Facades\Eden;
 use BestSnipp\Eden\Facades\EdenAssets;
 use BestSnipp\Eden\Facades\EdenModal;
+use BestSnipp\Eden\HeaderActions\AccountAction;
+use BestSnipp\Eden\HeaderActions\NotificationsAction;
+use BestSnipp\Eden\HeaderActions\ThemeAction;
 use BestSnipp\Eden\Listeners\PrepareEden;
 use BestSnipp\Eden\Middleware\EdenRequestHandler;
 use BestSnipp\Eden\Modals\DeleteModal;
@@ -272,6 +275,11 @@ class EdenCoreServiceProvider extends ServiceProvider
 
         // Cards
         Livewire::component(EdenIntro::getName(), EdenIntro::class);
+
+        // Header Actions
+        Livewire::component(AccountAction::getName(), AccountAction::class);
+        Livewire::component(NotificationsAction::getName(), NotificationsAction::class);
+        Livewire::component(ThemeAction::getName(), ThemeAction::class);
 
         // Register Predefined Modals
         if (config('eden.media_manager')) {

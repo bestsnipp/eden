@@ -3,9 +3,12 @@
 namespace BestSnipp\Eden;
 
 use BestSnipp\Eden\Components\EdenPage;
+use BestSnipp\Eden\Components\HeaderAction;
 use BestSnipp\Eden\Components\Modal;
 use BestSnipp\Eden\Facades\EdenModal;
 use BestSnipp\Eden\Facades\EdenRoute;
+use BestSnipp\Eden\RenderProviders\HeaderActionRenderer;
+use BestSnipp\Eden\RenderProviders\RenderProvider;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
@@ -23,6 +26,8 @@ class EdenManager
     protected $logoCallback = null;
 
     protected $footerCallback = null;
+
+    protected $headerActions = [];
 
     protected $actions = [];
 
@@ -84,6 +89,30 @@ class EdenManager
     public function registerActions($actions = [])
     {
         $this->actions = array_merge($this->actions, collect($actions)->all());
+    }
+
+    /**
+     * Set Global Actions for Header
+     *
+     * @return void
+     */
+    public function registerHeaderActions($actions = [])
+    {
+        $this->headerActions = array_merge($this->headerActions, collect($actions)
+            ->reject(function ($item) {
+                return !($item instanceof RenderProvider);
+            })
+            ->all());
+    }
+
+    /**
+     * Get Header Actions
+     *
+     * @return array
+     */
+    public function headerActions()
+    {
+        return collect($this->headerActions)->reverse()->all();
     }
 
     /**

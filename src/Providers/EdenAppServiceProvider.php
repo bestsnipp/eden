@@ -3,6 +3,7 @@
 namespace BestSnipp\Eden\Providers;
 
 use BestSnipp\Eden\Facades\Eden;
+use BestSnipp\Eden\HeaderActions\AccountAction;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,6 +23,7 @@ class EdenAppServiceProvider extends ServiceProvider
         // Register Global Actions and Filters
         Eden::registerActions($this->actions());
         Eden::registerFilters($this->filters());
+        Eden::registerHeaderActions($this->headerActions());
     }
 
     /**
