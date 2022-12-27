@@ -130,7 +130,6 @@ abstract class Form extends EdenComponent
         $this->resolveModel();
         $this->resolveRecord();
         $this->prepareFields();
-        $this->processExistingUploads();
         $this->finalizeFields();
     }
 
@@ -154,11 +153,72 @@ abstract class Form extends EdenComponent
         return ! $this->isUpdate;
     }
 
-    public function clearUploadedPhoto($key, $value = '')
+    public function clearUploadedFiles($key, $value = '')
     {
-        $this->syncInput('fields.'.$key, $value);
-        //$this->syncInput('files.' . $key, $value);
-        $this->processExistingUploads();
+        $this->syncInput($key, $value);
+    }
+
+    public function clearUploadedSingleFile($key, $index = null)
+    {
+        if (is_null($key) || is_null($index)) {
+            return;
+        }
+
+        $nameToFetch = explode('.', $key); // We need to remove 'fields' key
+        array_shift($nameToFetch);
+        $nameToFetch = implode('.', $nameToFetch);
+
+        $arrToDelete = $this->fields[$nameToFetch];
+
+        if (is_array($arrToDelete) && Arr::exists($arrToDelete, $index)) {
+            array_splice($arrToDelete, $index, 1);
+           $this->syncInput($key, $arrToDelete);
+        }
+    }
+
+    /**
+     * LiveWire File Upload Finished Override
+     *
+     * @param $name
+     * @param $tmpPath
+     * @param $isMultiple
+     * @return void
+     */
+    public function finishUpload($name, $tmpPath, $isMultiple)
+    {
+        $this->cleanupOldUploads();
+
+        if ($isMultiple) {
+            $file = collect($tmpPath)->map(function ($i) {
+                return TemporaryUploadedFile::createFromLivewire($i);
+            })->toArray();
+            $this->emit('upload:finished', $name, collect($file)->map->getFilename()->toArray())->self();
+        } else {
+            $file = TemporaryUploadedFile::createFromLivewire($tmpPath[0]);
+            $this->emit('upload:finished', $name, [$file->getFilename()])->self();
+
+            // If the property is an array, but the upload ISNT set to "multiple"
+            // then APPEND the upload to the array, rather than replacing it.
+            if (is_array($value = $this->getPropertyValue($name))) {
+                $file = array_merge($value, [$file]);
+            }
+        }
+
+        $existingUploads = [];
+        try {
+            $nameToFetch = explode('.', $name); // We need to remove 'fields' key
+            array_shift($nameToFetch);
+            $nameToFetch = implode('.', $nameToFetch);
+            if (Arr::exists($this->fields, $nameToFetch)) {
+                $existingUploads = Arr::get($this->fields, $nameToFetch);
+            }
+        } catch (\Exception $exception) {}
+
+        if ($isMultiple) {
+            $this->syncInput($name, array_merge($existingUploads, $file));
+        } else {
+            $this->syncInput($name, $file);
+        }
     }
 
     /**
@@ -245,20 +305,6 @@ abstract class Form extends EdenComponent
         return collect($this->allFields)->first(function ($i) use ($key) {
             return $i->getKey() == $key;
         });
-    }
-
-    /**
-     * Process Already LiveWire Uploaded File
-     *
-     * @return void
-     */
-    protected function processExistingUploads()
-    {
-//        collect($this->fields)->each(function ($itemValue, $itemKey) {
-//            if (isset($this->files[$itemKey]) && !empty($itemValue)) {
-//                $this->files[$itemKey] = $this->getTemporaryUploadFile($itemValue);
-//            }
-//        });
     }
 
     protected function getTemporaryUploadFile($path)

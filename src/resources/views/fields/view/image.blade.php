@@ -11,7 +11,7 @@
                     @if($largePreviewEnabled) <a target="_blank" href="{{ $file['url'] ?? $file }}" class="py-1 px-2 bg-slate-100 rounded hover:bg-slate-100 transition-all">{!! edenIcon('external-link', 'scale-50') !!}</a> @endif
                     @if($downloadEnabled) <a download href="{{ $file['url'] ?? $file }}" class="py-1 px-2 bg-slate-100 rounded hover:bg-slate-100 transition-all">{!! edenIcon('arrow-down-tray') !!}</a> @endif
                 </div>
-                <img src="{{ $file }}" alt="{{ $file }}" class="" />
+                <img src="{{ $file }}" alt="{{ $file }}" class="rounded-md aspect-square object-cover {{ $isMultiple ? '' : 'w-full h-60' }}" />
             </div>
         @endforeach
         </div>

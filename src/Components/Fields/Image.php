@@ -43,6 +43,7 @@ class Image extends File
     protected function prepareDisplayValues()
     {
         $this->displayValues = collect(Arr::wrap($this->value))
+            ->filter()
             ->transform(function ($item) {
                 if ($item instanceof TemporaryUploadedFile) {
                     if ($item->isPreviewable()) {
@@ -64,7 +65,9 @@ class Image extends File
 
     protected function prepareFilePreviews()
     {
-        return collect(Arr::wrap($this->value))->transform(function ($path) {
+        return collect(Arr::wrap($this->value))
+            ->filter()
+            ->transform(function ($path) {
             if (filter_var($path, FILTER_VALIDATE_URL)) {
                 return $path;
             }
@@ -100,6 +103,7 @@ class Image extends File
             'downloadEnabled' => $this->downloadEnabled,
             'largePreviewEnabled' => $this->largePreviewEnabled,
             'fileLabelEnabled' => $this->fileLabelEnabled,
+            'isMultiple' => $this->isMultiple(),
         ]);
     }
 }

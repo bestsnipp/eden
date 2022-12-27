@@ -25,7 +25,7 @@
             </span>
 
             @if($value && !(isset($meta['disabled']) || isset($meta['readonly'])))
-                <button type="button" class="text-slate-400 lowercase px-2" wire:click='clearUploadedPhoto("{{$key}}", @JSON(isset($meta['multiple']) ? [] : ""))'>Clear</button>
+                <button type="button" class="text-slate-400 lowercase px-2" wire:click='clearUploadedFiles("fields.{{$key}}", @JSON(isset($meta['multiple']) ? [] : ""))'>Clear</button>
             @endif
             <span class="empty:hidden mr-2">{!! edenIcon($suffix) !!}</span>
         </label>
@@ -35,4 +35,24 @@
     </div>
     @include('eden::fields.error')
     @include('eden::fields.help')
+
+    @if($isMultiple)
+    <div class="{{ $isMultiple ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-2' : 'grid-cols-1' }} grid mt-3 gap-4">
+        @if(is_array($displayValues))
+            @foreach($displayValues as $fileIndex => $file)
+                <div class="relative flex items-center bg-slate-100 py-1 px-1.5 rounded-md gap-2" x-data="{tooltip: '{{ $file }}'}" x-tooltip="tooltip">
+                    <p class="truncate" dir="rtl">{{ $file }}</p>
+                    <button type="button"
+                            class="bg-white/50 dark:bg-slate-600/50 hover:bg-white hover:text-red-500 dark:hover:bg-slate-700 dark:hover:text-red-300 rounded-full p-1"
+                            @if($isMultiple)
+                                wire:click='clearUploadedSingleFile("fields.{{$key}}", "{{ $fileIndex }}")'
+                            @else
+                                wire:click='clearUploadedFiles("fields.{{$key}}", "")'
+                        @endif
+                    >{!! edenIcon('x-mark') !!}</button>
+                </div>
+            @endforeach
+        @endif
+    </div>
+    @endif
 </div>

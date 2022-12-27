@@ -3,6 +3,7 @@
 namespace BestSnipp\Eden\Components\Fields;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 use Livewire\TemporaryUploadedFile;
 
 class File extends Field
@@ -60,15 +61,15 @@ class File extends Field
 
     protected function processSingleFile($value)
     {
-        $value = empty($value) ? $value : $this->getTemporaryUploadFile($value);
+        $file = empty($value) ? $value : $this->getTemporaryUploadFile($value);
 
         try {
-            if ($value instanceof TemporaryUploadedFile && $value->exists()) {
+            if ($file instanceof TemporaryUploadedFile && $file->exists()) {
                 if ($this->publicly) {
-                    return basename($value->storePublicly($this->path, $this->storage));
+                    return basename($file->storePublicly($this->path, $this->storage));
                 }
 
-                return basename($value->store($this->path, $this->storage));
+                return basename($file->store($this->path, $this->storage));
             }
 
             return $value;
@@ -91,6 +92,8 @@ class File extends Field
         $data = is_array($value)
             ? $this->processMultipleFile($value)
             : $this->processSingleFile($value);
+
+        return empty($data) ? null : $data;
     }
 
     /**
@@ -138,16 +141,26 @@ class File extends Field
 
     protected function prepareDisplayValues()
     {
-        if (! $this->isMultiple() && $this->value instanceof TemporaryUploadedFile) {
-            $this->displayValues = $this->value->getClientOriginalName();
-        } else {
-            $this->displayValues = $this->value;
-        }
+        $this->displayValues = collect(Arr::wrap($this->value))
+            ->filter()
+            ->transform(function ($item) {
+                if ($item instanceof TemporaryUploadedFile) {
+                    return $item->getClientOriginalName();
+                }
+
+                return $item;
+            })
+            ->filter(function ($item) {
+                return ! empty($item);
+            })
+            ->all();
     }
 
     protected function prepareFilePreviews()
     {
-        return collect(Arr::wrap($this->value))->transform(function ($path) {
+        return collect(Arr::wrap($this->value))
+            ->filter()
+            ->transform(function ($path) {
             return [
                 'name' => basename($path),
                 'url' => asset('storage/'.$path),
@@ -162,6 +175,7 @@ class File extends Field
         return view('eden::fields.input.file')
             ->with([
                 'displayValues' => $this->displayValues,
+                'isMultiple' => $this->isMultiple(),
             ]);
     }
 

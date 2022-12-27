@@ -25,7 +25,7 @@
             </span>
 
             @if($value && !(isset($meta['disabled']) || isset($meta['readonly'])))
-                <button type="button" class="text-slate-400 lowercase px-2" wire:click='clearUploadedPhoto("{{$key}}", @JSON(isset($meta['multiple']) ? [] : ""))'>Clear</button>
+                <button type="button" class="text-slate-400 lowercase px-2" wire:click='clearUploadedFiles("fields.{{$key}}", @JSON(isset($meta['multiple']) ? [] : ""))'>Clear</button>
             @endif
             <span class="empty:hidden mr-2">{!! edenIcon($suffix) !!}</span>
         </label>
@@ -36,10 +36,20 @@
     @include('eden::fields.error')
     @include('eden::fields.help')
 
-    <div class="{{ $isMultiple ? 'grid-cols-2 md:grid-cols-4 lg:grid-cols-6' : 'grid-cols-1' }} grid mt-3 gap-4">
+    <div class="{{ $isMultiple ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4' : 'grid-cols-1' }} grid mt-3 gap-4">
         @if(is_array($displayValues))
-            @foreach($displayValues as $file)
-                <img src="{{ $file }}" alt="{{ $file }}" class="rounded-md {{ $isMultiple ? '' : 'w-full h-60 object-cover' }}" />
+            @foreach($displayValues as $fileIndex => $file)
+                <div class="relative">
+                    <button type="button"
+                            class="bg-white/50 dark:bg-slate-600/50 hover:bg-white hover:text-red-500 dark:hover:bg-slate-700 dark:hover:text-red-300 absolute right-1 top-1 rounded-full p-1"
+                        @if($isMultiple)
+                            wire:click='clearUploadedSingleFile("fields.{{$key}}", "{{ $fileIndex }}")'
+                        @else
+                            wire:click='clearUploadedFiles("fields.{{$key}}", "")'
+                        @endif
+                    >{!! edenIcon('x-mark') !!}</button>
+                    <img src="{{ $file }}" alt="{{ $file }}" class="rounded-md aspect-square object-cover {{ $isMultiple ? '' : 'w-full h-60' }}" />
+                </div>
             @endforeach
         @endif
     </div>
