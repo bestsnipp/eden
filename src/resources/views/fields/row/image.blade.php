@@ -1,9 +1,24 @@
 <div class="w-full">
     @if(!empty($value))
         @if(is_array($value))
-            <span>{{ count($value) }} {{ \Illuminate\Support\Str::pluralStudly('Image', count($value)) }}</span>
+            <div class="flex items-center">
+                <div class="flex -space-x-2">
+                    @foreach(array_slice($value, 0, 4) as $image)
+                        <span class="relative inline-flex items-center justify-center w-10 text-white rounded-full">
+                            <img src="{{ asset($image) }}" alt="{{ $image }}" class="border-2 border-white rounded-full aspect-square object-cover" />
+                        </span>
+                    @endforeach
+                    @if(count($value) > 4)
+                        <span class="relative inline-flex items-center justify-center w-10 h-10 text-sm border-2 border-white rounded-full bg-slate-200 text-slate-500">
+                            +{{ count($value) - 4 }}
+                        </span>
+                    @endif
+                </div>
+            </div>
         @else
-            <span><img src="{{ asset($value) }}" alt="{{ $value }}" class="border border-slate-100 rounded-md overflow-hidden w-8 h-8 object-cover" /></span>
+            <span class="relative inline-flex items-center justify-center w-10 text-white rounded-full">
+                <img src="{{ asset($value) }}" alt="{{ $value }}" class="border-2 border-white rounded-full aspect-square object-cover" />
+            </span>
         @endif
     @endif
 </div>
