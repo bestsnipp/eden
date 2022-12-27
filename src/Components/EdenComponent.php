@@ -44,6 +44,7 @@ abstract class EdenComponent extends \Livewire\Component
             'half' => 'col-span-2',
             'full' => 'col-span-4',
         ];
+
         return (isset($widths[$this->width])) ? $widths[$this->width] : $widths['1/4'];
     }
 
@@ -64,6 +65,7 @@ abstract class EdenComponent extends \Livewire\Component
             'row-6' => 'col-span-6',
             'full' => 'row-span-full',
         ];
+
         return (isset($heights[$this->height])) ? $heights[$this->height] : $heights['auto'];
     }
 

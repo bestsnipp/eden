@@ -5,6 +5,7 @@ namespace BestSnipp\Eden\Components\Fields;
 class Html extends Field
 {
     public $visibilityOnIndex = false;
+
     protected $usingFullSpace = false;
 
     /**
@@ -15,6 +16,7 @@ class Html extends Field
     public function useFullSpace()
     {
         $this->usingFullSpace = true;
+
         return $this;
     }
 
@@ -31,5 +33,4 @@ class Html extends Field
         return view('eden::fields.view.html')
             ->with('usingFullSpace', $this->usingFullSpace);
     }
-
 }

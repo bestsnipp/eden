@@ -9,7 +9,6 @@ use BestSnipp\Eden\RenderProviders\HeaderActionRenderer;
  */
 abstract class HeaderAction extends EdenComponent
 {
-
     public function defaultViewParams()
     {
         return [];
@@ -24,8 +23,8 @@ abstract class HeaderAction extends EdenComponent
     }
 
     /**
-     * @param string $class
-     * @param array $params
+     * @param  string  $class
+     * @param  array  $params
      * @return HeaderActionRenderer
      */
     protected static function renderer($class, $params)

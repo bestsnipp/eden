@@ -1,4 +1,5 @@
 <?php
+
 namespace BestSnipp\Eden\Providers;
 
 use BestSnipp\Eden\Assembled\MediaManager\MediaManagerDataTable;
@@ -37,18 +38,16 @@ use BestSnipp\Eden\Listeners\PrepareEden;
 use BestSnipp\Eden\Middleware\EdenRequestHandler;
 use BestSnipp\Eden\Modals\DeleteModal;
 use BestSnipp\Eden\Modals\MediaModal;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 
 class EdenCoreServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap any application services.
      *
@@ -57,10 +56,10 @@ class EdenCoreServiceProvider extends ServiceProvider
     public function boot()
     {
         if (! $this->app->configurationIsCached()) {
-            $this->mergeConfigFrom(__DIR__ . '/../Config/eden.php', 'eden');
+            $this->mergeConfigFrom(__DIR__.'/../Config/eden.php', 'eden');
         }
         if (config('eden.media_manager')) {
-            $this->loadMigrationsFrom(__DIR__ . '/../Migrations');
+            $this->loadMigrationsFrom(__DIR__.'/../Migrations');
         }
 
         $this->registerPersistentMiddleware();
@@ -86,7 +85,6 @@ class EdenCoreServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
 
     /**
@@ -110,10 +108,10 @@ class EdenCoreServiceProvider extends ServiceProvider
     protected function prepareViewComposes()
     {
         View::composer('eden::menu.index', function ($view) {
-           return $view->with('menu', Eden::getMainMenu());
+            return $view->with('menu', Eden::getMainMenu());
         });
         View::composer('eden::widgets.header-right', function ($view) {
-           return $view->with('menu', Eden::getAccountMenu());
+            return $view->with('menu', Eden::getAccountMenu());
         });
     }
 
@@ -129,11 +127,11 @@ class EdenCoreServiceProvider extends ServiceProvider
         ], 'eden-provider');
 
         $this->publishes([
-            __DIR__.'/../Config/eden.php' => config_path('eden.php')
+            __DIR__.'/../Config/eden.php' => config_path('eden.php'),
         ], 'eden-config');
 
         $this->publishes([
-            __DIR__.'/../../public' => public_path('vendor/eden')
+            __DIR__.'/../../public' => public_path('vendor/eden'),
         ], ['laravel-assets', 'eden-assets']);
     }
 
@@ -144,16 +142,17 @@ class EdenCoreServiceProvider extends ServiceProvider
      */
     protected function registerMacos()
     {
-        if (!Arr::hasMacro('toHtmlAttribute')) {
+        if (! Arr::hasMacro('toHtmlAttribute')) {
             Arr::macro('toHtmlAttribute', function ($arr) {
                 if (empty($arr)) {
                     return '';
                 }
 
-                $compiled = join('="%s" ', array_keys($arr)).'="%s"';
+                $compiled = implode('="%s" ', array_keys($arr)).'="%s"';
+
                 return vsprintf($compiled, array_map('htmlspecialchars', array_values($arr)));
             });
-        };
+        }
     }
 
     /**
@@ -166,7 +165,7 @@ class EdenCoreServiceProvider extends ServiceProvider
         Route::middlewareGroup('eden', config('eden.middleware', []));
         Route::middleware('eden')
             ->prefix(config('eden.entry'))
-            ->group(__DIR__ . '/../routes/web.php');
+            ->group(__DIR__.'/../routes/web.php');
     }
 
     /**
@@ -228,7 +227,7 @@ class EdenCoreServiceProvider extends ServiceProvider
                 // Fields, Actions, Filters
                 MakeField::class,
                 MakeAction::class,
-                MakeFilter::class
+                MakeFilter::class,
             ]);
         }
     }
@@ -241,7 +240,7 @@ class EdenCoreServiceProvider extends ServiceProvider
     protected function registerPersistentMiddleware(): void
     {
         Livewire::addPersistentMiddleware([
-            EdenRequestHandler::class
+            EdenRequestHandler::class,
         ]);
     }
 
@@ -252,7 +251,7 @@ class EdenCoreServiceProvider extends ServiceProvider
      */
     protected function loadViews()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'eden');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'eden');
 
         $this->loadComponents();
         $this->prepareViewComposes();
@@ -262,6 +261,7 @@ class EdenCoreServiceProvider extends ServiceProvider
      * Auto Register Components from Package and App
      *
      * @return void
+     *
      * @throws \ReflectionException
      */
     protected function loadComponents()

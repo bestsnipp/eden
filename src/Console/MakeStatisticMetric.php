@@ -36,7 +36,7 @@ class MakeStatisticMetric extends Command
         $this->call('eden:card', ['name' => $name, '--type' => 'StatisticMetric']);
 
         $this->output->newLine();
+
         return 0;
     }
-
 }

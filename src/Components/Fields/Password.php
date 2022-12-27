@@ -11,7 +11,7 @@ class Password extends Field
     protected function onMount()
     {
         $this->meta = array_merge($this->meta, [
-            'type' => 'password'
+            'type' => 'password',
         ]);
     }
 
@@ -23,6 +23,7 @@ class Password extends Field
     public function enableRevealing()
     {
         $this->viewable = true;
+
         return $this;
     }
 
@@ -34,6 +35,7 @@ class Password extends Field
     public function disableRevealing()
     {
         $this->viewable = false;
+
         return $this;
     }
 
@@ -50,5 +52,4 @@ class Password extends Field
         return view('eden::fields.view.password')
             ->with('viewable', $this->viewable);
     }
-
 }

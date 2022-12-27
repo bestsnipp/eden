@@ -13,8 +13,8 @@ class RenderProvider
     public $params = [];
 
     /**
-     * @param string $component
-     * @param array $params
+     * @param  string  $component
+     * @param  array  $params
      */
     public function __construct($component, array $params)
     {
@@ -25,37 +25,39 @@ class RenderProvider
     /**
      * Set Card Title
      *
-     * @param String|\Closure $title
+     * @param  string|\Closure  $title
      * @return $this
      */
     public function title($title = '')
     {
         $this->params['title'] = appCall($title);
+
         return $this;
     }
 
     /**
      * Set Card Width
      *
-     * @param String|\Closure $width
+     * @param  string|\Closure  $width
      * @return $this
      */
     public function width($width = '')
     {
         $this->params['width'] = appCall($width);
+
         return $this;
     }
 
     /**
      * Set Card Height
      *
-     * @param String|\Closure $height
+     * @param  string|\Closure  $height
      * @return $this
      */
     public function height($height = '')
     {
         $this->params['height'] = appCall($height);
+
         return $this;
     }
-
 }

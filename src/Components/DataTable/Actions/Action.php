@@ -1,24 +1,12 @@
 <?php
+
 namespace BestSnipp\Eden\Components\DataTable\Actions;
 
-use BestSnipp\Eden\Components\DataTable;
 use BestSnipp\Eden\Traits\AuthorizedToSee;
 use BestSnipp\Eden\Traits\CanBeRendered;
 use BestSnipp\Eden\Traits\CanManageVisibility;
-use BestSnipp\Eden\Traits\HasOwner;
-use BestSnipp\Eden\Traits\HasParentToast;
-use BestSnipp\Eden\Traits\HasTitleKey;
-use BestSnipp\Eden\Traits\HasToast;
-use BestSnipp\Eden\Traits\InteractsWithModalViaOwner;
 use BestSnipp\Eden\Traits\Makeable;
-use BestSnipp\Eden\Traits\PerformsParentRedirects;
-use BestSnipp\Eden\Traits\RouteAware;
-use BestSnipp\Eden\Traits\RouteAwareViaOwner;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 abstract class Action
@@ -49,9 +37,9 @@ abstract class Action
     public function __construct()
     {
         if (is_null($this->title)) {
-            $this->key = 'action_' . Str::lower(Str::random(8));
+            $this->key = 'action_'.Str::lower(Str::random(8));
         } else {
-            $this->key = 'action_' . Str::lower(Str::snake($this->title));
+            $this->key = 'action_'.Str::lower(Str::snake($this->title));
         }
     }
 
@@ -68,6 +56,7 @@ abstract class Action
     public function setOwner($owner)
     {
         $this->owner = $owner;
+
         return $this;
     }
 
@@ -103,7 +92,7 @@ abstract class Action
         if (method_exists(static::class, 'onMount')) {
             appCall([$this, 'onMount'], [
                 'records' => $this->records,
-                'payload' => $this->payload
+                'payload' => $this->payload,
             ]);
         }
 
@@ -130,14 +119,14 @@ abstract class Action
             if (method_exists(static::class, 'beforeApplyBulk')) {
                 appCall([$this, 'beforeApplyBulk'], [
                     'records' => $this->records,
-                    'payload' => $this->payload
+                    'payload' => $this->payload,
                 ]);
             }
         } else {
             if (method_exists(static::class, 'beforeApply')) {
                 appCall([$this, 'beforeApply'], [
                     'records' => $this->records,
-                    'payload' => $this->payload
+                    'payload' => $this->payload,
                 ]);
             }
         }
@@ -147,14 +136,14 @@ abstract class Action
 
     protected function assignResourceAndId()
     {
-        if (!is_null($this->owner)) {
+        if (! is_null($this->owner)) {
             $this->resource = $this->owner->resource;
         }
 
         $firstRecord = collect($this->records)->first();
         if ($firstRecord instanceof Model && isset($firstRecord->{$firstRecord->getKeyName()})) {
             $this->resourceId = $firstRecord->{$firstRecord->getKeyName()};
-        } else if (is_object($firstRecord) && isset($firstRecord->id)) {
+        } elseif (is_object($firstRecord) && isset($firstRecord->id)) {
             $this->resourceId = $firstRecord->id;
         }
     }
@@ -168,13 +157,13 @@ abstract class Action
     {
         appCall([$this, 'apply'], [
             'records' => $this->records,
-            'payload' => $this->payload
+            'payload' => $this->payload,
         ]);
     }
 
     public function __call(string $name, array $arguments)
     {
-        if (!is_null($this->owner) && method_exists($this->owner, $name) && is_callable([$this->owner, $name])) {
+        if (! is_null($this->owner) && method_exists($this->owner, $name) && is_callable([$this->owner, $name])) {
             call_user_func_array([$this->owner, $name], $arguments);
         } else {
             call_user_func_array([$this, $name], $arguments);
@@ -182,8 +171,8 @@ abstract class Action
     }
 
     /**
-     * @param string $message
-     * @param string $title
+     * @param  string  $message
+     * @param  string  $title
      * @return void
      */
     public function toastError($message, $title = 'Error')
@@ -192,8 +181,8 @@ abstract class Action
     }
 
     /**
-     * @param string $message
-     * @param string $title
+     * @param  string  $message
+     * @param  string  $title
      * @return void
      */
     public function toastWarning($message, $title = 'Warning')
@@ -202,8 +191,8 @@ abstract class Action
     }
 
     /**
-     * @param string $message
-     * @param string $title
+     * @param  string  $message
+     * @param  string  $title
      * @return void
      */
     public function toastSuccess($message, $title = 'Success')
@@ -212,8 +201,8 @@ abstract class Action
     }
 
     /**
-     * @param string $message
-     * @param string $title
+     * @param  string  $message
+     * @param  string  $title
      * @return void
      */
     public function toastNotification($message, $title = 'Notification')

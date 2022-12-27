@@ -16,7 +16,6 @@ class EdenMedia extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'preview' => 'boolean'
+        'preview' => 'boolean',
     ];
-
 }

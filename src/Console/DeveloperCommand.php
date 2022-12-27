@@ -5,13 +5,11 @@ namespace BestSnipp\Eden\Console;
 use App\Models\Car;
 use App\Models\User;
 use Illuminate\Console\Command;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class DeveloperCommand extends Command
 {
-
     /**
      * The name and signature of the console command.
      *
@@ -33,7 +31,7 @@ class DeveloperCommand extends Command
      */
     public function handle()
     {
-        $this->alert("Running Developer Command");
+        $this->alert('Running Developer Command');
 
         Auth::login(User::latest()->first());
         $user = auth()->user();
@@ -51,7 +49,8 @@ class DeveloperCommand extends Command
             dd($isAllowed->message());
         }
 
-        $this->info("==> DONE");
+        $this->info('==> DONE');
+
         return 0;
     }
 }

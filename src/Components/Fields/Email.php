@@ -7,7 +7,7 @@ class Email extends Field
     protected function onMount()
     {
         $this->meta = array_merge($this->meta, [
-            'type' => 'email'
+            'type' => 'email',
         ]);
     }
 
@@ -29,5 +29,4 @@ class Email extends Field
 
         return view('eden::fields.view.email');
     }
-
 }

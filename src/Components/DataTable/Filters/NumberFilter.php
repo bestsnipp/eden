@@ -2,8 +2,6 @@
 
 namespace BestSnipp\Eden\Components\DataTable\Filters;
 
-use Illuminate\Database\Query\Builder;
-
 class NumberFilter extends Filter
 {
     public $initialValue = 0;

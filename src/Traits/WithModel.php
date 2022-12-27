@@ -2,7 +2,6 @@
 
 namespace BestSnipp\Eden\Traits;
 
-use BestSnipp\Eden\Components\Fields\Field;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -10,11 +9,14 @@ use Illuminate\Support\Str;
 
 trait WithModel
 {
-
     private string $DRIVER_ELOQUENT = 'eloquent';
+
     private string $DRIVER_DATABASE = 'database';
+
     private string $DRIVER_MODEL = 'model';
+
     private string $DRIVER_ARRAY = 'array';
+
     private string $DRIVER_OBJECT = 'object';
 
     /**
@@ -70,21 +72,17 @@ trait WithModel
         if (is_array($model)) {
             $this->modelType = $this->DRIVER_ARRAY;
             self::$model = $model;
-
-        } else if ($model instanceof Model) {
+        } elseif ($model instanceof Model) {
             $this->modelType = $this->DRIVER_MODEL;
             self::$model = $model;
-
-        } else if (is_object($model)) {
+        } elseif (is_object($model)) {
             $this->modelType = $this->DRIVER_OBJECT;
             self::$model = $model;
-
-        } else if (is_string($model)) {
+        } elseif (is_string($model)) {
             try {
                 app($model);
                 $this->modelType = $this->DRIVER_ELOQUENT;
                 self::$model = $model;
-
             } catch (BindingResolutionException $exception) {
                 $this->modelType = $this->DRIVER_DATABASE;
                 self::$model = $model;
@@ -96,17 +94,14 @@ trait WithModel
 
     protected function getRecordValue($key, $value = null)
     {
-        if (!is_null($this->record)) {
+        if (! is_null($this->record)) {
             if (is_subclass_of($this->record, Model::class) && Arr::exists($this->record, $key)) {
                 $value = Arr::get($this->record, $key) ?? $value;
-
-            } else if (in_array($this->record, ['array']) && Arr::exists($this->record, $key)) {
+            } elseif (in_array($this->record, ['array']) && Arr::exists($this->record, $key)) {
                 $value = Arr::get($this->record, $key) ?? $value;
-
-            } else if(in_array($this->record, [get_class($this->record)]) && Arr::exists($this->record, $key)){
+            } elseif (in_array($this->record, [get_class($this->record)]) && Arr::exists($this->record, $key)) {
                 $value = $this->record->$key ?? $value;
-
-            } else if (in_array($this->record, ['object']) && property_exists($this->record, $key)) {
+            } elseif (in_array($this->record, ['object']) && property_exists($this->record, $key)) {
                 $value = $this->record->$key ?? $value;
             }
         }
@@ -122,5 +117,4 @@ trait WithModel
 
         return (is_null($record)) ? base64_encode(Str::ulid()) : '';
     }
-
 }

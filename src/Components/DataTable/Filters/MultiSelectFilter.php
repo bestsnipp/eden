@@ -2,8 +2,6 @@
 
 namespace BestSnipp\Eden\Components\DataTable\Filters;
 
-use Illuminate\Database\Query\Builder;
-
 class MultiSelectFilter extends Filter
 {
     public $initialValue = [];
@@ -17,6 +15,7 @@ class MultiSelectFilter extends Filter
     public function options($options = [])
     {
         $this->options = $options;
+
         return $this;
     }
 
@@ -29,6 +28,7 @@ class MultiSelectFilter extends Filter
     {
         $this->options = $options;
         $this->isKeyValue = true;
+
         return $this;
     }
 
@@ -45,13 +45,15 @@ class MultiSelectFilter extends Filter
         }
     }
 
-    public function apply($query, $value) {
+    public function apply($query, $value)
+    {
         return $query->whereIn($this->key, $value);
     }
 
     public function view()
     {
         $options = (empty($this->resolveOptions())) ? $this->options : $this->resolveOptions();
+
         return view('eden::datatable.filters.multi-select')
             ->with('options', $options)
             ->with('isKeyValue', $this->isKeyValue);

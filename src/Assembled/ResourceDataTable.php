@@ -2,13 +2,9 @@
 
 namespace BestSnipp\Eden\Assembled;
 
-use App\Models\User;
 use BestSnipp\Eden\Components\DataTable;
 use BestSnipp\Eden\Components\EdenButton;
 use BestSnipp\Eden\Traits\HasEdenResource;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
 
 final class ResourceDataTable extends DataTable
 {
@@ -76,11 +72,11 @@ final class ResourceDataTable extends DataTable
 
         return collect(array_merge($operations, [
             EdenButton::make('Create New')->route('eden.create', [
-                'resource' => $this->resource
-            ])->noIcon()->canSeeWhen('create', $this->model())
+                'resource' => $this->resource,
+            ])->noIcon()->canSeeWhen('create', $this->model()),
         ]))
         ->reject(function ($field) {
-            return !$field->visibilityOnIndex;
+            return ! $field->visibilityOnIndex;
         })
         ->all();
     }
@@ -91,7 +87,7 @@ final class ResourceDataTable extends DataTable
             return $edenResource->getFields();
         }, []))
         ->reject(function ($field) {
-           return !$field->visibilityOnIndex;
+            return ! $field->visibilityOnIndex;
         })
         ->all();
     }
@@ -109,7 +105,7 @@ final class ResourceDataTable extends DataTable
             return $edenResource->getActions();
         }, []))
             ->reject(function ($action) {
-                return !$action->visibilityOnIndex;
+                return ! $action->visibilityOnIndex;
             })
             ->all();
     }

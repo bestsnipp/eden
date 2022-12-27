@@ -18,7 +18,7 @@ class MenuHeader
     protected string $title;
 
     /**
-     * @param \Closure|string $title
+     * @param  \Closure|string  $title
      */
     protected function __construct($title)
     {
@@ -32,5 +32,4 @@ class MenuHeader
     {
         return view('eden::menu.header')->with('title', $this->title);
     }
-
 }

@@ -7,7 +7,6 @@ use BestSnipp\Eden\Modals\DeleteModal;
 
 class DeleteAction extends Action
 {
-
     public $title = 'Remove';
 
     public $icon = 'trash';
@@ -32,7 +31,7 @@ class DeleteAction extends Action
     public function beforeApplyBulk()
     {
         $this->isAllowed = Eden::isActionAuthorized('delete', collect($this->records)->first());
-        if (!$this->isAllowed) {
+        if (! $this->isAllowed) {
             $this->toastError('You are not authorized to perform the action');
         }
     }
@@ -50,12 +49,11 @@ class DeleteAction extends Action
     public function apply($records, $payload)
     {
         if ($this->isAllowed) {
-            $this->emit('show' . DeleteModal::getName(), [
+            $this->emit('show'.DeleteModal::getName(), [
                 'caller' => $this->owner->getName(),
                 'model' => $this->owner::$model,
-                'records' => $records
+                'records' => $records,
             ]);
         }
     }
-
 }

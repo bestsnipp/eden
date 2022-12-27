@@ -17,8 +17,8 @@ if (! function_exists('edenIcon')) {
     /**
      * Return Eden defined icon if found otherwise the original value
      *
-     * @param string $icon
-     * @param string $scale
+     * @param  string  $icon
+     * @param  string  $scale
      * @return mixed
      */
     function edenIcon($icon, $scale = null)

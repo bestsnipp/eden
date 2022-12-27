@@ -4,7 +4,6 @@ namespace BestSnipp\Eden\Traits;
 
 trait DependentField
 {
-
     protected $targets = [];
 
     protected $hasDependency = false;
@@ -22,20 +21,21 @@ trait DependentField
     /**
      * Check and set field($hasDependency) property has any dependency or not
      *
-     * @param array $fields
+     * @param  array  $fields
      * @return $this
      */
     public function isDependent(array $fields)
     {
         $this->hasDependency = in_array($this->key, $fields);
+
         return $this;
     }
 
     /**
      * Set field dependency targets
      *
-     * @param array|string $targets
-     * @param \Closure $callback
+     * @param  array|string  $targets
+     * @param  \Closure  $callback
      * @return $this
      */
     public function dependsOn($targets, $callback = null)
@@ -46,11 +46,10 @@ trait DependentField
             $this->targets = explode(' ', collect(appCall($targets))->join('_'));
         }
 
-        if (!is_null($callback)) {
+        if (! is_null($callback)) {
             $this->resolveCallback = $callback;
         }
 
         return $this;
     }
-
 }

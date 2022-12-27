@@ -3,10 +3,6 @@
 namespace BestSnipp\Eden\Components\Metrics;
 
 use BestSnipp\Eden\Traits\Makeable;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Builder as ModelBuilder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Support\Facades\Log;
 
 class ListMetric extends MetricValue
 {
@@ -23,7 +19,7 @@ class ListMetric extends MetricValue
     /**
      * Add Multiple Items
      *
-     * @param \Closure|array $items
+     * @param  \Closure|array  $items
      * @return $this
      */
     public function items($items = [])
@@ -36,7 +32,7 @@ class ListMetric extends MetricValue
     /**
      * Add Single Items
      *
-     * @param \Closure|array $items
+     * @param  \Closure|array  $items
      * @return $this
      */
     public function addItem($title, $description = '', $actions = [], $icon = '')
@@ -54,17 +50,18 @@ class ListMetric extends MetricValue
     /**
      * Maximum item that will show in front end
      *
-     * @param \Closure|int $maxItems
+     * @param  \Closure|int  $maxItems
      * @return $this
      */
     public function maxItems($maxItems = -1)
     {
         $this->maxItems = appCall($maxItems);
+
         return $this;
     }
 
     /**
-     * @param \Closure $callback
+     * @param  \Closure  $callback
      * @return $this
      */
     public function display($callback)
@@ -77,7 +74,7 @@ class ListMetric extends MetricValue
     }
 
     /**
-     * @param boolean|\Closure $callback
+     * @param  bool|\Closure  $callback
      * @return $this
      */
     public function singleLine($isSingle = true)
@@ -93,14 +90,14 @@ class ListMetric extends MetricValue
     public function view()
     {
         $formattedItems = collect(is_null($this->itemsCallback) ? $this->items : appCall($this->itemsCallback, [
-            'items' => $this->items
+            'items' => $this->items,
         ]))->transform(function ($item) {
             return (array) $item;
         });
+
         return view('eden::metrics.list')->with([
             'items' => ($this->maxItems == -1) ? $formattedItems->all() : $formattedItems->take($this->maxItems),
-            'singleLine' => $this->singleLine
+            'singleLine' => $this->singleLine,
         ]);
     }
-
 }

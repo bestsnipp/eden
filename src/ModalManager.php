@@ -2,7 +2,6 @@
 
 namespace BestSnipp\Eden;
 
-use BestSnipp\Eden\Components\EdenPage;
 use BestSnipp\Eden\Components\Modal;
 
 class ModalManager
@@ -10,12 +9,12 @@ class ModalManager
     private $modals = [];
 
     /**
-     * @param mixed $modalComponent
+     * @param  mixed  $modalComponent
      * @return void
      */
     public function register($modalComponent)
     {
-        if (is_subclass_of($modalComponent, Modal::class) && !isset($this->modals[$modalComponent::getName()])) {
+        if (is_subclass_of($modalComponent, Modal::class) && ! isset($this->modals[$modalComponent::getName()])) {
             $this->modals[$modalComponent::getName()] = $modalComponent::make();
         }
     }
@@ -29,7 +28,7 @@ class ModalManager
     }
 
     /**
-     * @param string $name
+     * @param  string  $name
      * @return bool
      */
     public function has($name)
@@ -38,7 +37,7 @@ class ModalManager
     }
 
     /**
-     * @param string $name
+     * @param  string  $name
      * @return mixed|null
      */
     public function get($name)
@@ -46,7 +45,7 @@ class ModalManager
         if ($this->has($name)) {
             return $this->modals[$name];
         }
+
         return null;
     }
-
 }

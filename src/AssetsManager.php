@@ -23,11 +23,11 @@ class AssetsManager
     public function registerStyle($url, $key = null, $attributes = [])
     {
         $key = is_null($key) ? strtolower(Str::random()) : Str::slug($key);
-        if (!isset($this->styles[$key])) {
+        if (! isset($this->styles[$key])) {
             $this->styles[$key] = [
                 'url' => $url,
                 'key' => $key,
-                'attributes' => $attributes
+                'attributes' => $attributes,
             ];
         }
     }
@@ -35,17 +35,18 @@ class AssetsManager
     public function registerScript($url, $key = null, $attributes = [])
     {
         $key = is_null($key) ? strtolower(Str::random()) : Str::slug($key);
-        if (!isset($this->scripts[$key])) {
+        if (! isset($this->scripts[$key])) {
             $this->scripts[$key] = [
                 'url' => $url,
                 'key' => $key,
-                'attributes' => $attributes
+                'attributes' => $attributes,
             ];
         }
     }
 
-    protected function toRGBString ($hexCode) {
-        if ( Str::startsWith($hexCode, '#')) {
+    protected function toRGBString($hexCode)
+    {
+        if (Str::startsWith($hexCode, '#')) {
             $hex = str_ireplace('#', '', $hexCode);
 
             if (strlen($hex) == 3) {
@@ -53,6 +54,7 @@ class AssetsManager
             }
 
             $hexCode = array_map('hexdec', str_split($hex, 2));
+
             return implode(', ', $hexCode);
         }
 
@@ -64,19 +66,19 @@ class AssetsManager
         $hexCode = ltrim($hexCode, '#');
 
         if (strlen($hexCode) == 3) {
-            $hexCode = $hexCode[0] . $hexCode[0] . $hexCode[1] . $hexCode[1] . $hexCode[2] . $hexCode[2];
+            $hexCode = $hexCode[0].$hexCode[0].$hexCode[1].$hexCode[1].$hexCode[2].$hexCode[2];
         }
 
         $hexCode = array_map('hexdec', str_split($hexCode, 2));
 
-        foreach ($hexCode as & $color) {
+        foreach ($hexCode as &$color) {
             $adjustableLimit = $adjustPercent < 0 ? $color : 255 - $color;
             $adjustAmount = ceil($adjustableLimit * $adjustPercent);
 
             $color = str_pad(dechex($color + $adjustAmount), 2, '0', STR_PAD_LEFT);
         }
 
-        return '#' . implode($hexCode);
+        return '#'.implode($hexCode);
     }
 
     public function generateBrandColors()
@@ -103,7 +105,7 @@ class AssetsManager
                 600 => -0.1,
                 700 => -0.2,
                 800 => -0.3,
-                900 => -0.4
+                900 => -0.4,
             ];
 
             $response = '<style type="text/css">';
@@ -111,16 +113,17 @@ class AssetsManager
 
             foreach ($variations as $variation => $brightness) {
                 if (isset($brandColor[$variation])) {
-                    $response .= "--colors-primary-$variation: " . $this->toRGBString($brandColor[$variation]) . ";";
+                    $response .= "--colors-primary-$variation: ".$this->toRGBString($brandColor[$variation]).';';
                 } else {
                     $baseColor = isset($brandColor[500]) ? $brandColor[500] : head($brandColor);
-                    $response .= "--colors-primary-$variation: " . $this->toRGBString($this->adjustBrightness($baseColor, $brightness)) . ";";
+                    $response .= "--colors-primary-$variation: ".$this->toRGBString($this->adjustBrightness($baseColor, $brightness)).';';
                 }
                 $response .= PHP_EOL;
             }
 
             $response .= '}'; // Root End
             $response .= '</style>';
+
             return $response;
         }
 

@@ -4,7 +4,6 @@ namespace BestSnipp\Eden\RenderProviders;
 
 class CardRenderer extends RenderProvider
 {
-
     /**
      * Set Filter Value
      *
@@ -14,19 +13,20 @@ class CardRenderer extends RenderProvider
     public function filter($filter = '')
     {
         $this->params['filter'] = appCall($filter);
+
         return $this;
     }
 
     /**
      * Set Card Blank Canvas
      *
-     * @param boolean|\Closure $should
+     * @param  bool|\Closure  $should
      * @return $this
      */
     public function asBlankCanvas($should = true)
     {
         $this->params['blankCanvas'] = appCall($should);
+
         return $this;
     }
-
 }

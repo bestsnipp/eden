@@ -2,11 +2,11 @@
 
 namespace BestSnipp\Eden\Components;
 
-use Carbon\CarbonImmutable;
 use BestSnipp\Eden\Components\Metrics\MetricValue;
 use BestSnipp\Eden\Components\Metrics\SplitMetric;
 use BestSnipp\Eden\Components\Metrics\TrendMetric;
 use BestSnipp\Eden\RenderProviders\CardRenderer;
+use Carbon\CarbonImmutable;
 
 /**
  * @method static make(array $params = [])
@@ -33,7 +33,7 @@ abstract class Metric extends EdenComponent
     }
 
     /**
-     * @param string $key
+     * @param  string  $key
      * @return mixed
      */
     public function filterLabel($key = null)
@@ -87,7 +87,7 @@ abstract class Metric extends EdenComponent
             'hasFilters' => count($this->filters()) > 0,
             'filters' => collect($this->filters())->toArray(),
             'styleCard' => $this->styleCard,
-            'data' => $this->prepareForRender()
+            'data' => $this->prepareForRender(),
         ];
     }
 
@@ -100,8 +100,8 @@ abstract class Metric extends EdenComponent
     }
 
     /**
-     * @param string $class
-     * @param array $params
+     * @param  string  $class
+     * @param  array  $params
      * @return CardRenderer
      */
     protected static function renderer($class, $params)

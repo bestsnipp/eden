@@ -51,20 +51,21 @@ class DeleteModal extends Modal
         $model = $this->getData('model', null);
         $primaryKey = '';
 
-        if (!is_null($model)) {
+        if (! is_null($model)) {
             $primaryKey = app($model)->getKeyName();
         }
 
         $dataToShow = collect(Arr::wrap($this->getData('records', [])))
             ->transform(function ($item) use ($primaryKey) {
                 if (isset($item[$primaryKey])) {
-                    return '#' . ($item[$primaryKey] ?? '-');
+                    return '#'.($item[$primaryKey] ?? '-');
                 }
+
                 return '#-';
             })
             ->all();
 
-        return '<div class="text-slate-500 dark:text-slate-300"><p>Are you sure to remove the ' . Str::pluralStudly('record', count($dataToShow)) . ' ' . implode(', ', $dataToShow) . ' ?</p></div>';
+        return '<div class="text-slate-500 dark:text-slate-300"><p>Are you sure to remove the '.Str::pluralStudly('record', count($dataToShow)).' '.implode(', ', $dataToShow).' ?</p></div>';
     }
 
     /**
@@ -75,14 +76,14 @@ class DeleteModal extends Modal
     public function confirm()
     {
         $model = $this->getData('model', null);
-        if (!is_null($model)) {
+        if (! is_null($model)) {
             $primaryKey = app($model)->getKeyName();
             $recordsToRemove = collect(Arr::wrap($this->getData('records', [])))->pluck($primaryKey)->all();
             app($model)->whereIn($primaryKey, $recordsToRemove)->delete();
         }
-        if (!empty($this->resourceId)) { // Calling from Details Page, need to go back to index page
+        if (! empty($this->resourceId)) { // Calling from Details Page, need to go back to index page
             return $this->redirectRoute('eden.page', ['resource' => $this->resource]);
         }
-        $this->emit('refresh' . $this->getData('caller'));
+        $this->emit('refresh'.$this->getData('caller'));
     }
 }

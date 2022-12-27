@@ -47,6 +47,7 @@ class MakeModal extends Command
         }
 
         $this->output->newLine();
+
         return 0;
     }
 
@@ -62,7 +63,7 @@ class MakeModal extends Command
         $resourceName = Str::replaceLast('-modal', '', Str::slug(Str::snake(class_basename($this->name))));
 
         return [
-            'title' => Str::ucfirst(Str::singular($resourceName))
+            'title' => Str::ucfirst(Str::singular($resourceName)),
         ];
     }
 }

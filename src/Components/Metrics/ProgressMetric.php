@@ -3,11 +3,8 @@
 namespace BestSnipp\Eden\Components\Metrics;
 
 use BestSnipp\Eden\Traits\Makeable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as ModelBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Support\Facades\Log;
-
 
 class ProgressMetric extends MetricValue
 {
@@ -24,7 +21,7 @@ class ProgressMetric extends MetricValue
     protected $targetCallback = null;
 
     /**
-     * @param \Closure|double|float|integer $target
+     * @param  \Closure|float|float|int  $target
      * @return $this
      */
     public function target($target)
@@ -35,7 +32,7 @@ class ProgressMetric extends MetricValue
     }
 
     /**
-     * @param \Closure|double|float|integer $current
+     * @param  \Closure|float|float|int  $current
      * @return $this
      */
     public function progress($current)
@@ -46,7 +43,7 @@ class ProgressMetric extends MetricValue
     }
 
     /**
-     * @param bool $should
+     * @param  bool  $should
      * @return $this
      */
     public function avoid($should = true)
@@ -57,7 +54,7 @@ class ProgressMetric extends MetricValue
     }
 
     /**
-     * @param \Closure $callback
+     * @param  \Closure  $callback
      * @return $this
      */
     public function display($callback)
@@ -70,7 +67,7 @@ class ProgressMetric extends MetricValue
     }
 
     /**
-     * @param \Closure $callback
+     * @param  \Closure  $callback
      * @return $this
      */
     public function displayTarget($callback)
@@ -83,7 +80,7 @@ class ProgressMetric extends MetricValue
     }
 
     /**
-     * @return float|int|double
+     * @return float|int|float
      */
     private function calculatePercentage()
     {
@@ -95,6 +92,7 @@ class ProgressMetric extends MetricValue
                 return 100;
             }
         }
+
         return 0;
     }
 
@@ -171,7 +169,7 @@ class ProgressMetric extends MetricValue
     /**
      * Return a progress result showing the segments of a aggregate.
      *
-     * @param \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|class-string<\Illuminate\Database\Eloquent\Model>  $model
+     * @param  \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|class-string<\Illuminate\Database\Eloquent\Model>  $model
      * @param  \Illuminate\Database\Query\Expression|string|null  $column
      * @param  \Illuminate\Database\Query\Expression|string|null  $dateColumn
      * @param  int|float|null  $target
@@ -185,6 +183,7 @@ class ProgressMetric extends MetricValue
 
         if ($this->activeFilter === 'ALL') {
             $this->progress = round(with(clone $query)->{$function}($column) ?? 0);
+
             return $this;
         }
 
@@ -212,15 +211,15 @@ class ProgressMetric extends MetricValue
     public function view()
     {
         $calculatedPercentage = $this->calculatePercentage();
-        $valueLabel = is_null($this->valueCallback) ? number_format($calculatedPercentage, 2) . '%' : appCall($this->valueCallback, [
+        $valueLabel = is_null($this->valueCallback) ? number_format($calculatedPercentage, 2).'%' : appCall($this->valueCallback, [
             'percentage' => $calculatedPercentage,
             'value' => $this->progress,
-            'target' => $this->target
+            'target' => $this->target,
         ]);
         $targetLabel = is_null($this->targetCallback) ? $this->target : appCall($this->targetCallback, [
             'percentage' => $calculatedPercentage,
             'value' => $this->progress,
-            'target' => $this->target
+            'target' => $this->target,
         ]);
 
         return view('eden::metrics.progress')->with([
@@ -229,8 +228,7 @@ class ProgressMetric extends MetricValue
             'targetLabel' => $targetLabel,
             'progress' => $this->progress,
             'percentage' => $calculatedPercentage,
-            'avoid' => $this->shouldAvoid
+            'avoid' => $this->shouldAvoid,
         ]);
     }
-
 }

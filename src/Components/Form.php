@@ -1,4 +1,5 @@
 <?php
+
 namespace BestSnipp\Eden\Components;
 
 use BestSnipp\Eden\Components\Fields\Field;
@@ -6,11 +7,8 @@ use BestSnipp\Eden\Components\Fields\File;
 use BestSnipp\Eden\Facades\Eden;
 use BestSnipp\Eden\RenderProviders\FormRenderer;
 use BestSnipp\Eden\Traits\WithModel;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
@@ -124,6 +122,7 @@ abstract class Form extends EdenComponent
      *
      * @param $caller
      * @return void
+     *
      * @throws \Exception
      */
     private function initForm($caller = 'mount')
@@ -152,12 +151,12 @@ abstract class Form extends EdenComponent
      */
     public function isCreate()
     {
-        return !$this->isUpdate;
+        return ! $this->isUpdate;
     }
 
     public function clearUploadedPhoto($key, $value = '')
     {
-        $this->syncInput('fields.' . $key, $value);
+        $this->syncInput('fields.'.$key, $value);
         //$this->syncInput('files.' . $key, $value);
         $this->processExistingUploads();
     }
@@ -167,7 +166,8 @@ abstract class Form extends EdenComponent
      *
      * @return void
      */
-    public function submit(){
+    public function submit()
+    {
         $invalidFields = collect($this->allFields)
             ->reject(function (Field $field) {
                 return $field->isValid($this->isUpdate);
@@ -213,7 +213,7 @@ abstract class Form extends EdenComponent
         return collect($validatedFields)->transform(function ($item, $key) {
             $field = $this->getField($key);
 
-            if (!is_null($field)) {
+            if (! is_null($field)) {
                 if (isset($this->files[$key])) {
                     $item = $this->getTemporaryUploadFile($item);
                 }
@@ -222,10 +222,10 @@ abstract class Form extends EdenComponent
 
                 // Post Process
                 $transform = $field->getTransformCallback();
-                if (!is_null($transform)) {
-                    $item  = appCall($transform, [
+                if (! is_null($transform)) {
+                    $item = appCall($transform, [
                         'value' => $item,
-                        'field' => $field
+                        'field' => $field,
                     ]);
                 }
             }
@@ -263,14 +263,16 @@ abstract class Form extends EdenComponent
 
     protected function getTemporaryUploadFile($path)
     {
-        if (!is_null($path)) {
+        if (! is_null($path)) {
             if (is_array($path)) {
                 return collect($path)->map(function ($i) {
                     return TemporaryUploadedFile::createFromLivewire($i);
                 })->toArray();
             }
+
             return TemporaryUploadedFile::createFromLivewire($path);
         }
+
         return null;
     }
 
@@ -282,7 +284,7 @@ abstract class Form extends EdenComponent
     protected function propertiesToRemove($isUpdate = false)
     {
         return [
-            'id', 'created_at', 'updated_at'
+            'id', 'created_at', 'updated_at',
         ];
     }
 
@@ -308,7 +310,7 @@ abstract class Form extends EdenComponent
 
             $this->onActionCompleted($actionData);
 
-            if (!is_null(Eden::getPreviousUrl())) {
+            if (! is_null(Eden::getPreviousUrl())) {
                 return $this->redirect(Eden::getPreviousUrl());
             }
         } catch (\Exception $exception) {
@@ -324,6 +326,7 @@ abstract class Form extends EdenComponent
             if (method_exists($this, 'afterRecordCreated')) {
                 $this->afterRecordCreated($record);
             }
+
             return $record;
         } catch (\Exception $exception) {
             throw $exception;
@@ -337,6 +340,7 @@ abstract class Form extends EdenComponent
             if (method_exists($this, 'afterRecordUpdated')) {
                 $this->afterRecordUpdated($record);
             }
+
             return $record;
         } catch (\Exception $exception) {
             throw $exception;
@@ -377,12 +381,12 @@ abstract class Form extends EdenComponent
     /**
      * Fetch and Save Dependent targets
      *
-     * @param Field $field
+     * @param  Field  $field
      * @return void
      */
     protected function collectDependentFields(Field $field)
     {
-        $this->dependentFields = collect( array_merge($this->dependentFields, $field->getDependentTargets()) )
+        $this->dependentFields = collect(array_merge($this->dependentFields, $field->getDependentTargets()))
             ->flatten()
             ->unique()
             ->all();
@@ -390,13 +394,12 @@ abstract class Form extends EdenComponent
 
     protected function syncDependentFields(Field $field)
     {
-
     }
 
     /**
      * Sync file value with form fields values to enable user interaction
      *
-     * @param Field $field
+     * @param  Field  $field
      * @return void
      */
     private function syncField(Field $field)
@@ -405,16 +408,16 @@ abstract class Form extends EdenComponent
 
         // Create Record and Sync in Files Array
         //if ($field instanceof File) {
-            //$this->files[$key] = $this->getFormFieldValue($field);
+        //$this->files[$key] = $this->getFormFieldValue($field);
         //} else {
-            $this->fields[$key] = $this->getFormFieldValue($field);
+        $this->fields[$key] = $this->getFormFieldValue($field);
         //}
     }
 
     /**
      * Get form Field value or fill that via record
      *
-     * @param Field $field
+     * @param  Field  $field
      * @return array|\ArrayAccess|mixed|null
      */
     private function getFormFieldValue(Field $field)
@@ -427,7 +430,6 @@ abstract class Form extends EdenComponent
 
         //} else if (isset($this->files[$key])) { // Assign filled form value if exists - Files
         //    $value = $this->files[$key];
-
         } else { // Fill from record
             $value = $this->getRecordValue($key, $value);
         }
@@ -438,7 +440,7 @@ abstract class Form extends EdenComponent
     /**
      * Sync field rules with the form validation rules
      *
-     * @param Field $field
+     * @param  Field  $field
      * @return void
      */
     private function syncFieldRule(Field $field)
@@ -446,17 +448,17 @@ abstract class Form extends EdenComponent
         $key = $field->getKey();
         $fieldRules = $field->getRules($this->isUpdate);
 
-        if ((is_string($fieldRules) && !empty($fieldRules)) || (is_array($fieldRules) && count($fieldRules) > 0)) {
+        if ((is_string($fieldRules) && ! empty($fieldRules)) || (is_array($fieldRules) && count($fieldRules) > 0)) {
             if ($field instanceof File) {
                 $multipleKey = $field->isMultiple() ? '.*' : '';
 
-                $this->rules['fields.' . $key . $multipleKey] = $fieldRules;
-                $this->validationAttributes['fields.' . $key . $multipleKey] = htmlentities(strip_tags($field->title));
+                $this->rules['fields.'.$key.$multipleKey] = $fieldRules;
+                $this->validationAttributes['fields.'.$key.$multipleKey] = htmlentities(strip_tags($field->title));
             } else {
-                $this->rules['fields.' . $key] = $fieldRules;
+                $this->rules['fields.'.$key] = $fieldRules;
             }
         }
-        $this->validationAttributes['fields.' . $key] = htmlentities(strip_tags($field->title));
+        $this->validationAttributes['fields.'.$key] = htmlentities(strip_tags($field->title));
     }
 
     /**
@@ -484,6 +486,7 @@ abstract class Form extends EdenComponent
                 if (isset($this->fields[$field->getKey()])) {
                     return $field->importFromFrom($this->fields[$field->getKey()], $this->getMappedFields());
                 }
+
                 return $field;
             })
             ->transform(function (Field $field) {
@@ -491,9 +494,9 @@ abstract class Form extends EdenComponent
             })
             ->each(function (Field $field) {
                 //if (is_subclass_of($field, File::class)) {
-                    //$this->files[$key] = $this->fields[$key];
+                //$this->files[$key] = $this->fields[$key];
                 //} else {
-                    $this->fields[$field->getKey()] = $field->exportToForm();
+                $this->fields[$field->getKey()] = $field->exportToForm();
                 //}
             })
             ->all();
@@ -505,7 +508,7 @@ abstract class Form extends EdenComponent
             'rules' => $this->rules,
             'formFields' => $this->allFields,
             'depends' => $this->dependentFields,
-            'record' => $this->record
+            'record' => $this->record,
         ];
     }
 
@@ -520,13 +523,12 @@ abstract class Form extends EdenComponent
     }
 
     /**
-     * @param string $class
-     * @param array $params
+     * @param  string  $class
+     * @param  array  $params
      * @return FormRenderer
      */
     protected static function renderer($class, $params)
     {
         return new FormRenderer($class, $params);
     }
-
 }

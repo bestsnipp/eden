@@ -10,7 +10,7 @@ trait CanBeRendered
     protected $show = true;
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function shouldShow()
     {
@@ -19,16 +19,17 @@ trait CanBeRendered
 
     /**
      * @return \Illuminate\Contracts\View\View|string
+     *
      * @throws \Throwable
      */
     final public function render()
     {
-        if (in_array(AuthorizedToSee::class, class_uses_recursive($this)) && !$this->isAuthorizedToSee()) {
-           return '';
+        if (in_array(AuthorizedToSee::class, class_uses_recursive($this)) && ! $this->isAuthorizedToSee()) {
+            return '';
         }
 
-        if (!$this->shouldShow()) {
-           return '';
+        if (! $this->shouldShow()) {
+            return '';
         }
 
         $view = call_user_func_array([$this, 'view'], func_get_args());
@@ -43,11 +44,10 @@ trait CanBeRendered
             $view = $view->with($defaultViewParams);
         }
 
-        if ($view instanceof View && !($this instanceof Component)) { // Only Render if current class is not a Livewire Component
+        if ($view instanceof View && ! ($this instanceof Component)) { // Only Render if current class is not a Livewire Component
             return $view->render();
         }
 
         return $view;
     }
-
 }

@@ -21,7 +21,7 @@ trait AuthorizedToSee
      */
     public function isAuthorizedToSee()
     {
-        return !is_null($this->canSeeCallback) ? appCall($this->canSeeCallback) : true;
+        return ! is_null($this->canSeeCallback) ? appCall($this->canSeeCallback) : true;
     }
 
     /**
@@ -32,6 +32,7 @@ trait AuthorizedToSee
     public function canSee($callback)
     {
         $this->canSeeCallback = $callback;
+
         return $this;
     }
 
@@ -44,7 +45,7 @@ trait AuthorizedToSee
     {
         $modelToCheck = collect(Arr::wrap($arguments));
 
-        if (!is_null(Gate::getPolicyFor($modelToCheck->first()))) { // Policy Available for the model/class
+        if (! is_null(Gate::getPolicyFor($modelToCheck->first()))) { // Policy Available for the model/class
             return $this->canSee(function () use ($ability, $arguments) {
                 return auth()->user()->can($ability, $arguments);
             });

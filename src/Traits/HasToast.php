@@ -14,25 +14,25 @@ trait HasToast
     ];
 
     /**
-     * @param string $message
-     * @param string $type
-     * @param string $title
+     * @param  string  $message
+     * @param  string  $type
+     * @param  string  $title
      * @return void
      */
     public function toastMessage($message, $type = 'normal', $title = 'Notification')
     {
         $this->dispatchBrowserEvent('toast', [
-            'type' => array_key_exists('normal', $this->types) ? : 'normal',
+            'type' => array_key_exists('normal', $this->types) ?: 'normal',
             'title' => $title ?? 'Notification',
             'message' => $message ?? '',
             'class' => ($this->types[$type] ?? $this->types['normal']),
-            'hash' => Str::snake(Str::random())
+            'hash' => Str::snake(Str::random()),
         ]);
     }
 
     /**
-     * @param string $message
-     * @param string $title
+     * @param  string  $message
+     * @param  string  $title
      * @return void
      */
     public function toastError($message, $title = 'Error')
@@ -41,8 +41,8 @@ trait HasToast
     }
 
     /**
-     * @param string $message
-     * @param string $title
+     * @param  string  $message
+     * @param  string  $title
      * @return void
      */
     public function toastWarning($message, $title = 'Warning')
@@ -51,8 +51,8 @@ trait HasToast
     }
 
     /**
-     * @param string $message
-     * @param string $title
+     * @param  string  $message
+     * @param  string  $title
      * @return void
      */
     public function toastSuccess($message, $title = 'Success')
@@ -61,13 +61,12 @@ trait HasToast
     }
 
     /**
-     * @param string $message
-     * @param string $title
+     * @param  string  $message
+     * @param  string  $title
      * @return void
      */
     public function toastNotification($message, $title = 'Notification')
     {
         $this->toastMessage($message, 'normal', $title);
     }
-
 }

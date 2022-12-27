@@ -3,7 +3,6 @@
 namespace BestSnipp\Eden\Middleware;
 
 use Closure;
-use BestSnipp\Eden\EdenRequest;
 use Illuminate\Http\Request;
 use Livewire\LivewireManager;
 
@@ -23,7 +22,7 @@ class EdenRequestHandler
             return $next($request);
         }
 
-        if (!$this->isMethodSupported($request)) {
+        if (! $this->isMethodSupported($request)) {
             return $next($request);
         }
 

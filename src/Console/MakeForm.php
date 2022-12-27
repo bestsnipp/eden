@@ -4,7 +4,6 @@ namespace BestSnipp\Eden\Console;
 
 use BestSnipp\Eden\Traits\StubPublisher;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 class MakeForm extends Command
 {
@@ -47,6 +46,7 @@ class MakeForm extends Command
         }
 
         $this->output->newLine();
+
         return 0;
     }
 

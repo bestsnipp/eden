@@ -11,22 +11,23 @@ class Date extends DateTime
     protected $jsFormat = 'Y-m-d';
 
     protected $isDatePicker = true;
+
     protected $isTimePicker = false;
 
     protected function onMount()
     {
         $this->meta = array_merge($this->meta, [
-            'type' => 'date'
+            'type' => 'date',
         ]);
     }
 
     /**
-     * @param mixed $value
+     * @param  mixed  $value
      */
     public function default($value)
     {
         $this->value = ($value instanceof Carbon) ? $value->toDateString() : $value;
+
         return $this;
     }
-
 }

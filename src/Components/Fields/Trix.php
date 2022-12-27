@@ -4,12 +4,11 @@ namespace BestSnipp\Eden\Components\Fields;
 
 class Trix extends Textarea
 {
-
     protected function onMount()
     {
         $this->meta = array_merge($this->meta, [
             'rows' => 5,
-            'cols' => 30
+            'cols' => 30,
         ]);
     }
 

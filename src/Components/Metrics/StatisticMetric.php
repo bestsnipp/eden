@@ -3,11 +3,8 @@
 namespace BestSnipp\Eden\Components\Metrics;
 
 use BestSnipp\Eden\Traits\Makeable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as ModelBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Support\Facades\Log;
-use ReflectionClass;
 
 class StatisticMetric extends MetricValue
 {
@@ -50,7 +47,7 @@ class StatisticMetric extends MetricValue
         'violet' => 'bg-violet-200 text-violet-500',
         'fuchsia' => 'bg-fuchsia-200 text-fuchsia-500',
         'pink' => 'bg-pink-200 text-pink-500',
-        'rose' => 'bg-rose-200 text-rose-500'
+        'rose' => 'bg-rose-200 text-rose-500',
     ];
 
     protected $showPerntageChange = true;
@@ -62,12 +59,12 @@ class StatisticMetric extends MetricValue
         parent::__construct($filter);
 
         if (is_null($this->iconColor)) {
-            $this->iconColor = $this->iconColors[ array_rand($this->iconColors) ];
+            $this->iconColor = $this->iconColors[array_rand($this->iconColors)];
         }
     }
 
     /**
-     * @param string $icon
+     * @param  string  $icon
      * @return $this
      */
     public function withIcon($icon = null)
@@ -75,22 +72,24 @@ class StatisticMetric extends MetricValue
         $icon = appCall($icon);
 
         $this->icon = is_null($icon) ? $this->icon : $icon;
-        $this->showIcon = !is_null($this->icon);
+        $this->showIcon = ! is_null($this->icon);
+
         return $this;
     }
 
     /**
-     * @param string $iconColor
+     * @param  string  $iconColor
      * @return $this
      */
     public function iconColor($iconColor = 'primary')
     {
         $this->iconColor = isset($this->iconColors[$iconColor]) ? $this->iconColors[$iconColor] : $iconColor;
+
         return $this;
     }
 
     /**
-     * @param float|double|integer $value
+     * @param  float|float|int  $value
      * @return $this
      */
     public function value($value)
@@ -101,18 +100,18 @@ class StatisticMetric extends MetricValue
     }
 
     /**
-     * @param bool|boolean|\Closure $value
+     * @param  bool|bool|\Closure  $value
      * @return $this
      */
     public function disablePercentageChange($should = true)
     {
-        $this->showPerntageChange = !appCall($should);
+        $this->showPerntageChange = ! appCall($should);
 
         return $this;
     }
 
     /**
-     * @param bool|boolean|\Closure $value
+     * @param  bool|bool|\Closure  $value
      * @return $this
      */
     public function iconSize($size = '70px')
@@ -123,7 +122,7 @@ class StatisticMetric extends MetricValue
     }
 
     /**
-     * @param float|double|integer $previous
+     * @param  float|float|int  $previous
      * @return $this
      */
     public function previous($previous)
@@ -138,7 +137,7 @@ class StatisticMetric extends MetricValue
     /**
      * Format the Value
      *
-     * @param \Closure $callback
+     * @param  \Closure  $callback
      * @return $this
      */
     public function display($callback)
@@ -153,7 +152,7 @@ class StatisticMetric extends MetricValue
     /**
      * Format the Previous Value
      *
-     * @param \Closure $callback
+     * @param  \Closure  $callback
      * @return $this
      */
     public function displayPrevious($callback)
@@ -166,9 +165,9 @@ class StatisticMetric extends MetricValue
     }
 
     /**
-     * @param float|double|integer $present
-     * @param float|double|integer $previous
-     * @return float|double|integer
+     * @param  float|float|int  $present
+     * @param  float|float|int  $previous
+     * @return float|float|int
      */
     protected function calculatePercentageChange($present, $previous)
     {
@@ -252,7 +251,7 @@ class StatisticMetric extends MetricValue
     /**
      * Return a result showing the segments of a aggregate.
      *
-     * @param \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|class-string<\Illuminate\Database\Eloquent\Model>  $model
+     * @param  \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|class-string<\Illuminate\Database\Eloquent\Model>  $model
      * @param  \Illuminate\Database\Query\Expression|string|null  $column
      * @param  \Illuminate\Database\Query\Expression|string|null  $dateColumn
      * @return $this
@@ -265,6 +264,7 @@ class StatisticMetric extends MetricValue
 
         if ($this->activeFilter === 'ALL') {
             $this->value = round(with(clone $query)->{$function}($column), 0, PHP_ROUND_HALF_UP);
+
             return $this;
         }
 
@@ -296,11 +296,11 @@ class StatisticMetric extends MetricValue
     {
         $valueLabel = is_null($this->valueCallback) ? $this->value : appCall($this->valueCallback, [
             'value' => $this->value,
-            'previous' => $this->previous
+            'previous' => $this->previous,
         ]);
         $previousLabel = is_null($this->previousCallback) ? $this->previous : appCall($this->previousCallback, [
             'value' => $this->value,
-            'previous' => $this->previous
+            'previous' => $this->previous,
         ]);
 
         return view('eden::metrics.statistic')->with([
@@ -313,8 +313,7 @@ class StatisticMetric extends MetricValue
             'iconColor' => $this->iconColor,
             'iconSize' => $this->iconSize,
             'showPerntageChange' => $this->showPerntageChange,
-            'change' => $this->calculatePercentageChange($this->value, $this->previous)
+            'change' => $this->calculatePercentageChange($this->value, $this->previous),
         ]);
     }
-
 }

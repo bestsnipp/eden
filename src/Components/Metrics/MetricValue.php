@@ -2,12 +2,12 @@
 
 namespace BestSnipp\Eden\Components\Metrics;
 
-use Carbon\CarbonImmutable;
-use DateTime;
-use DateTimeZone;
 use BestSnipp\Eden\Traits\CanBeRendered;
 use BestSnipp\Eden\Traits\HasDatabaseQueryFilters;
 use BestSnipp\Eden\Traits\Makeable;
+use Carbon\CarbonImmutable;
+use DateTime;
+use DateTimeZone;
 
 /**
  * @method static make($filter = null)
@@ -35,12 +35,13 @@ abstract class MetricValue
     /**
      * Provide Filter Variable
      *
-     * @param mixed $filter
+     * @param  mixed  $filter
      * @return $this
      */
     public function filter($filter)
     {
         $this->activeFilter = appCall($filter);
+
         return $this;
     }
 
@@ -55,8 +56,8 @@ abstract class MetricValue
     }
 
     /**
-     * @param string $userTimezone
-     * @return int|float|double
+     * @param  string  $userTimezone
+     * @return int|float|float
      */
     public function getTimezoneOffset($userTimezone = null)
     {
@@ -83,7 +84,7 @@ abstract class MetricValue
      */
     protected function provideCurrentDateRange($key, $timezone)
     {
-        if (!is_null($this->owner) && !is_null($dateRange = $this->owner->currentDateRange($key, $timezone)) && !empty($dateRange)) {
+        if (! is_null($this->owner) && ! is_null($dateRange = $this->owner->currentDateRange($key, $timezone)) && ! empty($dateRange)) {
             return $dateRange;
         }
 
@@ -110,7 +111,7 @@ abstract class MetricValue
      */
     protected function providePreviousDateRange($key, $timezone)
     {
-        if (!is_null($this->owner) && !is_null($dateRange = $this->owner->previousDateRange($key, $timezone)) && !empty($dateRange)) {
+        if (! is_null($this->owner) && ! is_null($dateRange = $this->owner->previousDateRange($key, $timezone)) && ! empty($dateRange)) {
             return $dateRange;
         }
 
@@ -227,7 +228,7 @@ abstract class MetricValue
     }
 
     /**
-     * @param array $dateRange
+     * @param  array  $dateRange
      * @return array
      */
     protected function formatQueryDateBetween(array $dateRange, $timezone)
@@ -245,5 +246,4 @@ abstract class MetricValue
      * @return \Illuminate\Contracts\View\View
      */
     abstract public function view();
-
 }

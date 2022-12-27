@@ -4,7 +4,6 @@ namespace BestSnipp\Eden\Console;
 
 use BestSnipp\Eden\Traits\StubPublisher;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 class MakeRead extends Command
 {
@@ -47,6 +46,7 @@ class MakeRead extends Command
         }
 
         $this->output->newLine();
+
         return 0;
     }
 

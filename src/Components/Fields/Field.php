@@ -3,18 +3,15 @@
 namespace BestSnipp\Eden\Components\Fields;
 
 use BestSnipp\Eden\Components\Form;
+use BestSnipp\Eden\Traits\AsDataTableColumn;
 use BestSnipp\Eden\Traits\AuthorizedToSee;
 use BestSnipp\Eden\Traits\CanManageVisibility;
 use BestSnipp\Eden\Traits\DependentField;
 use BestSnipp\Eden\Traits\Makeable;
-use BestSnipp\Eden\Traits\AsDataTableColumn;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
-use PhpParser\Node\Expr\ClosureUse;
 
 /**
  * @method static static make(mixed $name, string $key = null)
@@ -59,7 +56,7 @@ abstract class Field
 
     protected $meta = [
         'type' => 'text',
-        'class' => 'border-0-force focus:ring-0 grow bg-transparent dark:text-slate-300'
+        'class' => 'border-0-force focus:ring-0 grow bg-transparent dark:text-slate-300',
     ];
 
     protected $validator = null;
@@ -70,7 +67,7 @@ abstract class Field
     {
         $this->title = $title;
         $this->key = is_null($key) ? Str::snake(Str::lower($title)) : $key;
-        $this->uid = Str::lower('__' . Str::random());
+        $this->uid = Str::lower('__'.Str::random());
 
         if (method_exists($this, 'onMount')) {
             $this->onMount();
@@ -80,7 +77,7 @@ abstract class Field
     /**
      * Prepare anything for this field before rendering and procession on "Form" component
      *
-     * @param Form $form
+     * @param  Form  $form
      * @return void
      */
     public function prepare(Form $form)
@@ -108,11 +105,12 @@ abstract class Field
     }
 
     /**
-     * @param string|\Closure $key
+     * @param  string|\Closure  $key
      */
     public function key($key)
     {
         $this->key = appCall($key);
+
         return $this;
     }
 
@@ -121,40 +119,44 @@ abstract class Field
      */
     public function getRules($isUpdate = false)
     {
-        if (!$isUpdate) {
+        if (! $isUpdate) {
             return $this->createRules;
         }
+
         return $this->updateRules;
     }
 
     /**
-     * @param string|array $rules
+     * @param  string|array  $rules
      */
     public function rules($rules)
     {
         $this->createRules = is_string($rules) ? explode('|', $rules) : $rules;
         $this->updateRules = is_string($rules) ? explode('|', $rules) : $rules;
         $this->required = in_array('required', $this->createRules) || in_array('required', $this->updateRules);
+
         return $this;
     }
 
     /**
-     * @param string|array $rules
+     * @param  string|array  $rules
      */
     public function createRules($rules)
     {
         $this->createRules = is_string($rules) ? explode('|', $rules) : $rules;
         $this->required = in_array('required', $this->createRules);
+
         return $this;
     }
 
     /**
-     * @param string|array $rules
+     * @param  string|array  $rules
      */
     public function updateRules($rules)
     {
         $this->updateRules = is_string($rules) ? explode('|', $rules) : $rules;
         $this->required = in_array('required', $this->updateRules);
+
         return $this;
     }
 
@@ -167,11 +169,12 @@ abstract class Field
     }
 
     /**
-     * @param array $messages
+     * @param  array  $messages
      */
     public function setMessages(array $messages)
     {
         $this->messages = $messages;
+
         return $this;
     }
 
@@ -183,6 +186,7 @@ abstract class Field
     public function required()
     {
         $this->required = true;
+
         return $this;
     }
 
@@ -195,11 +199,12 @@ abstract class Field
     }
 
     /**
-     * @param string $helpText
+     * @param  string  $helpText
      */
     public function helpText(string $helpText)
     {
         $this->helpText = $helpText;
+
         return $this;
     }
 
@@ -212,6 +217,7 @@ abstract class Field
     public function prefix($prefix)
     {
         $this->prefix = appCall($prefix);
+
         return $this;
     }
 
@@ -224,6 +230,7 @@ abstract class Field
     public function suffix($suffix)
     {
         $this->suffix = appCall($suffix);
+
         return $this;
     }
 
@@ -244,20 +251,22 @@ abstract class Field
     }
 
     /**
-     * @param mixed $value
+     * @param  mixed  $value
      */
     public function default($value)
     {
         $this->setValue($value);
+
         return $this;
     }
 
     /**
-     * @param mixed $value
+     * @param  mixed  $value
      */
     public function setValue($value)
     {
         $this->value = appCall($value);
+
         return $this;
     }
 
@@ -270,33 +279,36 @@ abstract class Field
     }
 
     /**
-     * @param array|\Closure $options
+     * @param  array|\Closure  $options
      */
     public function options($options)
     {
         $this->options = appCall($options);
+
         return $this;
     }
 
     /**
-     * @param mixed $this
+     * @param  mixed  $this
      */
     public function resolve($callback = null)
     {
         $this->resolveCallback = $callback;
+
         return $this;
     }
 
     /**
-     * @param mixed $this
+     * @param  mixed  $this
      */
     public function resolveUsing($value, $fields = [], $form = null)
     {
-        if (!is_null($this->resolveCallback)) {
+        if (! is_null($this->resolveCallback)) {
             $targets = collect($fields)
                 ->filter(function ($item, $key) {
                     return in_array($key, $this->targets);
                 });
+
             return appCall($this->resolveCallback, [
                 'field' => $this,
                 'value' => $value,
@@ -306,6 +318,7 @@ abstract class Field
                 'form' => $form,
             ]);
         }
+
         return $this;
     }
 
@@ -318,21 +331,25 @@ abstract class Field
     }
 
     /**
-     * @param array $meta
+     * @param  array  $meta
      */
     public function withMeta(array $meta)
     {
         $this->meta = array_merge($this->meta, $meta);
+
         return $this;
     }
 
-    function getMetaAttributes()
+    public function getMetaAttributes()
     {
-        if(!$this->meta) return '';
+        if (! $this->meta) {
+            return '';
+        }
 
         // Remove Unwanted Keys
-        if (isset($this->meta['id']))
+        if (isset($this->meta['id'])) {
             unset($this->meta['id']);
+        }
 
         /*if (isset($this->meta['wire:model']))
             unset($this->meta['wire:model']);
@@ -356,11 +373,12 @@ abstract class Field
     /**
      * Transform field value to another
      *
-     * @param mixed $transform
+     * @param  mixed  $transform
      */
     public function transform($transform)
     {
         $this->transformCallback = $transform;
+
         return $this;
     }
 
@@ -372,8 +390,9 @@ abstract class Field
     public function readOnly()
     {
         $this->meta = array_merge($this->meta, [
-            'readonly' => 'readonly'
+            'readonly' => 'readonly',
         ]);
+
         return $this;
     }
 
@@ -385,8 +404,9 @@ abstract class Field
     public function disabled()
     {
         $this->meta = array_merge($this->meta, [
-            'disabled' => 'disabled'
+            'disabled' => 'disabled',
         ]);
+
         return $this;
     }
 
@@ -397,7 +417,8 @@ abstract class Field
      */
     public function hide($should = true)
     {
-        $this->show = !appCall($should);
+        $this->show = ! appCall($should);
+
         return $this;
     }
 
@@ -409,11 +430,12 @@ abstract class Field
     public function show($should = true)
     {
         $this->show = appCall($should);
+
         return $this;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function shouldShow()
     {
@@ -428,6 +450,7 @@ abstract class Field
     public function importFromFrom($value, $fields = [])
     {
         $this->setValue($value);
+
         return $this;
     }
 
@@ -440,10 +463,10 @@ abstract class Field
     {
         return Validator::make(
             [
-                $this->key => $this->value
+                $this->key => $this->value,
             ],
             [
-                $this->key => $this->getRules($isUpdate)
+                $this->key => $this->getRules($isUpdate),
             ]
         );
     }
@@ -452,8 +475,9 @@ abstract class Field
     {
         $this->validator = $this->validate($isUpdate);
         if ($this->validator instanceof \Illuminate\Contracts\Validation\Validator) {
-            return !$this->validator->fails();
+            return ! $this->validator->fails();
         }
+
         return $this->validator;
     }
 
@@ -482,8 +506,9 @@ abstract class Field
     {
         $this->value = is_null($this->displayCallback) ? $this->value : appCall($this->displayCallback, [
             'value' => $this->value,
-            'field' => $this
+            'field' => $this,
         ]);
+
         return view('eden::fields.view.text');
     }
 
@@ -494,16 +519,16 @@ abstract class Field
 
     public function render($type = 'form')
     {
-        if (in_array(AuthorizedToSee::class, class_uses_recursive($this)) && !$this->isAuthorizedToSee()) {
+        if (in_array(AuthorizedToSee::class, class_uses_recursive($this)) && ! $this->isAuthorizedToSee()) {
             return '';
         }
-        if (!$this->shouldShow()) {
+        if (! $this->shouldShow()) {
             return '';
         }
 
         $viewToRender = '';
 
-        switch (strtolower($type)):
+        switch (strtolower($type)) {
             case 'table-header':
             case 'header':
                 $viewToRender = $this->viewForIndexHeader();
@@ -519,7 +544,7 @@ abstract class Field
                 break;
             default:
                 $viewToRender = $this->view();
-        endswitch;
+        }
 
         if ($viewToRender instanceof View) {
             $viewToRender = $viewToRender->with($this->defaultViewParams());
@@ -529,5 +554,4 @@ abstract class Field
 
         return $viewToRender;
     }
-
 }

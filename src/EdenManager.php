@@ -3,11 +3,9 @@
 namespace BestSnipp\Eden;
 
 use BestSnipp\Eden\Components\EdenPage;
-use BestSnipp\Eden\Components\HeaderAction;
 use BestSnipp\Eden\Components\Modal;
 use BestSnipp\Eden\Facades\EdenModal;
 use BestSnipp\Eden\Facades\EdenRoute;
-use BestSnipp\Eden\RenderProviders\HeaderActionRenderer;
 use BestSnipp\Eden\RenderProviders\RenderProvider;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
@@ -50,10 +48,12 @@ class EdenManager
      */
     public function getMainMenu()
     {
-        if (!is_null($this->menuCallback) && is_callable($this->menuCallback)) {
+        if (! is_null($this->menuCallback) && is_callable($this->menuCallback)) {
             $caller = $this->menuCallback;
+
             return appCall($caller);
         }
+
         return [];
     }
 
@@ -74,10 +74,12 @@ class EdenManager
      */
     public function getAccountMenu()
     {
-        if (!is_null($this->accountMenuCallback) && is_callable($this->accountMenuCallback)) {
+        if (! is_null($this->accountMenuCallback) && is_callable($this->accountMenuCallback)) {
             $caller = $this->accountMenuCallback;
+
             return appCall($caller);
         }
+
         return [];
     }
 
@@ -100,7 +102,7 @@ class EdenManager
     {
         $this->headerActions = array_merge($this->headerActions, collect($actions)
             ->reject(function ($item) {
-                return !($item instanceof RenderProvider);
+                return ! ($item instanceof RenderProvider);
             })
             ->all());
     }
@@ -162,10 +164,12 @@ class EdenManager
      */
     public function getFooter()
     {
-        if (!is_null($this->footerCallback)) {
+        if (! is_null($this->footerCallback)) {
             $caller = $this->footerCallback;
+
             return appCall($caller);
         }
+
         return view('eden::widgets.footer');
     }
 
@@ -186,10 +190,12 @@ class EdenManager
      */
     public function getLogo()
     {
-        if (!is_null($this->logoCallback)) {
+        if (! is_null($this->logoCallback)) {
             $caller = $this->logoCallback;
+
             return appCall($caller);
         }
+
         return view('eden::widgets.logo');
     }
 
@@ -232,12 +238,13 @@ class EdenManager
             foreach ($route['parameters'] as $key => $value) {
                 $url = str_ireplace('{'.$key.'}', $value, $url);
             }
-            $queryParams =  http_build_query($route['query']);
-            if (!empty($queryParams)) {
-                $queryParams = '?' . $queryParams;
+            $queryParams = http_build_query($route['query']);
+            if (! empty($queryParams)) {
+                $queryParams = '?'.$queryParams;
             }
-            $url = url($url . $queryParams);
+            $url = url($url.$queryParams);
         }
+
         return $url;
     }
 
@@ -260,20 +267,22 @@ class EdenManager
      */
     public function isActionAuthorized($ability, $modelOrClass)
     {
-        if (!is_null(Gate::getPolicyFor($modelOrClass))) { // Policy Available for the model/class
+        if (! is_null(Gate::getPolicyFor($modelOrClass))) { // Policy Available for the model/class
             return auth()->user()->can($ability, $modelOrClass);
         }
+
         return true;
     }
 
     /**
-     * @param string $directory
+     * @param  string  $directory
      * @return void
+     *
      * @throws \ReflectionException
      */
     public function registerComponents($directory, $namespace = null, $basePath = null)
     {
-        if (!File::exists($directory)) {
+        if (! File::exists($directory)) {
             return;
         }
 
@@ -281,31 +290,30 @@ class EdenManager
             $namespace = app()->getNamespace();
         }
         if (is_null($basePath)) {
-            $basePath = app_path() . DIRECTORY_SEPARATOR;
+            $basePath = app_path().DIRECTORY_SEPARATOR;
         }
 
         foreach ((new Finder())->in($directory)->files() as $component) {
             $component = $namespace.str_replace(
-                    ['/', '.php'],
-                    ['\\', ''],
-                    Str::after($component->getPathname(), $basePath)
-                );
+                ['/', '.php'],
+                ['\\', ''],
+                Str::after($component->getPathname(), $basePath)
+            );
 
             // Bind LiveWire Components
-            if (is_subclass_of($component, Component::class) && !(new ReflectionClass($component))->isAbstract()) {
+            if (is_subclass_of($component, Component::class) && ! (new ReflectionClass($component))->isAbstract()) {
                 Livewire::component($component::getName(), $component);
             }
 
             // Register EdenPages
-            if (is_subclass_of($component, EdenPage::class) && !(new ReflectionClass($component))->isAbstract()) {
+            if (is_subclass_of($component, EdenPage::class) && ! (new ReflectionClass($component))->isAbstract()) {
                 EdenRoute::register($component);
             }
 
             // Register Modals
-            if (is_subclass_of($component, Modal::class) && !(new ReflectionClass($component))->isAbstract()) {
+            if (is_subclass_of($component, Modal::class) && ! (new ReflectionClass($component))->isAbstract()) {
                 EdenModal::register($component);
             }
         }
     }
-
 }

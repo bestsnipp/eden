@@ -36,7 +36,7 @@ class MakeTrendMetric extends Command
         $this->call('eden:card', ['name' => $name, '--type' => 'TrendMetric']);
 
         $this->output->newLine();
+
         return 0;
     }
-
 }

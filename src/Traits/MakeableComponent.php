@@ -3,14 +3,12 @@
 namespace BestSnipp\Eden\Traits;
 
 use BestSnipp\Eden\RenderProviders\RenderProvider;
-use Livewire\Component;
 
 trait MakeableComponent
 {
-
     /**
-     * @param string $class
-     * @param array $params
+     * @param  string  $class
+     * @param  array  $params
      * @return RenderProvider
      */
     protected static function renderer($class, $params)

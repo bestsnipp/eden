@@ -4,7 +4,6 @@ namespace BestSnipp\Eden\Traits;
 
 trait CanManageVisibility
 {
-
     public $visibilityOnIndex = true;
 
     public $visibilityOnCreate = true;
@@ -18,60 +17,70 @@ trait CanManageVisibility
     public function showOnIndex($should = true)
     {
         $this->visibilityOnIndex = appCall($should);
+
         return $this;
     }
 
     public function showOnCreate($should = true)
     {
         $this->visibilityOnCreate = appCall($should);
+
         return $this;
     }
 
     public function showOnUpdate($should = true)
     {
         $this->visibilityOnUpdate = appCall($should);
+
         return $this;
     }
 
     public function showOnDetails($should = true)
     {
         $this->visibilityOnDetails = appCall($should);
+
         return $this;
     }
 
     public function showOnModal($should = true)
     {
         $this->visibilityOnModal = appCall($should);
+
         return $this;
     }
 
     public function hideOnIndex($should = true)
     {
-        $this->visibilityOnIndex = !appCall($should);
+        $this->visibilityOnIndex = ! appCall($should);
+
         return $this;
     }
 
     public function hideOnCreate($should = true)
     {
-        $this->visibilityOnCreate = !appCall($should);
+        $this->visibilityOnCreate = ! appCall($should);
+
         return $this;
     }
 
     public function hideOnUpdate($should = true)
     {
-        $this->visibilityOnUpdate = !appCall($should);
+        $this->visibilityOnUpdate = ! appCall($should);
+
         return $this;
     }
 
     public function hideOnDetails($should = true)
     {
-        $this->visibilityOnDetails = !appCall($should);
+        $this->visibilityOnDetails = ! appCall($should);
+
         return $this;
     }
 
     public function hideOnModal($should = true)
     {
-        $this->visibilityOnModal = !appCall($should);
+        $this->visibilityOnModal = ! appCall($should);
+
         return $this;
     }
 
@@ -85,6 +94,7 @@ trait CanManageVisibility
             $this->visibilityOnDetails = false;
             $this->visibilityOnModal = false;
         }
+
         return $this;
     }
 
@@ -98,6 +108,7 @@ trait CanManageVisibility
             $this->visibilityOnDetails = false;
             $this->visibilityOnModal = false;
         }
+
         return $this;
     }
 
@@ -111,6 +122,7 @@ trait CanManageVisibility
             $this->visibilityOnDetails = false;
             $this->visibilityOnModal = false;
         }
+
         return $this;
     }
 
@@ -124,6 +136,7 @@ trait CanManageVisibility
             $this->visibilityOnDetails = true;
             $this->visibilityOnModal = false;
         }
+
         return $this;
     }
 
@@ -137,6 +150,7 @@ trait CanManageVisibility
             $this->visibilityOnDetails = false;
             $this->visibilityOnModal = true;
         }
+
         return $this;
     }
 
@@ -150,6 +164,7 @@ trait CanManageVisibility
             $this->visibilityOnDetails = true;
             $this->visibilityOnModal = true;
         }
+
         return $this;
     }
 
@@ -163,6 +178,7 @@ trait CanManageVisibility
             $this->visibilityOnDetails = true;
             $this->visibilityOnModal = true;
         }
+
         return $this;
     }
 
@@ -176,6 +192,7 @@ trait CanManageVisibility
             $this->visibilityOnDetails = true;
             $this->visibilityOnModal = true;
         }
+
         return $this;
     }
 
@@ -189,6 +206,7 @@ trait CanManageVisibility
             $this->visibilityOnDetails = false;
             $this->visibilityOnModal = true;
         }
+
         return $this;
     }
 
@@ -202,7 +220,7 @@ trait CanManageVisibility
             $this->visibilityOnDetails = true;
             $this->visibilityOnModal = false;
         }
+
         return $this;
     }
-
 }

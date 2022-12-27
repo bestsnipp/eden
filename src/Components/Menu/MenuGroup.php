@@ -26,8 +26,8 @@ class MenuGroup
     protected array $items = [];
 
     /**
-     * @param \Closure|string $title
-     * @param \Closure|string $items
+     * @param  \Closure|string  $title
+     * @param  \Closure|string  $items
      */
     protected function __construct($title, $items = [])
     {
@@ -37,22 +37,23 @@ class MenuGroup
         $this->key = (empty($this->title)) ? Str::snake(Str::random()) : Str::snake($this->title);
     }
 
-
     public function addItem($item)
     {
         $this->items[] = appCall($item);
+
         return $this;
     }
 
     /**
      * Show Icon
      *
-     * @param \Closure|string $icon
+     * @param  \Closure|string  $icon
      * @return $this
      */
     public function icon($icon)
     {
         $this->icon = appCall($icon);
+
         return $this;
     }
 
@@ -73,8 +74,7 @@ class MenuGroup
                 'icon' => $this->icon,
                 'title' => $this->title,
                 'items' => $this->items,
-                'active' => in_array(url()->current(), $itemsRoutes)
+                'active' => in_array(url()->current(), $itemsRoutes),
             ]);
     }
-
 }

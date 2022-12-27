@@ -3,12 +3,10 @@
 namespace BestSnipp\Eden\Components\Fields;
 
 use BestSnipp\Eden\Components\Form;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class Slug extends Field
 {
-
     protected $generateFrom = '';
 
     protected $separator = '-';
@@ -21,6 +19,7 @@ class Slug extends Field
     public function generateFrom($target = '')
     {
         $this->generateFrom = $target;
+
         return $this;
     }
 
@@ -28,12 +27,14 @@ class Slug extends Field
     {
         parent::dependsOn($targets, $callback);
         $this->generateFrom($this->targets[0] ?? '');
+
         return $this;
     }
 
     public function separator($separator = '-')
     {
         $this->separator = appCall($separator);
+
         return $this;
     }
 
@@ -45,13 +46,13 @@ class Slug extends Field
 
             $field->setValue($slug);
         }
+
         return $field;
     }
 
     public function view()
     {
         return view('eden::fields.input.slug')
-            ->with('isCreate', (!is_null($this->owner) && $this->owner->isCreate()));
+            ->with('isCreate', (! is_null($this->owner) && $this->owner->isCreate()));
     }
-
 }

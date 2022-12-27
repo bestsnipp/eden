@@ -36,7 +36,7 @@ class MakeListMetric extends Command
         $this->call('eden:card', ['name' => $name, '--type' => 'ListMetric']);
 
         $this->output->newLine();
+
         return 0;
     }
-
 }

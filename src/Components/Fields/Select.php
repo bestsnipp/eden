@@ -9,14 +9,16 @@ class Select extends Field
     public function multiple()
     {
         $this->meta = array_merge($this->meta, [
-            'multiple' => 'multiple'
+            'multiple' => 'multiple',
         ]);
+
         return $this;
     }
 
     public function disableSearchFilter()
     {
         $this->filterable = false;
+
         return $this;
     }
 
@@ -39,5 +41,4 @@ class Select extends Field
 
         return view('eden::fields.view.select');
     }
-
 }

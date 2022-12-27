@@ -3,25 +3,14 @@
 namespace BestSnipp\Eden\Components;
 
 use App\Eden\DataTables\UsersDataTable;
-use App\Eden\Modals\ModalA;
-use BestSnipp\Eden\RenderProviders\RenderProvider;
-use BestSnipp\Eden\RenderProviders\TabRenderer;
-use BestSnipp\Eden\Traits\HasToast;
-use BestSnipp\Eden\Traits\InteractsWithModal;
-use BestSnipp\Eden\Traits\MakeableComponent;
-use BestSnipp\Eden\Traits\ModalEvents;
-use BestSnipp\Eden\Traits\RouteAware;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
-use \Livewire\Component;
+use Livewire\Component;
 
 /**
  * @method static make()
  */
 abstract class Modal extends EdenComponent
 {
-
     public $title = '';
 
     public $data = null;
@@ -67,7 +56,7 @@ abstract class Modal extends EdenComponent
             "show$baseClassName" => 'show',
             "show$componentName" => 'show',
             "dismiss$baseClassName" => 'dismiss',
-            "dismiss$componentName" => 'dismiss'
+            "dismiss$componentName" => 'dismiss',
         ]);
     }
 
@@ -114,6 +103,7 @@ abstract class Modal extends EdenComponent
         if (isset($this->data[$key])) {
             return $this->data[$key];
         }
+
         return $default;
     }
 
@@ -124,7 +114,6 @@ abstract class Modal extends EdenComponent
      */
     public function confirm()
     {
-
     }
 
     public function modalView()
@@ -184,7 +173,7 @@ abstract class Modal extends EdenComponent
         if ($headerView instanceof View) {
             $headerView->with([
                 'isJsInteractionEnabled' => $this->enableJsInteractions,
-                'title' => $this->title
+                'title' => $this->title,
             ]);
         }
 
@@ -195,7 +184,7 @@ abstract class Modal extends EdenComponent
                 'confirmButtonText' => $this->confirmButtonText,
                 'cancelButtonText' => $this->cancelButtonText,
                 'confirmButtonStyle' => $this->confirmButtonStyle,
-                'cancelButtonStyle' => $this->cancelButtonStyle
+                'cancelButtonStyle' => $this->cancelButtonStyle,
             ]);
         }
 
@@ -211,7 +200,7 @@ abstract class Modal extends EdenComponent
             'contentStyle' => $this->contentStyle,
             'header' => $this->header,
             'footer' => $this->footer,
-            'isJsInteractionEnabled' => $this->enableJsInteractions
+            'isJsInteractionEnabled' => $this->enableJsInteractions,
         ];
     }
 
@@ -219,5 +208,4 @@ abstract class Modal extends EdenComponent
     {
         return view('eden::components.modal');
     }
-
 }

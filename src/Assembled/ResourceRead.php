@@ -2,11 +2,9 @@
 
 namespace BestSnipp\Eden\Assembled;
 
-use BestSnipp\Eden\Components\EdenButton;
 use BestSnipp\Eden\Components\Read;
 use BestSnipp\Eden\Facades\Eden;
 use BestSnipp\Eden\Traits\HasEdenResource;
-use Illuminate\Support\Str;
 
 class ResourceRead extends Read
 {
@@ -51,7 +49,7 @@ class ResourceRead extends Read
             return $edenResource->getFields();
         }, []))
             ->reject(function ($field) {
-                return !$field->visibilityOnDetails;
+                return ! $field->visibilityOnDetails;
             })
             ->all();
     }
@@ -59,11 +57,12 @@ class ResourceRead extends Read
     protected function actions()
     {
         $globalActions = $this->useGlobalActions ? Eden::actions() : [];
+
         return collect($this->getResourceData(function ($edenResource) use ($globalActions) {
             return array_merge($edenResource->getActions(), $globalActions);
         }, []))
             ->reject(function ($action) {
-                return !$action->visibilityOnDetails;
+                return ! $action->visibilityOnDetails;
             })
             ->all();
     }
@@ -76,7 +75,7 @@ class ResourceRead extends Read
 
         return collect($operations)
             ->reject(function ($field) {
-                return !$field->visibilityOnDetails;
+                return ! $field->visibilityOnDetails;
             })
             ->all();
     }

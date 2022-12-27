@@ -7,5 +7,4 @@ use Illuminate\Foundation\Events\Dispatchable;
 class EdenServiceProviderRegistered
 {
     use Dispatchable;
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace BestSnipp\Eden\Components;
 
 use App\Models\User;
@@ -72,7 +73,7 @@ abstract class DataTable extends EdenComponent
     public $searchQuery = '';
 
     protected $queryString = [
-        'searchQuery' => ['except' => '', 'as' => 'q']
+        'searchQuery' => ['except' => '', 'as' => 'q'],
     ];
 
     /**
@@ -120,7 +121,7 @@ abstract class DataTable extends EdenComponent
         10 => 10,
         25 => 25,
         50 => 50,
-        100 => 100
+        100 => 100,
     ];
 
     /**
@@ -222,7 +223,9 @@ abstract class DataTable extends EdenComponent
     protected $paginationName = 'page';
 
     abstract protected function fields();
+
     abstract protected function filters();
+
     abstract protected function actions();
 
     protected function operations()
@@ -236,9 +239,9 @@ abstract class DataTable extends EdenComponent
 
         if ($currentSort == '') {
             $this->sorting[$fieldKey] = 'asc';
-        } else if ($currentSort == 'asc') {
+        } elseif ($currentSort == 'asc') {
             $this->sorting[$fieldKey] = 'desc';
-        } else if ($currentSort == 'desc') {
+        } elseif ($currentSort == 'desc') {
             $this->sorting[$fieldKey] = '';
         }
     }
@@ -247,7 +250,7 @@ abstract class DataTable extends EdenComponent
     {
         if (strtolower($keyToRemove) == 'search') {
             $this->searchQuery = '';
-        }else if (strtolower($keyToRemove) == 'page') {
+        } elseif (strtolower($keyToRemove) == 'page') {
             $this->setPage(1);
         } else {
             if (isset($this->filters[$keyToRemove])) {
@@ -259,13 +262,13 @@ abstract class DataTable extends EdenComponent
 
     private function getAppliedFilters()
     {
-        if (!empty($this->searchQuery)) {
+        if (! empty($this->searchQuery)) {
             $this->appliedFilters[] = [
                 'key' => 'search',
                 'title' => 'Search',
                 'value' => $this->searchQuery,
                 'canRemove' => true,
-                'initial' => ''
+                'initial' => '',
             ];
         }
 
@@ -277,7 +280,7 @@ abstract class DataTable extends EdenComponent
                         'title' => $filter->getTitle(),
                         'value' => $filter->getAppliedValue(),
                         'canRemove' => true,
-                        'initial' => $filter->initialValue
+                        'initial' => $filter->initialValue,
                     ];
                 }
             });
@@ -288,7 +291,7 @@ abstract class DataTable extends EdenComponent
                 'title' => 'Page',
                 'value' => $this->page,
                 'canRemove' => true,
-                'initial' => 1
+                'initial' => 1,
             ];
         }
 
@@ -328,7 +331,7 @@ abstract class DataTable extends EdenComponent
     {
         $fields = $this->fields();
         if ($this->showActions) {
-            $fields[] = ActionField::make("Actions")->withActions($this->actions);
+            $fields[] = ActionField::make('Actions')->withActions($this->actions);
         }
         if ($this->isMultiSelectable) {
             array_unshift($fields, SelectorField::make('Select'));
@@ -349,13 +352,13 @@ abstract class DataTable extends EdenComponent
     /**
      * Create or Assign Sorting Fields
      *
-     * @param Field $field
+     * @param  Field  $field
      * @return Field
      */
     private function processFieldOrdering(Field $field)
     {
-        if ( isset($this->sorting[ $field->getKey() ]) ) {
-            $field->orderBy( $this->sorting[ $field->getKey() ] );
+        if (isset($this->sorting[$field->getKey()])) {
+            $field->orderBy($this->sorting[$field->getKey()]);
         } else {
             $this->sorting[$field->getKey()] = $field->getOrderBy();
         }
@@ -366,7 +369,7 @@ abstract class DataTable extends EdenComponent
     private function getBulkActions()
     {
         return collect($this->actions)->filter(function (Action $action) {
-            return $action->allowBulk() && !($action instanceof StaticAction);
+            return $action->allowBulk() && ! ($action instanceof StaticAction);
         })->all();
     }
 
@@ -375,7 +378,7 @@ abstract class DataTable extends EdenComponent
         $globalActions = $this->useGlobalActions ? Eden::actions() : [];
         $this->actions = collect(array_merge($this->actions(), $globalActions))
             ->reject(function ($action) {
-                return !$action->visibilityOnIndex;
+                return ! $action->visibilityOnIndex;
             })
             ->transform(function ($action) {
                 return $action->setOwner($this);
@@ -387,7 +390,7 @@ abstract class DataTable extends EdenComponent
     {
         $filters = array_merge($this->filters(), $this->useGlobalFilters ? Eden::filters() : []);
         $this->allFilters = collect($filters)->transform(function ($filter) {
-            if (isset($this->filters[ $filter->getKey() ])) {
+            if (isset($this->filters[$filter->getKey()])) {
                 $filter->value = $this->filters[$filter->getKey()];
             } else {
                 $this->filters[$filter->getKey()] = $filter->value;
@@ -431,7 +434,7 @@ abstract class DataTable extends EdenComponent
         });
 
         // Apply Search
-        if (!empty($this->searchQuery)) {
+        if (! empty($this->searchQuery)) {
             collect($this->searchFields)->each(function ($searchField) use ($query) {
                 $query->orWhere($searchField, 'LIKE', "%$this->searchQuery%");
             });
@@ -463,16 +466,14 @@ abstract class DataTable extends EdenComponent
     {
         $queryToPaginate = $this->query($this->prepareData());
 
-        if (!($queryToPaginate instanceof \Illuminate\Database\Query\Builder || $queryToPaginate instanceof \Illuminate\Database\Eloquent\Builder)) {
+        if (! ($queryToPaginate instanceof \Illuminate\Database\Query\Builder || $queryToPaginate instanceof \Illuminate\Database\Eloquent\Builder)) {
             return $queryToPaginate;
         }
 
         if (strtolower($this->paginationType) == 'simple') {
             return $queryToPaginate->simplePaginate($this->rowsPerPage);
-
-        } else if (strtolower($this->paginationType) == 'cursor') {
+        } elseif (strtolower($this->paginationType) == 'cursor') {
             return $queryToPaginate->cursorPaginate($this->rowsPerPage);
-
         }
 
         return $queryToPaginate
@@ -493,8 +494,8 @@ abstract class DataTable extends EdenComponent
     }
 
     /**
-     * @param string $class
-     * @param array $params
+     * @param  string  $class
+     * @param  array  $params
      * @return DataTableRenderer
      */
     protected static function renderer($class, $params)
@@ -510,7 +511,8 @@ abstract class DataTable extends EdenComponent
         try {
             $records->links();
             $shouldShowPagination = true;
-        } catch (\Exception $exception) {}
+        } catch (\Exception $exception) {
+        }
 
         return [
             'fields' => $this->allFields,
@@ -519,7 +521,7 @@ abstract class DataTable extends EdenComponent
             'allFilters' => $this->allFilters,
             'actions' => $this->getBulkActions(),
             'operations' => $this->operations(),
-            'records' => $records
+            'records' => $records,
         ];
     }
 
@@ -567,6 +569,7 @@ abstract class DataTable extends EdenComponent
      * @param $record
      * @param $records
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|string
+     *
      * @throws \Throwable
      */
     public function row($record, $records = [])
@@ -575,6 +578,7 @@ abstract class DataTable extends EdenComponent
             ->transform(function (Field $field) use ($record) {
                 $value = is_array($record) ? $record[$field->getKey()] : (is_object($record) ? $record->{$field->getKey()} : '');
                 $field->setValue($value);
+
                 return $field;
             })->all();
         $view = $this->rowView($record, $fieldsToRender, $records);
@@ -588,9 +592,11 @@ abstract class DataTable extends EdenComponent
 
     /**
      * Calling From Frontend to Render Table Header
+     *
      * @param $record
      * @param $records
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|string
+     *
      * @throws \Throwable
      */
     public function header($records = [])

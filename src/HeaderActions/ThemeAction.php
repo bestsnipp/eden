@@ -3,7 +3,6 @@
 namespace BestSnipp\Eden\HeaderActions;
 
 use BestSnipp\Eden\Components\HeaderAction;
-use BestSnipp\Eden\Facades\Eden;
 
 class ThemeAction extends HeaderAction
 {
@@ -11,5 +10,4 @@ class ThemeAction extends HeaderAction
     {
         return view('eden::header.theme');
     }
-
 }

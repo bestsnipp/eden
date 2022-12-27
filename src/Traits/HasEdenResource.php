@@ -11,7 +11,7 @@ trait HasEdenResource
     protected function getResourceData(callable $callback, $default = '')
     {
         $edenResource = app($this->edenResource);
+
         return $callback($edenResource);
     }
-
 }

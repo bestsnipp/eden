@@ -1,11 +1,11 @@
 <?php
+
 namespace BestSnipp\Eden\Components\DataTable\Column;
 
 use BestSnipp\Eden\Components\Fields\Field;
 
 class ActionField extends Field
 {
-
     protected $sortable = false;
 
     protected $searchable = false;
@@ -17,6 +17,7 @@ class ActionField extends Field
     public function withActions($actions = [])
     {
         $this->actions = $actions;
+
         return $this;
     }
 
@@ -37,5 +38,4 @@ class ActionField extends Field
             ->with('iconSize', 'scale-75')
             ->with('buttonStyle', config('eden.button_style'));
     }
-
 }

@@ -36,7 +36,7 @@ class MakeViewMetric extends Command
         $this->call('eden:card', ['name' => $name, '--type' => 'ViewMetric']);
 
         $this->output->newLine();
+
         return 0;
     }
-
 }

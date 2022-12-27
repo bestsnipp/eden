@@ -2,16 +2,10 @@
 
 namespace BestSnipp\Eden\Components\DataTable\Actions;
 
-use App\Models\User;
 use BestSnipp\Eden\Components\EdenPage;
 use BestSnipp\Eden\Components\EdenResource;
 use BestSnipp\Eden\Facades\Eden;
-use BestSnipp\Eden\Traits\CanBeRendered;
-use Faker\Factory;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -48,24 +42,26 @@ class StaticAction extends Action
     /**
      * Show Icon
      *
-     * @param \Closure|string $title
+     * @param  \Closure|string  $title
      * @return $this
      */
     public function title($title)
     {
         $this->title = appCall($title);
+
         return $this;
     }
 
     /**
      * Show Icon
      *
-     * @param \Closure|string $icon
+     * @param  \Closure|string  $icon
      * @return $this
      */
     public function icon($icon)
     {
         $this->icon = appCall($icon);
+
         return $this;
     }
 
@@ -77,6 +73,7 @@ class StaticAction extends Action
     public function noIcon()
     {
         $this->icon = null;
+
         return $this;
     }
 
@@ -88,51 +85,55 @@ class StaticAction extends Action
     public function openInNewTab($should = true)
     {
         $this->inNewTab = appCall($should);
+
         return $this;
     }
 
     /**
      * Provide a Route
      *
-     * @param string $name
-     * @param array $parameters
-     * @param bool $absolute
+     * @param  string  $name
+     * @param  array  $parameters
+     * @param  bool  $absolute
      * @return $this
      */
     public function route($name, $parameters = [], $absolute = true)
     {
         $this->route = route($name, $parameters, $absolute);
+
         return $this;
     }
 
     /**
      * Provide a Path
      *
-     * @param \Closure|string $path
+     * @param  \Closure|string  $path
      * @return $this
      */
     public function path($path)
     {
         $this->route = appCall($path);
+
         return $this;
     }
 
     /**
      * Provide a External Link
      *
-     * @param \Closure|string $url
+     * @param  \Closure|string  $url
      * @return $this
      */
     public function external($url)
     {
         $this->route = appCall($url);
+
         return $this;
     }
 
     /**
      * Link to a Resource
      *
-     * @param EdenResource|\Closure $resource
+     * @param  EdenResource|\Closure  $resource
      * @return $this
      */
     public function resource($resource)
@@ -141,13 +142,14 @@ class StaticAction extends Action
             $this->show = Eden::isActionAuthorized('viewAny', $resource::$model);
             $this->route = route('eden.page', appCall($resource)->getSlug());
         }
+
         return $this;
     }
 
     /**
      * Link to a EdenPage
      *
-     * @param EdenPage|\Closure $page
+     * @param  EdenPage|\Closure  $page
      * @return $this
      */
     public function edenPage($page)
@@ -155,13 +157,14 @@ class StaticAction extends Action
         if (is_subclass_of($page, EdenPage::class)) {
             $this->route = route('eden.page', appCall($page)->getSlug());
         }
+
         return $this;
     }
 
     /**
      * Use as Form Request
      *
-     * @param \Closure $page
+     * @param  \Closure  $page
      * @return $this
      */
     public function viaForm($method = 'POST', $data = [], $includeCsrf = true)
@@ -170,6 +173,7 @@ class StaticAction extends Action
         $this->formWithCsrf = $includeCsrf;
         $this->method = appCall($method);
         $this->data = appCall($data);
+
         return $this;
     }
 
@@ -177,11 +181,12 @@ class StaticAction extends Action
     {
         $route = Str::replace([
             '__resource__',
-            '__resourceId__'
+            '__resourceId__',
         ], [
             $this->resource,
-            $this->resourceId
+            $this->resourceId,
         ], $this->route);
+
         return [
             'icon' => $this->icon,
             'title' => $this->title,
@@ -190,7 +195,7 @@ class StaticAction extends Action
             'isForm' => $this->isForm,
             'method' => $this->method,
             'data' => $this->data,
-            'formWithCsrf' => $this->formWithCsrf
+            'formWithCsrf' => $this->formWithCsrf,
         ];
     }
 
@@ -201,5 +206,4 @@ class StaticAction extends Action
     {
         return view('eden::actions.static', compact('type', 'action', 'record', 'buttonStyle', 'iconSize'));
     }
-
 }

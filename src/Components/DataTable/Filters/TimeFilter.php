@@ -2,9 +2,6 @@
 
 namespace BestSnipp\Eden\Components\DataTable\Filters;
 
-use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Carbon;
-
 class TimeFilter extends Filter
 {
     protected $format = 'H:i';
@@ -18,6 +15,7 @@ class TimeFilter extends Filter
     public function format($format = 'H:i')
     {
         $this->format = $format;
+
         return $this;
     }
 

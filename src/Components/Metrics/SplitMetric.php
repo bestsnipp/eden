@@ -4,10 +4,8 @@ namespace BestSnipp\Eden\Components\Metrics;
 
 use BestSnipp\Eden\Traits\Makeable;
 use Illuminate\Database\Eloquent\Builder as ModelBuilder;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class SplitMetric extends MetricValue
 {
@@ -26,70 +24,70 @@ class SplitMetric extends MetricValue
     protected $decimalPoint = 2;
 
     protected $chart = [
-        "series" => [],
-        "labels" => [],
-        "chart" => [
-            "type" => "pie",
-            "height" => "auto",
-            "stacked" => false,
-            "sparkline" => [
-                "enabled" => true
-            ]
+        'series' => [],
+        'labels' => [],
+        'chart' => [
+            'type' => 'pie',
+            'height' => 'auto',
+            'stacked' => false,
+            'sparkline' => [
+                'enabled' => true,
+            ],
         ],
-        "responsive" => [
+        'responsive' => [
             [
-                "breakpoint" => 480,
-                "options" => [
-                    "chart" => [
-                        "height" => "auto"
-                    ]
-                ]
-            ]
-        ]
+                'breakpoint' => 480,
+                'options' => [
+                    'chart' => [
+                        'height' => 'auto',
+                    ],
+                ],
+            ],
+        ],
     ];
 
     /**
-     * @param \Closure|array $values
+     * @param  \Closure|array  $values
      * @return $this
      */
     public function result($values)
     {
         $values = appCall($values);
 
-        $this->values = (is_null($values) && !is_array($values)) ? $this->values : array_values($values);
-        $this->labels = (is_null($values) && !is_array($values)) ? $this->labels : array_keys($values);
+        $this->values = (is_null($values) && ! is_array($values)) ? $this->values : array_values($values);
+        $this->labels = (is_null($values) && ! is_array($values)) ? $this->labels : array_keys($values);
 
         return $this;
     }
 
     /**
-     * @param \Closure|array $currentValues
+     * @param  \Closure|array  $currentValues
      * @return $this
      */
     public function values($currentValues)
     {
         $currentValues = appCall($currentValues);
 
-        $this->values = (is_null($currentValues) && !is_array($currentValues)) ? [] : $currentValues;
+        $this->values = (is_null($currentValues) && ! is_array($currentValues)) ? [] : $currentValues;
 
         return $this;
     }
 
     /**
-     * @param \Closure|array $labels
+     * @param  \Closure|array  $labels
      * @return $this
      */
     public function labels($labels)
     {
         $labels = appCall($labels);
 
-        $this->labels = (is_null($labels) && !is_array($labels)) ? [] : $labels;
+        $this->labels = (is_null($labels) && ! is_array($labels)) ? [] : $labels;
 
         return $this;
     }
 
     /**
-     * @param \Closure $callback
+     * @param  \Closure  $callback
      * @return $this
      */
     public function transform($callback)
@@ -109,7 +107,7 @@ class SplitMetric extends MetricValue
     }
 
     /**
-     * @param \Closure $callback
+     * @param  \Closure  $callback
      * @return $this
      */
     public function transformLabels($callback)
@@ -122,12 +120,13 @@ class SplitMetric extends MetricValue
     }
 
     /**
-     * @param array $options
+     * @param  array  $options
      * @return $this
      */
     public function setChartOptions($options)
     {
         $this->chart = array_merge($this->chart, $options);
+
         return $this;
     }
 
@@ -138,22 +137,23 @@ class SplitMetric extends MetricValue
     {
         $formattedValues = is_null($this->valuesCallback) ? $this->values : appCall($this->valuesCallback, [
             'values' => $this->values,
-            'labels' => $this->labels
+            'labels' => $this->labels,
         ]);
         $formattedLabels = is_null($this->labelsCallback) ? $this->labels : appCall($this->labelsCallback, [
             'labels' => $this->labels,
-            'values' => $this->values
+            'values' => $this->values,
         ]);
 
         $chartWithData = array_merge($this->chart, [
             'series' => $formattedValues,
-            'labels' => $formattedLabels
+            'labels' => $formattedLabels,
         ]);
+
         return $chartWithData;
     }
 
     /**
-     * @param string $chartType
+     * @param  string  $chartType
      * @return void
      */
     private function setChartType($chartType)
@@ -177,6 +177,7 @@ class SplitMetric extends MetricValue
     public function asPieChart()
     {
         $this->setChartType('pie');
+
         return $this;
     }
 
@@ -186,6 +187,7 @@ class SplitMetric extends MetricValue
     public function asDonutChart()
     {
         $this->setChartType('donut');
+
         return $this;
     }
 
@@ -195,6 +197,7 @@ class SplitMetric extends MetricValue
     public function asRadarChart()
     {
         $this->setChartType('radar');
+
         return $this;
     }
 
@@ -204,6 +207,7 @@ class SplitMetric extends MetricValue
     public function asPolarAreaChart()
     {
         $this->setChartType('polarArea');
+
         return $this;
     }
 
@@ -213,6 +217,7 @@ class SplitMetric extends MetricValue
     public function asRadialBarChart()
     {
         $this->setChartType('radialBar');
+
         return $this;
     }
 
@@ -221,7 +226,7 @@ class SplitMetric extends MetricValue
      *
      * @param  \Illuminate\Database\Eloquent\Builder|class-string<\Illuminate\Database\Eloquent\Model>  $model
      * @param  \Illuminate\Database\Query\Expression|string|null  $column
-     * @param string|null $groupBy
+     * @param  string|null  $groupBy
      * @param  \Illuminate\Database\Query\Expression|string|null  $dateColumn
      * @return $this
      */
@@ -235,7 +240,7 @@ class SplitMetric extends MetricValue
      *
      * @param  \Illuminate\Database\Eloquent\Builder|class-string<\Illuminate\Database\Eloquent\Model>  $model
      * @param  \Illuminate\Database\Query\Expression|string|null  $column
-     * @param string|null $groupBy
+     * @param  string|null  $groupBy
      * @param  \Illuminate\Database\Query\Expression|string|null  $dateColumn
      * @return $this
      */
@@ -249,7 +254,7 @@ class SplitMetric extends MetricValue
      *
      * @param  \Illuminate\Database\Eloquent\Builder|class-string<\Illuminate\Database\Eloquent\Model>  $model
      * @param  \Illuminate\Database\Query\Expression|string|null  $column
-     * @param string|null $groupBy
+     * @param  string|null  $groupBy
      * @param  \Illuminate\Database\Query\Expression|string|null  $dateColumn
      * @return $this
      */
@@ -263,7 +268,7 @@ class SplitMetric extends MetricValue
      *
      * @param  \Illuminate\Database\Eloquent\Builder|class-string<\Illuminate\Database\Eloquent\Model>  $model
      * @param  \Illuminate\Database\Query\Expression|string|null  $column
-     * @param string|null $groupBy
+     * @param  string|null  $groupBy
      * @param  \Illuminate\Database\Query\Expression|string|null  $dateColumn
      * @return $this
      */
@@ -278,7 +283,7 @@ class SplitMetric extends MetricValue
      * @param  \Illuminate\Database\Eloquent\Builder|class-string<\Illuminate\Database\Eloquent\Model>  $model
      * @param  \Illuminate\Database\Query\Expression|string|null  $column
      * @param  \Illuminate\Database\Query\Expression|string|null  $dateColumn
-     * @param string|null $groupBy
+     * @param  string|null  $groupBy
      * @return $this
      */
     public function max($model, $column = null, $groupBy = null, $dateColumn = null)
@@ -289,10 +294,10 @@ class SplitMetric extends MetricValue
     /**
      * Return a progress result showing the segments of a aggregate.
      *
-     * @param \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|class-string<\Illuminate\Database\Eloquent\Model>  $model
-     * @param \Illuminate\Database\Query\Expression|string|null  $column
-     * @param string|null $groupBy
-     * @param \Illuminate\Database\Query\Expression|string|null  $dateColumn
+     * @param  \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|class-string<\Illuminate\Database\Eloquent\Model>  $model
+     * @param  \Illuminate\Database\Query\Expression|string|null  $column
+     * @param  string|null  $groupBy
+     * @param  \Illuminate\Database\Query\Expression|string|null  $dateColumn
      * @return $this
      */
     protected function aggregate($model, $function, $column, $groupBy = null, $dateColumn = null)
@@ -324,8 +329,7 @@ class SplitMetric extends MetricValue
     {
         return view('eden::metrics.split')->with([
             'chart' => $this->getChartOptions(),
-            'decimalPoint' => $this->decimalPoint
+            'decimalPoint' => $this->decimalPoint,
         ]);
     }
-
 }

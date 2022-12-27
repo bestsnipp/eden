@@ -2,8 +2,6 @@
 
 namespace BestSnipp\Eden\Components\DataTable\Filters;
 
-use Illuminate\Database\Query\Builder;
-
 class DateFilter extends Filter
 {
     protected $format = 'Y-m-d';
@@ -17,6 +15,7 @@ class DateFilter extends Filter
     public function format($format = 'Y-m-d')
     {
         $this->format = $format;
+
         return $this;
     }
 

@@ -36,7 +36,7 @@ class MakeProgressMetric extends Command
         $this->call('eden:card', ['name' => $name, '--type' => 'ProgressMetric']);
 
         $this->output->newLine();
+
         return 0;
     }
-
 }

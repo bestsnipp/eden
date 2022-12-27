@@ -6,7 +6,6 @@ use BestSnipp\Eden\Assembled\MediaManager\MediaManagerDataTable;
 use BestSnipp\Eden\Components\Modal;
 use BestSnipp\Eden\Models\EdenMedia;
 use Faker\Factory;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\TemporaryUploadedFile;
@@ -59,14 +58,14 @@ class MediaModal extends Modal
     protected $enableJsInteractions = true;
 
     protected $listeners = [
-        'upload:finished' => 'storeUploadedFile'
+        'upload:finished' => 'storeUploadedFile',
     ];
 
     public function onMount()
     {
         $this->bodyAttrs = [
             'x-data' => "{selected: window.Livewire.find('".$this->id."').entangle('selected').defer, via: window.Livewire.find('".$this->id."').entangle('via').defer, selectionType: window.Livewire.find('".$this->id."').entangle('selectionType').defer, owner: 'all'}",
-            '@show-media-manager.window' => '(evt) => {selected = []; isVisible = true; showFromJs = true; via = evt.detail.via; selectionType = evt.detail.selectionType; owner = evt.detail.owner}'
+            '@show-media-manager.window' => '(evt) => {selected = []; isVisible = true; showFromJs = true; via = evt.detail.via; selectionType = evt.detail.selectionType; owner = evt.detail.owner}',
         ];
     }
 
@@ -78,7 +77,7 @@ class MediaModal extends Modal
 
         foreach ($this->fileupload as $file) {
             try {
-                if (!($file instanceof TemporaryUploadedFile)) {
+                if (! ($file instanceof TemporaryUploadedFile)) {
                     continue;
                 }
 
@@ -91,10 +90,10 @@ class MediaModal extends Modal
                     'type' => $file->getMimeType(),
                     'extension' => $file->extension(),
                     'path' => $path,
-                    'url' => asset('storage/' . $path),
+                    'url' => asset('storage/'.$path),
                     'folder' => null,
                     'preview' => $file->isPreviewable(),
-                    'created_at' => now()
+                    'created_at' => now(),
                 ];
             } catch (\Exception $exception) {
                 $filesErrored[] = $exception->getMessage();
@@ -107,7 +106,7 @@ class MediaModal extends Modal
             DB::commit();
 
             $this->toastSuccess('Media records uploaded successfully');
-            $this->emit('refresh' . MediaManagerDataTable::getName());
+            $this->emit('refresh'.MediaManagerDataTable::getName());
         } catch (\Exception $exception) {
             DB::rollBack();
             $this->toastError($exception->getMessage());
@@ -141,7 +140,7 @@ class MediaModal extends Modal
     {
         $this->tabs = [
             ['type' => 'upload', 'label' => 'Upload Files', 'view' => 'eden::modals.media-manager.upload'],
-            ['type' => 'library', 'label' => 'Media Library', 'view' => 'eden::modals.media-manager.library']
+            ['type' => 'library', 'label' => 'Media Library', 'view' => 'eden::modals.media-manager.library'],
         ];
 
         $this->files = [];
@@ -167,12 +166,11 @@ class MediaModal extends Modal
      */
     public function modalView()
     {
-
         return view('eden::modals.media-manager')
             ->with([
                 'tabs' => $this->tabs,
                 'files' => $this->files,
-                'colors' => $this->getExtensionColors()
+                'colors' => $this->getExtensionColors(),
             ]);
     }
 

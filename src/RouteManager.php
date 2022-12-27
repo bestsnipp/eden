@@ -9,7 +9,7 @@ class RouteManager
     private $routes = [];
 
     /**
-     * @param mixed $route
+     * @param  mixed  $route
      * @return void
      */
     public function register($route)
@@ -29,7 +29,7 @@ class RouteManager
     }
 
     /**
-     * @param string $slug
+     * @param  string  $slug
      * @return bool
      */
     public function has($slug)
@@ -38,7 +38,7 @@ class RouteManager
     }
 
     /**
-     * @param string $slug
+     * @param  string  $slug
      * @return mixed|null
      */
     public function get($slug)
@@ -46,7 +46,7 @@ class RouteManager
         if ($this->has($slug)) {
             return $this->routes[$slug];
         }
+
         return null;
     }
-
 }

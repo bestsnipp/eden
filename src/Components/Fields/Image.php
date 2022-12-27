@@ -3,17 +3,14 @@
 namespace BestSnipp\Eden\Components\Fields;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Livewire\TemporaryUploadedFile;
 
 class Image extends File
 {
-
     protected $meta = [
         'type' => 'file',
-        'class' => 'opacity-0 absolute hidden'
+        'class' => 'opacity-0 absolute hidden',
     ];
 
     protected $largePreviewEnabled = true;
@@ -22,14 +19,14 @@ class Image extends File
 
     public function disableLargePreview($should = true)
     {
-        $this->largePreviewEnabled = !appCall($should);
+        $this->largePreviewEnabled = ! appCall($should);
 
         return $this;
     }
 
     public function disableFileLabel($should = true)
     {
-        $this->fileLabelEnabled = !appCall($should);
+        $this->fileLabelEnabled = ! appCall($should);
 
         return $this;
     }
@@ -53,13 +50,14 @@ class Image extends File
                     } else {
                         return $item->getClientOriginalName();
                     }
-                } else if (!empty($item) && Storage::exists($this->path . '/' . $item)) {
+                } elseif (! empty($item) && Storage::exists($this->path.'/'.$item)) {
                     return asset($item);
                 }
+
                 return $item;
             })
             ->filter(function ($item) {
-                return !empty($item);
+                return ! empty($item);
             })
             ->all();
     }
@@ -67,10 +65,11 @@ class Image extends File
     protected function prepareFilePreviews()
     {
         return collect(Arr::wrap($this->value))->transform(function ($path) {
-            if(filter_var($path, FILTER_VALIDATE_URL)) {
+            if (filter_var($path, FILTER_VALIDATE_URL)) {
                 return $path;
             }
-            return empty($path) ? $path : asset('storage/' . $path);
+
+            return empty($path) ? $path : asset('storage/'.$path);
         })->all();
     }
 
@@ -81,7 +80,7 @@ class Image extends File
         return view('eden::fields.input.image')
             ->with([
                 'displayValues' => $this->displayValues,
-                'isMultiple' => $this->isMultiple()
+                'isMultiple' => $this->isMultiple(),
             ]);
     }
 
@@ -100,8 +99,7 @@ class Image extends File
         return view('eden::fields.view.image')->with([
             'downloadEnabled' => $this->downloadEnabled,
             'largePreviewEnabled' => $this->largePreviewEnabled,
-            'fileLabelEnabled' => $this->fileLabelEnabled
+            'fileLabelEnabled' => $this->fileLabelEnabled,
         ]);
     }
-
 }

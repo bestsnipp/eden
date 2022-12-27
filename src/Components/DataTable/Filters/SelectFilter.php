@@ -4,7 +4,6 @@ namespace BestSnipp\Eden\Components\DataTable\Filters;
 
 class SelectFilter extends Filter
 {
-
     protected $options = [];
 
     protected $isKeyValue = false;
@@ -12,6 +11,7 @@ class SelectFilter extends Filter
     public function options($options = [])
     {
         $this->options = $options;
+
         return $this;
     }
 
@@ -24,6 +24,7 @@ class SelectFilter extends Filter
     {
         $this->options = $options;
         $this->isKeyValue = true;
+
         return $this;
     }
 
@@ -38,7 +39,8 @@ class SelectFilter extends Filter
         }
     }
 
-    protected function apply($query, $value) {
+    protected function apply($query, $value)
+    {
         return $query->where($this->key, 'LIKE', "%$value%");
     }
 

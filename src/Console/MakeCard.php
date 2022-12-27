@@ -47,6 +47,7 @@ class MakeCard extends Command
         }
 
         $this->output->newLine();
+
         return 0;
     }
 
@@ -72,8 +73,9 @@ class MakeCard extends Command
     public function variables()
     {
         $type = $this->option('type');
+
         return [
-            'type' => in_array($type, $this->metricTypes()) ? $type : 'StatisticMetric'
+            'type' => in_array($type, $this->metricTypes()) ? $type : 'StatisticMetric',
         ];
     }
 }

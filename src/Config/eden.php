@@ -29,7 +29,6 @@ return [
      *    800 => '#f80',
      *    900 => '#f90',
      * ]
-     *
      */
     'color' => null,
 
@@ -73,6 +72,6 @@ return [
         //config('jetstream.auth_session'),
         'verified',
         BestSnipp\Eden\Middleware\EdenRequestHandler::class,
-        'can:accessEden'
+        'can:accessEden',
     ],
 ];

@@ -2,11 +2,8 @@
 
 namespace BestSnipp\Eden\Components\Fields;
 
-use Carbon\Carbon;
-
 class Country extends Select
 {
-
     protected function onMount()
     {
         $this->options = [
@@ -277,11 +274,12 @@ class Country extends Select
     }
 
     /**
-     * @param mixed $value
+     * @param  mixed  $value
      */
     public function default($value)
     {
-        $this->value = (is_array($value)) ? array_map('strtoupper', $value): strtoupper($value);
+        $this->value = (is_array($value)) ? array_map('strtoupper', $value) : strtoupper($value);
+
         return $this;
     }
 
@@ -289,5 +287,4 @@ class Country extends Select
     {
         return view('eden::fields.input.select');
     }
-
 }

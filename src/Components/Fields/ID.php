@@ -2,8 +2,6 @@
 
 namespace BestSnipp\Eden\Components\Fields;
 
-use Illuminate\Support\Str;
-
 /**
  * @method static static make(mixed $name = 'ID', string $key = 'id')
  */
@@ -29,7 +27,7 @@ class ID extends Hidden
     protected function onMount()
     {
         $this->meta = array_merge($this->meta, [
-            'type' => 'hidden'
+            'type' => 'hidden',
         ]);
     }
 

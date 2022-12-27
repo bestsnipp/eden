@@ -2,18 +2,14 @@
 
 namespace BestSnipp\Eden\Components;
 
-
 use BestSnipp\Eden\Assembled\ResourceCreateForm;
 use BestSnipp\Eden\Assembled\ResourceDataTable;
 use BestSnipp\Eden\Assembled\ResourceEditForm;
 use BestSnipp\Eden\Assembled\ResourceRead;
 use BestSnipp\Eden\Facades\Eden;
-use BestSnipp\Eden\Traits\WithModel;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Gate;
 
 /**
- * @inheritDoc
+ * {@inheritDoc}
  */
 abstract class EdenResource extends EdenPage
 {
@@ -98,7 +94,7 @@ abstract class EdenResource extends EdenPage
         10 => 10,
         25 => 25,
         50 => 50,
-        100 => 100
+        100 => 100,
     ];
 
     /**
@@ -174,7 +170,6 @@ abstract class EdenResource extends EdenPage
 
     /** READ **/
 
-
     /**
      * @return array
      */
@@ -234,7 +229,7 @@ abstract class EdenResource extends EdenPage
         return [
             'model' => self::$model,
             'title' => $this->labelSingular(),
-            'useGlobalActions' => $this->useGlobalActions
+            'useGlobalActions' => $this->useGlobalActions,
         ];
     }
 
@@ -265,7 +260,7 @@ abstract class EdenResource extends EdenPage
      */
     final public function index($slug)
     {
-        abort_if(!Eden::isActionAuthorized('viewAny', $this->model()), 403);
+        abort_if(! Eden::isActionAuthorized('viewAny', $this->model()), 403);
 
         $viewParams = $this->viewParams(true);
         $viewParams['components'] = array_merge(
@@ -283,7 +278,7 @@ abstract class EdenResource extends EdenPage
      */
     public function create($slug)
     {
-        abort_if(!Eden::isActionAuthorized('create', $this->model()), 403);
+        abort_if(! Eden::isActionAuthorized('create', $this->model()), 403);
 
         $viewParams = $this->viewParams();
         $viewParams['components'] = array_merge(
@@ -305,7 +300,7 @@ abstract class EdenResource extends EdenPage
         $this->resourceId = $id;
         $this->resolveRecord();
 
-        abort_if(!Eden::isActionAuthorized('update', $this->record()), 403);
+        abort_if(! Eden::isActionAuthorized('update', $this->record()), 403);
 
         // Force Form that This is an Edit Form
         $this->isUpdate = true;
@@ -315,6 +310,7 @@ abstract class EdenResource extends EdenPage
             $this->cards(),
             [ResourceEditForm::make(['edenResource' => get_called_class()])]
         );
+
         return view('eden::eden')->with($viewParams);
     }
 
@@ -329,7 +325,7 @@ abstract class EdenResource extends EdenPage
         $this->resourceId = $id;
         $this->resolveRecord();
 
-        abort_if(!Eden::isActionAuthorized('view', $this->record()), 403);
+        abort_if(! Eden::isActionAuthorized('view', $this->record()), 403);
 
         $viewParams = $this->viewParams();
         $viewParams['components'] = array_merge(
@@ -342,7 +338,6 @@ abstract class EdenResource extends EdenPage
 
     protected function isAuthorizedToSee($ability, $modelOrClass)
     {
-
     }
 
     /**
@@ -475,7 +470,7 @@ abstract class EdenResource extends EdenPage
     protected function propertiesToRemove($isUpdate = false)
     {
         return [
-            'id', 'created_at', 'updated_at'
+            'id', 'created_at', 'updated_at',
         ];
     }
 
@@ -489,7 +484,7 @@ abstract class EdenResource extends EdenPage
         return method_exists($this, $method);
     }
 
-    public function callMethod(string $method, ... $arguments)
+    public function callMethod(string $method, ...$arguments)
     {
         return call_user_func_array([$this, $method], $arguments);
     }

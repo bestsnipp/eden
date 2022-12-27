@@ -4,8 +4,6 @@ namespace BestSnipp\Eden\Assembled;
 
 use BestSnipp\Eden\Components\Form;
 use BestSnipp\Eden\Traits\HasEdenResource;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 
 class ResourceCreateForm extends Form
 {
@@ -17,7 +15,7 @@ class ResourceCreateForm extends Form
 
     protected $queryString = [
         'replicateId' => ['exclude' => '', 'as' => 'resourceId'],
-        'isReplicating' => ['exclude' => '', 'as' => 'replicate']
+        'isReplicating' => ['exclude' => '', 'as' => 'replicate'],
     ];
 
     protected function init()
@@ -30,7 +28,7 @@ class ResourceCreateForm extends Form
 
     protected function resolveRecord()
     {
-        if (!empty($this->isReplicating) && boolval($this->isReplicating) && !empty($this->replicateId)) {
+        if (! empty($this->isReplicating) && boolval($this->isReplicating) && ! empty($this->replicateId)) {
             $this->resourceId = $this->replicateId;
         }
         parent::resolveRecord();
@@ -64,10 +62,10 @@ class ResourceCreateForm extends Form
     protected function fields()
     {
         return collect($this->getResourceData(function ($resource) {
-                return $resource->getFields();
-            }, []))
+            return $resource->getFields();
+        }, []))
             ->reject(function ($field) {
-                return !$field->visibilityOnCreate;
+                return ! $field->visibilityOnCreate;
             })
             ->all();
     }
@@ -86,6 +84,7 @@ class ResourceCreateForm extends Form
     {
         if ($this->edenResourceObject->hasMethod('action') ?? false) {
             $this->edenResourceObject->callMethod('action', $validated, $all, $transformed);
+
             return;
         }
 
@@ -96,6 +95,7 @@ class ResourceCreateForm extends Form
     {
         if ($this->edenResourceObject->hasMethod('createRecord') ?? false) {
             $this->edenResourceObject->callMethod('createRecord', $validated, $all, $transformed);
+
             return;
         }
 
@@ -106,6 +106,7 @@ class ResourceCreateForm extends Form
     {
         if ($this->edenResourceObject->hasMethod('updateRecord') ?? false) {
             $this->edenResourceObject->callMethod('updateRecord', $validated, $all, $transformed);
+
             return;
         }
 
@@ -116,6 +117,7 @@ class ResourceCreateForm extends Form
     {
         if ($this->edenResourceObject->hasMethod('onActionCompleted') ?? false) {
             $this->edenResourceObject->callMethod('onActionCompleted', $data);
+
             return;
         }
 
@@ -126,6 +128,7 @@ class ResourceCreateForm extends Form
     {
         if ($this->edenResourceObject->hasMethod('onActionException') ?? false) {
             $this->edenResourceObject->callMethod('onActionException', $exception);
+
             return;
         }
 
@@ -136,5 +139,4 @@ class ResourceCreateForm extends Form
     {
         return $this->edenResourceObject->getViewForCreate() ?? parent::view();
     }
-
 }

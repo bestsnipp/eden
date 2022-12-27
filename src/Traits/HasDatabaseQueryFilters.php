@@ -30,12 +30,12 @@ trait HasDatabaseQueryFilters
     /**
      * Set filter for current metric.
      *
-     * @param Filter $filters
+     * @param  Filter  $filters
      * @return $this
      */
     public function applyQueryFilter($filter)
     {
-        if (!is_null($filter) && is_subclass_of($filter, Filter::class)) {
+        if (! is_null($filter) && is_subclass_of($filter, Filter::class)) {
             $this->queryFilters[] = $filter;
         }
 
@@ -54,6 +54,7 @@ trait HasDatabaseQueryFilters
             if (is_callable([$filter, 'apply'])) {
                 return $filter->apply($query, $filter->value);
             }
+
             return $query;
         });
 

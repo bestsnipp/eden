@@ -10,7 +10,7 @@ class Code extends Textarea
     {
         $this->meta = array_merge($this->meta, [
             'rows' => 5,
-            'cols' => 30
+            'cols' => 30,
         ]);
     }
 

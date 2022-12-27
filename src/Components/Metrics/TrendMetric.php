@@ -2,13 +2,10 @@
 
 namespace BestSnipp\Eden\Components\Metrics;
 
-
 use BestSnipp\Eden\Traits\Makeable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as ModelBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class TrendMetric extends MetricValue
 {
@@ -52,40 +49,40 @@ class TrendMetric extends MetricValue
     protected $chartType = 'area';
 
     protected $chart = [
-        "series" => [],
-        "labels" => [],
-        "chart" => [
-            "type" => "area",
-            "height" => "120px",
-            "stacked" => false,
-            "sparkline" => [
-                "enabled" => true
-            ]
-        ]
+        'series' => [],
+        'labels' => [],
+        'chart' => [
+            'type' => 'area',
+            'height' => '120px',
+            'stacked' => false,
+            'sparkline' => [
+                'enabled' => true,
+            ],
+        ],
     ];
 
     /**
-     * @param \Closure|array $currentValues
+     * @param  \Closure|array  $currentValues
      * @return $this
      */
     public function current($currentValues)
     {
         $currentValues = appCall($currentValues);
 
-        $this->current = (is_null($currentValues) && !is_array($currentValues)) ? [] : $currentValues;
+        $this->current = (is_null($currentValues) && ! is_array($currentValues)) ? [] : $currentValues;
 
         return $this;
     }
 
     /**
-     * @param \Closure|array $previousValues
+     * @param  \Closure|array  $previousValues
      * @return $this
      */
     public function previous($previousValues)
     {
         $previousValues = appCall($previousValues);
 
-        $this->previous = (is_null($previousValues) && !is_array($previousValues)) ? [] : $previousValues;
+        $this->previous = (is_null($previousValues) && ! is_array($previousValues)) ? [] : $previousValues;
         if (is_array($this->previous) && count($this->previous) > 0) {
             $this->compare = true;
         }
@@ -94,20 +91,20 @@ class TrendMetric extends MetricValue
     }
 
     /**
-     * @param \Closure|array $labels
+     * @param  \Closure|array  $labels
      * @return $this
      */
     public function labels($labelValues)
     {
         $labelValues = appCall($labelValues);
 
-        $this->labels = (is_null($labelValues) && !is_array($labelValues)) ? [] : $labelValues;
+        $this->labels = (is_null($labelValues) && ! is_array($labelValues)) ? [] : $labelValues;
 
         return $this;
     }
 
     /**
-     * @param bool $should
+     * @param  bool  $should
      * @return $this
      */
     public function compare($should = true)
@@ -118,7 +115,7 @@ class TrendMetric extends MetricValue
     }
 
     /**
-     * @param bool $should
+     * @param  bool  $should
      * @return $this
      */
     public function showLatest(bool $should = true)
@@ -129,7 +126,7 @@ class TrendMetric extends MetricValue
     }
 
     /**
-     * @param \Closure $callback
+     * @param  \Closure  $callback
      * @return $this
      */
     public function transform($callback)
@@ -142,7 +139,7 @@ class TrendMetric extends MetricValue
     }
 
     /**
-     * @param \Closure $callback
+     * @param  \Closure  $callback
      * @return $this
      */
     public function transformPrevious($callback)
@@ -155,7 +152,7 @@ class TrendMetric extends MetricValue
     }
 
     /**
-     * @param \Closure $callback
+     * @param  \Closure  $callback
      * @return $this
      */
     public function transformLabels($callback)
@@ -168,12 +165,13 @@ class TrendMetric extends MetricValue
     }
 
     /**
-     * @param array $options
+     * @param  array  $options
      * @return $this
      */
     public function setChartOptions($options)
     {
         $this->chart = array_merge($this->chart, $options);
+
         return $this;
     }
 
@@ -185,20 +183,19 @@ class TrendMetric extends MetricValue
         $formattedValues = is_null($this->valuesCallback) ? $this->current : appCall($this->valuesCallback, [
             'current' => $this->current,
             'previous' => $this->previous,
-            'labels' => $this->labels
+            'labels' => $this->labels,
         ]);
         $formattedPreviousValues = is_null($this->previousValuesCallback) ? $this->previous : appCall($this->previousValuesCallback, [
             'current' => $this->current,
             'previous' => $this->previous,
-            'labels' => $this->labels
+            'labels' => $this->labels,
         ]);
         $formattedLabels = is_null($this->labelsCallback) ? (empty($this->labels) ? $this->current : $this->labels) : appCall($this->labelsCallback, [
             'current' => $this->current,
             'previous' => $this->previous,
-            'labels' => $this->labels
+            'labels' => $this->labels,
         ]);
         $this->value = last($formattedValues) ?? 0;
-
 
         $series = [];
         if ($this->compare) {
@@ -206,20 +203,20 @@ class TrendMetric extends MetricValue
         }
         $series[] = ['name' => 'Current', 'data' => $formattedValues];
 
-
         $chartWithData = array_merge($this->chart, [
             'series' => $series,
-            'labels' => $formattedLabels
+            'labels' => $formattedLabels,
         ]);
 
         if ($this->showLatest) {
             $chartWithData['chart']['height'] = '75px';
         }
+
         return $chartWithData;
     }
 
     /**
-     * @param string $chartType
+     * @param  string  $chartType
      * @return void
      */
     private function setChartType($chartType)
@@ -235,19 +232,19 @@ class TrendMetric extends MetricValue
                 $this->chart['plotOptions']['bar'] = [
                     'horizontal' => false,
                     'endingShape' => 'rounded',
-                    'borderRadius' => 4
+                    'borderRadius' => 4,
                 ];
                 break;
             case 'bar':
                 $this->chart['plotOptions']['bar'] = [
                     'horizontal' => true,
                     'endingShape' => 'rounded',
-                    'borderRadius' => 4
+                    'borderRadius' => 4,
                 ];
                 break;
             case 'heatmap':
                 $this->chart['plotOptions']['heatmap'] = [
-                    'radius' => 4
+                    'radius' => 4,
                 ];
                 break;
             default:
@@ -260,6 +257,7 @@ class TrendMetric extends MetricValue
     public function asLineChart()
     {
         $this->setChartType('line');
+
         return $this;
     }
 
@@ -269,6 +267,7 @@ class TrendMetric extends MetricValue
     public function asAreaChart()
     {
         $this->setChartType('area');
+
         return $this;
     }
 
@@ -278,6 +277,7 @@ class TrendMetric extends MetricValue
     public function asColumnChart()
     {
         $this->setChartType('column');
+
         return $this;
     }
 
@@ -287,6 +287,7 @@ class TrendMetric extends MetricValue
     public function asBarChart()
     {
         $this->setChartType('bar');
+
         return $this;
     }
 
@@ -296,6 +297,7 @@ class TrendMetric extends MetricValue
     private function asBubbleChart() // NOT WORKING
     {
         $this->setChartType('bubble');
+
         return $this;
     }
 
@@ -305,6 +307,7 @@ class TrendMetric extends MetricValue
     public function asScatterChart()
     {
         $this->setChartType('scatter');
+
         return $this;
     }
 
@@ -314,6 +317,7 @@ class TrendMetric extends MetricValue
     public function asHeatmapChart()
     {
         $this->setChartType('heatmap');
+
         return $this;
     }
 
@@ -323,6 +327,7 @@ class TrendMetric extends MetricValue
     private function asTreemapChart() // NOT WORKING - WORKS WITH ONLY CURRENT DATA SET
     {
         $this->setChartType('treemap');
+
         return $this;
     }
 
@@ -719,7 +724,7 @@ class TrendMetric extends MetricValue
     /**
      * Return a result showing the segments of a aggregate.
      *
-     * @param \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|class-string<\Illuminate\Database\Eloquent\Model>  $model
+     * @param  \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|class-string<\Illuminate\Database\Eloquent\Model>  $model
      * @param  \Illuminate\Database\Query\Expression|string|null  $column
      * @param  \Illuminate\Database\Query\Expression|string|null  $dateColumn
      * @param  \Illuminate\Database\Query\Expression|string|null  $labelColumn
@@ -773,7 +778,7 @@ class TrendMetric extends MetricValue
     }
 
     /**
-     * @param string $by
+     * @param  string  $by
      * @return string|void
      */
     protected function getTrendExpression($column, $by, $query)
@@ -815,7 +820,7 @@ class TrendMetric extends MetricValue
             'value' => $this->value,
             'current' => $this->current,
             'previous' => $this->previous,
-            'labels' => $this->labels
+            'labels' => $this->labels,
         ]);
 
         return view('eden::metrics.trend')->with([
@@ -825,8 +830,7 @@ class TrendMetric extends MetricValue
             'chart' => $this->getChartOptions(),
             'value' => $this->value,
             'valueLabel' => $valueLabel,
-            'showLatest' => $this->showLatest
+            'showLatest' => $this->showLatest,
         ]);
     }
-
 }

@@ -12,13 +12,14 @@ class ViewMetric extends MetricValue
     protected $view = null;
 
     /**
-     * @param View $view
+     * @param  View  $view
      * @return $this
      */
     public function withView($view = null)
     {
         $view = appCall($view);
         $this->view = ($view instanceof View) ? $view : view($view);
+
         return $this;
     }
 
@@ -29,5 +30,4 @@ class ViewMetric extends MetricValue
     {
         return $this->view;
     }
-
 }

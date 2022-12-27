@@ -4,19 +4,20 @@ namespace BestSnipp\Eden\Traits;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Pluralizer;
-use Illuminate\View\View;
 
 trait StubPublisher
 {
     /**
      * Filesystem instance
+     *
      * @var Filesystem
      */
     protected $files;
 
     /**
      * Create a new command instance.
-     * @param Filesystem $files
+     *
+     * @param  Filesystem  $files
      */
     public function __construct(Filesystem $files)
     {
@@ -44,8 +45,9 @@ trait StubPublisher
 
         $contents = $this->getSourceFile();
 
-        if (!$this->files->exists($path)) {
+        if (! $this->files->exists($path)) {
             $this->files->put($path, $contents);
+
             return true;
         }
 
@@ -61,12 +63,13 @@ trait StubPublisher
     {
         return array_merge([
             'namespace' => $this->namespace ?? 'App\\Eden',
-            'class'     => $this->name,
+            'class' => $this->name,
         ], $this->variables());
     }
 
     /**
      * Return the Singular Capitalize Name
+     *
      * @param $name
      * @return string
      */
@@ -82,8 +85,9 @@ trait StubPublisher
      */
     protected function getStubPath()
     {
-        return __DIR__ . '/../stubs/' . $this->stubName;
+        return __DIR__.'/../stubs/'.$this->stubName;
     }
+
     /**
      * Get the stub path and the stub variables
      *
@@ -98,16 +102,15 @@ trait StubPublisher
      * Replace the stub variables(key) with the desire value
      *
      * @param $stub
-     * @param array $stubVariables
+     * @param  array  $stubVariables
      * @return bool|mixed|string
      */
-    protected function getStubContents($stub , $stubVariables = [])
+    protected function getStubContents($stub, $stubVariables = [])
     {
         $contents = file_get_contents($stub);
 
-        foreach ($stubVariables as $search => $replace)
-        {
-            $contents = str_replace('{{ '.$search.' }}' , $replace, $contents);
+        foreach ($stubVariables as $search => $replace) {
+            $contents = str_replace('{{ '.$search.' }}', $replace, $contents);
         }
 
         return $contents;
@@ -120,7 +123,7 @@ trait StubPublisher
      */
     protected function getSourceFilePath()
     {
-        return app_path($this->targetDir) .'/' . $this->name . '.php';
+        return app_path($this->targetDir).'/'.$this->name.'.php';
     }
 
     /**
@@ -137,5 +140,4 @@ trait StubPublisher
 
         return $path;
     }
-
 }

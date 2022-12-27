@@ -4,7 +4,6 @@ namespace BestSnipp\Eden\Components\Fields;
 
 class Heading extends Field
 {
-
     public $visibilityOnIndex = false;
 
     protected $textColor = 'text-slate-500 dark:text-slate-200';
@@ -20,6 +19,7 @@ class Heading extends Field
     public function background($bgColor)
     {
         $this->background = appCall($bgColor);
+
         return $this;
     }
 
@@ -32,6 +32,7 @@ class Heading extends Field
     public function textColor($textColor)
     {
         $this->textColor = appCall($textColor);
+
         return $this;
     }
 
@@ -40,7 +41,7 @@ class Heading extends Field
         return view('eden::fields.input.heading')
             ->with([
                 'textColor' => $this->textColor,
-                'bgColor' => $this->background
+                'bgColor' => $this->background,
             ]);
     }
 
@@ -51,8 +52,7 @@ class Heading extends Field
         return view('eden::fields.view.heading')
         ->with([
             'textColor' => $this->textColor,
-            'bgColor' => $this->background
+            'bgColor' => $this->background,
         ]);
     }
-
 }

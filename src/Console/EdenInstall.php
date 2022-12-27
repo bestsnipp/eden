@@ -2,7 +2,6 @@
 
 namespace BestSnipp\Eden\Console;
 
-use BestSnipp\Eden\Traits\StubPublisher;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
@@ -39,6 +38,7 @@ class EdenInstall extends Command
                 'Yes');
             if (strtolower($userConsent) == 'no') {
                 $this->error('Eden required Laravel Jetstream for Authentication');
+
                 return 1;
             }
 
@@ -60,6 +60,7 @@ class EdenInstall extends Command
 
         $this->warn('Success ...');
         $this->output->newLine();
+
         return 0;
     }
 
@@ -78,14 +79,13 @@ class EdenInstall extends Command
         $dashboardPage = file_get_contents($filePath);
         $eol = $this->getEOL($dashboardPage);
 
-        if (!Str::contains($dashboardPage, "\\BestSnipp\\Eden\\Cards\\EdenIntro::make()")) {
+        if (! Str::contains($dashboardPage, '\\BestSnipp\\Eden\\Cards\\EdenIntro::make()')) {
             file_put_contents($filePath, str_replace(
                 "return [$eol",
                 "return [$eol            \\BestSnipp\\Eden\\Cards\\EdenIntro::make()",
                 $dashboardPage
             ));
         }
-
     }
 
     /**
@@ -127,6 +127,7 @@ class EdenInstall extends Command
         ];
 
         $eol = array_keys($lineEndingCount, max($lineEndingCount))[0];
+
         return $eol;
     }
 }

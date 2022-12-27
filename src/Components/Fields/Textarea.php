@@ -12,23 +12,25 @@ class Textarea extends Field
     {
         $this->meta = array_merge($this->meta, [
             'rows' => 2,
-            'cols' => 30
+            'cols' => 30,
         ]);
     }
 
     public function rows($row)
     {
         $this->meta = array_merge($this->meta, [
-            'rows' => $row
+            'rows' => $row,
         ]);
+
         return $this;
     }
 
     public function cols($cols)
     {
         $this->meta = array_merge($this->meta, [
-            'cols' => $cols
+            'cols' => $cols,
         ]);
+
         return $this;
     }
 
@@ -44,7 +46,7 @@ class Textarea extends Field
         return view('eden::fields.row.textarea')
             ->with([
                 'preview' => Str::limit(strip_tags($this->value), 37),
-                'hasExtra' => Str::length(strip_tags($this->value)) > 100
+                'hasExtra' => Str::length(strip_tags($this->value)) > 100,
             ]);
     }
 
@@ -55,8 +57,7 @@ class Textarea extends Field
         return view('eden::fields.view.textarea')
             ->with([
                 'preview' => Str::limit(strip_tags($this->value), $this->previewCharLimit),
-                'hasExtra' => Str::length(strip_tags($this->value)) > $this->previewCharLimit
+                'hasExtra' => Str::length(strip_tags($this->value)) > $this->previewCharLimit,
             ]);
     }
-
 }

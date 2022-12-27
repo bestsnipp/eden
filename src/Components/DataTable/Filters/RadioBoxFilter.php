@@ -2,11 +2,10 @@
 
 namespace BestSnipp\Eden\Components\DataTable\Filters;
 
-
 class RadioBoxFilter extends SelectFilter
 {
-
-    public function apply($query, $value) {
+    public function apply($query, $value)
+    {
         return $query->where($this->key, $this->value);
     }
 

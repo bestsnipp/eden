@@ -36,7 +36,7 @@ class MakeSplitMetric extends Command
         $this->call('eden:card', ['name' => $name, '--type' => 'SplitMetric']);
 
         $this->output->newLine();
+
         return 0;
     }
-
 }

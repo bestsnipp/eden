@@ -4,7 +4,6 @@ namespace BestSnipp\Eden\Components\Fields;
 
 class Color extends Field
 {
-
     protected $value = '#666666';
 
     public function view()
@@ -25,5 +24,4 @@ class Color extends Field
 
         return view('eden::fields.view.color');
     }
-
 }

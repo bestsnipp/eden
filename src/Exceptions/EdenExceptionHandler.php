@@ -10,7 +10,6 @@ use Throwable;
 
 class EdenExceptionHandler extends CoreExceptionHandler
 {
-
     /**
      * Render an exception into an HTTP response.
      *
@@ -22,7 +21,7 @@ class EdenExceptionHandler extends CoreExceptionHandler
      */
     public function render($request, Throwable $e)
     {
-        if ( $isEden = in_array('eden', ($request->route()->computedMiddleware ?? [])) ) {
+        if ($isEden = in_array('eden', ($request->route()->computedMiddleware ?? []))) {
             $statusCode = 500;
 
             if ($e instanceof HttpExceptionInterface) {
@@ -44,5 +43,4 @@ class EdenExceptionHandler extends CoreExceptionHandler
 
         return parent::render($request, $e);
     }
-
 }

@@ -47,6 +47,7 @@ class MakeDataTable extends Command
         }
 
         $this->output->newLine();
+
         return 0;
     }
 
@@ -63,7 +64,7 @@ class MakeDataTable extends Command
 
         return [
             'slug' => Str::plural($resourceName),
-            'title' => Str::singular($resourceName)
+            'title' => Str::singular($resourceName),
         ];
     }
 }

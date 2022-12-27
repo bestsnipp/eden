@@ -3,7 +3,6 @@
 namespace BestSnipp\Eden\Components\Fields;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
 use Livewire\TemporaryUploadedFile;
 
 class File extends Field
@@ -20,7 +19,7 @@ class File extends Field
 
     protected $meta = [
         'type' => 'file',
-        'class' => 'opacity-0 absolute hidden'
+        'class' => 'opacity-0 absolute hidden',
     ];
 
     public function onMount()
@@ -29,12 +28,12 @@ class File extends Field
     }
 
     /**
-     * @param bool|boolean|\Closure $should
+     * @param  bool|bool|\Closure  $should
      * @return $this
      */
     public function disableDownload($should = true)
     {
-        $this->downloadEnabled = !appCall($should);
+        $this->downloadEnabled = ! appCall($should);
 
         return $this;
     }
@@ -46,20 +45,21 @@ class File extends Field
      */
     protected function getTemporaryUploadFile($path)
     {
-        if (!is_null($path)) {
+        if (! is_null($path)) {
             if (is_array($path)) {
                 return collect($path)->map(function ($i) {
                     return ($i instanceof TemporaryUploadedFile) ? $i : TemporaryUploadedFile::createFromLivewire($i);
                 })->all();
             }
+
             return ($path instanceof TemporaryUploadedFile) ? $path : TemporaryUploadedFile::createFromLivewire($path);
         }
+
         return null;
     }
 
     protected function processSingleFile($value)
     {
-
         $value = empty($value) ? $value : $this->getTemporaryUploadFile($value);
 
         try {
@@ -67,8 +67,10 @@ class File extends Field
                 if ($this->publicly) {
                     return basename($value->storePublicly($this->path, $this->storage));
                 }
+
                 return basename($value->store($this->path, $this->storage));
             }
+
             return $value;
         } catch (\Exception $exception) {
             return $value;
@@ -92,20 +94,22 @@ class File extends Field
     }
 
     /**
-     * @param \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed|string $storage
+     * @param  \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed|string  $storage
      */
     public function disk($storage)
     {
         $this->storage = $storage;
+
         return $this;
     }
 
     /**
-     * @param string $path
+     * @param  string  $path
      */
     public function onFolder(string $path)
     {
         $this->path = $path;
+
         return $this;
     }
 
@@ -113,6 +117,7 @@ class File extends Field
     {
         $this->path = '';
         $this->publicly = false;
+
         return $this;
     }
 
@@ -125,14 +130,15 @@ class File extends Field
     {
         $this->value = [];
         $this->meta = array_merge($this->meta, [
-            'multiple' => 'multiple'
+            'multiple' => 'multiple',
         ]);
+
         return $this;
     }
 
     protected function prepareDisplayValues()
     {
-        if (!$this->isMultiple() && $this->value instanceof TemporaryUploadedFile) {
+        if (! $this->isMultiple() && $this->value instanceof TemporaryUploadedFile) {
             $this->displayValues = $this->value->getClientOriginalName();
         } else {
             $this->displayValues = $this->value;
@@ -142,10 +148,10 @@ class File extends Field
     protected function prepareFilePreviews()
     {
         return collect(Arr::wrap($this->value))->transform(function ($path) {
-           return [
-               'name' => basename($path),
-               'url' => asset('storage/' . $path)
-           ];
+            return [
+                'name' => basename($path),
+                'url' => asset('storage/'.$path),
+            ];
         })->all();
     }
 
@@ -155,7 +161,7 @@ class File extends Field
 
         return view('eden::fields.input.file')
             ->with([
-                'displayValues' => $this->displayValues
+                'displayValues' => $this->displayValues,
             ]);
     }
 
@@ -172,8 +178,7 @@ class File extends Field
         parent::viewForRead();
 
         return view('eden::fields.view.file')->with([
-            'downloadEnabled' => $this->downloadEnabled
+            'downloadEnabled' => $this->downloadEnabled,
         ]);
     }
-
 }

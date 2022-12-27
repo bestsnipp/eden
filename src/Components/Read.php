@@ -1,34 +1,14 @@
 <?php
+
 namespace BestSnipp\Eden\Components;
 
 use App\Models\User;
 use BestSnipp\Eden\Components\DataTable\Column\ActionField;
 use BestSnipp\Eden\Components\Fields\Field;
-use BestSnipp\Eden\Components\Fields\File;
-use BestSnipp\Eden\Eden;
-use BestSnipp\Eden\RenderProviders\DataTableRenderer;
 use BestSnipp\Eden\RenderProviders\FormRenderer;
-use BestSnipp\Eden\Traits\HasActions;
-use BestSnipp\Eden\Traits\HasModel;
-use BestSnipp\Eden\Traits\HasOwner;
-use BestSnipp\Eden\Traits\HasToast;
 use BestSnipp\Eden\Traits\InteractsWithAction;
-use BestSnipp\Eden\Traits\InteractsWithModal;
-use BestSnipp\Eden\Traits\MakeableComponent;
-use BestSnipp\Eden\Traits\RouteAware;
-use BestSnipp\Eden\Traits\UseCallable;
 use BestSnipp\Eden\Traits\WithModel;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Validation\Rules\RequiredIf;
 use Livewire\Component;
-use Livewire\TemporaryUploadedFile;
-use Livewire\WithFileUploads;
 
 abstract class Read extends EdenComponent
 {
@@ -58,7 +38,8 @@ abstract class Read extends EdenComponent
      */
     abstract protected function fields();
 
-    protected function actions() {
+    protected function actions()
+    {
         return [];
     }
 
@@ -107,6 +88,7 @@ abstract class Read extends EdenComponent
     {
         $this->allFields = collect($this->fields())->transform(function (Field $field) {
             $field->default($this->getRecordValue($field->getKey(), $field->getValue()));
+
             return $field;
         })->all();
     }
@@ -115,7 +97,7 @@ abstract class Read extends EdenComponent
     {
         $this->actions = collect($this->actions())
             ->reject(function ($action) {
-                return !$action->visibilityOnDetails;
+                return ! $action->visibilityOnDetails;
             })
             ->transform(function ($action) {
                 return $action->setOwner($this);
@@ -124,8 +106,8 @@ abstract class Read extends EdenComponent
     }
 
     /**
-     * @param string $class
-     * @param array $params
+     * @param  string  $class
+     * @param  array  $params
      * @return FormRenderer
      */
     protected static function renderer($class, $params)
@@ -135,15 +117,16 @@ abstract class Read extends EdenComponent
 
     public function defaultViewParams()
     {
-        $actionColumn = ActionField::make("Actions")
+        $actionColumn = ActionField::make('Actions')
             ->withActions($this->actions)
             ->withRecord($this->record);
+
         return [
             'fields' => $this->allFields,
             'actions' => $this->actions,
             'record' => $this->record,
             'operations' => $this->operations(),
-            'actionButtons' => $actionColumn
+            'actionButtons' => $actionColumn,
         ];
     }
 
@@ -159,5 +142,4 @@ abstract class Read extends EdenComponent
             ->with('row', $this->data)
             ->with(['buttonStyle' => 'bg-white hover:bg-slate-10 transition w-auto border border-slate-200 text-slate-500 rounded-md py-2 px-3 text-sm inline-block']);
     }
-
 }

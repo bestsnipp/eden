@@ -47,6 +47,7 @@ class MakeAction extends Command
         }
 
         $this->output->newLine();
+
         return 0;
     }
 
@@ -62,7 +63,7 @@ class MakeAction extends Command
         $resourceName = Str::replaceLast('-action', '', Str::slug(Str::snake(class_basename($this->name))));
 
         return [
-            'title' => Str::ucfirst($resourceName)
+            'title' => Str::ucfirst($resourceName),
         ];
     }
 }

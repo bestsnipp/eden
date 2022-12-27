@@ -47,6 +47,7 @@ class MakeEdenPage extends Command
         }
 
         $this->output->newLine();
+
         return 0;
     }
 
@@ -63,7 +64,7 @@ class MakeEdenPage extends Command
 
         return [
             'slug' => Str::singular($resourceName),
-            'title' => Str::ucfirst(Str::singular($resourceName))
+            'title' => Str::ucfirst(Str::singular($resourceName)),
         ];
     }
 }

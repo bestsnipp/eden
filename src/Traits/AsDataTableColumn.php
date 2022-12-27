@@ -2,17 +2,10 @@
 
 namespace BestSnipp\Eden\Traits;
 
-use BestSnipp\Eden\Traits\HasTitleKey;
-use BestSnipp\Eden\Traits\Makeable;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
-use Livewire\Wireable;
 
 trait AsDataTableColumn
 {
-
     protected $as = '';
 
     protected $sortable = true;
@@ -32,41 +25,45 @@ trait AsDataTableColumn
 
     protected $displayCallback = null;
 
-    public final function sortable($should = true)
+    final public function sortable($should = true)
     {
         $this->sortable = appCall($should);
+
         return $this;
     }
 
-    public final function textAlign($textAlign = 'left')
+    final public function textAlign($textAlign = 'left')
     {
         $this->textAlign = in_array($textAlign, ['left', 'right', 'center']) ? $textAlign : $this->textAlign;
+
         return $this;
     }
 
-    public final function searchable($should = true)
+    final public function searchable($should = true)
     {
-        $this->searchable = appCall($should);;
+        $this->searchable = appCall($should);
+
         return $this;
     }
 
-    public final function isSearchable()
+    final public function isSearchable()
     {
         return $this->searchable;
     }
 
-    public final function orderBy($order = '')
+    final public function orderBy($order = '')
     {
         $this->order = $order;
+
         return $this;
     }
 
-    public final function getOrderBy()
+    final public function getOrderBy()
     {
         return $this->order;
     }
 
-    public final function isSortable()
+    final public function isSortable()
     {
         return $this->sortable;
     }
@@ -82,6 +79,7 @@ trait AsDataTableColumn
     public function record($record)
     {
         $this->record = $record;
+
         return $this;
     }
 
@@ -99,11 +97,12 @@ trait AsDataTableColumn
     }
 
     /**
-     * @param mixed $displayCallback
+     * @param  mixed  $displayCallback
      */
     public function displayUsing($displayCallback)
     {
         $this->displayCallback = $displayCallback;
+
         return $this;
     }
 
@@ -116,9 +115,9 @@ trait AsDataTableColumn
     {
         $this->value = is_null($this->displayCallback) ? $this->value : appCall($this->displayCallback, [
             'value' => $this->value,
-            'field' => $this
+            'field' => $this,
         ]);
+
         return view('eden::fields.row.text');
     }
-
 }

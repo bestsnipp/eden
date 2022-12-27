@@ -2,9 +2,6 @@
 
 namespace BestSnipp\Eden\Listeners;
 
-
-use BestSnipp\Eden\Providers\EdenCoreServiceProvider;
-
 class PrepareEden
 {
     /**

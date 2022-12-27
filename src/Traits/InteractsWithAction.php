@@ -1,12 +1,12 @@
 <?php
 
 namespace BestSnipp\Eden\Traits;
+
 use BestSnipp\Eden\Components\DataTable\Actions\Action;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 trait InteractsWithAction
 {
-
     public function applyAction($actionID, $recordID = null, $isBulkAction = false)
     {
         $recordIDs = collect($recordID)->transform(function ($value) {
@@ -33,5 +33,4 @@ trait InteractsWithAction
             $action->handle();
         }
     }
-
 }

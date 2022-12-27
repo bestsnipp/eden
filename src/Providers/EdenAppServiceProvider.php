@@ -3,13 +3,11 @@
 namespace BestSnipp\Eden\Providers;
 
 use BestSnipp\Eden\Facades\Eden;
-use BestSnipp\Eden\HeaderActions\AccountAction;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class EdenAppServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap any application services.
      *
@@ -96,7 +94,5 @@ class EdenAppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
-
 }

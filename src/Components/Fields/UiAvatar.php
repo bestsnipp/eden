@@ -2,8 +2,6 @@
 
 namespace BestSnipp\Eden\Components\Fields;
 
-use Illuminate\Support\Str;
-
 /**
  * @method static static make(mixed $name = 'Avatar', string $key = 'name')
  */
@@ -80,10 +78,9 @@ class UiAvatar extends Text
             ->with('avatarStyle', [
                 'circle' => 'rounded-full',
                 'rounded' => 'rounded-lg',
-                'square' => ''
+                'square' => '',
             ][$this->avatarStyle]);
     }
-
 
     public function viewForRead()
     {
@@ -95,16 +92,16 @@ class UiAvatar extends Text
             ->with('avatarStyle', [
                 'circle' => 'rounded-full',
                 'rounded' => 'rounded-lg',
-                'square' => ''
+                'square' => '',
             ][$this->avatarStyle]);
     }
 
     protected function generateUiAvatarUrl()
     {
-        return 'https://ui-avatars.com/api/?' . http_build_query([
+        return 'https://ui-avatars.com/api/?'.http_build_query([
             'name' => $this->value,
             'size' => $this->size,
-            ...$this->settings
+            ...$this->settings,
         ]);
     }
 }

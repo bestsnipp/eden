@@ -2,7 +2,6 @@
 
 namespace BestSnipp\Eden\Assembled;
 
-
 class ResourceEditForm extends ResourceCreateForm
 {
     public function boot()
@@ -13,10 +12,10 @@ class ResourceEditForm extends ResourceCreateForm
     protected function fields()
     {
         return collect($this->getResourceData(function ($resource) {
-                return $resource->getFields();
-            }, []))
+            return $resource->getFields();
+        }, []))
             ->reject(function ($field) {
-                return !$field->visibilityOnUpdate;
+                return ! $field->visibilityOnUpdate;
             })
             ->all();
     }
@@ -25,5 +24,4 @@ class ResourceEditForm extends ResourceCreateForm
     {
         return $this->edenResourceObject->getViewForEdit() ?? parent::view();
     }
-
 }

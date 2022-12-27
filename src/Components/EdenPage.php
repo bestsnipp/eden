@@ -30,7 +30,7 @@ abstract class EdenPage
     private function generateInitialSlug()
     {
         if (empty($this->slug)) {
-            $namespace = app()->getNamespace() . config('eden.base', 'Eden') . '\Resources\\';
+            $namespace = app()->getNamespace().config('eden.base', 'Eden').'\Resources\\';
             $classPath = get_called_class();
             $this->slug = Str::slug(Str::snake(Str::replace($namespace, '', $classPath)));
         }
@@ -44,6 +44,7 @@ abstract class EdenPage
     public function labelSingular()
     {
         $title = empty($this->title) ? class_basename(get_called_class()) : $this->title;
+
         return Str::singular(Str::title(Str::snake($title, ' ')));
     }
 
@@ -55,6 +56,7 @@ abstract class EdenPage
     public function labelPlural()
     {
         $title = empty($this->title) ? class_basename(get_called_class()) : $this->title;
+
         return Str::plural(Str::title(Str::snake($title, ' ')));
     }
 
@@ -100,14 +102,14 @@ abstract class EdenPage
             'title' => $isPlural ? $this->labelPlural() : $this->labelSingular(),
             'slug' => $this->slug,
             'components' => collect($this->components())->all(),
-            'transparent' => $this->isTransparent
+            'transparent' => $this->isTransparent,
         ];
     }
 
     /**
      * Generate Generic View for EdenPage
      *
-     * @param string $title
+     * @param  string  $title
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     final public function prepareView($isPlural = false)
@@ -115,5 +117,4 @@ abstract class EdenPage
         return view('eden::eden')
             ->with($this->viewParams($isPlural));
     }
-
 }
