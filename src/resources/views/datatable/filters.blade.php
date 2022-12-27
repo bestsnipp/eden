@@ -5,7 +5,7 @@
         <div -class="absolute inset-0 overflow-hidden">
             <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
                 <div class="pointer-events-auto relative w-screen max-w-sm">
-                    <div class="flex h-full flex-col overflow-y-auto bg-white dark:bg-slate-600 pt-6 shadow-xl" x-data x-eden-nice-scroll>
+                    <div class="flex h-full flex-col overflow-y-auto bg-white dark:bg-slate-600 pt-6 shadow-xl">
                         <div class="px-4 sm:px-6 flex justify-between items-center">
                             <h2 class="text-xl text-slate-500 dark:text-slate-300">Filters</h2>
 
