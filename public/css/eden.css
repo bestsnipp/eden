@@ -1508,6 +1508,14 @@ trix-toolbar .trix-button--dialog {
   width: 5rem;
 }
 
+.w-16 {
+  width: 4rem;
+}
+
+.w-24 {
+  width: 6rem;
+}
+
 .max-w-full {
   max-width: 100%;
 }

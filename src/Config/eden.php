@@ -61,7 +61,7 @@ return [
     /**
      * DataTable Action Button Styles
      */
-    'button_style_table' => 'inline-flex items-center gap-2 rounded-md px-1 text-slate-700 tracking-wide focus:outline-none focus:border-slate-900 focus:ring focus:ring-slate-300 disabled:opacity-25 transition dark:text-slate-300',
+    'button_style_table' => 'inline-flex items-center gap-2 rounded-md px-1 text-slate-500 tracking-wide focus:outline-none focus:border-slate-900 focus:ring focus:ring-slate-300 disabled:opacity-25 transition dark:text-slate-300',
 
     /**
      * Eden MiddleWare Group

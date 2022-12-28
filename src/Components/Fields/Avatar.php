@@ -27,4 +27,12 @@ class Avatar extends Image
         return $this;
     }
 
+    public function viewForRead()
+    {
+        $this->value = $this->prepareFilePreviews();
+        parent::viewForRead();
+
+        return view('eden::fields.view.avatar')
+            ->with('isMultiple', $this->isMultiple());
+    }
 }
