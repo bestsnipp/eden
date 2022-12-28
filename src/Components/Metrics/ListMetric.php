@@ -98,6 +98,8 @@ class ListMetric extends MetricValue
         return view('eden::metrics.list')->with([
             'items' => ($this->maxItems == -1) ? $formattedItems->all() : $formattedItems->take($this->maxItems),
             'singleLine' => $this->singleLine,
-        ]);
+        ])
+        ->with('iconSize', 'scale-95')
+        ->with('buttonStyle', config('eden.button_style_table'));
     }
 }

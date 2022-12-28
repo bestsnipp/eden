@@ -202,8 +202,9 @@ class StaticAction extends Action
     /**
      * @return \Illuminate\Contracts\View\View
      */
-    public function view($type, $action, $record, $buttonStyle, $iconSize)
+    public function view($type, $record, $buttonStyle, $iconSize)
     {
-        return view('eden::actions.static', compact('type', 'action', 'record', 'buttonStyle', 'iconSize'));
+        return view('eden::actions.static', compact('type', 'record', 'buttonStyle', 'iconSize'))
+            ->with('action', $this);
     }
 }
