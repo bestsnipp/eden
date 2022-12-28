@@ -6,7 +6,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Livewire\TemporaryUploadedFile;
 
-
 class Boolean extends Field
 {
     protected $value = '';
