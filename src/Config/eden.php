@@ -33,6 +33,12 @@ return [
     'color' => null,
 
     /**
+     * is Single Page Application (SPA) ? or Multi Page Application
+     *
+     */
+    'spa' => true,
+
+    /**
      * Toast Message Positions
      * top-right | top-left | bottom-right | bottom-left | top-center | bottom-center | center-center
      */

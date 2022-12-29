@@ -62,6 +62,25 @@
     {!! \BestSnipp\Eden\Facades\EdenAssets::generateBrandColors() !!}
 
     @stack('css')
+
+    @livewireScripts
+    @if(config('eden.spa'))
+        <script type="module">
+            import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+        </script>
+        <script data-turbolinks-eval="false" data-turbo-eval="false" defer
+                src="https://cdn.jsdelivr.net/gh/livewire/turbolinks@v0.1.x/dist/livewire-turbolinks.js"></script>
+    @endif
+
+    <!-- Assets - Scripts -->
+    @foreach(\BestSnipp\Eden\Facades\EdenAssets::scripts() as $script)
+        <script defer data-key="{{ $script['key'] }}" src="{{ $script['url'] }}" {!! \Illuminate\Support\Arr::toHtmlAttribute($script['attributes']) !!}></script>
+    @endforeach
+
+    <script src="{{ mix('/js/eden.js', 'vendor/eden') }}" defer></script>
+    @vite('resources/js/app.js')
+
+    @stack('js')
 </head>
 <body class="font-sans antialiased" x-data x-eden-nice-scroll>
 
@@ -109,68 +128,6 @@
     @livewire($component->component, $component->params)
 @endforeach
 
-@stack('js')
-
-@livewireScripts
-
-<!-- Assets - Scripts -->
-@foreach(\BestSnipp\Eden\Facades\EdenAssets::scripts() as $script)
-<script data-key="{{ $script['key'] }}" src="{{ $script['url'] }}" {!! \Illuminate\Support\Arr::toHtmlAttribute($script['attributes']) !!}></script>
-@endforeach
-
 @include('eden::widgets.toasts')
-
-<script src="{{ mix('/js/eden.js', 'vendor/eden') }}"></script>
-@vite('resources/js/app.js')
-
-<script>
-    /*document.addEventListener("DOMContentLoaded", () => {
-        Livewire.hook('component.initialized', (component) => {
-            // console.log("component.initialized")
-            // console.log(component)
-            // console.log('==========================================')
-        })
-        Livewire.hook('element.initialized', (el, component) => {
-            // console.log("element.initialized")
-            // console.log(el, component)
-            // console.log('==========================================')
-        })
-        Livewire.hook('element.updating', (fromEl, toEl, component) => {
-            // console.log("element.updating")
-            // console.log(fromEl, toEl, component)
-            // console.log('==========================================')
-        })
-        Livewire.hook('element.updated', (el, component) => {
-            // console.log("element.updated")
-            // console.log(el, component)
-            // console.log('==========================================')
-        })
-        Livewire.hook('element.removed', (el, component) => {
-            // console.log("element.removed")
-            // console.log(el, component)
-            // console.log('==========================================')
-        })
-        Livewire.hook('message.sent', (message, component) => {
-            // console.log("message.sent")
-            // console.log(message, component)
-            // console.log('==========================================')
-        })
-        Livewire.hook('message.failed', (message, component) => {
-            // console.log("message.failed")
-            // console.log(message, component)
-            // console.log('==========================================')
-        })
-        Livewire.hook('message.received', (message, component) => {
-            // console.log("message.received")
-            // console.log(message, component)
-            // console.log('==========================================')
-        })
-        Livewire.hook('message.processed', (message, component) => {
-            // console.log("message.processed")
-            // console.log(message, component)
-            // console.log('==========================================')
-        })
-    });*/
-</script>
 </body>
 </html>

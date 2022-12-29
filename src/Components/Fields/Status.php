@@ -83,9 +83,9 @@ class Status extends Field
     protected function getStyle($type = 'success')
     {
         return [
-            'failed' => 'bg-red-100 text-red-600',
+            'failed' => 'bg-red-50 text-red-600',
             'loading' => 'bg-slate-100',
-            'success' => 'bg-green-100 text-green-600',
+            'success' => 'bg-green-50 text-green-600',
         ][$type];
     }
 
