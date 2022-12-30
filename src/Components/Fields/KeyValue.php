@@ -25,7 +25,8 @@ class KeyValue extends Field
         $this->meta = array_merge($this->meta, [
             'class' => 'w-full h-full border-0 focus:border-0 focus:ring-0 bg-white dark:bg-slate-500',
             'rows' => 1,
-            'resize' => 'false'
+            'resize' => 'false',
+            'required' => 'required'
         ]);
     }
 

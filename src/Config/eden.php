@@ -36,7 +36,7 @@ return [
      * is Single Page Application (SPA) ? or Multi Page Application
      *
      */
-    'spa' => true,
+    'spa' => false,
 
     /**
      * Toast Message Positions
