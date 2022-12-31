@@ -3,6 +3,7 @@
 namespace BestSnipp\Eden\Console;
 
 use App\Models\Car;
+use App\Models\Phone;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Auth;
@@ -33,21 +34,46 @@ class DeveloperCommand extends Command
     {
         $this->alert('Running Developer Command');
 
-        Auth::login(User::latest()->first());
-        $user = auth()->user();
-        $car = Car::latest()->first();
+        $model = Phone::class;
+        $record = app($model);
 
-        dd(Gate::has('accessEden'));
+//        $model = User::class;
+//        $record = app($model);
 
-        dd(Gate::getPolicyFor(Car::class), Gate::getPolicyFor($car));
-        $isAllowed = Gate::inspect('view', $car);
-        dd($user->can('view', $car));
+        //$allRecords = $record->phone()->getRelated()->all();
 
-        if ($isAllowed->allowed()) {
-            dd('ALLOWED ...');
-        } else {
-            dd($isAllowed->message());
-        }
+        dd(
+            //$record->phone()->newRelatedInstanceFor($record)->toSql()
+            //$record->phone()->getEager()
+            //$record->phone()->getQuery()->toSql()
+
+            //$record->phone()->getRelated()->all()
+            //$record->user()->getRelated()->all()
+
+            $record->users()->getForeignKeyName(),
+            $record->users()->getOwnerKeyName(),
+
+//            $record->phone()->getForeignKeyName(),
+//            $record->phone()->getLocalKeyName(),
+
+        );
+
+        // Work With Authorization
+//        Auth::login(User::latest()->first());
+//        $user = auth()->user();
+//        $car = Car::latest()->first();
+//
+//        dd(Gate::has('accessEden'));
+//
+//        dd(Gate::getPolicyFor(Car::class), Gate::getPolicyFor($car));
+//        $isAllowed = Gate::inspect('view', $car);
+//        dd($user->can('view', $car));
+//
+//        if ($isAllowed->allowed()) {
+//            dd('ALLOWED ...');
+//        } else {
+//            dd($isAllowed->message());
+//        }
 
         $this->info('==> DONE');
 
