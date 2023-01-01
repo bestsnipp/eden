@@ -382,7 +382,8 @@ abstract class DataTable extends EdenComponent
                 return ! $action->visibilityOnIndex;
             })
             ->transform(function ($action) {
-                return $action->setOwner($this);
+                return $action->setOwner($this)
+                    ->setResource($this->resource);
             })
             ->all();
     }
@@ -410,7 +411,9 @@ abstract class DataTable extends EdenComponent
     protected function prepareModelQuery()
     {
         if ($this->model() instanceof Relation) {
-            return $this->model()->getQuery();
+            //dd($this->model()->simplePaginate(5));
+            return $this->model();
+            //return $this->model()->getQuery();
         }
 
         try {
@@ -477,14 +480,17 @@ abstract class DataTable extends EdenComponent
     {
         $queryToPaginate = $this->query($this->prepareData());
 
-        if (! ($queryToPaginate instanceof \Illuminate\Database\Query\Builder || $queryToPaginate instanceof \Illuminate\Database\Eloquent\Builder)) {
+        if (! (
+            $queryToPaginate instanceof \Illuminate\Database\Query\Builder ||
+            $queryToPaginate instanceof \Illuminate\Database\Eloquent\Builder ||
+            $queryToPaginate instanceof Relation)) {
             return $queryToPaginate;
         }
 
         if (strtolower($this->paginationType) == 'simple') {
-            return $queryToPaginate->simplePaginate($this->rowsPerPage);
+            return $queryToPaginate->simplePaginate($this->rowsPerPage, ['*'], $this->paginationName);
         } elseif (strtolower($this->paginationType) == 'cursor') {
-            return $queryToPaginate->cursorPaginate($this->rowsPerPage);
+            return $queryToPaginate->cursorPaginate($this->rowsPerPage, ['*'], $this->paginationName);
         }
 
         return $queryToPaginate

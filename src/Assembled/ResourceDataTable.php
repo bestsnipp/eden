@@ -10,6 +10,12 @@ final class ResourceDataTable extends DataTable
 {
     use HasEdenResource;
 
+    public $viaRelation = false;
+
+    public $relation = null;
+
+    public $relationModel = null;
+
     protected function init()
     {
         $this->getResourceData(function ($edenResource) {
@@ -44,6 +50,13 @@ final class ResourceDataTable extends DataTable
     protected function mapResourceProperties($edenResource, $params = [])
     {
         self::$model = $edenResource::$model;
+
+        if ($this->viaRelation && !empty($this->relationModel) && !empty($this->relation)) {
+            self::$model = is_string($this->relationModel)
+                ? app($this->relationModel)->{$this->relation}()
+                : $this->relationModel->{$this->relation}();
+        }
+
         $this->title = $params['title'];
         $this->isTableLayout = $params['isTableLayout'];
         $this->showHeader = $params['showHeader'];

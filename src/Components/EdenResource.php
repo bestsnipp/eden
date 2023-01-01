@@ -333,23 +333,40 @@ abstract class EdenResource extends EdenPage
         $viewParams = $this->viewParams();
         $viewParams['components'] = array_merge(
             $this->cards(),
-            [ResourceRead::make(['edenResource' => get_called_class()])]
+            [ResourceRead::make(['edenResource' => get_called_class()])],
+            $this->prepareRelationFields()
         );
 
-//        $relationFields = collect($this->fields())
-//            ->filter(function ($item) {
-//                return $item instanceof BelongsToMany;
-//            })
-//            ->each(function ($item) use (&$viewParams) {
-//                $viewParams['components'][] = ResourceDataTable::make([
-//                    'title' => $item->title,
-//                    'viaRelation' => $this->model(),
-//                    'edenResource' => 'App\\Eden\\Resources\\' . Str::singular($item->title)
-//                ]);
-//            })
-//            ->all();
-
         return view('eden::eden')->with($viewParams);
+    }
+
+    protected function prepareRelationFields()
+    {
+        $components = [];
+
+        collect($this->fields())
+            ->filter(function ($item) {
+                return $item instanceof BelongsToMany;
+            })
+            ->each(function ($item) use (&$components) {
+                $edenResourceClass = $item->getResource();
+                $edenResource = app($edenResourceClass);
+
+                $permission = 'viewAny';
+
+                if (Eden::isActionAuthorized('viewAny', $edenResourceClass::$model)) {
+                    $components[] = ResourceDataTable::make([
+                        'title' => $item->title,
+                        'viaRelation' => true,
+                        'relation' => $item->getRelation(),
+                        'relationModel' => $this->record(),
+                        'resource' => $edenResource->getSlug(),
+                        'edenResource' => $edenResourceClass
+                    ]);
+                }
+            });
+
+        return $components;
     }
 
     protected function isAuthorizedToSee($ability, $modelOrClass)

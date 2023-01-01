@@ -134,9 +134,21 @@ abstract class Action
         return $this;
     }
 
+    /**
+     * Set action resource
+     *
+     * @param string $resource
+     * @return $this
+     */
+    public function setResource($resource)
+    {
+        $this->resource = $resource;
+        return $this;
+    }
+
     protected function assignResourceAndId()
     {
-        if (! is_null($this->owner)) {
+        if (! is_null($this->owner) && empty($this->resource)) {
             $this->resource = $this->owner->resource;
         }
 

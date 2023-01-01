@@ -100,7 +100,8 @@ abstract class Read extends EdenComponent
                 return ! $action->visibilityOnDetails;
             })
             ->transform(function ($action) {
-                return $action->setOwner($this);
+                return $action->setOwner($this)
+                    ->setResource($this->resource);
             })
             ->all();
     }
