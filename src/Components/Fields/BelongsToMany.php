@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 /**
  * @method static static make(mixed $name, string $method = null, string $model = null)
  */
-class BelongsTo extends Field
+class BelongsToMany extends Field
 {
     protected $filterable = true;
 
@@ -22,18 +22,29 @@ class BelongsTo extends Field
 
     protected $ownerKey = 'id';
 
-    protected function __construct($title, $relation = null, $model = null)
+    protected $value = [];
+
+    public $visibilityOnIndex = false;
+
+    public $visibilityOnDetails = false;
+
+    public $visibilityOnCreate = false;
+
+    public $visibilityOnUpdate = false;
+
+    protected function __construct($title, $relation = null, $resource = null)
     {
-        $this->prepareRelation($model);
+        $this->prepareRelation($resource);
 
         if (is_null($relation)) {
-            $relation = Str::camel($title);
+            $relation = Str::plural(Str::camel($title));
         }
 
         $this->relation = $relation;
+        $key = null;
         if (!is_null($this->model)) {
-            $key = $this->model->{$this->relation}()->getForeignKeyName();
-            $this->ownerKey =  $this->model->{$this->relation}()->getOwnerKeyName();
+            //$key = $this->model->{$this->relation}()->getForeignKeyName();
+            //$this->ownerKey =  $this->model->{$this->relation}()->getOwnerKeyName();
         }
 
         parent::__construct($title, $key);
@@ -56,7 +67,7 @@ class BelongsTo extends Field
                 $this->model = !empty($this->owner::$model) ? app($this->owner::$model) : null;
             }
         } else {
-            $this->model = app($model) ?? null;
+            $this->model = app($model::$model) ?? null;
         }
     }
 
@@ -70,7 +81,12 @@ class BelongsTo extends Field
 
         $this->options = collect($allRecordsQuery->get())
             ->filter()
-            ->pluck('name', $this->ownerKey)
+            ->pluck('title', $this->ownerKey)
+            ->all();
+
+        $this->value = collect($this->value)
+            ->filter()
+            ->pluck('title', $this->ownerKey)
             ->all();
     }
 
@@ -98,24 +114,23 @@ class BelongsTo extends Field
 
     public function view()
     {
+        return '';
+        $this->meta = array_merge($this->meta, [
+            'multiple' => 'multiple'
+        ]);
         $this->loadRelationData();
+
         return view('eden::fields.input.select')
                 ->with('searchFilterEnabled', $this->filterable);
     }
 
     public function viewForIndex()
     {
-        $this->loadRelationData();
-        parent::viewForIndex();
-
-        return view('eden::fields.row.select');
+        return '';
     }
 
     public function viewForRead()
     {
-        $this->loadRelationData();
-        parent::viewForRead();
-
-        return view('eden::fields.view.select');
+        return '';
     }
 }

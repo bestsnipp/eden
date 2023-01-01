@@ -34,11 +34,11 @@ class DeveloperCommand extends Command
     {
         $this->alert('Running Developer Command');
 
-        $model = Phone::class;
-        $record = app($model);
-
-//        $model = User::class;
+//        $model = Phone::class;
 //        $record = app($model);
+
+        $model = User::class;
+        $record = app($model);
 
         //$allRecords = $record->phone()->getRelated()->all();
 
@@ -50,11 +50,13 @@ class DeveloperCommand extends Command
             //$record->phone()->getRelated()->all()
             //$record->user()->getRelated()->all()
 
-            $record->users()->getForeignKeyName(),
-            $record->users()->getOwnerKeyName(),
+//            $record->users()->getForeignKeyName(),
+//            $record->users()->getOwnerKeyName(),
 
 //            $record->phone()->getForeignKeyName(),
 //            $record->phone()->getLocalKeyName(),
+
+            $record->posts()->getRelatedKeyName(),
 
         );
 

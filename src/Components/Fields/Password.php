@@ -6,6 +6,8 @@ class Password extends Field
 {
     public $visibilityOnIndex = false;
 
+    public $visibilityOnUpdate = false;
+
     protected $viewable = true;
 
     protected function onMount()

@@ -12,6 +12,7 @@ use BestSnipp\Eden\Facades\Eden;
 use BestSnipp\Eden\RenderProviders\DataTableRenderer;
 use BestSnipp\Eden\Traits\InteractsWithAction;
 use BestSnipp\Eden\Traits\WithModel;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -406,6 +407,21 @@ abstract class DataTable extends EdenComponent
         $this->selectedRows = [];
     }
 
+    protected function prepareModelQuery()
+    {
+        if ($this->model() instanceof Relation) {
+            return $this->model()->getQuery();
+        }
+
+        try {
+            $query = app($this->model())->newQuery()->select('*');
+        } catch (\Exception $exception) {
+            $query = DB::table($this->model())->select('*');
+        }
+
+        return $query;
+    }
+
     /**
      * Prepare query with search, sorting, filters
      *
@@ -417,26 +433,21 @@ abstract class DataTable extends EdenComponent
         // Process Column Fields for Proper Sorting
         $this->processFields();
 
-        // Create a Blank Query
-        try {
-            $query = app($this->model())->newQuery()->select('*');
-        } catch (\Exception $exception) {
-            $query = DB::table($this->model())->select('*');
-        }
+        $query = $this->prepareModelQuery();
 
         // Apply Field Specific Query and Sorting
         collect($this->allFields)->each(function ($field) use ($query) {
             $query = $field->apply($query);
 
             if (in_array($field->getOrderBy(), ['asc', 'desc'])) { // Sorting
-                $query->orderBy($field->getKey(), $field->getOrderBy());
+                $query = $query->orderBy($field->getKey(), $field->getOrderBy());
             }
         });
 
         // Apply Search
         if (! empty($this->searchQuery)) {
             collect($this->searchFields)->each(function ($searchField) use ($query) {
-                $query->orWhere($searchField, 'LIKE', "%$this->searchQuery%");
+                $query = $query->orWhere($searchField, 'LIKE', "%$this->searchQuery%");
             });
         }
 
@@ -446,7 +457,7 @@ abstract class DataTable extends EdenComponent
             ->through($this->allFilters)
             ->thenReturn();
 
-        $query->latest();
+        $query = $query->latest();
 
         return $query;
     }

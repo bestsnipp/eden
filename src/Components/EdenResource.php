@@ -6,7 +6,10 @@ use BestSnipp\Eden\Assembled\ResourceCreateForm;
 use BestSnipp\Eden\Assembled\ResourceDataTable;
 use BestSnipp\Eden\Assembled\ResourceEditForm;
 use BestSnipp\Eden\Assembled\ResourceRead;
+use BestSnipp\Eden\Components\Fields\BelongsToMany;
 use BestSnipp\Eden\Facades\Eden;
+use Illuminate\Support\Str;
+use Laravel\Nova\Http\Resources\IndexViewResource;
 
 /**
  * {@inheritDoc}
@@ -332,6 +335,19 @@ abstract class EdenResource extends EdenPage
             $this->cards(),
             [ResourceRead::make(['edenResource' => get_called_class()])]
         );
+
+//        $relationFields = collect($this->fields())
+//            ->filter(function ($item) {
+//                return $item instanceof BelongsToMany;
+//            })
+//            ->each(function ($item) use (&$viewParams) {
+//                $viewParams['components'][] = ResourceDataTable::make([
+//                    'title' => $item->title,
+//                    'viaRelation' => $this->model(),
+//                    'edenResource' => 'App\\Eden\\Resources\\' . Str::singular($item->title)
+//                ]);
+//            })
+//            ->all();
 
         return view('eden::eden')->with($viewParams);
     }
