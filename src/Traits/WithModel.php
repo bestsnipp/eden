@@ -4,6 +4,7 @@ namespace BestSnipp\Eden\Traits;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -55,6 +56,11 @@ trait WithModel
      */
     protected function resolveRecord()
     {
+        if (!is_string($this->model())) {
+            $this->record = $this->model();
+            return;
+        }
+
         if ($this->resourceId) {
             $record = app($this->model())->find($this->resourceId);
             abort_if(is_null($record), 404);

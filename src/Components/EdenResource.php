@@ -2,11 +2,14 @@
 
 namespace BestSnipp\Eden\Components;
 
+use App\Models\Phone;
 use BestSnipp\Eden\Assembled\ResourceCreateForm;
 use BestSnipp\Eden\Assembled\ResourceDataTable;
 use BestSnipp\Eden\Assembled\ResourceEditForm;
 use BestSnipp\Eden\Assembled\ResourceRead;
 use BestSnipp\Eden\Components\Fields\BelongsToMany;
+use BestSnipp\Eden\Components\Fields\Field;
+use BestSnipp\Eden\Components\Fields\HasOne;
 use BestSnipp\Eden\Facades\Eden;
 use Illuminate\Support\Str;
 use Laravel\Nova\Http\Resources\IndexViewResource;
@@ -342,7 +345,7 @@ abstract class EdenResource extends EdenPage
 
     protected function prepareRelationFields()
     {
-        $components = [];
+        $components = collect([]);
 
         collect($this->fields())
             ->filter(function ($item) {
@@ -352,21 +355,39 @@ abstract class EdenResource extends EdenPage
                 $edenResourceClass = $item->getResource();
                 $edenResource = app($edenResourceClass);
 
-                $permission = 'viewAny';
-
-                if (Eden::isActionAuthorized('viewAny', $edenResourceClass::$model)) {
-                    $components[] = ResourceDataTable::make([
-                        'title' => $item->title,
-                        'viaRelation' => true,
-                        'relation' => $item->getRelation(),
-                        'relationModel' => $this->record(),
-                        'resource' => $edenResource->getSlug(),
-                        'edenResource' => $edenResourceClass
-                    ]);
-                }
+                $components->add($this->getRelatedComponent($item, $edenResourceClass, $edenResource));
             });
 
-        return $components;
+        return $components->filter()->all();
+    }
+
+    protected function getRelatedComponent(Field $item, string $edenResourceClass, EdenResource $edenResource)
+    {
+        if ($item instanceof HasOne) {
+            return ResourceRead::make([
+                'title' => $item->title,
+                'viaRelation' => true,
+                'relation' => $item->getRelation(),
+                'relationModel' => $this->record(),
+                'resource' => $edenResource->getSlug(),
+                'edenResource' => $edenResourceClass
+            ]);
+        }
+
+        if ($item instanceof BelongsToMany) {
+            if (Eden::isActionAuthorized('viewAny', $edenResourceClass::$model)) {
+                return ResourceDataTable::make([
+                    'title' => $item->title,
+                    'viaRelation' => true,
+                    'relation' => $item->getRelation(),
+                    'relationModel' => $this->record(),
+                    'resource' => $edenResource->getSlug(),
+                    'edenResource' => $edenResourceClass
+                ]);
+            }
+        }
+
+        return null;
     }
 
     protected function isAuthorizedToSee($ability, $modelOrClass)

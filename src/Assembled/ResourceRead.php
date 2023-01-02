@@ -5,10 +5,17 @@ namespace BestSnipp\Eden\Assembled;
 use BestSnipp\Eden\Components\Read;
 use BestSnipp\Eden\Facades\Eden;
 use BestSnipp\Eden\Traits\HasEdenResource;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class ResourceRead extends Read
 {
     use HasEdenResource;
+
+    public $viaRelation = false;
+
+    public $relation = null;
+
+    public $relationModel = null;
 
     protected function init()
     {
@@ -39,6 +46,13 @@ class ResourceRead extends Read
     protected function mapResourceProperties($edenResource, $params = [])
     {
         self::$model = $edenResource::$model;
+
+        if ($this->viaRelation && !empty($this->relationModel) && !empty($this->relation)) {
+            self::$model = is_string($this->relationModel)
+                ? app($this->relationModel)->{$this->relation}
+                : $this->relationModel->{$this->relation};
+        }
+
         $this->title = $params['title'];
         $this->useGlobalActions = $params['useGlobalActions'];
     }

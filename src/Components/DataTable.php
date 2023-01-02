@@ -411,9 +411,7 @@ abstract class DataTable extends EdenComponent
     protected function prepareModelQuery()
     {
         if ($this->model() instanceof Relation) {
-            //dd($this->model()->simplePaginate(5));
             return $this->model();
-            //return $this->model()->getQuery();
         }
 
         try {

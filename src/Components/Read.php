@@ -8,6 +8,7 @@ use BestSnipp\Eden\Components\Fields\Field;
 use BestSnipp\Eden\RenderProviders\FormRenderer;
 use BestSnipp\Eden\Traits\InteractsWithAction;
 use BestSnipp\Eden\Traits\WithModel;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Livewire\Component;
 
 abstract class Read extends EdenComponent
