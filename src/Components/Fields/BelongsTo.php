@@ -6,7 +6,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
- * @method static static make(mixed $name, string $method = null, string $model = null)
+ * @method static static make(mixed $name, string $method = null, string $resource = null)
  */
 class BelongsTo extends Field
 {
@@ -20,11 +20,14 @@ class BelongsTo extends Field
 
     protected $relation = null;
 
+    protected $resource = null;
+
     protected $ownerKey = 'id';
 
-    protected function __construct($title, $relation = null, $model = null)
+    protected function __construct($title, $relation = null, $resource = null)
     {
-        $this->prepareRelation($model);
+        $this->resource = $resource;
+        $this->prepareRelation();
 
         if (is_null($relation)) {
             $relation = Str::camel($title);
@@ -51,6 +54,10 @@ class BelongsTo extends Field
             return $trace['function'] == 'fields';
         })['object'] ?? null;
 
+        if (empty($this->resource)) {
+            $this->resource = $this->owner::$model;
+        }
+
         if (empty($model)) {
             if (!is_null($this->owner)) {
                 $this->model = !empty($this->owner::$model) ? app($this->owner::$model) : null;
@@ -70,7 +77,10 @@ class BelongsTo extends Field
 
         $this->options = collect($allRecordsQuery->get())
             ->filter()
-            ->pluck('name', $this->ownerKey)
+            ->mapWithKeys(function ($item) {
+                return [$item->getAttribute($this->ownerKey) => $this->resource::label($item)];
+            })
+            ->filter()
             ->all();
     }
 

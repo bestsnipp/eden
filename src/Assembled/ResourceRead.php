@@ -51,6 +51,10 @@ class ResourceRead extends Read
             self::$model = is_string($this->relationModel)
                 ? app($this->relationModel)->{$this->relation}
                 : $this->relationModel->{$this->relation};
+
+            if (empty(self::$model)) {
+                $this->show = false;
+            }
         }
 
         $this->title = $params['title'];

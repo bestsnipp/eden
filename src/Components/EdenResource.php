@@ -11,6 +11,7 @@ use BestSnipp\Eden\Components\Fields\BelongsToMany;
 use BestSnipp\Eden\Components\Fields\Field;
 use BestSnipp\Eden\Components\Fields\HasOne;
 use BestSnipp\Eden\Facades\Eden;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Laravel\Nova\Http\Resources\IndexViewResource;
 
@@ -25,6 +26,13 @@ abstract class EdenResource extends EdenPage
      * @var \Illuminate\Database\Eloquent\Model
      */
     public static $model = null;
+
+    /**
+     * Label to show
+     *
+     * @var string
+     */
+    public static $label = 'id';
 
     /** DATA TABLE - Index **/
     /**
@@ -175,6 +183,17 @@ abstract class EdenResource extends EdenPage
     public $styleContainer = '';
 
     /** READ **/
+
+    /**
+     * Get label for current model
+     *
+     * @param Model $model
+     * @return mixed
+     */
+    public static function label(Model $model)
+    {
+        return $model->getAttribute(get_called_class()::$label);
+    }
 
     /**
      * @return array
