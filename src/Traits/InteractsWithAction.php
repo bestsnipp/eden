@@ -3,7 +3,10 @@
 namespace BestSnipp\Eden\Traits;
 
 use BestSnipp\Eden\Components\DataTable\Actions\Action;
+use BestSnipp\Eden\Components\Read;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Arr;
 
 trait InteractsWithAction
 {
@@ -23,7 +26,17 @@ trait InteractsWithAction
 
     protected function executeAction(Action $action, $records, $payload = [], $isBulkAction = false)
     {
-        $allRecords = app($this->model())->whereIn(app($this->model())->getKeyName(), $records)->get();
+        if ($this instanceof Read) {
+            $allRecords = Arr::wrap($this->record());
+        } else {
+            if ($this->model() instanceof Relation) {
+                $allRecords = [];
+            } else {
+                $allRecordsQuery = app($this->model());
+                $allRecords = $allRecordsQuery->whereIn($allRecordsQuery->getKeyName(), $records)->get();
+            }
+        }
+
         $action->setOwner($this);
         $action->prepare($allRecords, $payload, $isBulkAction);
 

@@ -51,7 +51,7 @@ class DeleteAction extends Action
         if ($this->isAllowed) {
             $this->emit('show'.DeleteModal::getName(), [
                 'caller' => $this->owner->getName(),
-                'model' => $this->owner::$model,
+                'model' => is_string($this->owner::$model) ? $this->owner::$model : get_class($this->owner::$model),
                 'records' => $records,
             ]);
         }

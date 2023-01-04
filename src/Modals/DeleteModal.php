@@ -51,7 +51,7 @@ class DeleteModal extends Modal
         $model = $this->getData('model', null);
         $primaryKey = '';
 
-        if (! is_null($model)) {
+        if (! empty($model)) {
             $primaryKey = app($model)->getKeyName();
         }
 
