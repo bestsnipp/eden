@@ -3,6 +3,9 @@
 namespace BestSnipp\Eden\Providers;
 
 use BestSnipp\Eden\Facades\Eden;
+use BestSnipp\Eden\HeaderActions\AccountAction;
+use BestSnipp\Eden\HeaderActions\NotificationsAction;
+use BestSnipp\Eden\HeaderActions\ThemeAction;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -59,7 +62,9 @@ class EdenAppServiceProvider extends ServiceProvider
     protected function headerActions()
     {
         return [
-            //
+            AccountAction::make(),
+            NotificationsAction::make(),
+            ThemeAction::make(),
         ];
     }
 
