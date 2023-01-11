@@ -283,6 +283,26 @@ class Country extends Select
         return $this;
     }
 
+    /**
+     * Get Country Name from Country Code
+     *
+     * @param mixed $code
+     */
+    public function getCountryNameFromCode($code)
+    {
+        $countryCodes = (is_array($code)) ? array_map('strtoupper', $code) : strtoupper($code);
+
+        if (is_array($code)) {
+            return collect($countryCodes)->transform(function ($countryCode) {
+                return $this->options[$countryCode] ?? $countryCode;
+            })->all();
+        } else {
+            return $this->options[$code] ?? '';
+        }
+
+        return '';
+    }
+
     public function view()
     {
         return view('eden::fields.input.select');
