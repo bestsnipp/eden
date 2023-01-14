@@ -34,6 +34,7 @@ class DeveloperCommand extends Command
     {
         $this->alert('Running Developer Command');
 
+
 //        $model = Phone::class;
 //        $record = app($model);
 
