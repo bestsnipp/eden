@@ -68,6 +68,26 @@ abstract class Metric extends EdenComponent
     }
 
     /**
+     * Mention Route, Path, Url to link the card
+     *
+     * @return mixed
+     */
+    protected function route()
+    {
+        return null;
+    }
+
+    /**
+     * Should open route in new tab
+     *
+     * @return bool
+     */
+    protected function openInNewTab()
+    {
+        return false;
+    }
+
+    /**
      * @return MetricValue
      */
     final protected function prepareForRender()
@@ -87,6 +107,9 @@ abstract class Metric extends EdenComponent
             'hasFilters' => count($this->filters()) > 0,
             'filters' => collect($this->filters())->toArray(),
             'styleCard' => $this->styleCard,
+            'hasRoute' => !is_null($this->route()),
+            'route' => $this->route(),
+            'openInNewTab' => $this->openInNewTab(),
             'data' => $this->prepareForRender(),
         ];
     }

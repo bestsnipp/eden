@@ -1,5 +1,9 @@
 <div x-data x-ref="parent" class="{{ $styleCard }} {{ $compWidth }} {{ $compHeight }}">
-    <div class="relative h-full">
+    @if($hasRoute)
+        <a @if($openInNewTab) target="_blank" @endif href="{{ $route }}" class="relative h-full">
+    @else
+        <div class="relative h-full">
+    @endif
         <div class="flex flex-col items-stretch h-full">
             @if(!$blankCanvas)
             <div class="px-4 pt-4">
@@ -33,5 +37,9 @@
         <div wire:loading.delay.short.flex class="absolute inset-0 bg-white/[0.75] hidden justify-center items-center rounded-md dark:bg-white/[0.15]">
             <span class="animate-pulse text-slate-500 dark:text-slate-300">{!! edenIcon('dots-horizontal') !!}</span>
         </div>
-    </div>
+    @if($hasRoute)
+        </a>
+    @else
+        </div>
+    @endif
 </div>
