@@ -103,7 +103,7 @@ abstract class DataTable extends EdenComponent
      *
      * @var int
      */
-    public $rowsPerPage = 5;
+    public $rowsPerPage = 10;
 
     /**
      * Initial Value of Rows Per Page - Auto Inject
