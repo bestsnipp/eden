@@ -447,8 +447,10 @@ abstract class DataTable extends EdenComponent
 
         // Apply Search
         if (! empty($this->searchQuery)) {
-            collect($this->searchFields)->each(function ($searchField) use ($query) {
-                $query = $query->orWhere($searchField, 'LIKE', "%$this->searchQuery%");
+            $query->where(function ($q) {
+                collect($this->searchFields)->each(function ($searchField) use ($q) {
+                    $q->orWhere($searchField, 'LIKE', "%$this->searchQuery%");
+                });
             });
         }
 
