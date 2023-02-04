@@ -2,7 +2,6 @@
 
 namespace BestSnipp\Eden\Components;
 
-use App\Models\Phone;
 use BestSnipp\Eden\Assembled\ResourceCreateForm;
 use BestSnipp\Eden\Assembled\ResourceDataTable;
 use BestSnipp\Eden\Assembled\ResourceEditForm;
@@ -12,8 +11,6 @@ use BestSnipp\Eden\Components\Fields\Field;
 use BestSnipp\Eden\Components\Fields\HasOne;
 use BestSnipp\Eden\Facades\Eden;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
-use Laravel\Nova\Http\Resources\IndexViewResource;
 
 /**
  * {@inheritDoc}

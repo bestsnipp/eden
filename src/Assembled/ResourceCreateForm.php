@@ -135,6 +135,20 @@ class ResourceCreateForm extends Form
         parent::onActionException($exception);
     }
 
+    public function afterRecordCreated($record)
+    {
+        if ($this->edenResourceObject->hasMethod('afterRecordCreated') ?? false) {
+            $this->edenResourceObject->callMethod('afterRecordCreated', $record);
+        }
+    }
+
+    public function afterRecordUpdated($record)
+    {
+        if ($this->edenResourceObject->hasMethod('afterRecordUpdated') ?? false) {
+            $this->edenResourceObject->callMethod('afterRecordUpdated', $record);
+        }
+    }
+
     protected function view()
     {
         return $this->edenResourceObject->getViewForCreate() ?? parent::view();

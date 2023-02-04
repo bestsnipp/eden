@@ -368,7 +368,8 @@ abstract class Form extends EdenComponent
     {
         try {
             $model = app($this->model());
-            $record = $model->forceFill($transformed)->save();
+            //$record = $model->forceFill($transformed)->save();
+            $record = $model->forceCreate($transformed);
             if (method_exists($this, 'afterRecordCreated')) {
                 $this->afterRecordCreated($record);
             }
@@ -382,7 +383,8 @@ abstract class Form extends EdenComponent
     protected function updateRecord($validated, $all, $transformed)
     {
         try {
-            $record = $this->record()->forceFill($transformed)->save();
+            $this->record()->forceFill($transformed)->save();
+            $record = $this->record();
             if (method_exists($this, 'afterRecordUpdated')) {
                 $this->afterRecordUpdated($record);
             }
