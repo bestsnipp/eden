@@ -89,7 +89,7 @@ abstract class Read extends EdenComponent
     {
         $this->allFields = collect($this->fields())->transform(function (Field $field) {
             $field->default($this->getRecordValue($field->getKey(), $field->getValue()));
-
+            $field->record($this->record());
             return $field;
         })->all();
     }

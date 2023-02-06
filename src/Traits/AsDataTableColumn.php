@@ -115,6 +115,7 @@ trait AsDataTableColumn
     {
         $this->value = is_null($this->displayCallback) ? $this->value : appCall($this->displayCallback, [
             'value' => $this->value,
+            'record' => $this->record,
             'field' => $this,
         ]);
 

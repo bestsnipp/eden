@@ -496,6 +496,7 @@ abstract class Field
             'validator' => $this->validator,
             'prefix' => $this->prefix,
             'suffix' => $this->suffix,
+            'record' => $this->record,
             'isDependent' => $this->hasDependency,
             'wireModelType' => $this->hasDependency ? 'lazy' : 'defer',
             'alpineModelType' => $this->hasDependency ? '' : '.defer',
@@ -506,6 +507,7 @@ abstract class Field
     {
         $this->value = is_null($this->displayCallback) ? $this->value : appCall($this->displayCallback, [
             'value' => $this->value,
+            'record' => $this->record,
             'field' => $this,
         ]);
 
