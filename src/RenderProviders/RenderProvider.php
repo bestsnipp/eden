@@ -3,10 +3,12 @@
 namespace BestSnipp\Eden\RenderProviders;
 
 use BestSnipp\Eden\Traits\AuthorizedToSee;
+use BestSnipp\Eden\Traits\CanManageVisibility;
 
 class RenderProvider
 {
     use AuthorizedToSee;
+    use CanManageVisibility;
 
     public $component = null;
 

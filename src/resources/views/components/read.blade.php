@@ -3,7 +3,11 @@
         <h1 class="text-2xl text-primary-500 dark:text-primary-400">{{ $title }}</h1>
         <div class="flex gap-3 items-center">
             @foreach($operations as $operation)
-                {!! $operation->render() !!}
+                @if($operation instanceof \BestSnipp\Eden\RenderProviders\RenderProvider)
+                    @livewire($operation->component, $operation->params)
+                @else
+                    {!! $operation->render() !!}
+                @endif
             @endforeach
 
             {!! $actionButtons->render('read') !!}
