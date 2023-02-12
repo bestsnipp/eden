@@ -287,7 +287,8 @@ abstract class EdenResource extends EdenPage
         $viewParams = $this->viewParams(true);
         $viewParams['components'] = array_merge(
             $this->cards(),
-            [ResourceDataTable::make(['edenResource' => get_called_class()])]
+            [ResourceDataTable::make(['edenResource' => get_called_class()])],
+            $this->components()
         );
 
         return view('eden::eden')->with($viewParams);
@@ -305,7 +306,8 @@ abstract class EdenResource extends EdenPage
         $viewParams = $this->viewParams();
         $viewParams['components'] = array_merge(
             $this->cards(),
-            [ResourceCreateForm::make(['edenResource' => get_called_class()])]
+            [ResourceCreateForm::make(['edenResource' => get_called_class()])],
+            $this->components()
         );
 
         return view('eden::eden')->with($viewParams);
@@ -330,7 +332,8 @@ abstract class EdenResource extends EdenPage
         $viewParams = $this->viewParams();
         $viewParams['components'] = array_merge(
             $this->cards(),
-            [ResourceEditForm::make(['edenResource' => get_called_class()])]
+            [ResourceEditForm::make(['edenResource' => get_called_class()])],
+            $this->components()
         );
 
         return view('eden::eden')->with($viewParams);
@@ -353,7 +356,8 @@ abstract class EdenResource extends EdenPage
         $viewParams['components'] = array_merge(
             $this->cards(),
             [ResourceRead::make(['edenResource' => get_called_class()])],
-            $this->prepareRelationFields()
+            $this->prepareRelationFields(),
+            $this->components()
         );
 
         return view('eden::eden')->with($viewParams);
