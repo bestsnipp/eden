@@ -56,7 +56,8 @@ class MultiSelectFilter extends Filter
 
         if ($this->isKeyValue) {
             $options = $options->filter(function ($value, $key) {
-                return !empty(($value->value ?? ''));
+                $value = (array) $value;
+                return !empty(($value['value'] ?? ''));
             })->all();
         } else {
             $options = $options->filter()->all();

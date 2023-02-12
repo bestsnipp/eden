@@ -55,7 +55,8 @@ class SelectFilter extends Filter
 
         if ($this->isKeyValue) {
             $options = collect($options)->filter(function ($value, $key) {
-                return !empty(($value->value ?? ''));
+                $value = (array) $value;
+                return !empty(($value['value'] ?? ''));
             })->all();
         } else {
             $options = collect($options)->filter()->all();
