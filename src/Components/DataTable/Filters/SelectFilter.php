@@ -53,6 +53,14 @@ class SelectFilter extends Filter
                 : array_merge(['' => 'Select'], $options);
         }
 
+        if ($this->isKeyValue) {
+            $options = collect($options)->filter(function ($value, $key) {
+                return !empty($value);
+            })->all();
+        } else {
+            $options = collect($options)->filter()->all();
+        }
+
         return view('eden::datatable.filters.select')
                 ->with('options', $options)
                 ->with('isKeyValue', $this->isKeyValue);

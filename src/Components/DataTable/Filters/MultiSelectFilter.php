@@ -52,7 +52,15 @@ class MultiSelectFilter extends Filter
 
     public function view()
     {
-        $options = (empty($this->resolveOptions())) ? $this->options : $this->resolveOptions();
+        $options = collect((empty($this->resolveOptions())) ? $this->options : $this->resolveOptions());
+
+        if ($this->isKeyValue) {
+            $options = $options->filter(function ($value, $key) {
+                return !empty($value);
+            })->all();
+        } else {
+            $options = $options->filter()->all();
+        }
 
         return view('eden::datatable.filters.multi-select')
             ->with('options', $options)
