@@ -84,7 +84,7 @@
 </head>
 <body class="font-sans antialiased" x-data x-eden-nice-scroll>
 
-<div class="min-h-screen bg-slate-100 text-slate-500 flex w-full dark:bg-slate-800 dark:text-slate-400">
+<div class="min-h-screen bg-slate-100 text-slate-500 flex w-screen dark:bg-slate-800 dark:text-slate-400">
     <!-- Sidebar -->
     <div class="fixed inset-0 bg-black/50 z-[49] hidden" x-ref="sidebarBackdrop"
          x-on:click.prevent="$($refs.sidebar).toggle(); $($refs.sidebarBackdrop).toggle()"></div>
