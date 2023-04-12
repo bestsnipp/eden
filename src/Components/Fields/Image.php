@@ -52,7 +52,7 @@ class Image extends File
                         return $item->getClientOriginalName();
                     }
                 } elseif (! empty($item) && Storage::exists($this->path.'/'.$item)) {
-                    return asset($item);
+                    return Storage::disk($this->storage)->url($item);
                 }
 
                 return $item;
