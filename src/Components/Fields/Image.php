@@ -72,7 +72,7 @@ class Image extends File
                 return $path;
             }
 
-            return empty($path) ? $path : asset('storage/'.$path);
+            return empty($path) ? $path : asset('storage/'.ltrim($path, " \t\n\r\0\x0B/"));
         })->all();
     }
 
