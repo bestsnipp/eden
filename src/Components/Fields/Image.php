@@ -72,7 +72,7 @@ class Image extends File
                 return $path;
             }
 
-            return empty($path) ? $path : Storage::disk($this->storage)->url(ltrim($path, " \t\n\r\0\x0B/"));
+            return empty($path) ? $path : Storage::disk($this->storage)->url($path);
         })->all();
     }
 
