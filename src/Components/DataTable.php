@@ -52,6 +52,8 @@ abstract class DataTable extends EdenComponent
      */
     public $showHeader = true;
 
+    public $latestFirst = true;
+
     /**
      * Show filters dialog so that user can apply filter to datatable
      *
@@ -460,7 +462,9 @@ abstract class DataTable extends EdenComponent
             ->through($this->allFilters)
             ->thenReturn();
 
-        $query = $query->latest();
+        if ($this->latestFirst) {
+            $query = $query->latest();
+        }
 
         return $query;
     }
