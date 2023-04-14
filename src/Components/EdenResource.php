@@ -280,7 +280,7 @@ abstract class EdenResource extends EdenPage
      *
      * @return mixed
      */
-    final public function index($slug)
+    public function index($slug)
     {
         abort_if(! Eden::isActionAuthorized('viewAny', $this->model()), 403);
 
