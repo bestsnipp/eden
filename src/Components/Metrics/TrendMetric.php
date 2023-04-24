@@ -227,6 +227,16 @@ class TrendMetric extends MetricValue
             $chartWithData['chart']['height'] = '75px';
         }
 
+        if (!is_null($this->displayCallback)) {
+            $currentDateRange = $this->getCurrentDateRange($this->activeFilter, $this->getTimezone());
+            $previousDateRange = $this->getPreviousDateRange($this->activeFilter, $this->getTimezone());
+
+            $chartWithData = appCall($this->displayCallback, [
+                'chartOptions' => $chartWithData,
+                'currentDateRange' => $currentDateRange,
+                'previousDateRange' => $previousDateRange,
+            ]);
+        }
         return $chartWithData;
     }
 
@@ -842,36 +852,6 @@ class TrendMetric extends MetricValue
         $previousSeries = $this->previous;
         $value = $this->value;
         $chartOptions = $this->getChartOptions();
-
-        if (!is_null($this->displayCallback)) {
-            $currentDateRange = $this->getCurrentDateRange($this->activeFilter, $this->getTimezone());
-            $previousDateRange = $this->getPreviousDateRange($this->activeFilter, $this->getTimezone());
-
-            $displayData = appCall($this->displayCallback, [
-                'currentSeries' => $currentSeries,
-                'previousSeries' => $previousSeries,
-                'chartOptions' => $chartOptions,
-                'valueLabel' => $valueLabel,
-                'value' => $value,
-                'currentDateRange' => $currentDateRange,
-                'previousDateRange' => $previousDateRange,
-            ]);
-            if (isset($displayData['currentSeries'])) {
-                $currentSeries = $displayData['currentSeries'];
-            }
-            if (isset($displayData['previousSeries'])) {
-                $previousSeries = $displayData['previousSeries'];
-            }
-            if (isset($displayData['valueLabel'])) {
-                $valueLabel = $displayData['valueLabel'];
-            }
-            if (isset($displayData['value'])) {
-                $value = $displayData['value'];
-            }
-            if (isset($displayData['chartOptions'])) {
-                $chartOptions = $displayData['chartOptions'];
-            }
-        }
 
         return view('eden::metrics.trend')->with([
             'currentSeries' => $currentSeries,
