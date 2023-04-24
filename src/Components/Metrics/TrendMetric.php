@@ -841,12 +841,13 @@ class TrendMetric extends MetricValue
         $currentSeries = $this->current;
         $previousSeries = $this->previous;
         $value = $this->value;
-        $valueLabel = $valueLabel;
+        $chartOptions = $this->getChartOptions();
 
         if (!is_null($this->displayCallback)) {
             $displayData = appCall($this->displayCallback, [
                 'currentSeries' => $currentSeries,
                 'previousSeries' => $previousSeries,
+                'chartOptions' => $chartOptions,
                 'valueLabel' => $valueLabel,
                 'value' => $value,
             ]);
@@ -862,13 +863,16 @@ class TrendMetric extends MetricValue
             if (isset($displayData['value'])) {
                 $value = $displayData['value'];
             }
+            if (isset($displayData['chartOptions'])) {
+                $chartOptions = $displayData['chartOptions'];
+            }
         }
 
         return view('eden::metrics.trend')->with([
             'currentSeries' => $currentSeries,
             'previousSeries' => $previousSeries,
             'compare' => $this->compare,
-            'chart' => $this->getChartOptions(),
+            'chart' => $chartOptions,
             'value' => $value,
             'valueLabel' => $valueLabel,
             'showLatest' => $this->showLatest,
