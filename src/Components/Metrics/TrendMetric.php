@@ -46,6 +46,8 @@ class TrendMetric extends MetricValue
 
     protected $labelsCallback = null;
 
+    protected $displayCallback = null;
+
     protected $chartType = 'area';
 
     protected $chart = [
@@ -121,6 +123,19 @@ class TrendMetric extends MetricValue
     public function showLatest(bool $should = true)
     {
         $this->showLatest = appCall($should);
+
+        return $this;
+    }
+
+    /**
+     * @param  \Closure  $callback
+     * @return $this
+     */
+    public function displayUsing($callback)
+    {
+        if (is_callable($callback)) {
+            $this->displayCallback = $callback;
+        }
 
         return $this;
     }
@@ -823,12 +838,38 @@ class TrendMetric extends MetricValue
             'labels' => $this->labels,
         ]);
 
+        $currentSeries = $this->current;
+        $previousSeries = $this->previous;
+        $value = $this->value;
+        $valueLabel = $valueLabel;
+
+        if (!is_null($this->displayCallback)) {
+            $displayData = appCall($this->displayCallback, [
+                'currentSeries' => $currentSeries,
+                'previousSeries' => $previousSeries,
+                'valueLabel' => $valueLabel,
+                'value' => $value,
+            ]);
+            if (isset($displayData['currentSeries'])) {
+                $currentSeries = $displayData['currentSeries'];
+            }
+            if (isset($displayData['previousSeries'])) {
+                $previousSeries = $displayData['previousSeries'];
+            }
+            if (isset($displayData['valueLabel'])) {
+                $valueLabel = $displayData['valueLabel'];
+            }
+            if (isset($displayData['value'])) {
+                $value = $displayData['value'];
+            }
+        }
+
         return view('eden::metrics.trend')->with([
-            'currentSeries' => $this->current,
-            'previousSeries' => $this->previous,
+            'currentSeries' => $currentSeries,
+            'previousSeries' => $previousSeries,
             'compare' => $this->compare,
             'chart' => $this->getChartOptions(),
-            'value' => $this->value,
+            'value' => $value,
             'valueLabel' => $valueLabel,
             'showLatest' => $this->showLatest,
         ]);
