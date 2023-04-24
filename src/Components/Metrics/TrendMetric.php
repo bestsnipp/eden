@@ -844,12 +844,17 @@ class TrendMetric extends MetricValue
         $chartOptions = $this->getChartOptions();
 
         if (!is_null($this->displayCallback)) {
+            $currentDateRange = $this->getCurrentDateRange($this->activeFilter, $this->getTimezone());
+            $previousDateRange = $this->getPreviousDateRange($this->activeFilter, $this->getTimezone());
+
             $displayData = appCall($this->displayCallback, [
                 'currentSeries' => $currentSeries,
                 'previousSeries' => $previousSeries,
                 'chartOptions' => $chartOptions,
                 'valueLabel' => $valueLabel,
                 'value' => $value,
+                'currentDateRange' => $currentDateRange,
+                'previousDateRange' => $previousDateRange,
             ]);
             if (isset($displayData['currentSeries'])) {
                 $currentSeries = $displayData['currentSeries'];
