@@ -75,6 +75,7 @@ final class ResourceDataTable extends DataTable
         $this->poolingInterval = $params['poolingInterval'];
         $this->headerStyle = $params['headerStyle'];
         $this->appliedFilterStyle = $params['appliedFilterStyle'];
+        $this->latestFirst = $params['latestFirst'];
     }
 
     protected function operations()

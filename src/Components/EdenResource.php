@@ -61,6 +61,13 @@ abstract class EdenResource extends EdenPage
     public $isSearchable = true;
 
     /**
+     * Show The Latest Results First
+     *
+     * @var bool
+     */
+    public $latestFirst = true;
+
+    /**
      * Columns which will be used to search the query
      *
      * @var array
@@ -233,6 +240,7 @@ abstract class EdenResource extends EdenPage
             'poolingInterval' => $this->poolingInterval,
             'headerStyle' => $this->headerStyle,
             'appliedFilterStyle' => $this->appliedFilterStyle,
+            'latestFirst' => $this->latestFirst,
         ];
     }
 

@@ -91,7 +91,9 @@ class Image extends File
     {
         parent::viewForIndex();
 
-        return view('eden::fields.row.image');
+        return view('eden::fields.row.image')->with([
+            'disk' => $this->storage
+        ]);
     }
 
     public function viewForRead()
