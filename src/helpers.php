@@ -9,6 +9,9 @@ if (! function_exists('appCall')) {
      */
     function appCall($value, $args = [], $defaultMethods = null)
     {
+        if ($value == 'PI') {
+            return $value;
+        }
         return is_callable($value) ? app()->call($value, $args, $defaultMethods) : $value;
     }
 }
