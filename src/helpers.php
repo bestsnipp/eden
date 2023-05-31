@@ -9,7 +9,7 @@ if (! function_exists('appCall')) {
      */
     function appCall($value, $args = [], $defaultMethods = null)
     {
-        if ($value == 'PI') {
+        if (in_array($value, config('eden.disabled_auto_resolve_methods'))) {
             return $value;
         }
         return is_callable($value) ? app()->call($value, $args, $defaultMethods) : $value;

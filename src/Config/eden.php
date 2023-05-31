@@ -80,4 +80,9 @@ return [
         BestSnipp\Eden\Middleware\EdenRequestHandler::class,
         'can:accessEden',
     ],
+
+    /**
+     * Ignore below methods from auto resolve
+     */
+    'disabled_auto_resolve_methods' => []
 ];
