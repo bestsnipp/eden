@@ -265,7 +265,7 @@ abstract class Field
      */
     public function setValue($value)
     {
-        $this->value = appCall($value);
+        $this->value = ($value);
 
         return $this;
     }
