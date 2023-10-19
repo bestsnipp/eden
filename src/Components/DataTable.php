@@ -215,7 +215,7 @@ abstract class DataTable extends EdenComponent
 
     public $filters = [];
 
-    private $allFields = [];
+    protected $allFields = [];
 
     public $sorting = [];
 
@@ -263,7 +263,7 @@ abstract class DataTable extends EdenComponent
         $this->processFilters();
     }
 
-    private function getAppliedFilters()
+    protected function getAppliedFilters()
     {
         if (! empty($this->searchQuery)) {
             $this->appliedFilters[] = [
@@ -330,7 +330,7 @@ abstract class DataTable extends EdenComponent
         $this->setPage(1);
     }
 
-    private function processFields()
+    protected function processFields()
     {
         $fields = $this->fields();
         if ($this->showActions) {
@@ -358,7 +358,7 @@ abstract class DataTable extends EdenComponent
      * @param  Field  $field
      * @return Field
      */
-    private function processFieldOrdering(Field $field)
+    protected function processFieldOrdering(Field $field)
     {
         if (isset($this->sorting[$field->getKey()])) {
             $field->orderBy($this->sorting[$field->getKey()]);
@@ -369,7 +369,7 @@ abstract class DataTable extends EdenComponent
         return $field;
     }
 
-    private function getBulkActions()
+    protected function getBulkActions()
     {
         return collect($this->actions)->filter(function (Action $action) {
             return $action->allowBulk() && ! ($action instanceof StaticAction);
@@ -390,7 +390,7 @@ abstract class DataTable extends EdenComponent
             ->all();
     }
 
-    private function processFilters()
+    protected function processFilters()
     {
         $filters = array_merge($this->filters(), $this->useGlobalFilters ? Eden::filters() : []);
         $this->allFilters = collect($filters)->transform(function ($filter) {
