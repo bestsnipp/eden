@@ -65,7 +65,17 @@ class DeleteModal extends Modal
             })
             ->all();
 
-        $this->confirmButtonStyle = $this->confirmButtonStyle  . ' ' . 'confirm_remove_record_uid_' . implode('_', $dataToShow);
+        $dataToClassMapping = collect(Arr::wrap($this->getData('records', [])))
+            ->transform(function ($item) use ($primaryKey) {
+                if (isset($item[$primaryKey])) {
+                    return ($item[$primaryKey] ?? '-');
+                }
+
+                return '';
+            })
+            ->all();
+
+        $this->confirmButtonStyle = $this->confirmButtonStyle  . ' ' . 'confirm_remove_record_uid_' . implode('_', $dataToClassMapping);
 
         return '<div class="text-slate-500 dark:text-slate-300"><p>Are you sure to remove the '.Str::pluralStudly('record', count($dataToShow)).' '.implode(', ', $dataToShow).' ?</p></div>';
     }
