@@ -55,6 +55,8 @@ class DeleteModal extends Modal
             $primaryKey = app($model)->getKeyName();
         }
 
+        $this->confirmButtonStyle = $this->confirmButtonStyle  . ' ' . 'confirm_remove_record_uid_' . $primaryKey;
+
         $dataToShow = collect(Arr::wrap($this->getData('records', [])))
             ->transform(function ($item) use ($primaryKey) {
                 if (isset($item[$primaryKey])) {
