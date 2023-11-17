@@ -227,6 +227,14 @@ abstract class Action
      */
     public function view($type, $record, $buttonStyle, $iconSize)
     {
+        $id = '';
+        if ($record instanceof Model) {
+            $id = $record->{$record->getKeyName()};
+        } else {
+            $id = (is_null($record)) ? Str::ulid() : '';
+        }
+
+        $buttonStyle = $buttonStyle . ' ' . 'record_uid_' . $id;
         return view('eden::actions.dynamic', compact('type', 'record', 'buttonStyle', 'iconSize'))
             ->with('action', $this);
     }
