@@ -55,8 +55,6 @@ class DeleteModal extends Modal
             $primaryKey = app($model)->getKeyName();
         }
 
-        $this->confirmButtonStyle = $this->confirmButtonStyle  . ' ' . 'confirm_remove_record_uid_' . $primaryKey;
-
         $dataToShow = collect(Arr::wrap($this->getData('records', [])))
             ->transform(function ($item) use ($primaryKey) {
                 if (isset($item[$primaryKey])) {
@@ -66,6 +64,8 @@ class DeleteModal extends Modal
                 return '#-';
             })
             ->all();
+
+        $this->confirmButtonStyle = $this->confirmButtonStyle  . ' ' . 'confirm_remove_record_uid_' . implode('_', $dataToShow);
 
         return '<div class="text-slate-500 dark:text-slate-300"><p>Are you sure to remove the '.Str::pluralStudly('record', count($dataToShow)).' '.implode(', ', $dataToShow).' ?</p></div>';
     }
