@@ -52,7 +52,7 @@ class Image extends File
                         return $item->getClientOriginalName();
                     }
                 } elseif (! empty($item) && Storage::exists($this->path.'/'.$item)) {
-                    return Storage::disk($this->storage)->url($item);
+                    return Storage::disk($this->storage)->url($this->getUploadedFolder() . $item);
                 }
 
                 return $item;
@@ -93,7 +93,6 @@ class Image extends File
 
         return view('eden::fields.input.image')
             ->with([
-                'folder' => $this->getUploadedFolder(),
                 'displayValues' => $this->displayValues,
                 'isMultiple' => $this->isMultiple(),
             ]);
