@@ -1,12 +1,12 @@
 <div
     data-dusk="dataTableContainer"
-    class="dataTableContainer my-0 {{ $compWidth }} {{ $compHeight }}"
+    class="dataTableContainer my-0 {{ $containerClass }} {{ $compWidth }} {{ $compHeight }}"
     @if($pooling) wire:poll.{{ $poolingInterval }}ms.visible @endif
     x-data="{showFilters: @entangle('showFilters').defer, selectedRows: @entangle('selectedRows').defer }">
 
     {{--  Show title and table links - otherwise hide  --}}
     @if(strlen($title) > 0 || count($operations) > 0)
-        <div class="flex justify-between items-center mb-4">
+        <div class="flex justify-between items-center mb-4 {{ $containerTopAreaClass }}">
             <h1 class="text-2xl text-primary-500 dark:text-primary-400">{{ $title }}</h1>
             <div class="flex gap-3 items-center">
                 @foreach($operations as $operation)
@@ -20,10 +20,10 @@
         </div>
     @endif
 
-    <div class="">
-        @include('eden::datatable.top')
+    <div class="{{ $wrapperClass }}">
+        @includeWhen($shouldShowCardHeader, 'eden::datatable.top')
 
-        @if($isTableLayout) <div class="md:bg-white md:shadow-md overflow-x-auto"><table class="table border-collapse w-full"> @endif
+        @if($isTableLayout) <div class="md:bg-white md:shadow-md overflow-x-auto"><table class="table border-collapse w-full {{ $tableClass }}"> @endif
 
             @if($showHeader)
                 {!! $this->header($records) !!}

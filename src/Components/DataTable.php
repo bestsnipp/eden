@@ -205,6 +205,48 @@ abstract class DataTable extends EdenComponent
     public $paginationStyle = 'flex flex-col md:flex-row justify-between items-center bg-white shadow-md rounded-md md:rounded-none md:rounded-b-md overflow-hidden dark:bg-slate-600 dark:text-slate-300';
 
     /**
+     * Table Style
+     *
+     * @var string
+     */
+    public $tableClass = '';
+
+    /**
+     * Container Style
+     *
+     * @var string
+     */
+    public $containerClass = '';
+
+    /**
+     * Wrapper Style
+     *
+     * @var string
+     */
+    public $wrapperClass = '';
+
+    /**
+     * Above Container Starts Style
+     *
+     * @var string
+     */
+    public $containerTopAreaClass = '';
+
+    /**
+     * Should show filters
+     *
+     * @var bool
+     */
+    public $isFilterable = true;
+
+    /**
+     * Should card header area
+     *
+     * @var bool
+     */
+    public $shouldShowCardHeader = true;
+
+    /**
      * Multiple Rows that is selected by User
      *
      * @var array

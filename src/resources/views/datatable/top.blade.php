@@ -51,15 +51,17 @@
             </div>
 
             {{--   Filters   --}}
-            <button
-                x-on:click="showFilters = true"
-                class="relative py-1.5 px-4 rounded-md flex justify-between items-center font-medium bg-white shadow-sm border border-gray-300 text-slate-400 w-full md:w-auto dark:bg-slate-500 dark:border-slate-600 dark:text-slate-300">
-                <span class="mr-2">Filters</span>
-                {!! edenIcon('funnel', 'scale-75') !!}
-                @if($appliedFilters)
-                    <span class="absolute top-0 right-0 transform -translate-y-1/2 w-3.5 h-3.5 bg-primary-400 rounded-full"></span>
-                @endif
-            </button>
+            @if($isFilterable)
+                <button
+                    x-on:click="showFilters = true"
+                    class="relative py-1.5 px-4 rounded-md flex justify-between items-center font-medium bg-white shadow-sm border border-gray-300 text-slate-400 w-full md:w-auto dark:bg-slate-500 dark:border-slate-600 dark:text-slate-300">
+                    <span class="mr-2">Filters</span>
+                    {!! edenIcon('funnel', 'scale-75') !!}
+                    @if($appliedFilters)
+                        <span class="absolute top-0 right-0 transform -translate-y-1/2 w-3.5 h-3.5 bg-primary-400 rounded-full"></span>
+                    @endif
+                </button>
+            @endif
         </div>
     </div>
 </div>
