@@ -63,6 +63,16 @@ class Image extends File
             ->all();
     }
 
+    protected function getUploadedFolder()
+    {
+        $folder = '';
+        if (!empty($this->path)) {
+            $folder = $this->path . '/';
+        }
+
+        return $folder;
+    }
+
     protected function prepareFilePreviews()
     {
         return collect(Arr::wrap($this->value))
@@ -72,7 +82,8 @@ class Image extends File
                 return $path;
             }
 
-            return empty($path) ? $path : Storage::disk($this->storage)->url($path);
+
+            return empty($path) ? $this->getUploadedFolder() . $path : Storage::disk($this->storage)->url($this->getUploadedFolder() . $path);
         })->all();
     }
 
@@ -82,6 +93,7 @@ class Image extends File
 
         return view('eden::fields.input.image')
             ->with([
+                'folder' => $this->getUploadedFolder(),
                 'displayValues' => $this->displayValues,
                 'isMultiple' => $this->isMultiple(),
             ]);
@@ -92,6 +104,7 @@ class Image extends File
         parent::viewForIndex();
 
         return view('eden::fields.row.image')->with([
+            'folder' => $this->getUploadedFolder(),
             'disk' => $this->storage
         ]);
     }

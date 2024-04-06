@@ -48,7 +48,7 @@
                             wire:click='clearUploadedFiles("fields.{{$key}}", "")'
                         @endif
                     >{!! edenIcon('x-mark') !!}</button>
-                    <img src="{{ $file }}" alt="{{ $file }}" class="rounded-md aspect-square object-cover {{ $isMultiple ? '' : 'w-full h-60' }}" />
+                    <img src="{{ $folder . $file }}" alt="{{ $folder . $file }}" class="rounded-md aspect-square object-cover {{ $isMultiple ? '' : 'w-full h-60' }}" />
                 </div>
             @endforeach
         @endif
